@@ -10,7 +10,7 @@
 #   NO_WATCHDOG=1         ./run.sh "..."   # do not launch the watchdog
 #   OUT_DIR=/some/path    ./run.sh "..."   # reuse an existing run directory
 #   CHECK_INTERVAL=120    ./run.sh "..."   # watchdog poll seconds
-#   STUCK_AFTER=600       ./run.sh "..."   # seconds with no log output = stuck
+#   STUCK_AFTER=2400      ./run.sh "..."   # seconds with no log output = stuck
 #   MAX_ATTEMPTS=5        ./run.sh "..."   # max relaunches before giving up
 #
 # WHAT IT DOES:

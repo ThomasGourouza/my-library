@@ -8,7 +8,12 @@
 #
 # Optional environment overrides (same names as run.sh):
 #   CHECK_INTERVAL=120    # how often to poll (seconds)
-#   STUCK_AFTER=600       # no new log output for this long = considered stuck
+#   STUCK_AFTER=2400      # no new log output for this long = considered stuck
+#                         # NOTE: keep this LARGE. Subagents that write one big
+#                         # file (e.g. a 150KB cleaned chunk) emit NOTHING to
+#                         # the stream-json log for the whole response — easily
+#                         # 10-20+ min of legitimate silence. 600s kills
+#                         # healthy runs mid-write.
 #   MAX_ATTEMPTS=5        # max relaunches before giving up permanently
 #
 # WHAT IT DOES (pure automation, nothing interactive):
@@ -30,7 +35,7 @@ RUN_DIR="${1:?Usage: watchdog.sh <run-dir>}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 CHECK_INTERVAL="${CHECK_INTERVAL:-120}"
-STUCK_AFTER="${STUCK_AFTER:-600}"
+STUCK_AFTER="${STUCK_AFTER:-2400}"
 MAX_ATTEMPTS="${MAX_ATTEMPTS:-5}"
 
 LOG="$RUN_DIR/run.log"
