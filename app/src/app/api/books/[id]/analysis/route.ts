@@ -30,7 +30,9 @@ function latestJob(bookId: number) {
 /** startedAt SQLite « YYYY-MM-DD HH:MM:SS » = UTC. */
 function jobAgeMs(startedAt: string): number {
   const t = Date.parse(startedAt.replace(" ", "T") + "Z");
-  return Number.isNaN(t) ? 0 : Date.now() - t;
+  // Échec sûr : un horodatage illisible est traité comme un job mort
+  // (sinon il resterait « frais » à jamais et bloquerait toute relance en 409).
+  return Number.isNaN(t) ? Infinity : Date.now() - t;
 }
 
 export async function GET(_request: NextRequest, { params }: RouteContext) {
@@ -74,7 +76,7 @@ export async function POST(_request: NextRequest, { params }: RouteContext) {
     db.update(analysisJobs)
       .set({
         status: "error",
-        error: "Job expiré (> 5 min)",
+        error: "Analyse expirée (plus de 5 minutes)",
         finishedAt: sql`(datetime('now'))`,
       })
       .where(eq(analysisJobs.id, current.id))

@@ -136,7 +136,7 @@ export function AuthorForm({ author }: { author?: Author }) {
       router.push(`/auteurs/${body.author.id}`);
       router.refresh();
     } catch {
-      toast.error("Erreur réseau");
+      toast.error("Impossible de contacter le serveur");
     }
   };
 

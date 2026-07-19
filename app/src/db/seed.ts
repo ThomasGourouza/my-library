@@ -8,6 +8,7 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { eq } from "drizzle-orm";
 import { db } from "./index";
 import { analysisJobs, authors, books } from "./schema";
 import { normalizeKey, normalizeText } from "../lib/normalize";
@@ -85,26 +86,48 @@ function main() {
     tx.delete(authors).run();
 
     const idByKey = new Map<string, number>();
+    let dupAuthors = 0;
     for (const a of seed.authors) {
       const name = normalizeText(a.name);
-      const inserted = tx
-        .insert(authors)
-        .values({
-          name,
-          nameNormalized: normalizeKey(name),
-          birthYear: a.birthYear ?? null,
-          deathYear: a.deathYear ?? null,
-          nationality: a.nationality ?? null,
-          language: a.language ?? null,
-          mainGenre: a.mainGenre ?? null,
-          mainField: a.mainField ?? null,
-          period: a.period ?? null,
-          notes: a.notes ?? null,
-        })
-        .returning({ id: authors.id })
-        .get();
-      idByKey.set(a.key, inserted.id);
+      const nameNormalized = normalizeKey(name);
+      try {
+        const inserted = tx
+          .insert(authors)
+          .values({
+            name,
+            nameNormalized,
+            birthYear: a.birthYear ?? null,
+            deathYear: a.deathYear ?? null,
+            nationality: a.nationality ?? null,
+            language: a.language ?? null,
+            mainGenre: a.mainGenre ?? null,
+            mainField: a.mainField ?? null,
+            period: a.period ?? null,
+            notes: a.notes ?? null,
+          })
+          .returning({ id: authors.id })
+          .get();
+        idByKey.set(a.key, inserted.id);
+      } catch (e) {
+        // Deux clés distinctes → même nom normalisé : on rattache la clé du
+        // doublon à l'auteur déjà inséré pour ne pas casser les authorKey des
+        // livres (au lieu de faire échouer toute la transaction).
+        if (String(e).includes("UNIQUE")) {
+          const existing = tx
+            .select({ id: authors.id })
+            .from(authors)
+            .where(eq(authors.nameNormalized, nameNormalized))
+            .get();
+          if (!existing) throw e;
+          idByKey.set(a.key, existing.id);
+          dupAuthors++;
+          console.warn(`  doublon auteur ignoré : ${name}`);
+        } else {
+          throw e;
+        }
+      }
     }
+    if (dupAuthors) console.warn(`  ${dupAuthors} auteur(s) en double ignoré(s)`);
 
     let skipped = 0;
     for (const b of seed.books) {

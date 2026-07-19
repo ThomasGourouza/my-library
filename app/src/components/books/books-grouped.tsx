@@ -63,7 +63,7 @@ export function BooksGrouped({
 
       {groups.length === 0 ? (
         <div className="rounded-md border p-6 text-center text-sm text-muted-foreground">
-          Aucun livre ne correspond aux critères
+          Aucun livre ne correspond aux critères.
         </div>
       ) : (
         <Accordion

@@ -76,7 +76,10 @@ export async function runAnalysis(bookId: number, jobId: number): Promise<void> 
       prompt: buildPrompt(book, author, includeBio),
       options: {
         model: "claude-sonnet-5",
-        maxTurns: 1,
+        // > 1 pour laisser au SDK une marge de retry si la première sortie
+        // ne valide pas le schéma (les tours en trop ne coûtent rien si le
+        // premier réussit).
+        maxTurns: 3,
         allowedTools: [],
         outputFormat: { type: "json_schema", schema: buildSchema(includeBio) },
       },
@@ -117,22 +120,33 @@ export async function runAnalysis(bookId: number, jobId: number): Promise<void> 
         .run();
 
       if (includeBio && result.authorBio) {
-        const info = result.authorInfo ?? {};
-        // Enrichissement fill-only-if-null : jamais d'écrasement.
-        tx.update(authors)
-          .set({
-            bio: result.authorBio,
-            bioGeneratedAt: now,
-            nationality: author.nationality ?? info.nationality ?? null,
-            language: author.language ?? info.language ?? null,
-            birthYear: author.birthYear ?? info.birthYear ?? null,
-            deathYear: author.deathYear ?? info.deathYear ?? null,
-            mainGenre: author.mainGenre ?? info.mainGenre ?? null,
-            mainField: author.mainField ?? info.mainField ?? null,
-            updatedAt: sql`(datetime('now'))`,
-          })
+        // Relecture DANS la transaction : `author` a été lu avant l'appel
+        // agent (~1 min). Re-vérifier bio == null évite (a) d'écraser une
+        // saisie faite par l'utilisateur pendant l'analyse et (b) une double
+        // génération de bio si deux analyses du même auteur tournent en //.
+        const current = tx
+          .select()
+          .from(authors)
           .where(eq(authors.id, author.id))
-          .run();
+          .get();
+        if (current && current.bio == null) {
+          const info = result.authorInfo ?? {};
+          // Enrichissement fill-only-if-null : jamais d'écrasement.
+          tx.update(authors)
+            .set({
+              bio: result.authorBio,
+              bioGeneratedAt: now,
+              nationality: current.nationality ?? info.nationality ?? null,
+              language: current.language ?? info.language ?? null,
+              birthYear: current.birthYear ?? info.birthYear ?? null,
+              deathYear: current.deathYear ?? info.deathYear ?? null,
+              mainGenre: current.mainGenre ?? info.mainGenre ?? null,
+              mainField: current.mainField ?? info.mainField ?? null,
+              updatedAt: sql`(datetime('now'))`,
+            })
+            .where(eq(authors.id, author.id))
+            .run();
+        }
       }
 
       tx.update(analysisJobs)

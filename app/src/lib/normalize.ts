@@ -22,6 +22,10 @@ export function normalizeKey(s: string): string {
     .replace(/[̀-ͯ]/g, "")
     .replace(/[’‘]/g, "'")
     .toLowerCase()
+    // NFKD ne décompose pas œ/æ : on les développe pour que « cœur » et
+    // « coeur » partagent la même clé (recherche + dédup).
+    .replace(/œ/g, "oe")
+    .replace(/æ/g, "ae")
     .replace(/[^a-z0-9']+/g, " ")
     .replace(/\s+/g, " ")
     .trim();

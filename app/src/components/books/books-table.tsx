@@ -24,7 +24,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { capitalize, worldviewShortLabel } from "./books-helpers";
+import { capitalize, periodRank, worldviewShortLabel } from "./books-helpers";
 
 // ---------------------------------------------------------------------------
 // Tri texte "fr", valeurs nulles en dernier
@@ -38,6 +38,10 @@ const textSort: SortingFn<BookWithAuthor> = (rowA, rowB, columnId) => {
   if (b == null) return -1;
   return a.localeCompare(b, "fr");
 };
+
+/** Tri chronologique des périodes (chiffres romains → index de l'enum). */
+const periodSort: SortingFn<BookWithAuthor> = (rowA, rowB) =>
+  periodRank(rowA.original.period) - periodRank(rowB.original.period);
 
 // ---------------------------------------------------------------------------
 // Colonnes
@@ -97,7 +101,7 @@ const columns: ColumnDef<BookWithAuthor>[] = [
     id: "period",
     accessorFn: (row) => row.period,
     header: "Période",
-    sortingFn: textSort,
+    sortingFn: periodSort,
     cell: ({ getValue }) => (getValue() as string | null) ?? "—",
   },
   {
@@ -202,7 +206,7 @@ export function BooksTable({
                 colSpan={columns.length}
                 className="h-24 text-center text-muted-foreground"
               >
-                Aucun livre ne correspond aux critères
+                Aucun livre ne correspond aux critères.
               </TableCell>
             </TableRow>
           ) : (

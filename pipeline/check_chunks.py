@@ -37,7 +37,7 @@ DROP_FIELDS = {"id", "raw", "reason"}
 def norm_key(s):
     s = unicodedata.normalize("NFKD", s or "")
     s = "".join(c for c in s if not unicodedata.combining(c))
-    s = s.replace("’", "'").lower()
+    s = s.replace("’", "'").lower().replace("œ", "oe").replace("æ", "ae")
     return re.sub(r"\s+", " ", re.sub(r"[^a-z0-9']+", " ", s)).strip()
 
 

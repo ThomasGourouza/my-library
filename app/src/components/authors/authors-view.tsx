@@ -403,7 +403,7 @@ export function AuthorsView({
                   colSpan={7}
                   className="h-24 text-center text-muted-foreground"
                 >
-                  Aucun auteur ne correspond aux critères
+                  Aucun auteur ne correspond aux critères.
                 </TableCell>
               </TableRow>
             ) : (

@@ -4,7 +4,14 @@
  * (schema/validation/normalize/queries) : uniquement de la logique UI.
  */
 import type { BookWithAuthor } from "@/db/schema";
-import { WORLDVIEW_LABELS, type Worldview } from "@/lib/validation";
+import { PERIODS, WORLDVIEW_LABELS, type Worldview } from "@/lib/validation";
+
+/** Rang chronologique d'une période (chiffres romains → index de l'enum).
+ *  Les valeurs inconnues/nulles vont en fin. */
+export function periodRank(value: string | null | undefined): number {
+  const i = PERIODS.indexOf((value ?? "") as (typeof PERIODS)[number]);
+  return i === -1 ? PERIODS.length : i;
+}
 
 // ---------------------------------------------------------------------------
 // Vue tableau / groupé
@@ -179,7 +186,12 @@ export function groupBooks(
       a.titleNormalized.localeCompare(b.titleNormalized, "fr")
     );
   }
-  groups.sort((a, b) => a.label.localeCompare(b.label, "fr"));
+  // Les périodes se trient chronologiquement, le reste alphabétiquement.
+  groups.sort((a, b) =>
+    key === "period"
+      ? periodRank(a.key) - periodRank(b.key)
+      : a.label.localeCompare(b.label, "fr")
+  );
 
   if (rest.length) {
     rest.sort((a, b) =>

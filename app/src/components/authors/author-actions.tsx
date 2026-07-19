@@ -41,7 +41,9 @@ export function AuthorActions({
         } | null;
         const count = body?.bookCount ?? 0;
         toast.error(
-          `Impossible de supprimer : ${count} livre(s) rattaché(s) à cet auteur`
+          `Impossible de supprimer : ${count} livre${
+            count > 1 ? "s" : ""
+          } rattaché${count > 1 ? "s" : ""} à cet auteur`
         );
         return;
       }
@@ -58,7 +60,7 @@ export function AuthorActions({
       router.push("/auteurs");
       router.refresh();
     } catch {
-      toast.error("Erreur réseau");
+      toast.error("Impossible de contacter le serveur");
     } finally {
       setPending(false);
       setOpen(false);
@@ -77,7 +79,7 @@ export function AuthorActions({
         <AlertDialogHeader>
           <AlertDialogTitle>Supprimer cet auteur ?</AlertDialogTitle>
           <AlertDialogDescription>
-            Cette action est définitive. « {authorName} » sera supprimé de la
+            Cette action est irréversible. « {authorName} » sera supprimé de la
             bibliothèque.
           </AlertDialogDescription>
         </AlertDialogHeader>

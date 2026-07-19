@@ -9,7 +9,14 @@ import {
   type BookWithAuthor,
 } from "@/db/schema";
 import { normalizeKey } from "@/lib/normalize";
-import type { BookQuery } from "@/lib/validation";
+import { PERIODS, type BookQuery } from "@/lib/validation";
+
+/** Ordre chronologique des périodes (les libellés en chiffres romains ne se
+ *  trient pas correctement en alphabétique : XIXe viendrait avant XVIe). */
+const periodRankSql = sql`case ${books.period} ${sql.join(
+  PERIODS.map((p, i) => sql`when ${p} then ${i}`),
+  sql` `
+)} else ${PERIODS.length} end`;
 
 /**
  * Liste des livres avec leur auteur, filtrée/triée côté SQL.
@@ -35,7 +42,7 @@ export function listBooks(filters: BookQuery = {}): BookWithAuthor[] {
   const orderCols = {
     title: books.titleNormalized,
     author: authors.nameNormalized,
-    period: books.period,
+    period: periodRankSql,
     publicationYear: books.publicationYear,
     createdAt: books.createdAt,
   } as const;

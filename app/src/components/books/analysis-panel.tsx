@@ -25,7 +25,11 @@ interface AnalysisData {
   bioGeneratedAt: string | null;
 }
 
-const fetcher = (url: string) => fetch(url).then((r) => r.json());
+const fetcher = async (url: string) => {
+  const r = await fetch(url);
+  if (!r.ok) throw new Error(`Requête échouée (${r.status})`);
+  return r.json();
+};
 
 function formatDate(iso: string | null): string | null {
   if (!iso) return null;
