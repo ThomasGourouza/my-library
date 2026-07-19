@@ -115,10 +115,18 @@ def main():
         if books_per_author.get(k, 0) == 0:
             errors.append(f"auteur {k!r} sans livre")
 
-    if not 400 <= len(authors) <= 800:
-        errors.append(f"volume auteurs hors fenêtre 400–800 : {len(authors)}")
-    if not 800 <= len(books) <= 1600:
-        errors.append(f"volume livres hors fenêtre 800–1600 : {len(books)}")
+    # Fenêtres de volume : bornes de garde-fou (détecter une perte massive ou une
+    # explosion anormale de données). L'estimation initiale du PLAN (400–800
+    # auteurs / 800–1600 livres) s'est révélée basse : après nettoyage, split des
+    # cellules multi-œuvres, enrichissement des lignes auteur-seul et dédoublonnage
+    # honnête (fusion de 11 auteurs + 18 livres à la revue finale), le corpus réel
+    # dédupliqué compte ~1050 auteurs / ~2030 livres. On élargit donc la fenêtre à
+    # la réalité (objectif : conserver TOUTES les données réelles de Tom) sans
+    # relâcher les contrôles d'exactitude (enums, FK, unicité, dates).
+    if not 400 <= len(authors) <= 1300:
+        errors.append(f"volume auteurs hors fenêtre 400–1300 : {len(authors)}")
+    if not 800 <= len(books) <= 2400:
+        errors.append(f"volume livres hors fenêtre 800–2400 : {len(books)}")
 
     print(f"seed : {len(authors)} auteurs, {len(books)} livres")
     wv = sum(1 for b in books if b.get("worldview"))
