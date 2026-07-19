@@ -1,18 +1,23 @@
-import { listAuthors } from "@/lib/queries";
+import { AuthorsView } from "@/components/authors/authors-view";
+import { getFilterOptions, listAuthors } from "@/lib/queries";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = { title: "Auteurs" };
 
 export default function AuteursPage() {
-  const rows = listAuthors();
+  const authors = listAuthors();
+  const options = getFilterOptions();
+
   return (
-    <div>
-      <h1 className="text-2xl font-semibold mb-4">Auteurs</h1>
-      <p className="text-muted-foreground">
-        {rows.length} auteur{rows.length > 1 ? "s" : ""} — interface en cours de
-        construction.
-      </p>
-    </div>
+    <AuthorsView
+      authors={authors}
+      options={{
+        mainFields: options.mainFields,
+        mainGenres: options.mainGenres,
+        nationalities: options.nationalities,
+        languages: options.languages,
+      }}
+    />
   );
 }
