@@ -164,9 +164,11 @@ run_claude() {  # args are prepended claude flags/prompt, e.g.:  "$PROMPT"  or  
   echo "$CLAUDE_PID" > "$MAIN_PID_FILE"
   # foreground: tee raw output to the log and show a readable view; ends at EOF
   # (when claude exits or is killed by the watchdog).
+  RUN_T0=$(date +%s)
   tee -a "$LOG" < "$FIFO" | pretty
   wait "$CLAUDE_PID"
   RC=$?
+  RUN_SECS=$(( $(date +%s) - RUN_T0 ))
   rm -f "$FIFO"
 }
 
@@ -175,19 +177,36 @@ RESUME_PROMPT="You were interrupted by a transient API/network error mid-respons
 try=1
 run_claude "$PROMPT"
 while [ "$RC" -ne 0 ] && [ ! -s "$REPORT" ] && [ "$try" -le "$MAX_API_RETRIES" ]; do
+  # a failure after a long healthy stretch is a NEW incident — refill the
+  # in-place retry budget instead of exhausting it across the whole run
+  [ "${RUN_SECS:-0}" -ge 1800 ] && try=1
   tail_txt=$(tail -c 4000 "$LOG")
   # NOTE: healthy runs emit informational "rate_limit_event" lines, so check for
   # hard connection errors first and require error-shaped limit messages below.
   if printf '%s' "$tail_txt" | grep -qiE 'connection (closed|error|refused|reset)|ECONNRESET|ENOTFOUND|ETIMEDOUT|EAI_AGAIN|socket hang up|fetch failed|network error'; then
     delay=$(( API_RETRY_DELAY * try ))
-  elif printf '%s' "$tail_txt" | grep -qiE 'usage limit|limit reached|rate_limit_error|API Error: (429|529)|overloaded_error'; then
+  elif printf '%s' "$tail_txt" | grep -qiE 'usage limit|session limit|limit reached|rate_limit_error|"error":"rate_limit"|"status":"rejected"|api_error_status":(429|529)|API Error: (429|529)|overloaded_error'; then
+    # 5h-window limits announce their reset time in the stream-json
+    # ("resetsAt": epoch seconds). Sleep until then instead of burning
+    # retries — and ultimately watchdog relaunch attempts — against a hard wall.
     delay="$USAGE_LIMIT_DELAY"
+    reset_at=$(printf '%s' "$tail_txt" | grep -o '"resetsAt":[0-9]*' | tail -1 | cut -d: -f2)
+    if [ -n "$reset_at" ]; then
+      wait_s=$(( reset_at - $(date +%s) + 90 ))
+      if [ "$wait_s" -gt "$delay" ] && [ "$wait_s" -le 21600 ]; then delay="$wait_s"; fi
+    fi
   else
     break  # not a recognized transient error — leave it to the watchdog to diagnose
   fi
   echo "⚠ Transient API/network error (exit=$RC). Retry $try/$MAX_API_RETRIES in ${delay}s..."
-  sleep "$delay"
-  touch "$LOG"  # keep the watchdog's silence detector fresh across the wait
+  # sleep in slices, touching the log each time: a limit-reset wait can exceed
+  # STUCK_AFTER, and a stale log would make the watchdog kill a healthy wait
+  slept=0
+  while [ "$slept" -lt "$delay" ]; do
+    chunk=$(( delay - slept )); [ "$chunk" -gt 300 ] && chunk=300
+    sleep "$chunk"; slept=$(( slept + chunk ))
+    touch "$LOG"
+  done
   SESS=$(grep -o '"session_id":"[^"]*"' "$LOG" 2>/dev/null | tail -1 | cut -d'"' -f4)
   try=$(( try + 1 ))
   if [ -n "$SESS" ]; then
