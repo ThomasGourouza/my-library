@@ -12,6 +12,8 @@
 #   CHECK_INTERVAL=120    ./run.sh "..."   # watchdog poll seconds
 #   STUCK_AFTER=2400      ./run.sh "..."   # seconds with no log output = stuck
 #   MAX_ATTEMPTS=5        ./run.sh "..."   # max relaunches before giving up
+#   MAX_API_RETRIES=4     ./run.sh "..."   # in-place retries on transient API errors
+#   API_RETRY_DELAY=180   ./run.sh "..."   # base delay (s) between those retries
 #
 # WHAT IT DOES:
 #   - Runs `claude` fully autonomously and non-interactively. It is granted ALL
@@ -137,27 +139,64 @@ pretty() {
 MODEL_ARG=()
 [ -n "${MODEL:-}" ] && MODEL_ARG=(--model "$MODEL")
 
+# Transient API/network drops ("Connection closed mid-response", ENOTFOUND,
+# 429/529, overloaded) kill the headless CLI outright — the agent inside cannot
+# retry an error that terminates its own process. Retry here in-place, resuming
+# the same session so accumulated context is kept, instead of marking the run
+# FAILED (which costs a full watchdog diagnose+relaunch cycle per blip).
+MAX_API_RETRIES="${MAX_API_RETRIES:-4}"
+API_RETRY_DELAY="${API_RETRY_DELAY:-180}"      # base seconds; scaled by retry number
+USAGE_LIMIT_DELAY="${USAGE_LIMIT_DELAY:-900}"  # for 429 / usage-limit errors
+
 # Stream through a FIFO so the live display ends cleanly the moment claude exits
 # (no lingering `tail -f`), while still capturing claude's own PID for the watchdog.
 FIFO="$RUN_DIR/.stream"
-rm -f "$FIFO"; mkfifo "$FIFO"
 
-claude -p "$PROMPT" \
-  --dangerously-skip-permissions \
-  --verbose \
-  --output-format stream-json \
-  ${MODEL_ARG[@]+"${MODEL_ARG[@]}"} \
-  > "$FIFO" 2>&1 &
-CLAUDE_PID=$!
-echo "$CLAUDE_PID" > "$MAIN_PID_FILE"
+run_claude() {  # args are prepended claude flags/prompt, e.g.:  "$PROMPT"  or  --resume <id> "<prompt>"
+  rm -f "$FIFO"; mkfifo "$FIFO"
+  claude -p "$@" \
+    --dangerously-skip-permissions \
+    --verbose \
+    --output-format stream-json \
+    ${MODEL_ARG[@]+"${MODEL_ARG[@]}"} \
+    > "$FIFO" 2>&1 &
+  CLAUDE_PID=$!
+  echo "$CLAUDE_PID" > "$MAIN_PID_FILE"
+  # foreground: tee raw output to the log and show a readable view; ends at EOF
+  # (when claude exits or is killed by the watchdog).
+  tee -a "$LOG" < "$FIFO" | pretty
+  wait "$CLAUDE_PID"
+  RC=$?
+  rm -f "$FIFO"
+}
 
-# foreground: tee raw output to the log and show a readable view; ends at EOF
-# (when claude exits or is killed by the watchdog).
-tee -a "$LOG" < "$FIFO" | pretty
+RESUME_PROMPT="You were interrupted by a transient API/network error mid-response and the session has been resumed. Whatever you were generating when it dropped was NOT applied — briefly re-check on-disk/git state, then continue the task from where you left off. All standing instructions still apply (never wait for human input; launch Agent subagents with run_in_background: false; your FINAL action is writing the report)."
 
-wait "$CLAUDE_PID"
-RC=$?
-rm -f "$FIFO"
+try=1
+run_claude "$PROMPT"
+while [ "$RC" -ne 0 ] && [ ! -s "$REPORT" ] && [ "$try" -le "$MAX_API_RETRIES" ]; do
+  tail_txt=$(tail -c 4000 "$LOG")
+  # NOTE: healthy runs emit informational "rate_limit_event" lines, so check for
+  # hard connection errors first and require error-shaped limit messages below.
+  if printf '%s' "$tail_txt" | grep -qiE 'connection (closed|error|refused|reset)|ECONNRESET|ENOTFOUND|ETIMEDOUT|EAI_AGAIN|socket hang up|fetch failed|network error'; then
+    delay=$(( API_RETRY_DELAY * try ))
+  elif printf '%s' "$tail_txt" | grep -qiE 'usage limit|limit reached|rate_limit_error|API Error: (429|529)|overloaded_error'; then
+    delay="$USAGE_LIMIT_DELAY"
+  else
+    break  # not a recognized transient error — leave it to the watchdog to diagnose
+  fi
+  echo "⚠ Transient API/network error (exit=$RC). Retry $try/$MAX_API_RETRIES in ${delay}s..."
+  sleep "$delay"
+  touch "$LOG"  # keep the watchdog's silence detector fresh across the wait
+  SESS=$(grep -o '"session_id":"[^"]*"' "$LOG" 2>/dev/null | tail -1 | cut -d'"' -f4)
+  try=$(( try + 1 ))
+  if [ -n "$SESS" ]; then
+    echo "↻ Resuming session $SESS..."
+    run_claude --resume "$SESS" "$RESUME_PROMPT"
+  else
+    run_claude "$PROMPT"
+  fi
+done
 
 # --- outcome -----------------------------------------------------------------
 if [ "$RC" -eq 0 ] && [ -s "$REPORT" ]; then
