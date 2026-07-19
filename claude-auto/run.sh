@@ -81,6 +81,13 @@ $TASK
 - You have ALL permissions. Use whatever tools, skills, and MCP servers you need.
 - If you must see or interact with a web UI, use the Playwright MCP
   (the mcp__playwright__* tools) to drive a real browser.
+- SUBAGENTS: this is a headless one-shot run — ending your turn TERMINATES the
+  whole process and KILLS any still-running background tasks (their work is
+  lost). Task-completion notifications can NEVER re-invoke you here. Therefore
+  ALWAYS launch Agent-tool subagents with run_in_background: false. To run a
+  batch concurrently, put the Agent calls as parallel tool uses in ONE message;
+  the turn then blocks until all of them finish. Never end your turn while any
+  subagent, background shell, or task is still running.
 - When the task is complete, write a thorough Markdown report to:
     $REPORT
   The report MUST cover: the goal, every step you took, the commands/tools/skills
