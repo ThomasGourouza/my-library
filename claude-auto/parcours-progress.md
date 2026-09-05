@@ -49,7 +49,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `le-grand-siecle` — Littérature, XVIIe siècle
 - [x] `lumieres-litteraires` — Littérature, XVIIIe siècle
 - [x] `romantisme-francais` — Littérature, XIXe, romantisme/symbolisme
-- [ ] `realisme-et-naturalisme` — Littérature, XIXe, roman réaliste et naturaliste
+- [x] `realisme-et-naturalisme` — Littérature, XIXe, roman réaliste et naturaliste
 - [ ] `roman-francais-xxe` — Littérature, XXe, langue française
 - [ ] `litterature-contemporaine` — Littérature, XXIe siècle
 - [ ] `la-poesie` — `genre='Poésie'`, toutes périodes
