@@ -24,6 +24,8 @@ import { leRomanRusse } from "./data/le-roman-russe";
 import { leMondeAngloSaxon } from "./data/le-monde-anglo-saxon";
 import { lettresAllemandes } from "./data/lettres-allemandes";
 import { chineEtJapon } from "./data/chine-et-japon";
+import { mediterraneeEtAmeriqueLatine } from "./data/mediterranee-et-amerique-latine";
+import { europeDuNordEtCentrale } from "./data/europe-du-nord-et-centrale";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -42,6 +44,8 @@ export const ROADMAPS: Roadmap[] = [
   leMondeAngloSaxon,
   lettresAllemandes,
   chineEtJapon,
+  mediterraneeEtAmeriqueLatine,
+  europeDuNordEtCentrale,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));

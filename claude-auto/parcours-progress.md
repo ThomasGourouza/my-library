@@ -60,8 +60,8 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `le-monde-anglo-saxon` — `original_language='anglais'`
 - [x] `lettres-allemandes` — allemand
 - [x] `chine-et-japon` — chinois, japonais
-- [ ] `mediterranee-et-amerique-latine` — italien, espagnol, portugais
-- [ ] `europe-du-nord-et-centrale` — norvégien, danois, suédois, tchèque, polonais, hongrois…
+- [x] `mediterranee-et-amerique-latine` — italien, espagnol, portugais
+- [x] `europe-du-nord-et-centrale` — norvégien, danois, suédois, tchèque, polonais, hongrois…
 
 ### Antiquité et fondations
 - [ ] `les-fondations-grecques` — `original_language='grec ancien'`
