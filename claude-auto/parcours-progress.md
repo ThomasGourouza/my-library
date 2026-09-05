@@ -76,7 +76,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `les-maitres-du-soupcon` — Philosophie, XIXe (Marx, Nietzsche, Freud et leur postérité)
 - [x] `phenomenologie-et-existentialisme` — Philosophie, XXe
 - [x] `philosophie-contemporaine` — Philosophie, XXe-XXIe restant
-- [ ] `philosophie-morale-et-art-de-vivre` — morale pratique, sagesse
+- [x] `philosophie-morale-et-art-de-vivre` — morale pratique, sagesse
 - [ ] `psychologie-et-connaissance-de-soi` — psychologie, psychanalyse, développement
 
 ### Politique, histoire, société
