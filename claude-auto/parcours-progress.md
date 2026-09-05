@@ -64,7 +64,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `europe-du-nord-et-centrale` — norvégien, danois, suédois, tchèque, polonais, hongrois…
 
 ### Antiquité et fondations
-- [ ] `les-fondations-grecques` — `original_language='grec ancien'`
+- [x] `les-fondations-grecques` — `original_language='grec ancien'`
 - [ ] `rome-et-le-stoicisme` — latin
 - [ ] `textes-sacres-et-tradition` — `genre='Texte religieux'`, théologie, hébreu/arabe
 - [ ] `le-mythe-arthurien` — Jean Markale, matière de Bretagne, Chrétien de Troyes
