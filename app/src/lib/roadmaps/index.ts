@@ -46,6 +46,7 @@ import { guerresEtTotalitarismesDuXxe } from "./data/guerres-et-totalitarismes-d
 import { civilisationsEtLongueDuree } from "./data/civilisations-et-longue-duree";
 import { comprendreLUnivers } from "./data/comprendre-l-univers";
 import { leVivant } from "./data/le-vivant";
+import { lesMathematiques } from "./data/les-mathematiques";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -86,6 +87,7 @@ export const ROADMAPS: Roadmap[] = [
   civilisationsEtLongueDuree,
   comprendreLUnivers,
   leVivant,
+  lesMathematiques,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));

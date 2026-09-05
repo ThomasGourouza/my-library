@@ -90,7 +90,7 @@ de 5 h et redémarrer des heures plus tard.
 ### Sciences
 - [x] `comprendre-l-univers` — physique, cosmologie
 - [x] `le-vivant` — évolution, biologie, écologie
-- [ ] `les-mathematiques` — catégorie Mathématiques
+- [x] `les-mathematiques` — catégorie Mathématiques
 - [ ] `histoire-et-philosophie-des-sciences`
 
 ### Visions du monde
