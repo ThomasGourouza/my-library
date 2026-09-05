@@ -91,7 +91,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `comprendre-l-univers` — physique, cosmologie
 - [x] `le-vivant` — évolution, biologie, écologie
 - [x] `les-mathematiques` — catégorie Mathématiques
-- [ ] `histoire-et-philosophie-des-sciences`
+- [x] `histoire-et-philosophie-des-sciences`
 
 ### Visions du monde
 Source : `bibliothèque vision du monde.md` à la racine du dépôt (les 7 catégories
