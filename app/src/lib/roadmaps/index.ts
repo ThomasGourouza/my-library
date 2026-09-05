@@ -27,6 +27,8 @@ import { chineEtJapon } from "./data/chine-et-japon";
 import { mediterraneeEtAmeriqueLatine } from "./data/mediterranee-et-amerique-latine";
 import { europeDuNordEtCentrale } from "./data/europe-du-nord-et-centrale";
 import { lesFondationsGrecques } from "./data/les-fondations-grecques";
+import { romeEtLeStoicisme } from "./data/rome-et-le-stoicisme";
+import { textesSacresEtTradition } from "./data/textes-sacres-et-tradition";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -48,6 +50,8 @@ export const ROADMAPS: Roadmap[] = [
   mediterraneeEtAmeriqueLatine,
   europeDuNordEtCentrale,
   lesFondationsGrecques,
+  romeEtLeStoicisme,
+  textesSacresEtTradition,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));

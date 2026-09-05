@@ -65,8 +65,8 @@ de 5 h et redémarrer des heures plus tard.
 
 ### Antiquité et fondations
 - [x] `les-fondations-grecques` — `original_language='grec ancien'`
-- [ ] `rome-et-le-stoicisme` — latin
-- [ ] `textes-sacres-et-tradition` — `genre='Texte religieux'`, théologie, hébreu/arabe
+- [x] `rome-et-le-stoicisme` — latin
+- [x] `textes-sacres-et-tradition` — `genre='Texte religieux'`, théologie, hébreu/arabe
 - [ ] `le-mythe-arthurien` — Jean Markale, matière de Bretagne, Chrétien de Troyes
 
 ### Philosophie et connaissance de soi
