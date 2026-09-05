@@ -38,6 +38,7 @@ import { phenomenologieEtExistentialisme } from "./data/phenomenologie-et-existe
 import { philosophieContemporaine } from "./data/philosophie-contemporaine";
 import { philosophieMoraleEtArtDeVivre } from "./data/philosophie-morale-et-art-de-vivre";
 import { psychologieEtConnaissanceDeSoi } from "./data/psychologie-et-connaissance-de-soi";
+import { comprendreLaPuissance } from "./data/comprendre-la-puissance";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -70,6 +71,7 @@ export const ROADMAPS: Roadmap[] = [
   philosophieContemporaine,
   philosophieMoraleEtArtDeVivre,
   psychologieEtConnaissanceDeSoi,
+  comprendreLaPuissance,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));

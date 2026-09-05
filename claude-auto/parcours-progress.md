@@ -80,7 +80,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `psychologie-et-connaissance-de-soi` — psychologie, psychanalyse, développement
 
 ### Politique, histoire, société
-- [ ] `comprendre-la-puissance` — classiques du politique
+- [x] `comprendre-la-puissance` — classiques du politique
 - [ ] `geopolitique-du-monde-contemporain` — Sciences géopolitiques, XXIe
 - [ ] `economie-et-critique-du-capitalisme`
 - [ ] `histoire-de-france`
