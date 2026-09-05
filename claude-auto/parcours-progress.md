@@ -57,7 +57,7 @@ de 5 h et redémarrer des heures plus tard.
 
 ### Littératures du monde
 - [x] `le-roman-russe` — `original_language='russe'` (hors jeunesse déjà couverte)
-- [ ] `le-monde-anglo-saxon` — `original_language='anglais'`
+- [x] `le-monde-anglo-saxon` — `original_language='anglais'`
 - [ ] `lettres-allemandes` — allemand
 - [ ] `chine-et-japon` — chinois, japonais
 - [ ] `mediterranee-et-amerique-latine` — italien, espagnol, portugais
