@@ -101,7 +101,7 @@ colonne « Vision du monde », supprimée du tableau au profit de ces parcours.
 - [x] `vision-chretienne` — misère et grandeur de l'homme
 - [x] `vision-aristocratique` — hiérarchie, dépassement, noblesse
 - [x] `vision-classique` — mesure, raison, équilibre des pouvoirs
-- [ ] `vision-scientifique` — déterminismes biologiques, économiques, psychiques
+- [x] `vision-scientifique` — déterminismes biologiques, économiques, psychiques
 - [ ] `vision-existentialiste` — liberté radicale, angoisse, absurde
 - [ ] `vision-geopolitique` — longue durée, rapports de force, civilisations
 
