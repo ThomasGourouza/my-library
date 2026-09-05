@@ -22,6 +22,7 @@ import { laPoesie } from "./data/la-poesie";
 import { leTheatre } from "./data/le-theatre";
 import { leRomanRusse } from "./data/le-roman-russe";
 import { leMondeAngloSaxon } from "./data/le-monde-anglo-saxon";
+import { lettresAllemandes } from "./data/lettres-allemandes";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -38,6 +39,7 @@ export const ROADMAPS: Roadmap[] = [
   leTheatre,
   leRomanRusse,
   leMondeAngloSaxon,
+  lettresAllemandes,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));
