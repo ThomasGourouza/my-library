@@ -56,7 +56,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `le-theatre` — `genre='Théâtre'`, toutes périodes
 
 ### Littératures du monde
-- [ ] `le-roman-russe` — `original_language='russe'` (hors jeunesse déjà couverte)
+- [x] `le-roman-russe` — `original_language='russe'` (hors jeunesse déjà couverte)
 - [ ] `le-monde-anglo-saxon` — `original_language='anglais'`
 - [ ] `lettres-allemandes` — allemand
 - [ ] `chine-et-japon` — chinois, japonais
