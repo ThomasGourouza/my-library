@@ -72,7 +72,7 @@ de 5 h et redémarrer des heures plus tard.
 ### Philosophie et connaissance de soi
 - [x] `initiation-a-la-philosophie` — sélection d'entrée, tous siècles
 - [x] `philosophie-antique-et-medievale` — Philosophie, Antiquité + Moyen Âge
-- [ ] `rationalisme-et-lumieres` — Philosophie, XVIe-XVIIIe
+- [x] `rationalisme-et-lumieres` — Philosophie, XVIe-XVIIIe
 - [ ] `les-maitres-du-soupcon` — Philosophie, XIXe (Marx, Nietzsche, Freud et leur postérité)
 - [ ] `phenomenologie-et-existentialisme` — Philosophie, XXe
 - [ ] `philosophie-contemporaine` — Philosophie, XXe-XXIe restant

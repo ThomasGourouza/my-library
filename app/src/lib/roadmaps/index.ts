@@ -32,6 +32,7 @@ import { textesSacresEtTradition } from "./data/textes-sacres-et-tradition";
 import { leMytheArthurien } from "./data/le-mythe-arthurien";
 import { initiationALaPhilosophie } from "./data/initiation-a-la-philosophie";
 import { philosophieAntiqueEtMedievale } from "./data/philosophie-antique-et-medievale";
+import { rationalismeEtLumieres } from "./data/rationalisme-et-lumieres";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -58,6 +59,7 @@ export const ROADMAPS: Roadmap[] = [
   leMytheArthurien,
   initiationALaPhilosophie,
   philosophieAntiqueEtMedievale,
+  rationalismeEtLumieres,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));
