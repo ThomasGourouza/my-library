@@ -13,6 +13,7 @@ import { classiquesDeLEnfance } from "./data/classiques-de-l-enfance";
 import { premiersGrandsRomans } from "./data/premiers-grands-romans";
 import { sourcesMoyenAgeRenaissance } from "./data/sources-moyen-age-renaissance";
 import { leGrandSiecle } from "./data/le-grand-siecle";
+import { lumieresLitteraires } from "./data/lumieres-litteraires";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -20,6 +21,7 @@ export const ROADMAPS: Roadmap[] = [
   premiersGrandsRomans,
   sourcesMoyenAgeRenaissance,
   leGrandSiecle,
+  lumieresLitteraires,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));
