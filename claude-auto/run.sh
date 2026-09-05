@@ -168,9 +168,15 @@ MAX_LIMIT_WAITS="${MAX_LIMIT_WAITS:-24}"
 # (no lingering `tail -f`), while still capturing claude's own PID for the watchdog.
 FIFO="$RUN_DIR/.stream"
 
+# ANTHROPIC_API_KEY prend le pas sur le login claude.ai et facture au solde API.
+# On l'écarte par défaut : les runs passent par l'abonnement, seul régime où la
+# logique de fenêtre de 5 h ci-dessous a un sens. USE_API_KEY=1 pour l'inverse.
+CLAUDE_ENV=(env -u ANTHROPIC_API_KEY)
+[ "${USE_API_KEY:-0}" = "1" ] && CLAUDE_ENV=(env)
+
 run_claude() {  # args are prepended claude flags/prompt, e.g.:  "$PROMPT"  or  --resume <id> "<prompt>"
   rm -f "$FIFO"; mkfifo "$FIFO"
-  claude -p "$@" \
+  "${CLAUDE_ENV[@]}" claude -p "$@" \
     --dangerously-skip-permissions \
     --verbose \
     --output-format stream-json \
@@ -220,6 +226,12 @@ while [ "$RC" -ne 0 ] && [ ! -s "$REPORT" ]; do
       resume_at=$(fmt_time "$(( $(date +%s) + delay ))")
       echo "⏳ Usage limit reached (wait $limit_waits/$MAX_LIMIT_WAITS). Resuming around $resume_at (in ${delay}s)..."
       notify "⏳ Usage limit reached — resuming around $resume_at"
+      ;;
+    fatal)
+      echo "⛔ Échec non récupérable : $(fatal_reason "$LOG")"
+      notify "⛔ Run arrêté : $(fatal_reason "$LOG")"
+      echo "FAILED_PERMANENT" > "$STATUS"
+      break
       ;;
     *)
       break  # unrecognized failure — leave it to the watchdog to diagnose

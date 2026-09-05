@@ -3,7 +3,7 @@
 # Shared failure classification for run.sh and watchdog.sh.
 #
 #   source lib-classify.sh
-#   classify_failure "$LOG"     -> transient | limit | unknown
+#   classify_failure "$LOG"     -> fatal | transient | limit | unknown
 #   limit_reset_epoch "$LOG"    -> epoch seconds, or empty
 #
 # Kept in one file because the two scripts MUST agree: run.sh decides whether to
@@ -31,6 +31,13 @@
 #   the transient family (short escalating backoff), not to the 5h wait.
 # =============================================================================
 
+# Conditions qui ne se répareront pas d'elles-mêmes : réessayer les aggrave
+# (20 tentatives brûlées en 4 minutes, vécu). Elles arrêtent le run tout de suite
+# avec un motif lisible.
+#   « Credit balance is too low » : la facturation API, PAS une fenêtre de 5 h.
+#   Une clé API n'a pas de reset horaire — attendre ne sert à rien.
+FATAL_RE='credit balance is too low|billing_error|invalid_api_key|authentication_error|"type":"permission_error"|invalid x-api-key'
+
 # Authoritative structured signal + the CLI's own error wordings.
 # Safe under grep -i: every alternative carries a distinctive literal prefix.
 LIMIT_RE='"rate_limit_info":[{]"status":"rejected"|usage limit reached|session limit reached|5-hour limit reached|rate_limit_error|api_error_status":429|API Error: 429|"error":[{]"type":"rate_limit'
@@ -43,7 +50,10 @@ TRANSIENT_RE='connection (closed|error|refused|reset)|ECONNRESET|ENOTFOUND|ETIME
 classify_failure() {
   local tail_txt
   tail_txt=$(tail -c 4000 "$1" 2>/dev/null)
-  if printf '%s' "$tail_txt" | grep -qiE "$TRANSIENT_RE"; then
+  # Le fatal passe en premier : aucune des autres classes ne doit le masquer.
+  if printf '%s' "$tail_txt" | grep -qiE "$FATAL_RE"; then
+    echo fatal
+  elif printf '%s' "$tail_txt" | grep -qiE "$TRANSIENT_RE"; then
     echo transient
   elif printf '%s' "$tail_txt" | grep -qiE "$LIMIT_RE"; then
     echo limit
@@ -84,4 +94,17 @@ sleep_touching_log() {
 # portable "epoch seconds -> HH:MM" (BSD date, then GNU date)
 fmt_time() {
   date -r "$1" +%H:%M 2>/dev/null || date -d "@$1" +%H:%M 2>/dev/null || echo "?"
+}
+
+# Motif court à afficher pour un échec fatal.
+fatal_reason() {
+  local t
+  t=$(tail -c 4000 "$1" 2>/dev/null)
+  if printf '%s' "$t" | grep -qi 'credit balance is too low'; then
+    echo "solde de crédit API épuisé (ANTHROPIC_API_KEY). Ce n'est pas une limite de 5 h : rien ne se réinitialisera tout seul."
+  elif printf '%s' "$t" | grep -qiE 'invalid_api_key|invalid x-api-key|authentication_error'; then
+    echo "authentification refusée (clé API invalide)."
+  else
+    echo "erreur non récupérable (voir la fin du log)."
+  fi
 }

@@ -42,6 +42,14 @@ check "log vide"                                     unknown   ''
 # A blip during an exhausted window: transient wins, the limit is caught next round.
 check "réseau + limite (réseau prioritaire)"         transient "$REJECTED"$'\n''socket hang up'
 
+# Le vrai échec du 5 septembre : la clé API n'avait plus de solde. 20 tentatives
+# brûlées en 4 minutes parce que c'était classé « unknown ».
+BILLING='{"type":"assistant","message":{"content":[{"type":"text","text":"Credit balance is too low"}]},"error":"billing_error","is_api_error_message":true}'
+check "solde API épuisé (fatal, pas une limite)"    fatal     "$BILLING"
+check "clé API invalide"                            fatal     '{"error":{"type":"invalid_api_key"}}'
+# Un fatal ne doit jamais être masqué par une coupure réseau concomitante.
+check "fatal + réseau (fatal prioritaire)"          fatal     "$BILLING"$'\n''socket hang up'
+
 echo
 echo "limit_reset_epoch / limit_sleep_seconds :"
 printf '%s' "$REJECTED" > "$TMP/log"

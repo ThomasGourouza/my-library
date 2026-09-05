@@ -116,6 +116,14 @@ while true; do
 
   [ "$trouble" -eq 0 ] && continue
 
+  # --- un échec fatal ne se répare pas en relançant --------------------------
+  if [ "$(classify_failure "$LOG")" = "fatal" ]; then
+    echo "FAILED_PERMANENT" > "$STATUS"
+    notify "⛔ Run arrêté : $(fatal_reason "$LOG")"
+    echo "⛔ Échec non récupérable : $(fatal_reason "$LOG")"
+    exit 1
+  fi
+
   # --- a usage limit is a wait, not a failure -------------------------------
   # Relaunch when the window reopens, without spending an attempt and without
   # the diagnose pass (which would hit the very same wall).
@@ -186,7 +194,7 @@ You are fully autonomous and have ALL permissions. Never ask questions.
 Append a short note of what you found and fixed to: $RUN_DIR/fixes.md
 EOF
 )
-  claude -p "$FIX_PROMPT" \
+  env -u ANTHROPIC_API_KEY claude -p "$FIX_PROMPT" \
     --dangerously-skip-permissions \
     --verbose \
     --output-format stream-json \
