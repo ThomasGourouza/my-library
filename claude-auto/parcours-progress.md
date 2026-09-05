@@ -77,7 +77,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `phenomenologie-et-existentialisme` — Philosophie, XXe
 - [x] `philosophie-contemporaine` — Philosophie, XXe-XXIe restant
 - [x] `philosophie-morale-et-art-de-vivre` — morale pratique, sagesse
-- [ ] `psychologie-et-connaissance-de-soi` — psychologie, psychanalyse, développement
+- [x] `psychologie-et-connaissance-de-soi` — psychologie, psychanalyse, développement
 
 ### Politique, histoire, société
 - [ ] `comprendre-la-puissance` — classiques du politique
