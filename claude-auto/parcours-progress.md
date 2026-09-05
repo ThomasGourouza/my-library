@@ -59,7 +59,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `le-roman-russe` — `original_language='russe'` (hors jeunesse déjà couverte)
 - [x] `le-monde-anglo-saxon` — `original_language='anglais'`
 - [x] `lettres-allemandes` — allemand
-- [ ] `chine-et-japon` — chinois, japonais
+- [x] `chine-et-japon` — chinois, japonais
 - [ ] `mediterranee-et-amerique-latine` — italien, espagnol, portugais
 - [ ] `europe-du-nord-et-centrale` — norvégien, danois, suédois, tchèque, polonais, hongrois…
 
