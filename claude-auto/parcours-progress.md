@@ -46,7 +46,7 @@ de 5 h et redémarrer des heures plus tard.
 
 ### Littérature française
 - [x] `sources-moyen-age-renaissance` — Littérature, Moyen Âge + XVIe siècle
-- [ ] `le-grand-siecle` — Littérature, XVIIe siècle
+- [x] `le-grand-siecle` — Littérature, XVIIe siècle
 - [ ] `lumieres-litteraires` — Littérature, XVIIIe siècle
 - [ ] `romantisme-francais` — Littérature, XIXe, romantisme/symbolisme
 - [ ] `realisme-et-naturalisme` — Littérature, XIXe, roman réaliste et naturaliste
