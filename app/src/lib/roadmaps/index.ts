@@ -39,6 +39,7 @@ import { philosophieContemporaine } from "./data/philosophie-contemporaine";
 import { philosophieMoraleEtArtDeVivre } from "./data/philosophie-morale-et-art-de-vivre";
 import { psychologieEtConnaissanceDeSoi } from "./data/psychologie-et-connaissance-de-soi";
 import { comprendreLaPuissance } from "./data/comprendre-la-puissance";
+import { geopolitiqueDuMondeContemporain } from "./data/geopolitique-du-monde-contemporain";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -72,6 +73,7 @@ export const ROADMAPS: Roadmap[] = [
   philosophieMoraleEtArtDeVivre,
   psychologieEtConnaissanceDeSoi,
   comprendreLaPuissance,
+  geopolitiqueDuMondeContemporain,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));

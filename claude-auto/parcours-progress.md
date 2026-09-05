@@ -81,7 +81,7 @@ de 5 h et redémarrer des heures plus tard.
 
 ### Politique, histoire, société
 - [x] `comprendre-la-puissance` — classiques du politique
-- [ ] `geopolitique-du-monde-contemporain` — Sciences géopolitiques, XXIe
+- [x] `geopolitique-du-monde-contemporain` — Sciences géopolitiques, XXIe
 - [ ] `economie-et-critique-du-capitalisme`
 - [ ] `histoire-de-france`
 - [ ] `guerres-et-totalitarismes-du-xxe`
