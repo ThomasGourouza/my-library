@@ -48,6 +48,8 @@ import { comprendreLUnivers } from "./data/comprendre-l-univers";
 import { leVivant } from "./data/le-vivant";
 import { lesMathematiques } from "./data/les-mathematiques";
 import { histoireEtPhilosophieDesSciences } from "./data/histoire-et-philosophie-des-sciences";
+import { scienceFictionEtAnticipation } from "./data/science-fiction-et-anticipation";
+import { nouvellesEtFormesBreves } from "./data/nouvelles-et-formes-breves";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -90,6 +92,8 @@ export const ROADMAPS: Roadmap[] = [
   leVivant,
   lesMathematiques,
   histoireEtPhilosophieDesSciences,
+  scienceFictionEtAnticipation,
+  nouvellesEtFormesBreves,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));

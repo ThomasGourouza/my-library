@@ -107,8 +107,8 @@ colonne « Vision du monde », supprimée du tableau au profit de ces parcours.
 
 ### Formes et pratiques de lecture
 - [ ] `recits-de-soi` — Mémoires, Autobiographie, Journal, Correspondance, Biographie
-- [ ] `nouvelles-et-formes-breves` — Nouvelle, Conte (adulte), Fable, Maximes
-- [ ] `science-fiction-et-anticipation`
+- [x] `nouvelles-et-formes-breves` — Nouvelle, Conte (adulte), Fable, Maximes
+- [x] `science-fiction-et-anticipation`
 - [ ] `grands-essais-et-art-de-penser` — essais restants, filet de sécurité
 
 ### Balayage final (obligatoire)
