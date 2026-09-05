@@ -35,6 +35,7 @@ import { philosophieAntiqueEtMedievale } from "./data/philosophie-antique-et-med
 import { rationalismeEtLumieres } from "./data/rationalisme-et-lumieres";
 import { lesMaitresDuSoupcon } from "./data/les-maitres-du-soupcon";
 import { phenomenologieEtExistentialisme } from "./data/phenomenologie-et-existentialisme";
+import { philosophieContemporaine } from "./data/philosophie-contemporaine";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -64,6 +65,7 @@ export const ROADMAPS: Roadmap[] = [
   rationalismeEtLumieres,
   lesMaitresDuSoupcon,
   phenomenologieEtExistentialisme,
+  philosophieContemporaine,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));

@@ -75,7 +75,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `rationalisme-et-lumieres` — Philosophie, XVIe-XVIIIe
 - [x] `les-maitres-du-soupcon` — Philosophie, XIXe (Marx, Nietzsche, Freud et leur postérité)
 - [x] `phenomenologie-et-existentialisme` — Philosophie, XXe
-- [ ] `philosophie-contemporaine` — Philosophie, XXe-XXIe restant
+- [x] `philosophie-contemporaine` — Philosophie, XXe-XXIe restant
 - [ ] `philosophie-morale-et-art-de-vivre` — morale pratique, sagesse
 - [ ] `psychologie-et-connaissance-de-soi` — psychologie, psychanalyse, développement
 
