@@ -70,7 +70,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `le-mythe-arthurien` — Jean Markale, matière de Bretagne, Chrétien de Troyes
 
 ### Philosophie et connaissance de soi
-- [ ] `initiation-a-la-philosophie` — sélection d'entrée, tous siècles
+- [x] `initiation-a-la-philosophie` — sélection d'entrée, tous siècles
 - [ ] `philosophie-antique-et-medievale` — Philosophie, Antiquité + Moyen Âge
 - [ ] `rationalisme-et-lumieres` — Philosophie, XVIe-XVIIIe
 - [ ] `les-maitres-du-soupcon` — Philosophie, XIXe (Marx, Nietzsche, Freud et leur postérité)
