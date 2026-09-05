@@ -53,7 +53,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `roman-francais-xxe` — Littérature, XXe, langue française
 - [x] `litterature-contemporaine` — Littérature, XXIe siècle
 - [x] `la-poesie` — `genre='Poésie'`, toutes périodes
-- [ ] `le-theatre` — `genre='Théâtre'`, toutes périodes
+- [x] `le-theatre` — `genre='Théâtre'`, toutes périodes
 
 ### Littératures du monde
 - [ ] `le-roman-russe` — `original_language='russe'` (hors jeunesse déjà couverte)
