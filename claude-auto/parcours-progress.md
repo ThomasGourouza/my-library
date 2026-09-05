@@ -97,7 +97,7 @@ de 5 h et redémarrer des heures plus tard.
 Source : `bibliothèque vision du monde.md` à la racine du dépôt (les 7 catégories
 et leurs auteurs de référence). C'est ce document qui alimentait l'ancienne
 colonne « Vision du monde », supprimée du tableau au profit de ces parcours.
-- [ ] `vision-cynique` — l'intérêt et la puissance structurent le réel
+- [x] `vision-cynique` — l'intérêt et la puissance structurent le réel
 - [ ] `vision-chretienne` — misère et grandeur de l'homme
 - [ ] `vision-aristocratique` — hiérarchie, dépassement, noblesse
 - [ ] `vision-classique` — mesure, raison, équilibre des pouvoirs
