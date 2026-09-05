@@ -99,7 +99,7 @@ et leurs auteurs de référence). C'est ce document qui alimentait l'ancienne
 colonne « Vision du monde », supprimée du tableau au profit de ces parcours.
 - [x] `vision-cynique` — l'intérêt et la puissance structurent le réel
 - [x] `vision-chretienne` — misère et grandeur de l'homme
-- [ ] `vision-aristocratique` — hiérarchie, dépassement, noblesse
+- [x] `vision-aristocratique` — hiérarchie, dépassement, noblesse
 - [ ] `vision-classique` — mesure, raison, équilibre des pouvoirs
 - [ ] `vision-scientifique` — déterminismes biologiques, économiques, psychiques
 - [ ] `vision-existentialiste` — liberté radicale, angoisse, absurde

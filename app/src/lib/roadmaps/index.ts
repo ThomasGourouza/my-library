@@ -52,6 +52,7 @@ import { scienceFictionEtAnticipation } from "./data/science-fiction-et-anticipa
 import { nouvellesEtFormesBreves } from "./data/nouvelles-et-formes-breves";
 import { visionCynique } from "./data/vision-cynique";
 import { visionChretienne } from "./data/vision-chretienne";
+import { visionAristocratique } from "./data/vision-aristocratique";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -98,6 +99,7 @@ export const ROADMAPS: Roadmap[] = [
   nouvellesEtFormesBreves,
   visionCynique,
   visionChretienne,
+  visionAristocratique,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));
