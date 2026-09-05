@@ -50,7 +50,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `lumieres-litteraires` — Littérature, XVIIIe siècle
 - [x] `romantisme-francais` — Littérature, XIXe, romantisme/symbolisme
 - [x] `realisme-et-naturalisme` — Littérature, XIXe, roman réaliste et naturaliste
-- [ ] `roman-francais-xxe` — Littérature, XXe, langue française
+- [x] `roman-francais-xxe` — Littérature, XXe, langue française
 - [ ] `litterature-contemporaine` — Littérature, XXIe siècle
 - [ ] `la-poesie` — `genre='Poésie'`, toutes périodes
 - [ ] `le-theatre` — `genre='Théâtre'`, toutes périodes

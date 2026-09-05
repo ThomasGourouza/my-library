@@ -16,6 +16,7 @@ import { leGrandSiecle } from "./data/le-grand-siecle";
 import { lumieresLitteraires } from "./data/lumieres-litteraires";
 import { romantismeFrancais } from "./data/romantisme-francais";
 import { realismeEtNaturalisme } from "./data/realisme-et-naturalisme";
+import { romanFrancaisXxe } from "./data/roman-francais-xxe";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -26,6 +27,7 @@ export const ROADMAPS: Roadmap[] = [
   lumieresLitteraires,
   romantismeFrancais,
   realismeEtNaturalisme,
+  romanFrancaisXxe,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));
