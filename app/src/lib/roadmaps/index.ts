@@ -43,6 +43,7 @@ import { geopolitiqueDuMondeContemporain } from "./data/geopolitique-du-monde-co
 import { economieEtCritiqueDuCapitalisme } from "./data/economie-et-critique-du-capitalisme";
 import { histoireDeFrance } from "./data/histoire-de-france";
 import { guerresEtTotalitarismesDuXxe } from "./data/guerres-et-totalitarismes-du-xxe";
+import { civilisationsEtLongueDuree } from "./data/civilisations-et-longue-duree";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -80,6 +81,7 @@ export const ROADMAPS: Roadmap[] = [
   economieEtCritiqueDuCapitalisme,
   histoireDeFrance,
   guerresEtTotalitarismesDuXxe,
+  civilisationsEtLongueDuree,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));

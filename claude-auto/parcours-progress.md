@@ -85,7 +85,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `economie-et-critique-du-capitalisme`
 - [x] `histoire-de-france`
 - [x] `guerres-et-totalitarismes-du-xxe`
-- [ ] `civilisations-et-longue-duree`
+- [x] `civilisations-et-longue-duree`
 
 ### Sciences
 - [ ] `comprendre-l-univers` — physique, cosmologie
