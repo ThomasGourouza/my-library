@@ -80,6 +80,23 @@ else
   fail=$(( fail + 1 )); echo "  FAIL resetsAt aberrant                            -> $got (attendu 900)"
 fi
 
+# Le heredoc du prompt dans run.sh n'est volontairement PAS quoté (il interpole
+# $REPORT). Conséquence : un accent grave ou un $(...) dans le texte y serait
+# exécuté au lancement. Déjà arrivé une fois — d'où ce garde-fou.
+echo
+echo "run.sh — sûreté du heredoc de prompt :"
+prompt_block=$(awk '/^PROMPT=\$\(cat <<EOF$/{f=1;next} f&&/^EOF$/{exit} f' ../claude-auto/run.sh 2>/dev/null \
+  || awk '/^PROMPT=\$\(cat <<EOF$/{f=1;next} f&&/^EOF$/{exit} f' ./run.sh)
+if printf '%s' "$prompt_block" | grep -q '`'; then
+  fail=$(( fail + 1 )); echo "  FAIL accent grave dans le prompt (serait exécuté)"
+elif printf '%s' "$prompt_block" | grep -q '\$('; then
+  fail=$(( fail + 1 )); echo "  FAIL substitution \$(...) dans le prompt"
+elif [ -z "$prompt_block" ]; then
+  fail=$(( fail + 1 )); echo "  FAIL bloc de prompt introuvable dans run.sh"
+else
+  pass=$(( pass + 1 )); echo "  ok   aucun accent grave ni \$(...) dans le prompt"
+fi
+
 echo
 echo "$pass réussis, $fail échoués"
 [ "$fail" -eq 0 ]

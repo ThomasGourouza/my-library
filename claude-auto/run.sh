@@ -92,10 +92,10 @@ $TASK
   decisions on your own and keep going; NEVER ask a question or wait for human
   input. If something is ambiguous, pick the most sensible option and proceed.
 - You have ALL permissions. Use whatever tools, skills, and MCP servers you need.
-- If you must see or interact with a web UI, drive a real browser with the
-  npm `playwright` package from your scratchpad directory (the chromium build
-  is already cached). The mcp__playwright__* tools are NOT connected in a
-  headless run — do not wait on them.
+- If you must see or interact with a web UI, drive a real browser with the npm
+  playwright package from your scratchpad directory (the chromium build is
+  already cached). The mcp__playwright__* tools are NOT connected in a headless
+  run — do not wait on them.
 - SUBAGENTS: this is a headless one-shot run — ending your turn TERMINATES the
   whole process and KILLS any still-running background tasks (their work is
   lost). Task-completion notifications can NEVER re-invoke you here. Therefore
