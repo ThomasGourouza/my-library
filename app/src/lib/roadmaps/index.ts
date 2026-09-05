@@ -41,6 +41,7 @@ import { psychologieEtConnaissanceDeSoi } from "./data/psychologie-et-connaissan
 import { comprendreLaPuissance } from "./data/comprendre-la-puissance";
 import { geopolitiqueDuMondeContemporain } from "./data/geopolitique-du-monde-contemporain";
 import { economieEtCritiqueDuCapitalisme } from "./data/economie-et-critique-du-capitalisme";
+import { histoireDeFrance } from "./data/histoire-de-france";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -76,6 +77,7 @@ export const ROADMAPS: Roadmap[] = [
   comprendreLaPuissance,
   geopolitiqueDuMondeContemporain,
   economieEtCritiqueDuCapitalisme,
+  histoireDeFrance,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));
