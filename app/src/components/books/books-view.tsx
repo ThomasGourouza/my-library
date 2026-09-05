@@ -5,15 +5,10 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Check, Plus, X } from "lucide-react";
 import type { SortingState } from "@tanstack/react-table";
-import type { BookWithAuthor } from "@/db/schema";
 import type { getFilterOptions } from "@/lib/queries";
+import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
 import { normalizeKey } from "@/lib/normalize";
-import {
-  AUDIENCES,
-  CATEGORIES,
-  PERIODS,
-  WORLDVIEWS,
-} from "@/lib/validation";
+import { AUDIENCES, CATEGORIES, PERIODS } from "@/lib/validation";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -42,7 +37,6 @@ import {
   isGroupByKey,
   isSortableColumn,
   isViewMode,
-  worldviewFullLabel,
   type Filters,
   type FilterKey,
   type GroupByKey,
@@ -65,8 +59,8 @@ function parseFilters(sp: URLSearchParams): Filters {
     genre: get("genre"),
     period: get("period"),
     audience: get("audience"),
-    worldview: get("worldview"),
     courant: get("courant"),
+    roadmap: get("roadmap"),
   };
 }
 
@@ -153,7 +147,7 @@ export function BooksView({
   books,
   options,
 }: {
-  books: BookWithAuthor[];
+  books: BookWithRoadmaps[];
   options: BookFilterOptions;
 }) {
   const router = useRouter();
@@ -221,6 +215,9 @@ export function BooksView({
     const searchKey = normalizeKey(search);
     const matches = (values: string[], value: string | null) =>
       values.length === 0 || (value != null && values.includes(value));
+    // Un livre appartient à plusieurs parcours : le filtre teste l'intersection.
+    const matchesAny = (values: string[], candidates: string[]) =>
+      values.length === 0 || candidates.some((c) => values.includes(c));
     return books.filter(
       (b) =>
         (searchKey === "" ||
@@ -230,10 +227,29 @@ export function BooksView({
         matches(filters.genre, b.genre) &&
         matches(filters.period, b.period) &&
         matches(filters.audience, b.audience) &&
-        matches(filters.worldview, b.worldview) &&
-        matches(filters.courant, b.courant)
+        matches(filters.courant, b.courant) &&
+        matchesAny(
+          filters.roadmap,
+          b.roadmaps.map((r) => r.slug)
+        )
     );
   }, [books, search, filters]);
+
+  // Parcours présents dans le corpus affiché : évite de passer une prop de plus
+  // et n'expose au filtre que des parcours réellement peuplés.
+  const roadmapOptions = React.useMemo(() => {
+    const bySlug = new Map<string, string>();
+    for (const book of books) {
+      for (const r of book.roadmaps) bySlug.set(r.slug, r.title);
+    }
+    return [...bySlug]
+      .map(([slug, title]) => ({ slug, title }))
+      .sort((a, b) => a.title.localeCompare(b.title, "fr"));
+  }, [books]);
+  const roadmapTitles = React.useMemo(
+    () => new Map(roadmapOptions.map((r) => [r.slug, r.title])),
+    [roadmapOptions]
+  );
 
   const filterConfigs: {
     key: FilterKey;
@@ -244,12 +260,12 @@ export function BooksView({
     { key: "genre", options: options.genres },
     { key: "period", options: [...PERIODS] },
     { key: "audience", options: [...AUDIENCES], getLabel: capitalize },
-    {
-      key: "worldview",
-      options: [...WORLDVIEWS],
-      getLabel: worldviewFullLabel,
-    },
     { key: "courant", options: options.courants },
+    {
+      key: "roadmap",
+      options: roadmapOptions.map((r) => r.slug),
+      getLabel: (slug) => roadmapTitles.get(slug) ?? slug,
+    },
   ];
 
   const chipLabel = (key: FilterKey, value: string) => {
@@ -258,8 +274,11 @@ export function BooksView({
   };
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    // Colonne de hauteur définie (jusqu'au bas de l'écran) : la barre d'outils
+    // garde sa taille, la vue (tableau ou groupes) occupe le reste et défile
+    // en interne — la fenêtre elle-même ne défile pas.
+    <div className="flex h-[var(--app-content-h)] min-h-0 flex-col gap-4">
+      <div className="flex shrink-0 flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold">Livres</h1>
           <p className="text-sm text-muted-foreground">
@@ -275,7 +294,7 @@ export function BooksView({
         </Button>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex shrink-0 flex-wrap items-center gap-2">
         <Input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -307,7 +326,7 @@ export function BooksView({
       </div>
 
       {Object.values(filters).some((v) => v.length > 0) && (
-        <div className="flex flex-wrap items-center gap-1.5">
+        <div className="flex shrink-0 flex-wrap items-center gap-1.5">
           {FILTER_KEYS.flatMap((key) =>
             filters[key].map((value) => (
               <Badge key={`${key}-${value}`} variant="secondary" asChild>
@@ -325,19 +344,23 @@ export function BooksView({
         </div>
       )}
 
-      <Tabs value={view} onValueChange={(v) => setView(v as ViewMode)}>
-        <TabsList>
+      <Tabs
+        value={view}
+        onValueChange={(v) => setView(v as ViewMode)}
+        className="min-h-0 flex-1"
+      >
+        <TabsList className="shrink-0">
           <TabsTrigger value="table">Tableau</TabsTrigger>
           <TabsTrigger value="grouped">Groupé</TabsTrigger>
         </TabsList>
-        <TabsContent value="table" className="mt-3">
+        <TabsContent value="table" className="mt-1 min-h-[12rem] min-w-0">
           <BooksTable
             books={filtered}
             sorting={sorting}
             onSortingChange={setSorting}
           />
         </TabsContent>
-        <TabsContent value="grouped" className="mt-3">
+        <TabsContent value="grouped" className="mt-1 min-h-[12rem] min-w-0">
           <BooksGrouped
             books={filtered}
             groupBy={groupBy}

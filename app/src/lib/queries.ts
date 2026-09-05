@@ -35,7 +35,6 @@ export function listBooks(filters: BookQuery = {}): BookWithAuthor[] {
   if (filters.courant) conds.push(eq(books.courant, filters.courant));
   if (filters.period) conds.push(eq(books.period, filters.period));
   if (filters.audience) conds.push(eq(books.audience, filters.audience));
-  if (filters.worldview) conds.push(eq(books.worldview, filters.worldview));
   if (filters.authorId) conds.push(eq(books.authorId, filters.authorId));
 
   const dir = filters.dir === "desc" ? desc : asc;

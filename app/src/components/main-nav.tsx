@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 const tabs = [
   { href: "/livres", label: "Livres" },
   { href: "/auteurs", label: "Auteurs" },
+  { href: "/parcours", label: "Parcours" },
 ];
 
 function ThemeToggle() {

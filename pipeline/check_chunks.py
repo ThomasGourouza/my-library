@@ -23,13 +23,10 @@ CATEGORIES = {"Littérature", "Philosophie & psychologie", "Histoire",
 AUDIENCES = {"enfants", "adolescents", "adultes", "tous"}
 PERIODS = {"Antiquité", "Moyen Âge", "XVIe siècle", "XVIIe siècle",
            "XVIIIe siècle", "XIXe siècle", "XXe siècle", "XXIe siècle"}
-WORLDVIEWS = {"cynique", "chrétienne", "aristocratique", "classique",
-              "scientifique", "existentialiste", "géopolitique"}
-
 AUTHOR_FIELDS = {"key", "name", "birthYear", "deathYear", "nationality",
                  "language", "mainGenre", "mainField", "period", "notes"}
 BOOK_FIELDS = {"title", "authorKey", "category", "genre", "courant", "theme",
-               "period", "publicationYear", "audience", "worldview",
+               "period", "publicationYear", "audience",
                "originalLanguage", "notes", "enriched", "sourceSheets"}
 DROP_FIELDS = {"id", "raw", "reason"}
 
@@ -112,8 +109,6 @@ def check_chunk(path):
             errors.append(f"{ctx}: audience hors enum {b.get('audience')!r}")
         if b.get("period") is not None and b["period"] not in PERIODS:
             errors.append(f"{ctx}: period hors enum {b['period']!r}")
-        if b.get("worldview") is not None and b["worldview"] not in WORLDVIEWS:
-            errors.append(f"{ctx}: worldview hors enum {b['worldview']!r} (doit être null)")
         y = b.get("publicationYear")
         if y is not None and (not isinstance(y, int) or isinstance(y, bool) or not -3000 <= y <= 2026):
             errors.append(f"{ctx}: publicationYear invalide {y!r}")

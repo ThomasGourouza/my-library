@@ -14,6 +14,7 @@
 #   MAX_ATTEMPTS=5        ./run.sh "..."   # max relaunches before giving up
 #   MAX_API_RETRIES=4     ./run.sh "..."   # in-place retries on transient API errors
 #   API_RETRY_DELAY=180   ./run.sh "..."   # base delay (s) between those retries
+#   MAX_LIMIT_WAITS=24    ./run.sh "..."   # usage-limit waits (own budget, see below)
 #
 # WHAT IT DOES:
 #   - Runs `claude` fully autonomously and non-interactively. It is granted ALL
@@ -24,6 +25,10 @@
 #   - Streams readable logs to your terminal and to run.log.
 #   - Makes Claude write report.md describing everything it did.
 #   - Launches watchdog.sh in the background to auto-recover if the run stalls.
+#   - On a 5h usage limit: parks the run (status WAITING_LIMIT), sleeps until the
+#     window reopens (read from "resetsAt"), then resumes the same session. Those
+#     waits have their OWN budget, so a job spanning several windows never eats
+#     the retry budget reserved for network blips.
 #   - Prints a "DONE" banner (and fires a desktop notification) when finished.
 #
 # Artifacts for each run live under:  ./runs/<timestamp>-<task-slug>/
@@ -38,6 +43,12 @@ if [ -z "$TASK" ]; then
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Failure classification + limit-wait helpers, shared with watchdog.sh so the
+# two cannot drift apart. See the comments there for why the patterns are
+# shaped the way they are.
+# shellcheck source=lib-classify.sh
+source "$SCRIPT_DIR/lib-classify.sh"
 
 # --- resolve the run directory -----------------------------------------------
 if [ -n "${OUT_DIR:-}" ]; then
@@ -81,8 +92,10 @@ $TASK
   decisions on your own and keep going; NEVER ask a question or wait for human
   input. If something is ambiguous, pick the most sensible option and proceed.
 - You have ALL permissions. Use whatever tools, skills, and MCP servers you need.
-- If you must see or interact with a web UI, use the Playwright MCP
-  (the mcp__playwright__* tools) to drive a real browser.
+- If you must see or interact with a web UI, drive a real browser with the
+  npm `playwright` package from your scratchpad directory (the chromium build
+  is already cached). The mcp__playwright__* tools are NOT connected in a
+  headless run — do not wait on them.
 - SUBAGENTS: this is a headless one-shot run — ending your turn TERMINATES the
   whole process and KILLS any still-running background tasks (their work is
   lost). Task-completion notifications can NEVER re-invoke you here. Therefore
@@ -146,7 +159,10 @@ MODEL_ARG=()
 # FAILED (which costs a full watchdog diagnose+relaunch cycle per blip).
 MAX_API_RETRIES="${MAX_API_RETRIES:-4}"
 API_RETRY_DELAY="${API_RETRY_DELAY:-180}"      # base seconds; scaled by retry number
-USAGE_LIMIT_DELAY="${USAGE_LIMIT_DELAY:-900}"  # for 429 / usage-limit errors
+# A 5h usage limit is not an incident, it is a scheduled wait: it gets its own
+# budget so a job spanning several windows cannot exhaust the retry budget that
+# exists for genuine network failures.
+MAX_LIMIT_WAITS="${MAX_LIMIT_WAITS:-24}"
 
 # Stream through a FIFO so the live display ends cleanly the moment claude exits
 # (no lingering `tail -f`), while still capturing claude's own PID for the watchdog.
@@ -172,43 +188,46 @@ run_claude() {  # args are prepended claude flags/prompt, e.g.:  "$PROMPT"  or  
   rm -f "$FIFO"
 }
 
-RESUME_PROMPT="You were interrupted by a transient API/network error mid-response and the session has been resumed. Whatever you were generating when it dropped was NOT applied — briefly re-check on-disk/git state, then continue the task from where you left off. All standing instructions still apply (never wait for human input; launch Agent subagents with run_in_background: false; your FINAL action is writing the report)."
+RESUME_PROMPT="You were interrupted (transient API/network error, or a usage-limit window that has now reopened) and the session has been resumed. Whatever you were generating when it dropped was NOT applied — briefly re-check on-disk/git state, and if the task mentions a progress/checklist file, re-read it first to see exactly where you stopped. Then continue the task from where you left off. All standing instructions still apply (never wait for human input; launch Agent subagents with run_in_background: false; your FINAL action is writing the report)."
 
-try=1
+try=1          # budget « erreurs réseau »
+limit_waits=0  # budget « limites d'usage », volontairement distinct
 run_claude "$PROMPT"
-while [ "$RC" -ne 0 ] && [ ! -s "$REPORT" ] && [ "$try" -le "$MAX_API_RETRIES" ]; do
+while [ "$RC" -ne 0 ] && [ ! -s "$REPORT" ]; do
   # a failure after a long healthy stretch is a NEW incident — refill the
   # in-place retry budget instead of exhausting it across the whole run
   [ "${RUN_SECS:-0}" -ge 1800 ] && try=1
-  tail_txt=$(tail -c 4000 "$LOG")
-  # NOTE: healthy runs emit informational "rate_limit_event" lines, so check for
-  # hard connection errors first and require error-shaped limit messages below.
-  if printf '%s' "$tail_txt" | grep -qiE 'connection (closed|error|refused|reset)|ECONNRESET|ENOTFOUND|ETIMEDOUT|EAI_AGAIN|socket hang up|fetch failed|network error'; then
-    delay=$(( API_RETRY_DELAY * try ))
-  elif printf '%s' "$tail_txt" | grep -qiE 'usage limit|session limit|limit reached|rate_limit_error|"error":"rate_limit"|"status":"rejected"|api_error_status":(429|529)|API Error: (429|529)|overloaded_error'; then
-    # 5h-window limits announce their reset time in the stream-json
-    # ("resetsAt": epoch seconds). Sleep until then instead of burning
-    # retries — and ultimately watchdog relaunch attempts — against a hard wall.
-    delay="$USAGE_LIMIT_DELAY"
-    reset_at=$(printf '%s' "$tail_txt" | grep -o '"resetsAt":[0-9]*' | tail -1 | cut -d: -f2)
-    if [ -n "$reset_at" ]; then
-      wait_s=$(( reset_at - $(date +%s) + 90 ))
-      if [ "$wait_s" -gt "$delay" ] && [ "$wait_s" -le 21600 ]; then delay="$wait_s"; fi
-    fi
-  else
-    break  # not a recognized transient error — leave it to the watchdog to diagnose
-  fi
-  echo "⚠ Transient API/network error (exit=$RC). Retry $try/$MAX_API_RETRIES in ${delay}s..."
-  # sleep in slices, touching the log each time: a limit-reset wait can exceed
-  # STUCK_AFTER, and a stale log would make the watchdog kill a healthy wait
-  slept=0
-  while [ "$slept" -lt "$delay" ]; do
-    chunk=$(( delay - slept )); [ "$chunk" -gt 300 ] && chunk=300
-    sleep "$chunk"; slept=$(( slept + chunk ))
-    touch "$LOG"
-  done
+  case "$(classify_failure "$LOG")" in
+    transient)
+      [ "$try" -gt "$MAX_API_RETRIES" ] && break
+      delay=$(( API_RETRY_DELAY * try ))
+      echo "⚠ Transient API/network error (exit=$RC). Retry $try/$MAX_API_RETRIES in ${delay}s..."
+      try=$(( try + 1 ))
+      ;;
+    limit)
+      # 5h-window limits announce their reopening in the stream-json
+      # ("resetsAt"). Sleep until then instead of burning retries — and
+      # ultimately watchdog relaunch attempts — against a hard wall.
+      limit_waits=$(( limit_waits + 1 ))
+      if [ "$limit_waits" -gt "$MAX_LIMIT_WAITS" ]; then
+        echo "⛔ $MAX_LIMIT_WAITS usage-limit waits already spent — giving up."
+        break
+      fi
+      delay=$(limit_sleep_seconds "$LOG")
+      # Distinct status: the watchdog must WAIT here, not diagnose and relaunch —
+      # a diagnose pass would hit the very same wall and waste an attempt.
+      echo "WAITING_LIMIT" > "$STATUS"
+      resume_at=$(fmt_time "$(( $(date +%s) + delay ))")
+      echo "⏳ Usage limit reached (wait $limit_waits/$MAX_LIMIT_WAITS). Resuming around $resume_at (in ${delay}s)..."
+      notify "⏳ Usage limit reached — resuming around $resume_at"
+      ;;
+    *)
+      break  # unrecognized failure — leave it to the watchdog to diagnose
+      ;;
+  esac
+  sleep_touching_log "$delay" "$LOG"
+  echo "RUNNING" > "$STATUS"
   SESS=$(grep -o '"session_id":"[^"]*"' "$LOG" 2>/dev/null | tail -1 | cut -d'"' -f4)
-  try=$(( try + 1 ))
   if [ -n "$SESS" ]; then
     echo "↻ Resuming session $SESS..."
     run_claude --resume "$SESS" "$RESUME_PROMPT"

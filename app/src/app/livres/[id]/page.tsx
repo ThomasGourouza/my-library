@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBook } from "@/lib/queries";
+import { getRoadmapsForBook } from "@/lib/roadmaps/queries";
 import { formatLifespan, formatYear } from "@/lib/normalize";
-import { WORLDVIEW_LABELS, type Worldview } from "@/lib/validation";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -29,6 +29,7 @@ export default async function LivreDetailPage({
 
   const lifespan = formatLifespan(book.author.birthYear, book.author.deathYear);
   const year = formatYear(book.publicationYear);
+  const roadmaps = getRoadmapsForBook(book.id);
 
   return (
     <div className="space-y-6">
@@ -69,11 +70,6 @@ export default async function LivreDetailPage({
         {book.courant && <Badge variant="secondary">{book.courant}</Badge>}
         {book.period && <Badge variant="secondary">{book.period}</Badge>}
         <Badge variant="secondary">{capitalize(book.audience)}</Badge>
-        {book.worldview && (
-          <Badge variant="secondary">
-            {WORLDVIEW_LABELS[book.worldview as Worldview] ?? book.worldview}
-          </Badge>
-        )}
         {year && <Badge variant="secondary">{year}</Badge>}
         {book.enriched && <Badge variant="outline">Ajout Claude</Badge>}
       </div>
@@ -88,6 +84,36 @@ export default async function LivreDetailPage({
           </CardContent>
         </Card>
       )}
+
+      <section className="space-y-2">
+        <h2 className="text-lg font-semibold">
+          Parcours qui incluent ce livre ({roadmaps.length})
+        </h2>
+        {roadmaps.length === 0 ? (
+          <p className="text-sm text-muted-foreground">
+            Ce livre n’appartient encore à aucun parcours de lecture.
+          </p>
+        ) : (
+          <ul className="divide-y rounded-md border">
+            {roadmaps.map((r) => (
+              <li
+                key={r.slug}
+                className="flex flex-wrap items-center justify-between gap-2 px-3 py-2"
+              >
+                <Link
+                  href={`/parcours/${r.slug}`}
+                  className="text-sm font-medium hover:underline"
+                >
+                  {r.title}
+                </Link>
+                <span className="text-xs text-muted-foreground">
+                  n°{r.position} du parcours
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <AnalysisPanel book={book} />
     </div>

@@ -18,13 +18,10 @@ CATEGORIES = {"Littérature", "Philosophie & psychologie", "Histoire",
 AUDIENCES = {"enfants", "adolescents", "adultes", "tous"}
 PERIODS = {"Antiquité", "Moyen Âge", "XVIe siècle", "XVIIe siècle",
            "XVIIIe siècle", "XIXe siècle", "XXe siècle", "XXIe siècle"}
-WORLDVIEWS = {"cynique", "chrétienne", "aristocratique", "classique",
-              "scientifique", "existentialiste", "géopolitique"}
-
 AUTHOR_FIELDS = {"key", "name", "birthYear", "deathYear", "nationality",
                  "language", "mainGenre", "mainField", "period", "notes"}
 BOOK_FIELDS = {"title", "authorKey", "category", "genre", "courant", "theme",
-               "period", "publicationYear", "audience", "worldview",
+               "period", "publicationYear", "audience",
                "originalLanguage", "notes", "enriched"}
 
 
@@ -97,8 +94,6 @@ def main():
             errors.append(f"{ctx}: audience hors enum {b.get('audience')!r}")
         if b.get("period") is not None and b["period"] not in PERIODS:
             errors.append(f"{ctx}: period hors enum {b['period']!r}")
-        if b.get("worldview") is not None and b["worldview"] not in WORLDVIEWS:
-            errors.append(f"{ctx}: worldview hors enum {b['worldview']!r}")
         y = b.get("publicationYear")
         if y is not None and (not isinstance(y, int) or not -3000 <= y <= 2026):
             errors.append(f"{ctx}: publicationYear invalide {y!r}")
@@ -129,9 +124,8 @@ def main():
         errors.append(f"volume livres hors fenêtre 800–2400 : {len(books)}")
 
     print(f"seed : {len(authors)} auteurs, {len(books)} livres")
-    wv = sum(1 for b in books if b.get("worldview"))
     en = sum(1 for b in books if b.get("enriched"))
-    print(f"       {wv} livres avec worldview, {en} livres enrichis")
+    print(f"       {en} livres enrichis")
 
     print("\nÉchantillon de 20 livres :")
     name_by_key = {a["key"]: a["name"] for a in authors}

@@ -7,5 +7,6 @@ node_modules/
 .~lock*
 .DS_Store
 pipeline/output/
-claude-auto/
+__pycache__/
+claude-auto/runs/
 npm-debug.log*

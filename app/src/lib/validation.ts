@@ -17,27 +17,6 @@ export type Category = (typeof CATEGORIES)[number];
 export const AUDIENCES = ["enfants", "adolescents", "adultes", "tous"] as const;
 export type Audience = (typeof AUDIENCES)[number];
 
-export const WORLDVIEWS = [
-  "cynique",
-  "chrétienne",
-  "aristocratique",
-  "classique",
-  "scientifique",
-  "existentialiste",
-  "géopolitique",
-] as const;
-export type Worldview = (typeof WORLDVIEWS)[number];
-
-export const WORLDVIEW_LABELS: Record<Worldview, string> = {
-  cynique: "Cynique / lucide désenchantée",
-  chrétienne: "Chrétienne / tragique",
-  aristocratique: "Aristocratique / héroïque",
-  classique: "Classique / mesure et raison",
-  scientifique: "Scientifique / matérialiste",
-  existentialiste: "Existentialiste / liberté radicale",
-  géopolitique: "Géopolitique / puissance et civilisation",
-};
-
 export const PERIODS = [
   "Antiquité",
   "Moyen Âge",
@@ -85,7 +64,6 @@ export const bookInputSchema = z
     period: z.enum(PERIODS).nullish(),
     publicationYear: yearSchema.nullish(),
     audience: z.enum(AUDIENCES).default("adultes"),
-    worldview: z.enum(WORLDVIEWS).nullish(),
     originalLanguage: z.string().trim().max(100).nullish(),
     notes: z.string().trim().max(4000).nullish(),
   })
@@ -107,7 +85,6 @@ export const bookUpdateSchema = z.object({
   period: z.enum(PERIODS).nullish(),
   publicationYear: yearSchema.nullish(),
   audience: z.enum(AUDIENCES).optional(),
-  worldview: z.enum(WORLDVIEWS).nullish(),
   originalLanguage: z.string().trim().max(100).nullish(),
   notes: z.string().trim().max(4000).nullish(),
 });
@@ -131,7 +108,6 @@ export const bookQuerySchema = z.object({
   courant: z.string().trim().max(150).optional(),
   period: z.enum(PERIODS).optional(),
   audience: z.enum(AUDIENCES).optional(),
-  worldview: z.enum(WORLDVIEWS).optional(),
   authorId: z.coerce.number().int().positive().optional(),
   sort: z.enum(bookSortKeys).optional(),
   dir: z.enum(["asc", "desc"]).optional(),

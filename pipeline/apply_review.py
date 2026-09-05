@@ -10,14 +10,13 @@ review-decisions.json :
   "genreMap":       {"<genre brut>": "<genre canonique>", ...},  # couvre TOUS les genres
   "authorMerges":   [{"keep": "<key>", "drop": "<key>", "reason": "..."}],
   "bookMerges":     [{"authorKey": "<key>", "keepTitle": "...", "dropTitle": "...", "reason": "..."}],
-  "worldviewFixes": [{"authorKey": "<key>", "title": "...", "worldview": "<enum>"}],
   "bookDrops":      [{"authorKey": "<key>", "title": "...", "reason": "..."}],
   "notes": "..."
 }
 
 Le script fusionne les auteurs (repointe + re-dédoublonne les livres), fusionne
 les livres quasi-doublons, applique la carte des genres (livres ET mainGenre
-auteur), rattache les worldviews, supprime les livres-déchets, retire
+auteur), supprime les livres-déchets, retire
 sourceSheets, élague les auteurs sans livre, puis écrit les fichiers seed.
 """
 import json
@@ -37,7 +36,7 @@ BOOK_MERGE_FIELDS = ["category", "genre", "courant", "theme", "period",
                      "publicationYear", "audience", "originalLanguage", "notes"]
 SEED_BOOK_FIELDS = ["title", "authorKey", "category", "genre", "courant",
                     "theme", "period", "publicationYear", "audience",
-                    "worldview", "originalLanguage", "notes", "enriched"]
+                    "originalLanguage", "notes", "enriched"]
 
 
 def norm_key(s):
@@ -54,7 +53,6 @@ def merge_two_books(a, c):
         out[f] = a.get(f) if a.get(f) is not None else c.get(f)
     if a.get("audience") == "adultes" and c.get("audience") not in (None, "adultes"):
         out["audience"] = c["audience"]
-    out["worldview"] = a.get("worldview") or c.get("worldview")
     out["enriched"] = bool(a.get("enriched")) and bool(c.get("enriched"))
     out["sourceSheets"] = list(dict.fromkeys(
         (a.get("sourceSheets") or []) + (c.get("sourceSheets") or [])))
@@ -153,28 +151,7 @@ def main():
     log.append(f"genres distincts après map: {len(distinct)}")
 
     # ------------------------------------------------------------------
-    # 6. Rattachement des worldviews restantes
-    # ------------------------------------------------------------------
-    by_author = defaultdict(list)
-    for b in books:
-        by_author[b["authorKey"]].append(b)
-    for w in dec.get("worldviewFixes", []):
-        ak = res(w["authorKey"])
-        tgt_n = norm_key(w["title"])
-        cand = by_author.get(ak, [])
-        hit = next((b for b in cand if norm_key(b["title"]) == tgt_n), None)
-        if hit is None and cand:
-            best = max(cand, key=lambda b: SequenceMatcher(None, norm_key(b["title"]), tgt_n).ratio())
-            if SequenceMatcher(None, norm_key(best["title"]), tgt_n).ratio() >= 0.8:
-                hit = best
-        if hit is not None:
-            hit["worldview"] = w["worldview"]
-            log.append(f"worldview[{ak}] «{hit['title']}» = {w['worldview']}")
-        else:
-            log.append(f"worldviewFix non rattaché: {ak} / {w['title']}")
-
-    # ------------------------------------------------------------------
-    # 7. Élaguer les auteurs sans livre ; écrire les fichiers seed
+    # 6. Élaguer les auteurs sans livre ; écrire les fichiers seed
     # ------------------------------------------------------------------
     used = {b["authorKey"] for b in books}
     for k in list(authors):

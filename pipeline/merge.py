@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Merge déterministe des chunks nettoyés.
 
-Entrées : output/cleaned/chunk-*.json (+ output/raw/worldviews.json)
+Entrées : output/cleaned/chunk-*.json
 Sorties : output/merged.json          — auteurs + livres fusionnés
           output/near-duplicates.json — paires suspectes pour revue finale
           output/genre-inventory.json — inventaire des genres (harmonisation)
@@ -12,7 +12,6 @@ Règles :
   sinon premier non-null ; le nom le plus fréquent l'emporte.
 - Livres dédupliqués sur (clé auteur canonique, titre normalisé) ;
   enriched=False si au moins une copie vient réellement des données.
-- Worldviews appliquées depuis le .md (titre normalisé + auteur).
 - Near-dups : SequenceMatcher >= 0.90 sur titres d'un même auteur,
   >= 0.92 sur noms d'auteurs (tolérant aux initiales).
 """
@@ -123,33 +122,9 @@ def main():
         # audience : la plus spécifique l'emporte sur le défaut « adultes »
         if a.get("audience") == "adultes" and c.get("audience") not in (None, "adultes"):
             out["audience"] = c["audience"]
-        out["worldview"] = None
         out["enriched"] = bool(a.get("enriched")) and bool(c.get("enriched"))
         out["sourceSheets"] = list(dict.fromkeys(a["sourceSheets"] + c["sourceSheets"]))
         merged_books[bid] = out
-
-    # ------------------------------------------------------------------
-    # 5. Worldviews depuis le .md (titre normalisé, auteur vérifié)
-    # ------------------------------------------------------------------
-    worldviews = json.loads((OUT / "raw" / "worldviews.json").read_text(encoding="utf-8"))
-    books_by_title = defaultdict(list)
-    for (ak, nt), b in merged_books.items():
-        books_by_title[nt].append((ak, b))
-    unmatched = []
-    for group in worldviews:
-        wv = group["worldview"]
-        for e in group["entries"]:
-            nt, na = norm_key(e["title"]), norm_key(e["author"])
-            hit = None
-            for ak, b in books_by_title.get(nt, []):
-                an = norm_key(merged_authors[ak]["name"])
-                if na in an or an in na or SequenceMatcher(None, na, an).ratio() >= 0.7:
-                    hit = b
-                    break
-            if hit is not None:
-                hit["worldview"] = wv
-            else:
-                unmatched.append({"worldview": wv, **e})
 
     # ------------------------------------------------------------------
     # 6. Near-dups pour la revue finale
@@ -190,17 +165,14 @@ def main():
         json.dumps({"authors": authors_list, "books": books_list},
                    ensure_ascii=False, indent=1), encoding="utf-8")
     (OUT / "near-duplicates.json").write_text(
-        json.dumps({"books": near_books, "authors": near_authors,
-                    "worldviewsUnmatched": unmatched},
+        json.dumps({"books": near_books, "authors": near_authors},
                    ensure_ascii=False, indent=1), encoding="utf-8")
     genres = Counter(b["genre"] for b in books_list if b.get("genre"))
     (OUT / "genre-inventory.json").write_text(
         json.dumps(dict(genres.most_common()), ensure_ascii=False, indent=1),
         encoding="utf-8")
 
-    wv_count = sum(1 for b in books_list if b["worldview"])
     print(f"merged.json : {len(authors_list)} auteurs, {len(books_list)} livres")
-    print(f"worldviews  : {wv_count} appliquées, {len(unmatched)} non trouvées")
     print(f"near-dups   : {len(near_books)} titres, {len(near_authors)} auteurs")
     print(f"genres      : {len(genres)} distincts")
 

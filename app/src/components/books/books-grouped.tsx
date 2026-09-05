@@ -41,8 +41,8 @@ export function BooksGrouped({
   );
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-center gap-2">
+    <div className="flex h-full min-h-0 flex-col gap-3">
+      <div className="flex shrink-0 items-center gap-2">
         <span className="text-sm text-muted-foreground">Grouper par</span>
         <Select
           value={groupBy}
@@ -62,7 +62,7 @@ export function BooksGrouped({
       </div>
 
       {groups.length === 0 ? (
-        <div className="rounded-md border p-6 text-center text-sm text-muted-foreground">
+        <div className="min-h-0 flex-1 overflow-y-auto rounded-md border p-6 text-center text-sm text-muted-foreground">
           Aucun livre ne correspond aux critères.
         </div>
       ) : (
@@ -70,7 +70,7 @@ export function BooksGrouped({
           key={groupBy}
           type="multiple"
           defaultValue={defaultOpen}
-          className="rounded-md border px-3"
+          className="min-h-0 flex-1 overflow-y-auto rounded-md border px-3"
         >
           {groups.map((group) => (
             <AccordionItem key={group.key} value={group.key}>

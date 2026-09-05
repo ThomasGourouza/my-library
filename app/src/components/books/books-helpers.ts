@@ -4,7 +4,7 @@
  * (schema/validation/normalize/queries) : uniquement de la logique UI.
  */
 import type { BookWithAuthor } from "@/db/schema";
-import { PERIODS, WORLDVIEW_LABELS, type Worldview } from "@/lib/validation";
+import { PERIODS } from "@/lib/validation";
 
 /** Rang chronologique d'une période (chiffres romains → index de l'enum).
  *  Les valeurs inconnues/nulles vont en fin. */
@@ -32,8 +32,7 @@ export type GroupByKey =
   | "genre"
   | "period"
   | "category"
-  | "audience"
-  | "worldview";
+  | "audience";
 
 export const GROUP_OPTIONS: { value: GroupByKey; label: string }[] = [
   { value: "author", label: "Auteur" },
@@ -41,7 +40,6 @@ export const GROUP_OPTIONS: { value: GroupByKey; label: string }[] = [
   { value: "period", label: "Période" },
   { value: "category", label: "Catégorie" },
   { value: "audience", label: "Public" },
-  { value: "worldview", label: "Vision du monde" },
 ];
 
 const GROUP_KEYS = GROUP_OPTIONS.map((g) => g.value);
@@ -59,8 +57,8 @@ export type FilterKey =
   | "genre"
   | "period"
   | "audience"
-  | "worldview"
-  | "courant";
+  | "courant"
+  | "roadmap";
 
 export type Filters = Record<FilterKey, string[]>;
 
@@ -69,8 +67,8 @@ export const FILTER_KEYS: FilterKey[] = [
   "genre",
   "period",
   "audience",
-  "worldview",
   "courant",
+  "roadmap",
 ];
 
 export const EMPTY_FILTERS: Filters = {
@@ -78,8 +76,8 @@ export const EMPTY_FILTERS: Filters = {
   genre: [],
   period: [],
   audience: [],
-  worldview: [],
   courant: [],
+  roadmap: [],
 };
 
 export const FILTER_LABELS: Record<FilterKey, string> = {
@@ -87,8 +85,8 @@ export const FILTER_LABELS: Record<FilterKey, string> = {
   genre: "Genre",
   period: "Période",
   audience: "Public",
-  worldview: "Vision du monde",
   courant: "Courant",
+  roadmap: "Parcours",
 };
 
 // ---------------------------------------------------------------------------
@@ -100,9 +98,13 @@ export const SORTABLE_COLUMNS = [
   "author",
   "category",
   "genre",
+  "courant",
+  "theme",
   "period",
+  "publicationYear",
+  "originalLanguage",
   "audience",
-  "worldview",
+  "roadmaps",
 ] as const;
 export type SortableColumn = (typeof SORTABLE_COLUMNS)[number];
 
@@ -117,16 +119,6 @@ export function isSortableColumn(id: string): id is SortableColumn {
 /** Majuscule initiale (public, vision du monde en version compacte). */
 export function capitalize(s: string): string {
   return s.length ? s.charAt(0).toUpperCase() + s.slice(1) : s;
-}
-
-/** Libellé compact affiché dans les badges/cellules de tableau. */
-export function worldviewShortLabel(w: string): string {
-  return capitalize(w);
-}
-
-/** Libellé complet affiché dans les menus de filtre, puces actives et groupes. */
-export function worldviewFullLabel(w: string): string {
-  return WORLDVIEW_LABELS[w as Worldview] ?? w;
 }
 
 // ---------------------------------------------------------------------------
@@ -151,13 +143,10 @@ function rawGroupValue(book: BookWithAuthor, key: GroupByKey): string | null {
       return book.category;
     case "audience":
       return book.audience;
-    case "worldview":
-      return book.worldview;
   }
 }
 
 function groupLabel(raw: string, key: GroupByKey): string {
-  if (key === "worldview") return worldviewFullLabel(raw);
   if (key === "audience") return capitalize(raw);
   return raw;
 }

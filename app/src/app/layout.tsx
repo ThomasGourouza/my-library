@@ -43,6 +43,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <MainNav />
+          {/* La hauteur de l'en-tête (h-14) et le padding vertical de <main>
+              (py-6) sont repris par --app-content-h dans globals.css : les
+              modifier ici impose de mettre cette variable à jour. */}
           <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6">
             {children}
           </main>

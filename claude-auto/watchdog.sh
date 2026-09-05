@@ -15,11 +15,18 @@
 #                         # 10-20+ min of legitimate silence. 600s kills
 #                         # healthy runs mid-write.
 #   MAX_ATTEMPTS=5        # max relaunches before giving up permanently
+#   MAX_LIMIT_WAITS=24    # max 5h-usage-limit waits (own budget, see below)
 #
 # WHAT IT DOES (pure automation, nothing interactive):
 #   Every CHECK_INTERVAL seconds it inspects the run:
 #     - status == DONE              -> notify, print "DONE", exit 0.
 #     - attempts exhausted          -> mark FAILED_PERMANENT, notify, exit 1.
+#     - status == WAITING_LIMIT     -> run.sh is already sleeping until the usage
+#                                      window reopens; leave it alone.
+#     - trouble caused by a 5h USAGE LIMIT -> wait until the window reopens, then
+#       relaunch WITHOUT consuming an attempt and WITHOUT the diagnose pass. A
+#       usage limit is not a bug: diagnosing it would hit the same wall and burn
+#       an attempt for nothing. This is what used to force manual restarts.
 #     - status == FAILED, OR running but run.log has been silent for STUCK_AFTER
 #       seconds (i.e. stuck):
 #         1. kill the stuck claude process,
@@ -34,9 +41,14 @@ set -uo pipefail
 RUN_DIR="${1:?Usage: watchdog.sh <run-dir>}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Shared with run.sh so both agree on what a usage limit actually looks like.
+# shellcheck source=lib-classify.sh
+source "$SCRIPT_DIR/lib-classify.sh"
+
 CHECK_INTERVAL="${CHECK_INTERVAL:-120}"
 STUCK_AFTER="${STUCK_AFTER:-2400}"
 MAX_ATTEMPTS="${MAX_ATTEMPTS:-5}"
+MAX_LIMIT_WAITS="${MAX_LIMIT_WAITS:-24}"
 
 LOG="$RUN_DIR/run.log"
 STATUS="$RUN_DIR/status"
@@ -59,6 +71,8 @@ mtime() {
 read_status()  { cat "$STATUS"      2>/dev/null || echo "UNKNOWN"; }
 read_attempt() { cat "$ATTEMPT_FILE" 2>/dev/null || echo "1"; }
 
+limit_waits=$(cat "$RUN_DIR/limit_waits" 2>/dev/null || echo 0)
+
 echo "👁  Watchdog started for: $RUN_DIR  (interval=${CHECK_INTERVAL}s, stuck_after=${STUCK_AFTER}s, max_attempts=${MAX_ATTEMPTS})"
 
 while true; do
@@ -75,6 +89,11 @@ while true; do
   if [ "$st" = "FAILED_PERMANENT" ]; then
     echo "⛔ Already marked FAILED_PERMANENT — watchdog exiting."
     exit 1
+  fi
+
+  # run.sh handles the wait itself while it is still alive: stay out of its way.
+  if [ "$st" = "WAITING_LIMIT" ]; then
+    continue
   fi
 
   attempt=$(read_attempt)
@@ -96,6 +115,39 @@ while true; do
   fi
 
   [ "$trouble" -eq 0 ] && continue
+
+  # --- a usage limit is a wait, not a failure -------------------------------
+  # Relaunch when the window reopens, without spending an attempt and without
+  # the diagnose pass (which would hit the very same wall).
+  if [ "$(classify_failure "$LOG")" = "limit" ]; then
+    limit_waits=$(( limit_waits + 1 ))
+    if [ "$limit_waits" -gt "$MAX_LIMIT_WAITS" ]; then
+      echo "FAILED_PERMANENT" > "$STATUS"
+      notify "⛔ Giving up after $MAX_LIMIT_WAITS usage-limit waits: $TASK"
+      exit 1
+    fi
+
+    pid=$(cat "$MAIN_PID_FILE" 2>/dev/null || echo "")
+    if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+      kill "$pid" 2>/dev/null || true; sleep 5; kill -9 "$pid" 2>/dev/null || true
+    fi
+
+    delay=$(limit_sleep_seconds "$LOG")
+
+    echo "WAITING_LIMIT" > "$STATUS"
+    echo "$limit_waits" > "$RUN_DIR/limit_waits"
+    resume_at=$(fmt_time "$(( $(date +%s) + delay ))")
+    notify "⏳ Usage limit reached — auto-resuming around $resume_at"
+    echo "⏳ Usage limit (wait $limit_waits/$MAX_LIMIT_WAITS). Sleeping ${delay}s, resuming around $resume_at."
+
+    sleep_touching_log "$delay" "$LOG"
+
+    echo "🔁 Window reopened — relaunching (attempt $attempt, unchanged)..."
+    OUT_DIR="$RUN_DIR" NO_WATCHDOG=1 ATTEMPT="$attempt" \
+      nohup "$SCRIPT_DIR/run.sh" "$TASK" >> "$RUN_DIR/run.terminal.log" 2>&1 &
+    sleep 5
+    continue
+  fi
 
   # --- give up if we've tried too many times --------------------------------
   if [ "$attempt" -ge "$MAX_ATTEMPTS" ]; then

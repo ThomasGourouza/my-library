@@ -1,6 +1,5 @@
 import type { Author, Book } from "@/db/schema";
 import { formatLifespan, formatYear } from "@/lib/normalize";
-import { WORLDVIEW_LABELS, type Worldview } from "@/lib/validation";
 
 /** Résultat structuré attendu de l'agent (voir buildSchema). */
 export interface AnalysisResult {
@@ -77,10 +76,6 @@ export function buildPrompt(
   includeBio: boolean
 ): string {
   const lifespan = formatLifespan(author.birthYear, author.deathYear);
-  const worldview = book.worldview
-    ? WORLDVIEW_LABELS[book.worldview as Worldview] ?? book.worldview
-    : null;
-
   let p = `Tu es un critique littéraire et un historien des idées francophone, précis et honnête.
 
 Livre de ma bibliothèque personnelle :
@@ -93,14 +88,12 @@ ${metaLine("Catégorie", book.category)}${metaLine("Genre", book.genre)}${metaLi
     "Première publication",
     book.publicationYear != null ? formatYear(book.publicationYear) : null
   )}${metaLine("Langue originale", book.originalLanguage)}${metaLine(
-    "Vision du monde",
-    worldview
-  )}${metaLine("Notes", book.notes)}
+    "Notes",
+    book.notes
+  )}
 Rédige, en FRANÇAIS uniquement :
 1. \`summary\` — un résumé de l'œuvre (~200 mots) : propos, contenu, structure.
-2. \`analysis\` — une analyse approfondie (~500 mots) : contexte historique et intellectuel, thèmes majeurs, style, portée et postérité, place dans l'œuvre de l'auteur${
-    worldview ? ", et lien avec la vision du monde indiquée" : ""
-  }.`;
+2. \`analysis\` — une analyse approfondie (~500 mots) : contexte historique et intellectuel, thèmes majeurs, style, portée et postérité, place dans l'œuvre de l'auteur.`;
 
   if (includeBio) {
     p += `

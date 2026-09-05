@@ -12,8 +12,6 @@ import {
   AUDIENCES,
   CATEGORIES,
   PERIODS,
-  WORLDVIEWS,
-  WORLDVIEW_LABELS,
 } from "@/lib/validation";
 import { normalizeKey } from "@/lib/normalize";
 import { cn } from "@/lib/utils";
@@ -98,7 +96,6 @@ const bookFormSchema = z
       .refine((v) => (AUDIENCES as readonly string[]).includes(v), {
         message: "Public invalide",
       }),
-    worldview: z.string().transform((v) => (v === "" || v === NONE ? null : v)),
     notes: optionalText(4000),
   })
   .refine(
@@ -256,7 +253,6 @@ export function BookForm({
       publicationYear:
         book?.publicationYear != null ? String(book.publicationYear) : "",
       audience: book?.audience ?? "adultes",
-      worldview: book?.worldview ?? NONE,
       notes: book?.notes ?? "",
     },
   });
@@ -303,7 +299,6 @@ export function BookForm({
       period: data.period,
       publicationYear: data.publicationYear,
       audience: data.audience,
-      worldview: data.worldview,
       notes: data.notes,
       ...(data.authorId != null
         ? { authorId: data.authorId }
@@ -471,29 +466,6 @@ export function BookForm({
               {form.formState.errors.publicationYear.message}
             </p>
           )}
-        </div>
-
-        <div className="space-y-1.5 sm:col-span-2">
-          <Label htmlFor="worldview">Vision du monde</Label>
-          <Controller
-            control={form.control}
-            name="worldview"
-            render={({ field }) => (
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger id="worldview" className="w-full">
-                  <SelectValue placeholder="Sélectionner…" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value={NONE}>—</SelectItem>
-                  {WORLDVIEWS.map((w) => (
-                    <SelectItem key={w} value={w}>
-                      {WORLDVIEW_LABELS[w]}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            )}
-          />
         </div>
       </div>
 

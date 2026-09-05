@@ -113,7 +113,6 @@ export async function POST(request: NextRequest) {
         period: data.period ?? null,
         publicationYear: data.publicationYear ?? null,
         audience: data.audience,
-        worldview: data.worldview ?? null,
         originalLanguage: data.originalLanguage ?? null,
         notes: data.notes ?? null,
       })

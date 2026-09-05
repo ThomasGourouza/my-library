@@ -1,5 +1,6 @@
 import * as React from "react";
-import { listBooks, getFilterOptions } from "@/lib/queries";
+import { getFilterOptions } from "@/lib/queries";
+import { listBooksWithRoadmaps } from "@/lib/roadmaps/queries";
 import { BooksView } from "@/components/books/books-view";
 
 export const dynamic = "force-dynamic";
@@ -7,7 +8,7 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Livres" };
 
 export default function LivresPage() {
-  const books = listBooks();
+  const books = listBooksWithRoadmaps();
   const options = getFilterOptions();
 
   return (

@@ -54,7 +54,6 @@ export const books = sqliteTable(
     period: text("period"),
     publicationYear: integer("publication_year"),
     audience: text("audience").notNull().default("adultes"),
-    worldview: text("worldview"),
     originalLanguage: text("original_language"),
     notes: text("notes"),
     // générés par « Analyse Claude »
@@ -75,7 +74,6 @@ export const books = sqliteTable(
     index("books_author_idx").on(t.authorId),
     index("books_category_idx").on(t.category),
     index("books_period_idx").on(t.period),
-    index("books_worldview_idx").on(t.worldview),
     index("books_audience_idx").on(t.audience),
   ]
 );

@@ -36,7 +36,6 @@ interface SeedBook {
   period?: string | null;
   publicationYear?: number | null;
   audience?: string | null;
-  worldview?: string | null;
   originalLanguage?: string | null;
   notes?: string | null;
   enriched?: boolean;
@@ -55,9 +54,9 @@ const FIXTURE_BOOKS: SeedBook[] = [
   { title: "L’Odyssée", authorKey: "homere", category: "Littérature", genre: "Épopée", period: "Antiquité", audience: "tous", originalLanguage: "grec ancien" },
   { title: "Crime et Châtiment", authorKey: "fedor-dostoievski", category: "Littérature", genre: "Roman", period: "XIXe siècle", publicationYear: 1866, originalLanguage: "russe" },
   { title: "Les Frères Karamazov", authorKey: "fedor-dostoievski", category: "Littérature", genre: "Roman", period: "XIXe siècle", publicationYear: 1880, originalLanguage: "russe" },
-  { title: "L’Étranger", authorKey: "albert-camus", category: "Littérature", genre: "Roman", courant: "Absurde", period: "XXe siècle", publicationYear: 1942, worldview: "existentialiste", originalLanguage: "français" },
-  { title: "Le Mythe de Sisyphe", authorKey: "albert-camus", category: "Philosophie & psychologie", genre: "Essai", courant: "Absurde", period: "XXe siècle", publicationYear: 1942, worldview: "existentialiste", originalLanguage: "français" },
-  { title: "Réflexions ou sentences et maximes morales", authorKey: "francois-de-la-rochefoucauld", category: "Philosophie & psychologie", genre: "Maximes", period: "XVIIe siècle", publicationYear: 1665, worldview: "cynique", originalLanguage: "français" },
+  { title: "L’Étranger", authorKey: "albert-camus", category: "Littérature", genre: "Roman", courant: "Absurde", period: "XXe siècle", publicationYear: 1942, originalLanguage: "français" },
+  { title: "Le Mythe de Sisyphe", authorKey: "albert-camus", category: "Philosophie & psychologie", genre: "Essai", courant: "Absurde", period: "XXe siècle", publicationYear: 1942, originalLanguage: "français" },
+  { title: "Réflexions ou sentences et maximes morales", authorKey: "francois-de-la-rochefoucauld", category: "Philosophie & psychologie", genre: "Maximes", period: "XVIIe siècle", publicationYear: 1665, originalLanguage: "français" },
   { title: "Contes de ma mère l’Oye", authorKey: "charles-perrault", category: "Littérature", genre: "Conte", period: "XVIIe siècle", publicationYear: 1697, audience: "enfants", originalLanguage: "français" },
 ];
 
@@ -149,7 +148,6 @@ function main() {
             period: b.period ?? null,
             publicationYear: b.publicationYear ?? null,
             audience: b.audience ?? "adultes",
-            worldview: b.worldview ?? null,
             originalLanguage: b.originalLanguage ?? null,
             notes: b.notes ?? null,
             enriched: b.enriched ?? false,

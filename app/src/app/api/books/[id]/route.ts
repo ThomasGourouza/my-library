@@ -114,7 +114,6 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
   if (data.publicationYear !== undefined)
     updates.publicationYear = data.publicationYear ?? null;
   if (data.audience !== undefined) updates.audience = data.audience;
-  if (data.worldview !== undefined) updates.worldview = data.worldview ?? null;
   if (data.originalLanguage !== undefined)
     updates.originalLanguage = data.originalLanguage ?? null;
   if (data.notes !== undefined) updates.notes = data.notes ?? null;

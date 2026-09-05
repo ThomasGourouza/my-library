@@ -1,0 +1,25 @@
+/**
+ * Registre des parcours.
+ *
+ * Un fichier par parcours dans `data/`, importé ici dans l'ordre d'affichage.
+ * Ajouter un parcours = créer le fichier puis l'ajouter à cette liste ; le test
+ * `roadmaps.test.ts` vérifie ensuite que ses entrées existent en bibliothèque et
+ * que l'ensemble couvre bien tous les livres.
+ */
+import type { Roadmap } from "./types";
+
+import { lireAvecLesToutPetits } from "./data/lire-avec-les-tout-petits";
+import { classiquesDeLEnfance } from "./data/classiques-de-l-enfance";
+
+export const ROADMAPS: Roadmap[] = [
+  lireAvecLesToutPetits,
+  classiquesDeLEnfance,
+];
+
+const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));
+
+export function getRoadmap(slug: string): Roadmap | undefined {
+  return BY_SLUG.get(slug);
+}
+
+export * from "./types";

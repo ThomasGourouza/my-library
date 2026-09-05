@@ -117,6 +117,14 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* Hauteur disponible à l'intérieur de <main>, sous l'en-tête (cf. app/layout.tsx :
+   en-tête h-14 = 3.5rem + 1px de bordure, padding vertical de <main> py-6 =
+   2 x 1.5rem). Permet à une page de remplir l'écran et de gérer son propre
+   défilement plutôt que de faire défiler la fenêtre. */
+:root {
+  --app-content-h: calc(100dvh - 3.5rem - 1px - 3rem);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

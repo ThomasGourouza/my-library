@@ -18,7 +18,7 @@ PERIODS = {"Antiquité", "Moyen Âge", "XVIe siècle", "XVIIe siècle",
 AUTHOR_FIELDS = {"key", "name", "birthYear", "deathYear", "nationality",
                  "language", "mainGenre", "mainField", "period", "notes"}
 BOOK_FIELDS = {"title", "authorKey", "category", "genre", "courant", "theme",
-               "period", "publicationYear", "audience", "worldview",
+               "period", "publicationYear", "audience",
                "originalLanguage", "notes", "enriched", "sourceSheets"}
 
 
@@ -100,8 +100,6 @@ def validate(path: Path):
             errors.append(f"{ctx}: audience hors enum: {b.get('audience')!r}")
         if b.get("period") is not None and b["period"] not in PERIODS:
             errors.append(f"{ctx}: period hors enum: {b['period']!r}")
-        if b.get("worldview") is not None:
-            errors.append(f"{ctx}: worldview doit rester null (appliqué au merge)")
         check_year(errors, ctx, "publicationYear", b.get("publicationYear"))
         if not isinstance(b.get("enriched"), bool):
             errors.append(f"{ctx}: enriched doit être bool")
