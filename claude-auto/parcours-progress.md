@@ -42,7 +42,7 @@ de 5 h et redémarrer des heures plus tard.
 ### Jeunesse et famille
 - [x] `lire-avec-les-tout-petits` — 3-7 ans — 19 livres
 - [x] `classiques-de-l-enfance` — 7-12 ans — 20 livres
-- [ ] `premiers-grands-romans` — 12-16 ans — `audience='tous'` + classiques abordables
+- [x] `premiers-grands-romans` — 12-16 ans — `audience='tous'` + classiques abordables
 
 ### Littérature française
 - [ ] `sources-moyen-age-renaissance` — Littérature, Moyen Âge + XVIe siècle

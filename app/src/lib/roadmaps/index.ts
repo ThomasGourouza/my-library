@@ -10,10 +10,12 @@ import type { Roadmap } from "./types";
 
 import { lireAvecLesToutPetits } from "./data/lire-avec-les-tout-petits";
 import { classiquesDeLEnfance } from "./data/classiques-de-l-enfance";
+import { premiersGrandsRomans } from "./data/premiers-grands-romans";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
   classiquesDeLEnfance,
+  premiersGrandsRomans,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));
