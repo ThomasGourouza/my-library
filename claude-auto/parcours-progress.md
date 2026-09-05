@@ -45,7 +45,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `premiers-grands-romans` — 12-16 ans — `audience='tous'` + classiques abordables
 
 ### Littérature française
-- [ ] `sources-moyen-age-renaissance` — Littérature, Moyen Âge + XVIe siècle
+- [x] `sources-moyen-age-renaissance` — Littérature, Moyen Âge + XVIe siècle
 - [ ] `le-grand-siecle` — Littérature, XVIIe siècle
 - [ ] `lumieres-litteraires` — Littérature, XVIIIe siècle
 - [ ] `romantisme-francais` — Littérature, XIXe, romantisme/symbolisme

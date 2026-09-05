@@ -11,11 +11,13 @@ import type { Roadmap } from "./types";
 import { lireAvecLesToutPetits } from "./data/lire-avec-les-tout-petits";
 import { classiquesDeLEnfance } from "./data/classiques-de-l-enfance";
 import { premiersGrandsRomans } from "./data/premiers-grands-romans";
+import { sourcesMoyenAgeRenaissance } from "./data/sources-moyen-age-renaissance";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
   classiquesDeLEnfance,
   premiersGrandsRomans,
+  sourcesMoyenAgeRenaissance,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));
