@@ -84,7 +84,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `geopolitique-du-monde-contemporain` — Sciences géopolitiques, XXIe
 - [x] `economie-et-critique-du-capitalisme`
 - [x] `histoire-de-france`
-- [ ] `guerres-et-totalitarismes-du-xxe`
+- [x] `guerres-et-totalitarismes-du-xxe`
 - [ ] `civilisations-et-longue-duree`
 
 ### Sciences
