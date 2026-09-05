@@ -52,7 +52,7 @@ de 5 h et redémarrer des heures plus tard.
 - [x] `realisme-et-naturalisme` — Littérature, XIXe, roman réaliste et naturaliste
 - [x] `roman-francais-xxe` — Littérature, XXe, langue française
 - [x] `litterature-contemporaine` — Littérature, XXIe siècle
-- [ ] `la-poesie` — `genre='Poésie'`, toutes périodes
+- [x] `la-poesie` — `genre='Poésie'`, toutes périodes
 - [ ] `le-theatre` — `genre='Théâtre'`, toutes périodes
 
 ### Littératures du monde
