@@ -134,7 +134,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `comprendre-la-puissance` — le plus sain hors visions (24 % E, 36 % I).
 - [x] `les-fondations-grecques`
 - [x] `philosophie-antique-et-medievale`
-- [ ] `rome-et-le-stoicisme`
+- [x] `rome-et-le-stoicisme`
 - [ ] `vision-cynique` · `vision-classique` · `vision-existentialiste` ·
       `vision-scientifique` — mélange de priorités déjà sain, notes les plus
       longues du corpus.

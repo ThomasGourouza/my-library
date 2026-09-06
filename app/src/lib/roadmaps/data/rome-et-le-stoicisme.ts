@@ -61,16 +61,6 @@ export const romeEtLeStoicisme: Roadmap = {
       note: "Des conseils en vers à des poètes débutants, devenus la loi du classicisme. Boileau ne fera guère plus que le traduire pour la France.",
     },
     {
-      author: "Tibulle",
-      title: "Élégies",
-      note: "Un poète qui rêve de campagne et de paix pendant que Rome conquiert. L'élégie latine y prend son ton de renoncement doux.",
-    },
-    {
-      author: "Properce",
-      title: "Élégies",
-      note: "La servitude amoureuse revendiquée comme une vocation, contre la carrière militaire attendue. Le plus tourmenté des élégiaques, et le plus retors.",
-    },
-    {
       author: "Ovide",
       title: "L’Art d’aimer",
       note: "Un manuel de séduction en trois livres, adressé aux hommes puis aux femmes. Sa légèreté a probablement contribué à l'exil de son auteur.",
@@ -79,11 +69,6 @@ export const romeEtLeStoicisme: Roadmap = {
       author: "Tacite",
       title: "Annales",
       note: "L’envers du stoïcisme impérial : pendant que Sénèque écrit sur la vertu, Tacite rapporte ce que la cour de Néron fait réellement aux hommes. À lire en regard l’un de l’autre, jamais séparément.",
-    },
-    {
-      author: "Ovide",
-      title: "Les Héroïdes",
-      note: "Des lettres d'héroïnes mythologiques à l'homme qui les a quittées. L'invention du monologue féminin en littérature occidentale.",
     },
     {
       author: "Ovide",
@@ -142,16 +127,6 @@ export const romeEtLeStoicisme: Roadmap = {
     },
     {
       author: "Sénèque",
-      title: "De la providence",
-      note: "Pourquoi les malheurs frappent les gens de bien : parce que la difficulté est un entraînement. L'argument le plus contestable et le plus caractéristique de l'école.",
-    },
-    {
-      author: "Sénèque",
-      title: "Des bienfaits",
-      note: "Comment donner, comment recevoir, comment ne pas humilier. Un traité entier sur la réciprocité sociale, sujet que la philosophie a ensuite délaissé.",
-    },
-    {
-      author: "Sénèque",
       title: "Lettres à Lucilius",
       note: "Cent vingt-quatre lettres qui reprennent chaque question à hauteur de vie quotidienne. Le grand livre stoïcien, à lire par lettres isolées plutôt que d'un trait.",
     },
@@ -164,11 +139,6 @@ export const romeEtLeStoicisme: Roadmap = {
       author: "Épictète",
       title: "Manuel (Enchiridion)",
       note: "Le résumé portatif des Entretiens, tenant en une trentaine de pages. Conçu pour être relu souvent : c'est un objet d'usage, pas un traité.",
-    },
-    {
-      author: "Épictète",
-      title: "Manuel d’Épictète",
-      note: "Le même texte dans une autre traduction française. Comparer les versions est ici particulièrement instructif : chaque traducteur tranche autrement le vocabulaire du vouloir.",
     },
     {
       author: "Marc Aurèle",
@@ -194,11 +164,6 @@ export const romeEtLeStoicisme: Roadmap = {
       author: "Suétone",
       title: "Les Douze Césars",
       note: "Douze biographies impériales où les manies privées comptent autant que les guerres. L'indiscrétion y devient une méthode historique.",
-    },
-    {
-      author: "Max Gallo",
-      title: "Les Romains",
-      note: "Le cycle romanesque contemporain qui reprend l'histoire impériale du point de vue des acteurs, de Spartacus à Constantin. À lire après les sources antiques : on mesure alors ce que le romancier ajoute et ce qu'il emprunte.",
     },
     {
       author: "Plotin",
