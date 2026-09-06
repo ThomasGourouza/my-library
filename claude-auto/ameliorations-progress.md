@@ -134,3 +134,7 @@ qu'une fois commité.
   fichiers source — et que les filtres proposaient deux fois « Liberté
   d'expression ». Fusion nommée « OuLiPo » → « Oulipo ». 325 → 324 courants,
   202 → 201 thèmes. Nouveau test de garde.
+- **18 ✔** (hors plan initial) Squelettes de chargement pour les trois nouvelles
+  routes (`/`, `/listes`, `/listes/[id]`) — les autres en avaient déjà.
+  Vérifiés à l'écran en injectant temporairement un délai serveur : 51 blocs sur
+  l'accueil, 21 sur les listes, en clair et en sombre. Le délai a été retiré.
