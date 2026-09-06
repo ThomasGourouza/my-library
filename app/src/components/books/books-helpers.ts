@@ -3,7 +3,8 @@
  * books-table et books-grouped. Rien ici ne touche aux contrats gelés
  * (schema/validation/normalize/queries) : uniquement de la logique UI.
  */
-import type { BookWithAuthor } from "@/db/schema";
+import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
+import { PRIORITY_LABELS, priorityRank, type Priority } from "@/lib/priorities/types";
 import { PERIODS } from "@/lib/validation";
 
 /** Rang chronologique d'une période (chiffres romains → index de l'enum).
@@ -32,7 +33,8 @@ export type GroupByKey =
   | "genre"
   | "period"
   | "category"
-  | "audience";
+  | "audience"
+  | "priority";
 
 export const GROUP_OPTIONS: { value: GroupByKey; label: string }[] = [
   { value: "author", label: "Auteur" },
@@ -40,6 +42,7 @@ export const GROUP_OPTIONS: { value: GroupByKey; label: string }[] = [
   { value: "period", label: "Période" },
   { value: "category", label: "Catégorie" },
   { value: "audience", label: "Public" },
+  { value: "priority", label: "Priorité" },
 ];
 
 const GROUP_KEYS = GROUP_OPTIONS.map((g) => g.value);
@@ -58,11 +61,13 @@ export type FilterKey =
   | "period"
   | "audience"
   | "courant"
-  | "roadmap";
+  | "roadmap"
+  | "priority";
 
 export type Filters = Record<FilterKey, string[]>;
 
 export const FILTER_KEYS: FilterKey[] = [
+  "priority",
   "category",
   "genre",
   "period",
@@ -78,6 +83,7 @@ export const EMPTY_FILTERS: Filters = {
   audience: [],
   courant: [],
   roadmap: [],
+  priority: [],
 };
 
 export const FILTER_LABELS: Record<FilterKey, string> = {
@@ -87,6 +93,7 @@ export const FILTER_LABELS: Record<FilterKey, string> = {
   audience: "Public",
   courant: "Courant",
   roadmap: "Parcours",
+  priority: "Priorité",
 };
 
 // ---------------------------------------------------------------------------
@@ -105,6 +112,7 @@ export const SORTABLE_COLUMNS = [
   "originalLanguage",
   "audience",
   "roadmaps",
+  "priority",
 ] as const;
 export type SortableColumn = (typeof SORTABLE_COLUMNS)[number];
 
@@ -128,10 +136,10 @@ export function capitalize(s: string): string {
 export interface BookGroup {
   key: string;
   label: string;
-  books: BookWithAuthor[];
+  books: BookWithRoadmaps[];
 }
 
-function rawGroupValue(book: BookWithAuthor, key: GroupByKey): string | null {
+function rawGroupValue(book: BookWithRoadmaps, key: GroupByKey): string | null {
   switch (key) {
     case "author":
       return book.author.name;
@@ -143,20 +151,23 @@ function rawGroupValue(book: BookWithAuthor, key: GroupByKey): string | null {
       return book.category;
     case "audience":
       return book.audience;
+    case "priority":
+      return book.priority;
   }
 }
 
 function groupLabel(raw: string, key: GroupByKey): string {
   if (key === "audience") return capitalize(raw);
+  if (key === "priority") return PRIORITY_LABELS[raw as Priority] ?? raw;
   return raw;
 }
 
 export function groupBooks(
-  books: BookWithAuthor[],
+  books: BookWithRoadmaps[],
   key: GroupByKey
 ): BookGroup[] {
   const map = new Map<string, BookGroup>();
-  const rest: BookWithAuthor[] = [];
+  const rest: BookWithRoadmaps[] = [];
 
   for (const book of books) {
     const raw = rawGroupValue(book, key);
@@ -175,12 +186,12 @@ export function groupBooks(
       a.titleNormalized.localeCompare(b.titleNormalized, "fr")
     );
   }
-  // Les périodes se trient chronologiquement, le reste alphabétiquement.
-  groups.sort((a, b) =>
-    key === "period"
-      ? periodRank(a.key) - periodRank(b.key)
-      : a.label.localeCompare(b.label, "fr")
-  );
+  // Périodes et priorités ont un ordre propre ; le reste se trie alphabétiquement.
+  groups.sort((a, b) => {
+    if (key === "period") return periodRank(a.key) - periodRank(b.key);
+    if (key === "priority") return priorityRank(a.key) - priorityRank(b.key);
+    return a.label.localeCompare(b.label, "fr");
+  });
 
   if (rest.length) {
     rest.sort((a, b) =>

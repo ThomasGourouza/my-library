@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBook } from "@/lib/queries";
 import { getRoadmapsForBook } from "@/lib/roadmaps/queries";
+import { priorityOf } from "@/lib/priorities/resolve";
+import { PriorityBadge } from "@/components/books/priority-badge";
 import { formatLifespan, formatYear } from "@/lib/normalize";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -30,6 +32,7 @@ export default async function LivreDetailPage({
   const lifespan = formatLifespan(book.author.birthYear, book.author.deathYear);
   const year = formatYear(book.publicationYear);
   const roadmaps = getRoadmapsForBook(book.id);
+  const priority = priorityOf(book);
 
   return (
     <div className="space-y-6">
@@ -65,6 +68,7 @@ export default async function LivreDetailPage({
       </div>
 
       <div className="flex flex-wrap items-center gap-1.5">
+        <PriorityBadge priority={priority} />
         <Badge variant="secondary">{book.category}</Badge>
         {book.genre && <Badge variant="secondary">{book.genre}</Badge>}
         {book.courant && <Badge variant="secondary">{book.courant}</Badge>}

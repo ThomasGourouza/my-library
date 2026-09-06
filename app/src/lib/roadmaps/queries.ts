@@ -4,6 +4,8 @@
  */
 import type { BookWithAuthor } from "@/db/schema";
 import { listBooks } from "@/lib/queries";
+import { priorityIndex, priorityOf } from "@/lib/priorities/resolve";
+import type { Priority } from "@/lib/priorities/types";
 import { ROADMAPS, getRoadmap } from "./index";
 import { resolveLibrary, type RoadmapItem, type RoadmapRef } from "./resolve";
 import type { Roadmap } from "./types";
@@ -50,8 +52,12 @@ export function getRoadmapsForBook(bookId: number): RoadmapRef[] {
   return resolveLibrary().refsByBookId.get(bookId) ?? [];
 }
 
-/** Un livre augmenté de ses parcours — alimente la colonne « Parcours ». */
-export type BookWithRoadmaps = BookWithAuthor & { roadmaps: RoadmapRef[] };
+/** Un livre augmenté de ses parcours et de sa priorité — alimente les colonnes
+ *  « Parcours » et « Priorité » du tableau. */
+export type BookWithRoadmaps = BookWithAuthor & {
+  roadmaps: RoadmapRef[];
+  priority: Priority | null;
+};
 
 /**
  * Tous les livres avec leurs parcours. Une seule lecture de la base et un seul
@@ -60,8 +66,10 @@ export type BookWithRoadmaps = BookWithAuthor & { roadmaps: RoadmapRef[] };
 export function listBooksWithRoadmaps(): BookWithRoadmaps[] {
   const books = listBooks();
   const { refsByBookId } = resolveLibrary(books);
+  const priorities = priorityIndex();
   return books.map((book) => ({
     ...book,
     roadmaps: refsByBookId.get(book.id) ?? [],
+    priority: priorityOf(book, priorities),
   }));
 }

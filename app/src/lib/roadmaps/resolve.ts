@@ -10,6 +10,8 @@
 import type { BookWithAuthor } from "@/db/schema";
 import { normalizeKey } from "@/lib/normalize";
 import { listBooks } from "@/lib/queries";
+import { priorityIndex, priorityOf } from "@/lib/priorities/resolve";
+import type { Priority } from "@/lib/priorities/types";
 import { ROADMAPS } from "./index";
 import type { Roadmap, RoadmapEntry } from "./types";
 
@@ -18,6 +20,8 @@ export interface RoadmapItem {
   position: number;
   book: BookWithAuthor;
   note: string;
+  /** null tant que le livre n'a pas été jugé. */
+  priority: Priority | null;
 }
 
 /** Renvoi d'un parcours vers lequel un livre appartient. */
@@ -67,6 +71,7 @@ export interface ResolvedLibrary {
  */
 export function resolveLibrary(books = listBooks()): ResolvedLibrary {
   const index = buildBookIndex(books);
+  const priorities = priorityIndex();
   const itemsBySlug = new Map<string, RoadmapItem[]>();
   const refsByBookId = new Map<number, RoadmapRef[]>();
   const unresolved: UnresolvedEntry[] = [];
@@ -82,7 +87,12 @@ export function resolveLibrary(books = listBooks()): ResolvedLibrary {
         continue;
       }
       const position = items.length + 1;
-      items.push({ position, book, note: entry.note });
+      items.push({
+        position,
+        book,
+        note: entry.note,
+        priority: priorityOf(book, priorities),
+      });
       const refs = refsByBookId.get(book.id);
       const ref: RoadmapRef = {
         slug: roadmap.slug,

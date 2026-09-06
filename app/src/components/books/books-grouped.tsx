@@ -2,8 +2,9 @@
 
 import * as React from "react";
 import Link from "next/link";
-import type { BookWithAuthor } from "@/db/schema";
+import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
 import { Badge } from "@/components/ui/badge";
+import { PriorityBadge } from "./priority-badge";
 import {
   Accordion,
   AccordionContent,
@@ -30,7 +31,7 @@ export function BooksGrouped({
   groupBy,
   onGroupByChange,
 }: {
-  books: BookWithAuthor[];
+  books: BookWithRoadmaps[];
   groupBy: GroupByKey;
   onGroupByChange: (key: GroupByKey) => void;
 }) {
@@ -100,6 +101,7 @@ export function BooksGrouped({
                       >
                         {book.author.name}
                       </Link>
+                      <PriorityBadge priority={book.priority} />
                       <Badge variant="outline">{book.category}</Badge>
                       {book.enriched && (
                         <Badge variant="secondary">Ajout Claude</Badge>

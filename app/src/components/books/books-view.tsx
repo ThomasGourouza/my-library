@@ -8,6 +8,11 @@ import type { SortingState } from "@tanstack/react-table";
 import type { getFilterOptions } from "@/lib/queries";
 import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
 import { normalizeKey } from "@/lib/normalize";
+import {
+  PRIORITIES,
+  PRIORITY_LABELS,
+  type Priority,
+} from "@/lib/priorities/types";
 import { AUDIENCES, CATEGORIES, PERIODS } from "@/lib/validation";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -61,6 +66,7 @@ function parseFilters(sp: URLSearchParams): Filters {
     audience: get("audience"),
     courant: get("courant"),
     roadmap: get("roadmap"),
+    priority: get("priority"),
   };
 }
 
@@ -228,6 +234,7 @@ export function BooksView({
         matches(filters.period, b.period) &&
         matches(filters.audience, b.audience) &&
         matches(filters.courant, b.courant) &&
+        matches(filters.priority, b.priority) &&
         matchesAny(
           filters.roadmap,
           b.roadmaps.map((r) => r.slug)
@@ -256,6 +263,11 @@ export function BooksView({
     options: string[];
     getLabel?: (v: string) => string;
   }[] = [
+    {
+      key: "priority",
+      options: [...PRIORITIES],
+      getLabel: (p) => PRIORITY_LABELS[p as Priority] ?? p,
+    },
     { key: "category", options: [...CATEGORIES] },
     { key: "genre", options: options.genres },
     { key: "period", options: [...PERIODS] },

@@ -15,6 +15,8 @@ import {
 } from "@tanstack/react-table";
 import { formatYear } from "@/lib/normalize";
 import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
+import { priorityRank } from "@/lib/priorities/types";
+import { PriorityBadge } from "./priority-badge";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -43,6 +45,10 @@ const textSort: SortingFn<BookWithRoadmaps> = (rowA, rowB, columnId) => {
 /** Tri chronologique des périodes (chiffres romains → index de l'enum). */
 const periodSort: SortingFn<BookWithRoadmaps> = (rowA, rowB) =>
   periodRank(rowA.original.period) - periodRank(rowB.original.period);
+
+/** Tri par rang de priorité (Essentiel d'abord), livres non jugés en dernier. */
+const prioritySort: SortingFn<BookWithRoadmaps> = (rowA, rowB) =>
+  priorityRank(rowA.original.priority) - priorityRank(rowB.original.priority);
 
 /** Tri numérique des années (négatives = av. J.-C.), valeurs nulles en dernier. */
 const yearSort: SortingFn<BookWithRoadmaps> = (rowA, rowB, columnId) => {
@@ -93,6 +99,13 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
         {row.original.author.name}
       </Link>
     ),
+  },
+  {
+    id: "priority",
+    accessorFn: (row) => row.priority,
+    header: "Priorité",
+    sortingFn: prioritySort,
+    cell: ({ row }) => <PriorityBadge priority={row.original.priority} />,
   },
   {
     id: "category",

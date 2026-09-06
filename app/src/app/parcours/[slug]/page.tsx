@@ -6,6 +6,7 @@ import { formatYear } from "@/lib/normalize";
 import { getRoadmapBySlug } from "@/lib/roadmaps/queries";
 import { FAMILY_LABELS } from "@/lib/roadmaps/types";
 import { Badge } from "@/components/ui/badge";
+import { PriorityBadge } from "@/components/books/priority-badge";
 
 export const dynamic = "force-dynamic";
 
@@ -55,7 +56,7 @@ export default async function ParcoursDetailPage({ params }: PageProps) {
           </p>
         ) : (
           <ol className="divide-y rounded-md border">
-            {roadmap.items.map(({ position, book, note }) => {
+            {roadmap.items.map(({ position, book, note, priority }) => {
               const year = formatYear(book.publicationYear);
               return (
                 <li key={book.id} className="flex gap-3 px-3 py-3">
@@ -85,6 +86,7 @@ export default async function ParcoursDetailPage({ params }: PageProps) {
                           ({year})
                         </span>
                       )}
+                      {priority && <PriorityBadge priority={priority} />}
                     </div>
                     <p className="text-sm leading-relaxed text-muted-foreground">
                       {note}
