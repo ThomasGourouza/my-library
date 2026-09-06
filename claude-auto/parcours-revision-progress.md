@@ -111,7 +111,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `romantisme-francais` — des poèmes isolés catalogués comme livres en 57-59
       et 62-64.
 - [x] `rationalisme-et-lumieres`
-- [ ] `les-maitres-du-soupcon`
+- [x] `les-maitres-du-soupcon`
 - [ ] `litterature-contemporaine`
 - [ ] `la-poesie`
 - [ ] `realisme-et-naturalisme`

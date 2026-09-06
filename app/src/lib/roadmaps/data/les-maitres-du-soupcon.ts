@@ -17,11 +17,6 @@ export const lesMaitresDuSoupcon: Roadmap = {
     },
     {
       author: "Georg Wilhelm Friedrich Hegel",
-      title: "Science de la logique",
-      note: "Les catégories de l'être, de l'essence et du concept engendrées les unes des autres. Le noyau technique du système, sans lequel le reste reste de la métaphore.",
-    },
-    {
-      author: "Georg Wilhelm Friedrich Hegel",
       title: "Principes de la philosophie du droit",
       note: "La famille, la société civile et l'État comme moments de la liberté effective. La préface — « ce qui est rationnel est réel » — a nourri un siècle de malentendus.",
     },
@@ -36,19 +31,9 @@ export const lesMaitresDuSoupcon: Roadmap = {
       note: "Dieu comme projection des qualités humaines : ce n'est pas Dieu qui fait l'homme mais l'inverse. Le premier renversement, et la matrice de tous les autres.",
     },
     {
-      author: "Ludwig Feuerbach",
-      title: "Principes de la philosophie de l’avenir",
-      note: "Le programme d'une philosophie partant de l'homme sensible et concret. Marx le juge encore trop contemplatif : la critique s'enchaîne.",
-    },
-    {
       author: "Karl Marx",
       title: "L’Idéologie allemande",
       note: "Les idées d'une époque sont celles de sa classe dominante, et l'être social détermine la conscience. Manuscrit resté inédit jusqu'en 1932, mais central pour la méthode.",
-    },
-    {
-      author: "Karl Marx",
-      title: "Manifeste du Parti communiste",
-      note: "Un texte de commande de quelques dizaines de pages, écrit pour être lu à voix haute. La rhétorique politique la plus efficace du siècle.",
     },
     {
       author: "Karl Marx et Friedrich Engels",
@@ -76,24 +61,9 @@ export const lesMaitresDuSoupcon: Roadmap = {
       note: "L'organisation concrète d'une société sans État, ravitaillement et logement compris. L'anarchisme y devient un programme, non une protestation.",
     },
     {
-      author: "Pierre Kropotkine",
-      title: "La Morale anarchiste",
-      note: "Une éthique fondée sur l'entraide, contre l'idée que l'ordre exige la contrainte. Le versant biologique de l'argument sera repris par l'écologie.",
-    },
-    {
-      author: "Charles Fourier",
-      title: "Vers la liberté en amour",
-      note: "Les passions non pas réprimées mais combinées, y compris dans leurs formes les plus inattendues. L'utopie fouriériste prise au sérieux comme théorie du désir.",
-    },
-    {
       author: "Arthur Schopenhauer",
       title: "Le Monde comme volonté et comme représentation",
       note: "Une volonté aveugle et insatiable au fond de tout, dont l'art seul délivre un instant. Le premier grand pessimisme systématique de la philosophie occidentale.",
-    },
-    {
-      author: "Arthur Schopenhauer",
-      title: "Parerga et Paralipomena",
-      note: "Des essais adjacents au système, sur la lecture, le bruit, les femmes, les fantômes. C'est ce recueil tardif qui l'a rendu célèbre à soixante ans passés.",
     },
     {
       author: "Arthur Schopenhauer",
@@ -104,11 +74,6 @@ export const lesMaitresDuSoupcon: Roadmap = {
       author: "Arthur Schopenhauer",
       title: "L’Art d’avoir toujours raison",
       note: "Trente-huit stratagèmes pour l'emporter dans une discussion, indépendamment de la vérité. Court, cynique, et d'une utilité immédiate.",
-    },
-    {
-      author: "Arthur Schopenhauer",
-      title: "Correspondance",
-      note: "Les lettres d'un homme convaincu d'avoir raison contre son époque, et qui attend. Elles éclairent le tempérament d'où sort la doctrine.",
     },
     {
       author: "Friedrich Nietzsche",
@@ -146,26 +111,6 @@ export const lesMaitresDuSoupcon: Roadmap = {
       note: "« Philosopher à coups de marteau » : un règlement de comptes rapide avec Socrate, Kant et les Allemands. Écrit en quelques semaines, avant l'effondrement.",
     },
     {
-      author: "Friedrich Nietzsche",
-      title: "L’Antéchrist",
-      note: "L'attaque frontale contre le christianisme comme morale d'esclaves. La violence du ton est un problème de lecture qu'il ne faut pas escamoter.",
-    },
-    {
-      author: "Friedrich Nietzsche",
-      title: "Pourquoi je suis si sage",
-      note: "Un chapitre d'Ecce Homo, autobiographie aux titres volontairement démesurés. L'ironie et la mégalomanie y deviennent indiscernables, quelques mois avant la folie.",
-    },
-    {
-      author: "Friedrich Nietzsche",
-      title: "Fragments et aphorismes",
-      note: "Les notes posthumes, dont sa sœur a tiré La Volonté de puissance en les arrangeant. À lire en sachant que ce corpus a servi à falsifier sa pensée.",
-    },
-    {
-      author: "Friedrich Nietzsche",
-      title: "Correspondance",
-      note: "Les lettres, dont les derniers « billets de la folie » signés Dionysos. Le document qui rend impossible de séparer l'œuvre de la biographie.",
-    },
-    {
       author: "Sigmund Freud",
       title: "L’Interprétation des rêves",
       note: "Le rêve comme accomplissement déguisé d'un désir, avec ses mécanismes de condensation et de déplacement. Freud lui-même y date le début de la psychanalyse.",
@@ -184,11 +129,6 @@ export const lesMaitresDuSoupcon: Roadmap = {
       author: "Auguste Comte",
       title: "Cours de philosophie positive",
       note: "La loi des trois états et la hiérarchie des sciences, jusqu'à la sociologie qu'il fonde. Le scientisme du siècle y reçoit sa formulation systématique.",
-    },
-    {
-      author: "Auguste Comte",
-      title: "Discours sur l’esprit positif",
-      note: "Le résumé accessible du Cours, destiné à un large public. Utile pour saisir ce que « positif » voulait dire avant que le mot ne se banalise.",
     },
     {
       author: "John Stuart Mill",
@@ -216,49 +156,9 @@ export const lesMaitresDuSoupcon: Roadmap = {
       note: "L'individu en foule perd son jugement et devient suggestible. Lu par Mussolini et Hitler, ce qui oblige à le lire avec attention plutôt qu'à l'écarter.",
     },
     {
-      author: "Gustave Le Bon",
-      title: "Lois psychologiques de l’évolution des peuples",
-      note: "Le prolongement du précédent vers une psychologie des « races », aujourd'hui indéfendable. Document sur le racialisme savant de la fin du siècle.",
-    },
-    {
-      author: "Jean-Marie Guyau",
-      title: "Esquisse d’une morale sans obligation ni sanction",
-      note: "Une éthique fondée sur l'intensité de la vie plutôt que sur le devoir. Nietzsche l'a annotée : c'est une convergence indépendante, non une influence.",
-    },
-    {
-      author: "Victor Cousin",
-      title: "Du vrai, du beau et du bien",
-      note: "L'éclectisme officiel de l'université française sous la monarchie de Juillet. À lire comme la doctrine contre laquelle tous les autres auteurs de ce parcours écrivent.",
-    },
-    {
-      author: "Ralph Waldo Emerson",
-      title: "La Confiance en soi",
-      note: "Se fier à sa propre intuition contre le conformisme social. L'individualisme américain y trouve son texte fondateur, et Nietzsche l'a lu avec enthousiasme.",
-    },
-    {
-      author: "Ralph Waldo Emerson",
-      title: "Essais",
-      note: "Le recueil complet, entre spiritualité, nature et politique. Le transcendantalisme y forme une alternative américaine à l'idéalisme allemand.",
-    },
-    {
-      author: "Henry David Thoreau",
-      title: "Walden ou la vie dans les bois",
-      note: "Deux ans dans une cabane, comptabilité des dépenses incluse. La critique de la société industrielle passe ici par une expérience personnelle vérifiable.",
-    },
-    {
-      author: "Henry David Thoreau",
-      title: "La Désobéissance civile",
-      note: "Refuser l'impôt pour ne pas financer l'esclavage et la guerre. Vingt pages qui inspireront Gandhi puis Martin Luther King.",
-    },
-    {
       author: "Johann Gottlieb Fichte",
       title: "Discours à la nation allemande",
       note: "Prononcés dans un Berlin occupé par Napoléon, ils fondent le nationalisme culturel allemand. La philosophie idéaliste y bascule en programme politique.",
-    },
-    {
-      author: "Joseph de Maistre",
-      title: "Les Soirées de Saint-Pétersbourg",
-      note: "Onze entretiens sur la providence, la guerre et le bourreau comme pilier de l'ordre social. La contestation la plus profonde des Lumières, à l'opposé de tout ce parcours.",
     },
     {
       author: "Alexandre Kojève",
@@ -266,24 +166,9 @@ export const lesMaitresDuSoupcon: Roadmap = {
       note: "Le séminaire des années trente qui a formé Lacan, Bataille et Sartre. C'est ce Hegel-là, centré sur le désir de reconnaissance, que la France a lu.",
     },
     {
-      author: "Bernard Bourgeois",
-      title: "Hegel",
-      note: "La lecture universitaire française contemporaine, rigoureuse et attentive au texte allemand. Le correctif savant à l'interprétation de Kojève.",
-    },
-    {
       author: "André Glucksmann",
       title: "Les Maîtres penseurs",
       note: "Fichte, Hegel, Marx et Nietzsche accusés d'avoir fourni sa grammaire au totalitarisme. Thèse polémique de 1977, contestable et utile à contester.",
-    },
-    {
-      author: "Curt Paul Janz",
-      title: "Friedrich Nietzsche. Biographie",
-      note: "La biographie de référence, méthodique et sans légende. Elle sert de garde-fou contre les récits romanesques dont Nietzsche fait l'objet.",
-    },
-    {
-      author: "Lou Andreas-Salomé",
-      title: "Friedrich Nietzsche à travers ses œuvres",
-      note: "Le premier livre écrit sur Nietzsche, par quelqu'un qui l'a connu de près. Elle y distingue trois périodes, découpage encore employé aujourd'hui.",
     },
     {
       author: "Karl Jaspers",
@@ -296,19 +181,9 @@ export const lesMaitresDuSoupcon: Roadmap = {
       note: "Le court volume d'introduction, avec ses tableaux de concepts. Il a rendu Nietzsche lisible pour deux générations d'étudiants français.",
     },
     {
-      author: "Sarah Kofman",
-      title: "Nietzsche et la philosophie",
-      note: "Une lecture attentive au rôle de la métaphore et de l'interprétation dans ce corpus. Elle montre que le style n'y est jamais séparable de l'argument.",
-    },
-    {
       author: "Michel Onfray",
       title: "Le Crépuscule d’une idole",
       note: "Une charge contre Freud et la construction de sa légende. Contestée point par point par les psychanalystes : lire la polémique, pas seulement le livre.",
-    },
-    {
-      author: "Rüdiger Safranski",
-      title: "Schopenhauer",
-      note: "La biographie intellectuelle qui replace le pessimisme dans l'Allemagne d'après Hegel. Fin du parcours : comprendre d'où vient une humeur philosophique.",
     },
   ],
 };
