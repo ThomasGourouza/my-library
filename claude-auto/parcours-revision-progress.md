@@ -115,7 +115,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `litterature-contemporaine`
 - [x] `la-poesie`
 - [x] `realisme-et-naturalisme`
-- [ ] `sources-moyen-age-renaissance`
+- [x] `sources-moyen-age-renaissance`
 - [ ] `economie-et-critique-du-capitalisme`
 - [ ] `chine-et-japon`
 - [ ] `phenomenologie-et-existentialisme`

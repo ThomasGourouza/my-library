@@ -16,29 +16,9 @@ export const sourcesMoyenAgeRenaissance: Roadmap = {
       note: "Le premier grand texte de la littérature française, vers 1100. Un vassal qui refuse de sonner du cor : tout le code féodal — fidélité, honneur, démesure — tient dans ce geste.",
     },
     {
-      author: "Anonyme (chanson de geste)",
-      title: "La Chanson de Guillaume",
-      note: "L'autre versant de l'épopée : un guerrier vieillissant, des défaites, une cuisine et des femmes. Utile juste après Roland pour voir que le genre n'était pas uniforme.",
-    },
-    {
-      author: "Anonyme (chanson de geste)",
-      title: "Godefroy de Bouillon",
-      note: "La croisade transformée en geste : l'histoire récente devient matière épique. On y observe la fabrication d'une légende à partir d'événements datés.",
-    },
-    {
-      author: "Anonyme (œuvre médiévale)",
-      title: "Le Roman d’Alexandre",
-      note: "Le texte qui a donné son nom à l'alexandrin. L'Antiquité y est réécrite en chevalerie : première grande opération d'appropriation d'un passé étranger.",
-    },
-    {
       author: "Chrétien de Troyes",
       title: "Érec et Énide",
       note: "Le premier roman arthurien conservé, et donc le premier roman tout court. La question posée — peut-on aimer sa femme sans cesser d'être chevalier ? — inaugure le roman comme lieu de problème.",
-    },
-    {
-      author: "André Le Chapelain",
-      title: "Traité de l’amour courtois",
-      note: "Le code de l'amour courtois exposé comme une doctrine, avec ses règles numérotées. Il éclaire de l'extérieur ce que les romans mettent en scène.",
     },
     {
       author: "Guillaume de Lorris et Jean de Meung",
@@ -59,21 +39,6 @@ export const sourcesMoyenAgeRenaissance: Roadmap = {
       author: "Anonyme (œuvre médiévale)",
       title: "La Farce de Maître Pathelin",
       note: "Le trompeur trompé, en trois cents vers efficaces. Première pièce comique française encore jouable telle quelle, et matrice du théâtre de Molière.",
-    },
-    {
-      author: "Alain Chartier",
-      title: "La Belle Dame sans mercy",
-      note: "Une dame qui refuse, argumente et ne cède pas. Le poème a déclenché une querelle littéraire : signe qu'un texte commence à être discuté pour ses idées.",
-    },
-    {
-      author: "Christine de Pizan",
-      title: "Le Ditié de Jehanne d’Arc",
-      note: "Écrit du vivant de Jeanne d'Arc, par la première femme à vivre de sa plume en France. Poésie de circonstance devenue document historique de premier ordre.",
-    },
-    {
-      author: "François Villon",
-      title: "Le Lais",
-      note: "Le premier legs burlesque du poète à ses créanciers et à ses ennemis. On y voit s'installer le ton Villon : la dérision comme forme de vérité.",
     },
     {
       author: "François Villon",
@@ -101,29 +66,9 @@ export const sourcesMoyenAgeRenaissance: Roadmap = {
       note: "Panurge doit-il se marier ? Trois cents pages de consultations sans réponse : la comédie se change en scepticisme méthodique.",
     },
     {
-      author: "François Rabelais",
-      title: "Le Quart Livre",
-      note: "La navigation vers l'oracle de la Dive Bouteille, épisode par épisode, chacun visant une cible religieuse ou politique. Le sommet de l'invention verbale de Rabelais.",
-    },
-    {
-      author: "François Rabelais",
-      title: "Le Cinquième Livre",
-      note: "Posthume et d'authenticité contestée. À lire en dernier, en sachant cela : c'est aussi une leçon sur la fragilité des textes anciens.",
-    },
-    {
-      author: "Clément Marot",
-      title: "L’Enfer",
-      note: "Le récit versifié de son emprisonnement au Châtelet. Marot fait le pont entre le legs médiéval de Villon et l'élégance nouvelle du siècle.",
-    },
-    {
       author: "Joachim du Bellay",
       title: "Défense et illustration de la langue française",
       note: "Le manifeste de la Pléiade : cesser d'écrire en latin, enrichir le français en imitant les Anciens. Il faut le lire avant les recueils qu'il annonce.",
-    },
-    {
-      author: "Joachim du Bellay",
-      title: "L’Olive",
-      note: "Le programme aussitôt mis en pratique : le premier canzoniere français, sonnets pétrarquistes à l'appui. L'exercice se voit encore, ce qui le rend instructif.",
     },
     {
       author: "Pierre de Ronsard",
@@ -137,28 +82,8 @@ export const sourcesMoyenAgeRenaissance: Roadmap = {
     },
     {
       author: "Pierre de Ronsard",
-      title: "Les Amours de Cassandre",
-      note: "La première section, la plus pétrarquiste : la dame y est presque une idée. Utile pour mesurer la distance avec les sonnets d'Hélène, trente ans plus tard.",
-    },
-    {
-      author: "Pierre de Ronsard",
-      title: "Les Hymnes",
-      note: "La poésie tournée vers la philosophie naturelle — les astres, la mort, la justice. Le versant savant de Ronsard, souvent ignoré au profit des sonnets.",
-    },
-    {
-      author: "Pierre de Ronsard",
       title: "Sonnets pour Hélène",
       note: "L'amour tardif d'un poète vieillissant pour une jeune femme qui ne l'aime pas. La maîtrise formelle y sert enfin une émotion sans apprêt.",
-    },
-    {
-      author: "Pierre de Ronsard",
-      title: "Quand vous serez bien vieille",
-      note: "Le sonnet isolé le plus connu du français : le carpe diem retourné en menace courtoise. À lire juste après le recueil dont il vient.",
-    },
-    {
-      author: "Pierre de Ronsard",
-      title: "Discours",
-      note: "Ronsard polémiste des guerres de religion, engagé du côté catholique. Le poète de cour devient éditorialiste : première grande poésie politique française.",
     },
     {
       author: "Joachim du Bellay",
@@ -171,19 +96,9 @@ export const sourcesMoyenAgeRenaissance: Roadmap = {
       note: "La méditation sur les ruines, écrite au contact des ruines. Elle fonde un motif que la poésie française reprendra jusqu'au romantisme.",
     },
     {
-      author: "Joachim du Bellay",
-      title: "Heureux qui comme Ulysse",
-      note: "Quatorze vers sur le retour au pays natal, tirés des Regrets. Le poème qu'on a le plus appris par cœur en France : à relire dans son contexte d'exil.",
-    },
-    {
       author: "Marguerite de Navarre",
       title: "L’Heptaméron",
       note: "Des nouvelles enchâssées dans les discussions de leurs narrateurs, sur le modèle de Boccace. La sœur de François Ier y examine l'amour et l'hypocrisie sans complaisance.",
-    },
-    {
-      author: "François de Belleforest",
-      title: "Les Histoires tragiques",
-      note: "Recueil de faits divers sanglants adaptés de l'italien : c'est là que Shakespeare a trouvé Hamlet. Utile pour voir circuler la matière narrative entre les langues.",
     },
     {
       author: "Michel de Montaigne",
