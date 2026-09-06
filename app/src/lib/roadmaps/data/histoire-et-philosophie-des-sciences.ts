@@ -11,11 +11,6 @@ export const histoireEtPhilosophieDesSciences: Roadmap = {
   family: "sciences",
   entries: [
     {
-      author: "David C. Lindberg",
-      title: "A History of Science",
-      note: "La science antique et médiévale, arabe comprise, avant la révolution du XVIIe siècle. Il détruit l'idée d'un Moyen Âge scientifiquement vide.",
-    },
-    {
       author: "Arthur Koestler",
       title: "The Sleepwalkers",
       note: "Copernic, Kepler et Galilée décrits comme des somnambules trébuchant sur leurs découvertes. Une histoire des sciences qui refuse le récit du progrès rationnel.",
@@ -36,29 +31,14 @@ export const histoireEtPhilosophieDesSciences: Roadmap = {
       note: "La thèse inverse : quelque chose de radicalement neuf est apparu entre 1572 et 1704, y compris un vocabulaire. Une réponse argumentée à Shapin.",
     },
     {
-      author: "Edward Dolnick",
-      title: "The Clockwork Universe",
-      note: "La Royal Society, Newton et Leibniz dans le Londres de la peste et du grand incendie. Le contexte matériel et religieux d'une invention intellectuelle.",
-    },
-    {
-      author: "Daniel J. Boorstin",
-      title: "The Discoverers",
-      note: "L'histoire de la découverte du temps, de la terre, de la nature et de la société. Le récit y est mondial, et les obstacles aux découvertes sont le vrai sujet.",
+      author: "Thomas S. Kuhn",
+      title: "La Révolution copernicienne",
+      note: "Un cas unique traité en détail : comment un modèle astronomique tient, se fissure, puis cède. Lue avant la thèse générale, elle empêche de réduire le mot paradigme au slogan qu'il est devenu depuis.",
     },
     {
       author: "Manjit Kumar",
       title: "Quantum",
       note: "Le débat Bohr-Einstein sur le sens de la mécanique quantique, reconstitué congrès après congrès. Une controverse scientifique majeure racontée comme telle.",
-    },
-    {
-      author: "Kevin Labiausse",
-      title: "Les Grandes Inventions de l’Histoire",
-      note: "L'inventaire des inventions techniques et de leurs conséquences. Il rappelle que la technique précède souvent la science qui l'explique.",
-    },
-    {
-      author: "André-Marie Ampère",
-      title: "Essai sur la philosophie des sciences",
-      note: "Une classification complète des savoirs par un physicien majeur du XIXe siècle. Le rêve encyclopédique appliqué aux sciences, avant leur spécialisation.",
     },
     {
       author: "Henri Poincaré",
@@ -76,11 +56,6 @@ export const histoireEtPhilosophieDesSciences: Roadmap = {
       note: "Science normale, anomalies, crise, changement de paradigme. Il substitue à la logique de Popper une histoire des communautés savantes.",
     },
     {
-      author: "Thomas S. Kuhn",
-      title: "La Révolution copernicienne",
-      note: "L'étude de cas qui a précédé la thèse générale. La lire d'abord évite de réduire le paradigme à un slogan.",
-    },
-    {
       author: "Bas van Fraassen",
       title: "The Scientific Image",
       note: "Une théorie doit sauver les phénomènes observables, pas décrire des entités inobservables. L'antiréalisme scientifique dans sa version la plus solide.",
@@ -96,39 +71,9 @@ export const histoireEtPhilosophieDesSciences: Roadmap = {
       note: "Les images qui empêchent de penser scientifiquement, prises pour objet. La notion d'obstacle épistémologique y est mise en pratique.",
     },
     {
-      author: "Frédéric Mathieu",
-      title: "Philosophie des sciences pour les nuls",
-      note: "Le vocabulaire du domaine — induction, réfutation, paradigme — mis à plat. Le récapitulatif utile après les grands textes.",
-    },
-    {
-      author: "Denis Kambouchner",
-      title: "Descartes n’a pas dit",
-      note: "Les formules attribuées à Descartes sur la maîtrise de la nature, replacées dans leur contexte. Une leçon sur la manière dont les slogans scientistes se fabriquent.",
-    },
-    {
       author: "Ferdinand de Saussure",
       title: "Cours de linguistique générale",
       note: "Signifiant, signifié, langue et parole : la linguistique se constitue en science. Le modèle dont tout le structuralisme s'est réclamé.",
-    },
-    {
-      author: "James Gleick",
-      title: "The Information",
-      note: "De l'écriture au bit, en passant par Shannon et la théorie de l'information. Une histoire des sciences qui explique ce qu'est devenue la nôtre.",
-    },
-    {
-      author: "James Gleick",
-      title: "Genius: The Life and Science of Richard Feynman",
-      note: "La biographie d'un physicien devenu figure publique, sans hagiographie. On y voit comment se fait une réputation scientifique.",
-    },
-    {
-      author: "Richard Feynman",
-      title: "Vous voulez rire, Monsieur Feynman !",
-      note: "Des anecdotes autobiographiques, de Los Alamos aux boîtes de nuit brésiliennes. Sous la légèreté, une éthique de l'honnêteté scientifique très ferme.",
-    },
-    {
-      author: "Rachid Guerraoui",
-      title: "Turing à la plage",
-      note: "La machine de Turing, la calculabilité et les fondements de l'informatique. Le pont entre les mathématiques et les technologies actuelles.",
     },
     {
       author: "Norbert Wiener",
@@ -141,34 +86,9 @@ export const histoireEtPhilosophieDesSciences: Roadmap = {
       note: "La même année, la mesure de l’information indépendamment de son sens. C’est de là que vient le bit, et avec lui la possibilité même du numérique.",
     },
     {
-      author: "David Patterson",
-      title: "Computer Organization and Design",
-      note: "Comment une instruction devient un signal électrique, du processeur à la mémoire. Le manuel de référence : la seule façon de savoir ce qu'est vraiment un ordinateur.",
-    },
-    {
-      author: "Steven Levy",
-      title: "Hackers: Heroes of the Computer Revolution",
-      note: "La culture des premiers programmeurs du MIT et de la Silicon Valley. L'éthique hacker y est formulée avant de devenir un argument commercial.",
-    },
-    {
-      author: "Eric S. Raymond",
-      title: "The Cathedral and the Bazaar",
-      note: "Deux modèles de production logicielle, dont l'un a donné Linux. L'essai qui a fait accepter l'open source par l'industrie.",
-    },
-    {
-      author: "Cathy O’Neil",
-      title: "Algorithmes : la bombe à retardement",
-      note: "Des modèles statistiques opaques qui décident de crédits, d'emplois et de peines. Une mathématicienne montre comment un calcul reproduit une injustice.",
-    },
-    {
-      author: "Laurent Alexandre",
-      title: "La Guerre des intelligences",
-      note: "L'intelligence artificielle traitée comme un enjeu de puissance et d'éducation. Le ton est prophétique ; les questions posées sont réelles.",
-    },
-    {
-      author: "Daniel Andler",
-      title: "La Silhouette de l’humain",
-      note: "Un bilan critique des sciences cognitives et de leurs promesses. Il tient la position la plus rare : ni technophobe ni enthousiaste.",
+      author: "James Gleick",
+      title: "The Information",
+      note: "De l'écriture au bit, en passant par Shannon et la théorie de l'information. Une histoire des sciences qui explique ce qu'est devenue la nôtre.",
     },
     {
       author: "Roger Penrose",
@@ -176,9 +96,14 @@ export const histoireEtPhilosophieDesSciences: Roadmap = {
       note: "La conscience serait non calculable, argument tiré de l'incomplétude. Contesté par la quasi-totalité des spécialistes, et jamais réfuté à la satisfaction de son auteur.",
     },
     {
-      author: "Maurice Tubiana",
-      title: "La Science au cœur de nos vies",
-      note: "La défense de la démarche scientifique par un médecin, contre le principe de précaution étendu. Fin du parcours : la question de la place de la science dans la décision publique.",
+      author: "Daniel Andler",
+      title: "La Silhouette de l’humain",
+      note: "Un bilan critique des sciences cognitives et de leurs promesses. Il tient la position la plus rare : ni technophobe ni enthousiaste.",
+    },
+    {
+      author: "Cathy O’Neil",
+      title: "Algorithmes : la bombe à retardement",
+      note: "Des modèles statistiques opaques qui décident de crédits, d'emplois et de peines. Une mathématicienne montre comment un calcul reproduit une injustice.",
     },
   ],
 };
