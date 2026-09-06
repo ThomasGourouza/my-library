@@ -8,5 +8,6 @@ node_modules/
 .DS_Store
 pipeline/output/
 __pycache__/
+scratchpad/
 claude-auto/runs/
 npm-debug.log*
