@@ -257,6 +257,10 @@ export function BookForm({
     },
   });
 
+  // Même situation que useReactTable dans books-table.tsx : form.watch() n'est
+  // pas mémorisable sans risque de valeur périmée, le compilateur saute donc ce
+  // composant, et c'est le comportement voulu de react-hook-form.
+  // eslint-disable-next-line react-hooks/incompatible-library
   const authorId = form.watch("authorId");
   const newAuthorName = form.watch("newAuthorName");
 

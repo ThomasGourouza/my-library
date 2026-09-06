@@ -10,7 +10,7 @@ qu'une fois commité.
 ## Chantiers
 
 - [x] 1. Restaurer les analyses et biographies perdues (3 + 3)
-- [ ] 2. Corriger les 3 problèmes de lint
+- [x] 2. Corriger les 3 problèmes de lint
 - [ ] 3. Fusionner les 5 doublons d'œuvres anonymes + garde-fou de test
 - [ ] 4. Supprimer le code mort `themes` de `getFilterOptions`
 - [ ] 5. Tableau des livres : sélecteur de colonnes persisté dans l'URL
@@ -36,3 +36,7 @@ qu'une fois commité.
   `/livres/8726` (Crime et Châtiment), clair et sombre. Ajout d'un script
   `npm run db:reseed` qui enchaîne sauvegarde + seed + restauration, pour que
   l'oubli qui a causé la perte ne soit plus possible.
+- **2 ✔** `npx eslint` ne renvoie plus rien (0 problème contre 1 erreur +
+  2 avertissements). L'erreur de `main-nav.tsx` est corrigée sur le fond : la
+  bascule de thème choisit son icône en CSS et n'a plus d'état « monté ».
+  Vérifié au navigateur : exactement une icône visible en clair comme en sombre.

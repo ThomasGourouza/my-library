@@ -14,13 +14,18 @@ const tabs = [
   { href: "/parcours", label: "Parcours" },
 ];
 
+/**
+ * Bascule clair/sombre.
+ *
+ * L'icône est choisie par CSS (`dark:`), pas par un état « monté ». Le thème
+ * n'est connu qu'au navigateur : le rendu serveur ne peut pas le deviner, et
+ * la parade habituelle — un `useState(false)` repassé à `true` dans un effet —
+ * provoque un rendu en cascade à chaque chargement (et une erreur de lint).
+ * next-themes pose déjà la classe `dark` sur <html> avant l'hydratation ; deux
+ * icônes dont une seule est affichée suffisent donc, sans état ni décalage.
+ */
 function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
 
   return (
     <Button
@@ -30,15 +35,8 @@ function ThemeToggle() {
       title="Changer de thème"
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
     >
-      {mounted ? (
-        resolvedTheme === "dark" ? (
-          <Sun className="size-4" aria-hidden />
-        ) : (
-          <Moon className="size-4" aria-hidden />
-        )
-      ) : (
-        <span className="size-4" aria-hidden />
-      )}
+      <Moon className="size-4 dark:hidden" aria-hidden />
+      <Sun className="hidden size-4 dark:block" aria-hidden />
     </Button>
   );
 }

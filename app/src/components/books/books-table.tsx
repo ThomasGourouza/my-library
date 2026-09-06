@@ -235,6 +235,12 @@ export function BooksTable({
 }) {
   const router = useRouter();
 
+  // Le compilateur React saute ce composant : useReactTable() renvoie des
+  // fonctions qu'il ne peut pas mémoriser sans risque d'affichage périmé. Ce
+  // n'est pas un défaut à corriger — c'est le comportement voulu de la
+  // bibliothèque — et le compilateur n'est de toute façon pas activé ici
+  // (pas de `reactCompiler` dans next.config.ts).
+  // eslint-disable-next-line react-hooks/incompatible-library
   const table = useReactTable({
     data: books,
     columns,
