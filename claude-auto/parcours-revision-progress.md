@@ -132,7 +132,7 @@ parcours, et l'effondrement du 1,06.
 
 ### Conservés, vérification rapide seulement
 - [x] `comprendre-la-puissance` — le plus sain hors visions (24 % E, 36 % I).
-- [ ] `les-fondations-grecques`
+- [x] `les-fondations-grecques`
 - [ ] `philosophie-antique-et-medievale`
 - [ ] `rome-et-le-stoicisme`
 - [ ] `vision-cynique` · `vision-classique` · `vision-existentialiste` ·

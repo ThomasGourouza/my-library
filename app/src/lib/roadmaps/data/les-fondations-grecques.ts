@@ -31,11 +31,6 @@ export const lesFondationsGrecques: Roadmap = {
       note: "Un poème adressé à un frère malhonnête : le calendrier agricole, la justice, la valeur du travail. La voix du paysan, contrepoint immédiat à l'aristocratie homérique.",
     },
     {
-      author: "Hésiode",
-      title: "Le Bouclier d’Héraclès",
-      note: "La description d'un bouclier ouvragé, à la manière de celui d'Achille. Exercice d'école sur un motif célèbre : utile pour comprendre comment on imitait alors.",
-    },
-    {
       author: "Ésope",
       title: "Fables",
       note: "Des récits d'animaux ramenés à une leçon, attribués à un esclave. La forme la plus durable de la littérature grecque : La Fontaine et Krylov en vivent encore.",
@@ -146,16 +141,6 @@ export const lesFondationsGrecques: Roadmap = {
       note: "Dix mille mercenaires grecs perdus en Mésopotamie remontent vers la mer. Le premier grand récit d'expédition raconté par un de ses chefs.",
     },
     {
-      author: "Xénophon",
-      title: "Les Helléniques",
-      note: "La suite directe de Thucydide, écrite avec moins de génie et plus de parti pris spartiate. Utile pour voir ce que devient un genre entre les mains d'un continuateur.",
-    },
-    {
-      author: "Platon",
-      title: "Euthyphron",
-      note: "Qu'est-ce que la piété ? Le dialogue se termine sans réponse, comme souvent chez le premier Platon. La méthode socratique y est visible à l'état pur.",
-    },
-    {
       author: "Platon",
       title: "Apologie de Socrate",
       note: "La défense de Socrate devant ses juges, et son refus de s'excuser. C'est le texte qui fonde la figure du philosophe comme gêneur public.",
@@ -192,23 +177,8 @@ export const lesFondationsGrecques: Roadmap = {
     },
     {
       author: "Platon",
-      title: "Le Sophiste",
-      note: "Comment définir celui qui fait passer le faux pour le vrai — et comment le non-être peut se dire. Platon y révise sa propre théorie des Formes.",
-    },
-    {
-      author: "Platon",
-      title: "Le Parménide",
-      note: "Le vieux Parménide démolit devant un jeune Socrate la théorie des Idées. Rare exemple d'un philosophe publiant les objections les plus fortes contre lui-même.",
-    },
-    {
-      author: "Platon",
       title: "Timée",
       note: "La formation du monde par un démiurge, en un récit « vraisemblable ». Le seul dialogue connu de l'Occident latin pendant tout le Moyen Âge.",
-    },
-    {
-      author: "Platon",
-      title: "Dialogues",
-      note: "Le volume qui rassemble l'ensemble : à garder pour circuler d'un texte à l'autre une fois les principaux lus séparément.",
     },
     {
       author: "Aristote",
@@ -256,11 +226,6 @@ export const lesFondationsGrecques: Roadmap = {
       note: "Quarante sentences à retenir par cœur, faites pour être disponibles au moment du besoin. La philosophie comme exercice quotidien, non comme savoir.",
     },
     {
-      author: "Zénon de Citium",
-      title: "La République",
-      note: "Le projet stoïcien d'une cité sans temples ni tribunaux, connu par fragments. Il montre que le stoïcisme fut d'abord une doctrine subversive avant de devenir romaine.",
-    },
-    {
       author: "Diogène Laërce",
       title: "Vies, doctrines et sentences des philosophes illustres",
       note: "Anecdotes, testaments et résumés de doctrines, sans grand esprit critique. Souvent notre seule source sur des écoles entières : indispensable malgré ses défauts.",
@@ -269,11 +234,6 @@ export const lesFondationsGrecques: Roadmap = {
       author: "Plutarque",
       title: "Vies parallèles",
       note: "Un Grec et un Romain confrontés deux à deux, pour juger des caractères plus que des faits. Shakespeare, Montaigne et Rousseau y ont pris leur idée de l'Antiquité.",
-    },
-    {
-      author: "Plutarque",
-      title: "Moralia (Œuvres morales)",
-      note: "Des dizaines de traités sur la colère, la curiosité, la tranquillité de l'âme, l'éducation. Le versant pratique de Plutarque, et le plus utilisable aujourd'hui.",
     },
     {
       author: "Euclide",
