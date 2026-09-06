@@ -22,18 +22,8 @@ export const premiersGrandsRomans: Roadmap = {
     },
     {
       author: "Jules Verne",
-      title: "L’Île mystérieuse",
-      note: "Le roman de la reconstruction technique : cinq naufragés refont une civilisation à partir de rien. À lire quand on aime comprendre comment les choses fonctionnent.",
-    },
-    {
-      author: "Jules Verne",
       title: "Le Tour du monde en quatre-vingts jours",
       note: "L'intrigue tient tout entière dans un compte à rebours. Verne y montre que la contrainte de temps suffit à faire un livre entier, leçon de construction romanesque.",
-    },
-    {
-      author: "Jules Verne",
-      title: "Michel Strogoff",
-      note: "Le plus dur des Verne, avec sa scène d'aveuglement au fer rouge. Il marque le moment où la violence entre dans les lectures d'un jeune lecteur.",
     },
     {
       author: "Jonathan Swift",
@@ -56,24 +46,9 @@ export const premiersGrandsRomans: Roadmap = {
       note: "La suite, beaucoup plus grave : un garçon aide un esclave à fuir et croit commettre un péché en le faisant. Première fois que le lecteur voit une conscience se former contre la loi.",
     },
     {
-      author: "Mark Twain",
-      title: "Le Prince et le Pauvre",
-      note: "L'échange d'identités entre un mendiant et un fils de roi : la démonstration la plus simple qu'une position sociale n'est pas un mérite.",
-    },
-    {
-      author: "Lew Wallace",
-      title: "Ben-Hur",
-      note: "Le roman à grand spectacle de l'Antiquité — galères, course de chars, vengeance. Il donne le goût des romans historiques épais.",
-    },
-    {
       author: "Rudyard Kipling",
       title: "Le Livre de la jungle",
       note: "Une éducation, avec ses lois et ses maîtres, transposée chez les animaux. Bien plus rude que sa réputation : Mowgli n'appartient à aucun des deux mondes.",
-    },
-    {
-      author: "Rudyard Kipling",
-      title: "Histoires comme ça",
-      note: "Des récits d'origine inventés de toutes pièces, à la manière des mythes. On y sent la joie de fabriquer une explication : bonne introduction à la fiction consciente d'elle-même.",
     },
     {
       author: "Rudyard Kipling",
@@ -84,11 +59,6 @@ export const premiersGrandsRomans: Roadmap = {
       author: "Lewis Carroll",
       title: "Alice au pays des merveilles",
       note: "Le premier livre du parcours dont l'intérêt n'est pas l'intrigue mais la logique déraillée. Il apprend qu'un texte peut se lire pour sa langue.",
-    },
-    {
-      author: "Lewis Carroll",
-      title: "De l’autre côté du miroir",
-      note: "La suite, plus structurée : une partie d'échecs sert de trame. Les jeux de mots y sont assez retors pour intéresser un lecteur qui commence à se croire malin.",
     },
     {
       author: "L. Frank Baum",
@@ -109,11 +79,6 @@ export const premiersGrandsRomans: Roadmap = {
       author: "Michael Ende",
       title: "L’Histoire sans fin",
       note: "Un garçon lit un livre et y entre : le roman parle du pouvoir de la lecture au moment où le lecteur en fait l'expérience. Placé ici pour cette coïncidence.",
-    },
-    {
-      author: "Michael Ende",
-      title: "Momo",
-      note: "Des hommes gris volent le temps des adultes ; seule une enfant sait encore écouter. La première critique sociale que le parcours propose, sous forme de fable.",
     },
     {
       author: "Carlo Collodi",
@@ -144,11 +109,6 @@ export const premiersGrandsRomans: Roadmap = {
       author: "Marcel Pagnol",
       title: "La Gloire de mon père",
       note: "L'enfance racontée par l'adulte qui s'en souvient. On y découvre la distance du narrateur à lui-même, notion neuve pour un jeune lecteur.",
-    },
-    {
-      author: "Marcel Pagnol",
-      title: "Le Château de ma mère",
-      note: "La suite, où la mémoire vire à l'élégie dans les dernières pages. C'est souvent le premier livre qui fait pleurer sans qu'il s'y passe de drame.",
     },
     {
       author: "José Mauro de Vasconcelos",
@@ -219,11 +179,6 @@ export const premiersGrandsRomans: Roadmap = {
       author: "Mickaël Launay",
       title: "Le Grand Roman des maths",
       note: "Les mathématiques racontées comme une histoire humaine, de la préhistoire à aujourd'hui. Utile à l'adolescent qui croit avoir décidé qu'il n'est pas matheux.",
-    },
-    {
-      author: "Paulo Coelho",
-      title: "L’Alchimiste",
-      note: "Une fable initiatique volontairement simple, très lue à cet âge. À placer en fin de parcours pour ce qu'elle est : un livre à discuter, y compris pour ce qui sonne creux.",
     },
   ],
 };

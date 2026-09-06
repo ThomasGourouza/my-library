@@ -127,7 +127,7 @@ parcours, et l'effondrement du 1,06.
       auteur restent trop : garder les plus utiles.
 - [x] `le-grand-siecle`
 - [x] `lumieres-litteraires`
-- [ ] `premiers-grands-romans`
+- [x] `premiers-grands-romans`
 - [x] `le-vivant` *(déjà listé en reconstruction)*
 
 ### Conservés, vérification rapide seulement
