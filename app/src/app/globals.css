@@ -125,6 +125,18 @@
   --app-content-h: calc(100dvh - 3.5rem - 1px - 3rem);
 }
 
+/* Largeur des pages de liste.
+   <main> est borné à max-w-7xl (80rem) : au-delà, une ligne de texte devient
+   pénible à suivre, ce qui vaut pour les fiches, les parcours et les
+   formulaires. Un tableau de dix colonnes, lui, ne demande qu'à occuper
+   l'écran — à 1440 px, 320 px de marge restaient inutilisés pendant que les
+   dernières colonnes débordaient. Une page qui est d'abord un tableau le
+   déclare avec `data-wide` sur son élément racine ; la règle n'est pas dans une
+   couche Tailwind, elle l'emporte donc sur l'utilitaire. */
+main:has([data-wide]) {
+  max-width: none;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

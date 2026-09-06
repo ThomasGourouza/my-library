@@ -13,7 +13,7 @@ qu'une fois commité.
 - [x] 2. Corriger les 3 problèmes de lint
 - [x] 3. Fusionner les 5 doublons d'œuvres anonymes + garde-fou de test
 - [x] 4. Supprimer le code mort `themes` de `getFilterOptions`
-- [ ] 5. Tableau des livres : sélecteur de colonnes persisté dans l'URL
+- [x] 5. Tableau des livres : sélecteur de colonnes persisté dans l'URL
 - [ ] 6. Tableau des livres : virtualisation des lignes
 - [ ] 7. Accessibilité (aria-sort, lignes au clavier, lien d'évitement)
 - [ ] 8. Progression de lecture dans les parcours
@@ -51,3 +51,11 @@ qu'une fois commité.
   consommée par personne, disparaît. `/livres` et `/auteurs` ne font plus que
   les `SELECT DISTINCT` qui les concernent : 7 par page → 2 et 4.
   `authors-view` partage désormais le type au lieu d'en redéclarer un.
+- **5 ✔** Menu « Colonnes » (10/13 par défaut), état écrit dans `cols=`.
+  Trois colonnes masquées d'origine : Courant, Thème, Langue originale. Le
+  titre n'est pas masquable. Largeur du tableau ramenée de 1 894 à 1 565 px
+  (titres et auteurs bornés, en-têtes raccourcis, parcours au-delà de deux
+  repliés en « +N »), et les pages de liste occupent maintenant toute la
+  largeur de l'écran (1 230 → 1 390 px utiles à 1 440). Deux défauts trouvés
+  au passage et corrigés : le sélecteur « Grouper par » restait vide jusqu'à
+  l'hydratation, et l'espace manquait avant le compteur des groupes.

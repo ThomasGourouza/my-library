@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Check, Plus, X } from "lucide-react";
+import { Check, Columns3, Plus, X } from "lucide-react";
 import type { SortingState } from "@tanstack/react-table";
 import type { BookFilterOptions } from "@/lib/queries";
 import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
@@ -27,6 +27,15 @@ import {
 } from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
 import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -35,13 +44,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BooksTable } from "./books-table";
 import { BooksGrouped } from "./books-grouped";
 import {
+  COLUMN_IDS,
+  COLUMN_LABELS,
+  DEFAULT_HIDDEN_COLUMNS,
   EMPTY_FILTERS,
   FILTER_KEYS,
   FILTER_LABELS,
+  LOCKED_COLUMNS,
   capitalize,
   isGroupByKey,
   isSortableColumn,
   isViewMode,
+  parseHiddenColumns,
+  serializeHiddenColumns,
+  type ColumnId,
   type Filters,
   type FilterKey,
   type GroupByKey,
@@ -150,6 +166,67 @@ function FilterPopover({
 }
 
 // ---------------------------------------------------------------------------
+// Sélecteur de colonnes
+// ---------------------------------------------------------------------------
+
+function ColumnsMenu({
+  hidden,
+  onToggle,
+  onReset,
+  onShowAll,
+}: {
+  hidden: ColumnId[];
+  onToggle: (id: ColumnId) => void;
+  onReset: () => void;
+  onShowAll: () => void;
+}) {
+  const shown = COLUMN_IDS.length - hidden.length;
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="sm" className="h-8 border-dashed">
+          <Columns3 className="size-4" aria-hidden />
+          Colonnes
+          <Badge variant="secondary" className="ml-1 px-1.5">
+            {shown}/{COLUMN_IDS.length}
+          </Badge>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" className="w-56">
+        <DropdownMenuLabel>Colonnes affichées</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {COLUMN_IDS.map((id) => {
+          const locked = LOCKED_COLUMNS.includes(id);
+          return (
+            <DropdownMenuCheckboxItem
+              key={id}
+              checked={!hidden.includes(id)}
+              disabled={locked}
+              // Sans cela, chaque clic referme le menu : régler ses colonnes
+              // demande plusieurs coches d'affilée.
+              onSelect={(e) => e.preventDefault()}
+              onCheckedChange={() => onToggle(id)}
+            >
+              {COLUMN_LABELS[id]}
+              {locked && (
+                <span className="ml-auto text-xs text-muted-foreground">
+                  toujours
+                </span>
+              )}
+            </DropdownMenuCheckboxItem>
+          );
+        })}
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onSelect={onShowAll}>Tout afficher</DropdownMenuItem>
+        <DropdownMenuItem onSelect={onReset}>
+          Rétablir les colonnes par défaut
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Vue principale
 // ---------------------------------------------------------------------------
 
@@ -179,6 +256,9 @@ export function BooksView({
   const [sorting, setSorting] = React.useState<SortingState>(() =>
     parseSorting(searchParams)
   );
+  const [hiddenColumns, setHiddenColumns] = React.useState<ColumnId[]>(() =>
+    parseHiddenColumns(searchParams.get("cols"))
+  );
 
   // Garde l'URL synchronisée avec l'état (partageable, navigation retour/avant).
   React.useEffect(() => {
@@ -200,9 +280,13 @@ export function BooksView({
         sorting.map((s) => `${s.id}.${s.desc ? "desc" : "asc"}`).join(",")
       );
     }
+    // `cols` liste les colonnes masquées ; absent = configuration par défaut,
+    // présent et vide = toutes affichées.
+    const cols = serializeHiddenColumns(hiddenColumns);
+    if (cols !== null) params.set("cols", cols);
     const qs = params.toString();
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-  }, [search, filters, view, groupBy, sorting, pathname, router]);
+  }, [search, filters, view, groupBy, sorting, hiddenColumns, pathname, router]);
 
   const toggleFilter = (key: FilterKey, value: string) => {
     setFilters((prev) => ({
@@ -302,7 +386,10 @@ export function BooksView({
     // Colonne de hauteur définie (jusqu'au bas de l'écran) : la barre d'outils
     // garde sa taille, la vue (tableau ou groupes) occupe le reste et défile
     // en interne — la fenêtre elle-même ne défile pas.
-    <div className="flex h-[var(--app-content-h)] min-h-0 flex-col gap-4">
+    <div
+      data-wide
+      className="flex h-[var(--app-content-h)] min-h-0 flex-col gap-4"
+    >
       <div className="flex shrink-0 flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold">Livres</h1>
@@ -348,6 +435,22 @@ export function BooksView({
             <X className="size-4" aria-hidden />
           </Button>
         )}
+        {view === "table" && (
+          <div className="ml-auto">
+            <ColumnsMenu
+              hidden={hiddenColumns}
+              onToggle={(id) =>
+                setHiddenColumns((prev) =>
+                  prev.includes(id)
+                    ? prev.filter((c) => c !== id)
+                    : [...prev, id]
+                )
+              }
+              onShowAll={() => setHiddenColumns([])}
+              onReset={() => setHiddenColumns([...DEFAULT_HIDDEN_COLUMNS])}
+            />
+          </div>
+        )}
       </div>
 
       {Object.values(filters).some((v) => v.length > 0) && (
@@ -383,6 +486,7 @@ export function BooksView({
             books={filtered}
             sorting={sorting}
             onSortingChange={setSorting}
+            hiddenColumns={hiddenColumns}
           />
         </TabsContent>
         <TabsContent value="grouped" className="mt-1 min-h-[12rem] min-w-0">

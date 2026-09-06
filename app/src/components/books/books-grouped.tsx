@@ -50,7 +50,12 @@ export function BooksGrouped({
           onValueChange={(v) => onGroupByChange(v as GroupByKey)}
         >
           <SelectTrigger size="sm" className="w-44">
-            <SelectValue />
+            {/* Libellé donné explicitement : sans lui, Radix ne le déduit des
+                items qu'une fois le composant hydraté, et le contrôle reste
+                vide le temps que la page (2 038 livres) s'hydrate. */}
+            <SelectValue>
+              {GROUP_OPTIONS.find((o) => o.value === groupBy)?.label}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {GROUP_OPTIONS.map((opt) => (
@@ -76,9 +81,13 @@ export function BooksGrouped({
           {groups.map((group) => (
             <AccordionItem key={group.key} value={group.key}>
               <AccordionTrigger>
-                {group.label}{" "}
-                <span className="font-normal text-muted-foreground">
-                  ({group.books.length})
+                {/* Un seul nœud texte : l'en-tête est un conteneur flex, il
+                    supprimait l'espace entre le libellé et le compteur. */}
+                <span>
+                  {group.label}{" "}
+                  <span className="font-normal text-muted-foreground">
+                    ({group.books.length})
+                  </span>
                 </span>
               </AccordionTrigger>
               <AccordionContent>

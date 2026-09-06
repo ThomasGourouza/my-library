@@ -285,7 +285,7 @@ export function AuthorsView({
   ];
 
   return (
-    <div className="space-y-4">
+    <div data-wide className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold">Auteurs</h1>

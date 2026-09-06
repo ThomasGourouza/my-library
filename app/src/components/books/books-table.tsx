@@ -28,7 +28,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { capitalize, periodRank } from "./books-helpers";
+import { COLUMN_IDS, capitalize, periodRank, type ColumnId } from "./books-helpers";
 
 // ---------------------------------------------------------------------------
 // Tri texte "fr", valeurs nulles en dernier
@@ -65,6 +65,9 @@ const yearSort: SortingFn<BookWithRoadmaps> = (rowA, rowB, columnId) => {
 // Colonnes
 // ---------------------------------------------------------------------------
 
+/** Parcours affichés en toutes lettres dans la cellule ; au-delà, un « +N ». */
+const MAX_ROADMAP_BADGES = 2;
+
 const columns: ColumnDef<BookWithRoadmaps>[] = [
   {
     id: "read",
@@ -95,16 +98,23 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
     header: "Titre",
     sortingFn: textSort,
     cell: ({ row }) => (
-      <span className="inline-flex items-center gap-2">
+      // Largeur bornée : sans cela un seul titre à rallonge (« 1001 Classical
+      // Recordings You Must Hear Before You Die ») élargit toute la colonne et
+      // pousse les dernières colonnes hors de l'écran. Le titre entier reste
+      // lisible en infobulle et sur la fiche.
+      <span className="flex max-w-[22rem] items-center gap-2">
         <Link
           href={`/livres/${row.original.id}`}
-          className="font-medium hover:underline"
+          className="truncate font-medium hover:underline"
+          title={row.original.title}
           onClick={(e) => e.stopPropagation()}
         >
           {row.original.title}
         </Link>
         {row.original.enriched && (
-          <Badge variant="secondary">Ajout Claude</Badge>
+          <Badge variant="secondary" className="shrink-0">
+            Ajout Claude
+          </Badge>
         )}
       </span>
     ),
@@ -117,7 +127,8 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
     cell: ({ row }) => (
       <Link
         href={`/auteurs/${row.original.author.id}`}
-        className="hover:underline"
+        className="block max-w-[13rem] truncate hover:underline"
+        title={row.original.author.name}
         onClick={(e) => e.stopPropagation()}
       >
         {row.original.author.name}
@@ -169,14 +180,15 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
   {
     id: "publicationYear",
     accessorFn: (row) => row.publicationYear,
-    header: "Année de publication",
+    // « Année de publication » prenait 154 px d'en-tête pour afficher 4 chiffres.
+    header: "Année",
     sortingFn: yearSort,
     cell: ({ getValue }) => formatYear(getValue() as number | null) || "—",
   },
   {
     id: "originalLanguage",
     accessorFn: (row) => row.originalLanguage,
-    header: "Langue originale",
+    header: "Langue",
     sortingFn: textSort,
     cell: ({ getValue }) => (getValue() as string | null) ?? "—",
   },
@@ -198,25 +210,46 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
       row.roadmaps.length ? row.roadmaps.map((r) => r.title).join(" · ") : null,
     header: "Parcours",
     sortingFn: textSort,
-    cell: ({ row }) =>
-      row.original.roadmaps.length === 0 ? (
-        "—"
-      ) : (
-        <span className="inline-flex flex-wrap items-center gap-1">
-          {row.original.roadmaps.map((r) => (
-            <Badge key={r.slug} variant="outline" asChild>
+    cell: ({ row }) => {
+      const all = row.original.roadmaps;
+      if (all.length === 0) return "—";
+      // Un livre appartient jusqu'à 6 parcours : les afficher tous étalait la
+      // colonne sur 300 px et faisait déborder le tableau. Les deux premiers
+      // suffisent à situer le livre ; le reste est dans l'infobulle du compteur
+      // et en entier sur la fiche.
+      const shown = all.slice(0, MAX_ROADMAP_BADGES);
+      const rest = all.slice(MAX_ROADMAP_BADGES);
+      return (
+        <span className="flex max-w-[16rem] items-center gap-1">
+          {shown.map((r) => (
+            <Badge
+              key={r.slug}
+              variant="outline"
+              className="min-w-0 shrink"
+              asChild
+            >
               {/* stopPropagation : la ligne entière ouvre la fiche livre */}
               <Link
                 href={`/parcours/${r.slug}`}
                 onClick={(e) => e.stopPropagation()}
                 title={`Parcours « ${r.title} » — ce livre y est le n°${r.position}`}
               >
-                {r.title}
+                <span className="truncate">{r.title}</span>
               </Link>
             </Badge>
           ))}
+          {rest.length > 0 && (
+            <Badge
+              variant="secondary"
+              className="shrink-0"
+              title={rest.map((r) => r.title).join(" · ")}
+            >
+              +{rest.length}
+            </Badge>
+          )}
         </span>
-      ),
+      );
+    },
   },
 ];
 
@@ -228,12 +261,24 @@ export function BooksTable({
   books,
   sorting,
   onSortingChange,
+  hiddenColumns,
 }: {
   books: BookWithRoadmaps[];
   sorting: SortingState;
   onSortingChange: React.Dispatch<React.SetStateAction<SortingState>>;
+  hiddenColumns: readonly ColumnId[];
 }) {
   const router = useRouter();
+
+  // TanStack attend un dictionnaire « visible ? » ; l'état côté vue est la
+  // liste des colonnes masquées, qui est ce qui s'écrit dans l'URL.
+  const columnVisibility = React.useMemo(
+    () =>
+      Object.fromEntries(
+        COLUMN_IDS.map((id) => [id, !hiddenColumns.includes(id)])
+      ),
+    [hiddenColumns]
+  );
 
   // Le compilateur React saute ce composant : useReactTable() renvoie des
   // fonctions qu'il ne peut pas mémoriser sans risque d'affichage périmé. Ce
@@ -244,7 +289,7 @@ export function BooksTable({
   const table = useReactTable({
     data: books,
     columns,
-    state: { sorting },
+    state: { sorting, columnVisibility },
     onSortingChange,
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -310,7 +355,7 @@ export function BooksTable({
         {rows.length === 0 ? (
           <TableRow>
             <TableCell
-              colSpan={columns.length}
+              colSpan={table.getVisibleFlatColumns().length}
               className="h-24 text-center text-muted-foreground"
             >
               Aucun livre ne correspond aux critères.

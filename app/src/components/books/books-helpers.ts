@@ -101,6 +101,90 @@ export const FILTER_LABELS: Record<FilterKey, string> = {
 };
 
 // ---------------------------------------------------------------------------
+// Colonnes du tableau (sélecteur « Colonnes »)
+// ---------------------------------------------------------------------------
+
+/** Dans l'ordre d'affichage. Doit rester aligné sur `columns` de books-table. */
+export const COLUMN_IDS = [
+  "read",
+  "title",
+  "author",
+  "priority",
+  "category",
+  "genre",
+  "courant",
+  "theme",
+  "period",
+  "publicationYear",
+  "originalLanguage",
+  "audience",
+  "roadmaps",
+] as const;
+export type ColumnId = (typeof COLUMN_IDS)[number];
+
+export const COLUMN_LABELS: Record<ColumnId, string> = {
+  read: "Lu",
+  title: "Titre",
+  author: "Auteur",
+  priority: "Priorité",
+  category: "Catégorie",
+  genre: "Genre",
+  courant: "Courant",
+  theme: "Thème",
+  period: "Période",
+  publicationYear: "Année de publication",
+  originalLanguage: "Langue originale",
+  audience: "Public",
+  roadmaps: "Parcours",
+};
+
+/** Sans le titre, une ligne n'identifie plus rien : il n'est pas masquable. */
+export const LOCKED_COLUMNS: readonly ColumnId[] = ["title"];
+
+/**
+ * Masquées à l'ouverture. Les trois colonnes les moins renseignées du corpus
+ * (thème vide à 79 %, courant à 48 %) et la moins utile pour décider quoi lire.
+ * Treize colonnes débordaient de l'écran : les colonnes Parcours et Public
+ * n'étaient atteignables qu'en défilant horizontalement.
+ */
+export const DEFAULT_HIDDEN_COLUMNS: readonly ColumnId[] = [
+  "courant",
+  "theme",
+  "originalLanguage",
+];
+
+export function isColumnId(v: string): v is ColumnId {
+  return (COLUMN_IDS as readonly string[]).includes(v);
+}
+
+/** Remet une sélection dans l'ordre canonique : deux états égaux s'écrivent
+ *  pareil dans l'URL, et la comparaison avec le défaut reste une égalité de
+ *  chaînes. */
+function canonical(ids: ColumnId[]): ColumnId[] {
+  return COLUMN_IDS.filter((id) => ids.includes(id));
+}
+
+/**
+ * `cols` liste les colonnes **masquées**. Trois états distincts :
+ * absent = configuration par défaut, vide = tout est affiché, sinon la liste.
+ */
+export function parseHiddenColumns(raw: string | null): ColumnId[] {
+  if (raw == null) return [...DEFAULT_HIDDEN_COLUMNS];
+  return canonical(
+    raw
+      .split(",")
+      .filter(isColumnId)
+      .filter((id) => !LOCKED_COLUMNS.includes(id))
+  );
+}
+
+/** null quand l'état est celui par défaut : rien à écrire dans l'URL. */
+export function serializeHiddenColumns(hidden: ColumnId[]): string | null {
+  const value = canonical(hidden).join(",");
+  return value === [...DEFAULT_HIDDEN_COLUMNS].join(",") ? null : value;
+}
+
+// ---------------------------------------------------------------------------
 // Tri (colonnes triables de la table, pour valider le paramètre `sort`)
 // ---------------------------------------------------------------------------
 
