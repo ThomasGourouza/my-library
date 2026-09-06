@@ -1,5 +1,5 @@
 {
- "savedAt": "2026-09-06T20:18:46.743Z",
+ "savedAt": "2026-09-06T21:11:20.290Z",
  "books": [
   {
    "authorKey": "fedor dostoievski",
@@ -48,5 +48,6 @@
    "bio": "Marcel Proust naît en 1871 à Auteuil, dans une famille bourgeoise aisée : son père, Adrien Proust, est un médecin hygiéniste reconnu, sa mère, Jeanne Weil, issue d'une famille juive cultivée, à qui il restera profondément attaché. Enfant asthmatique, il est marqué toute sa vie par une santé fragile qui finit par le confiner à la réclusion. Après des études de droit et de philosophie, il fréquente assidûment les salons aristocratiques et bourgeois de la Belle Époque, dont il tirera la matière de son œuvre, tout en publiant des textes mondains et des pastiches dans la presse. Il traduit et préface également John Ruskin, dont l'esthétique influence sa propre conception de l'art.\n\nSes premières tentatives littéraires — le recueil *Les Plaisirs et les Jours* (1896), le roman inachevé *Jean Santeuil*, l'essai *Contre Sainte-Beuve* — préparent, sans l'atteindre encore, la grande œuvre à venir. À la mort de ses parents, entre 1903 et 1905, Proust hérite d'une fortune qui lui permet de se consacrer entièrement à l'écriture ; il s'installe boulevard Haussmann, dans une chambre tapissée de liège pour l'isoler du bruit, et y travaille sans relâche, souvent la nuit, à *À la recherche du temps perdu*, dont le premier volume paraît en 1913 après plusieurs refus d'éditeurs. Il meurt à Paris en 1922 des suites d'une bronchite mal soignée, en pleine correction des épreuves de *La Prisonnière*. Considéré de son vivant comme un dilettante mondain, il est aujourd'hui unanimement tenu pour l'un des plus grands romanciers du XXe siècle et l'un des inventeurs du roman moderne.",
    "bioGeneratedAt": "2026-09-05T13:58:45.529Z"
   }
- ]
+ ],
+ "lists": []
 }

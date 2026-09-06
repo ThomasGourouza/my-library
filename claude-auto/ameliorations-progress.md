@@ -20,7 +20,7 @@ qu'une fois commité.
 - [x] 9. Tableau de bord d'accueil sur `/`
 - [x] 10. Palette de commandes globale (⌘K / Ctrl+K)
 - [x] 11. Filtres d'auteurs synchronisés à l'URL
-- [ ] 12. Listes personnelles (créer, ordonner, supprimer)
+- [x] 12. Listes personnelles (créer, ordonner, supprimer)
 - [ ] 13. Export CSV / JSON de la bibliothèque
 - [ ] 14. Visibilité de « Analyse Claude »
 - [ ] 15. Tests unitaires manquants
@@ -100,3 +100,11 @@ qu'une fois commité.
   filtres et tri écrits dans l'URL (`?q=a&mainField=…&sort=bookCount.asc`,
   rechargée et vérifiée), même mise en page pleine hauteur avec en-tête
   collant, et virtualisation — 1 069 lignes dans le DOM → 30.
+- **12 ✔** « Mes listes » : nouvelles tables `lists` / `list_items` (créées par
+  `drizzle-kit push`, base sauvegardée avant, 2 038 livres et 3 analyses
+  intacts après), API REST complète, page `/listes`, page de détail avec
+  renommage, réordonnancement et suppression, et un bouton « Listes » sur la
+  fiche de chaque livre. Les listes survivent à `npm run db:reseed` : vérifié
+  en aller-retour complet (1/1 liste, 2/2 entrées, ordre conservé). La liste de
+  démonstration utilisée pour la vérification a été supprimée — la base rendue
+  à Tom n'a aucune liste inventée.

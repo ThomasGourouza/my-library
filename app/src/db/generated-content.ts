@@ -1,7 +1,7 @@
 /**
  * Sauvegarde / restauration de ce que les fichiers de seed ne contiennent pas :
- * le contenu généré par Claude (résumés, analyses, biographies) et l'état de
- * lecture coché par l'utilisateur.
+ * le contenu généré par Claude (résumés, analyses, biographies), l'état de
+ * lecture coché par l'utilisateur et ses listes personnelles.
  *
  * Pourquoi : `npm run db:seed` vide puis réinsère authors + books. Les colonnes
  * générées (books.summary/analysis, authors.bio) n'existent pas dans les
@@ -25,9 +25,9 @@
  */
 import fs from "node:fs";
 import path from "node:path";
-import { eq, isNotNull, or } from "drizzle-orm";
+import { asc, eq, isNotNull, or } from "drizzle-orm";
 import { db } from "./index";
-import { authors, books } from "./schema";
+import { authors, books, listItems, lists } from "./schema";
 import { normalizeKey } from "../lib/normalize";
 
 const FILE = path.resolve(process.cwd(), "..", "seed", "generated-content.json");
@@ -49,10 +49,21 @@ interface SavedAuthor {
   bioGeneratedAt: string | null;
 }
 
+/** Les livres d'une liste sont référencés par clé naturelle, jamais par id :
+ *  le seed réattribue toutes les clés primaires. */
+interface SavedList {
+  name: string;
+  description: string | null;
+  createdAt: string;
+  books: { authorKey: string; titleKey: string; title: string; note: string | null }[];
+}
+
 interface Payload {
   savedAt: string;
   books: SavedBook[];
   authors: SavedAuthor[];
+  /** Absent des sauvegardes antérieures aux listes : traité comme vide. */
+  lists?: SavedList[];
 }
 
 function save(): void {
@@ -71,6 +82,27 @@ function save(): void {
     .where(isNotNull(authors.bio))
     .all();
 
+  const listRows = db.select().from(lists).orderBy(asc(lists.id)).all();
+  const savedLists: SavedList[] = listRows.map((l) => ({
+    name: l.name,
+    description: l.description,
+    createdAt: l.createdAt,
+    books: db
+      .select({ item: listItems, book: books, author: authors })
+      .from(listItems)
+      .innerJoin(books, eq(books.id, listItems.bookId))
+      .innerJoin(authors, eq(authors.id, books.authorId))
+      .where(eq(listItems.listId, l.id))
+      .orderBy(asc(listItems.position))
+      .all()
+      .map((r) => ({
+        authorKey: normalizeKey(r.author.name),
+        titleKey: normalizeKey(r.book.title),
+        title: r.book.title,
+        note: r.item.note,
+      })),
+  }));
+
   const payload: Payload = {
     savedAt: new Date().toISOString(),
     books: bookRows.map((r) => ({
@@ -88,13 +120,16 @@ function save(): void {
       bio: a.bio,
       bioGeneratedAt: a.bioGeneratedAt,
     })),
+    lists: savedLists,
   };
 
   fs.writeFileSync(FILE, JSON.stringify(payload, null, 1) + "\n", "utf-8");
   const lus = payload.books.filter((b) => b.read).length;
+  const entrees = savedLists.reduce((n, l) => n + l.books.length, 0);
   console.log(
     `Sauvegardé : ${payload.books.length} livre(s) (dont ${lus} lu(s)), ` +
-      `${payload.authors.length} biographie(s) → ${FILE}`
+      `${payload.authors.length} biographie(s), ` +
+      `${savedLists.length} liste(s) (${entrees} entrées) → ${FILE}`
   );
 }
 
@@ -121,6 +156,8 @@ function restore(): void {
 
   let restoredBooks = 0;
   let restoredAuthors = 0;
+  let restoredLists = 0;
+  let restoredListItems = 0;
   const missing: string[] = [];
 
   db.transaction((tx) => {
@@ -153,11 +190,57 @@ function restore(): void {
         .run();
       restoredAuthors++;
     }
+
+    // Les listes ne sont pas touchées par le seed (il ne vide que authors et
+    // books), mais leurs entrées pointent sur des identifiants de livres qui,
+    // eux, ont tous changé : la cascade les a effacées. On les recrée.
+    for (const l of payload.lists ?? []) {
+      const key = normalizeKey(l.name);
+      const existing = tx
+        .select({ id: lists.id })
+        .from(lists)
+        .where(eq(lists.nameNormalized, key))
+        .get();
+      const listId =
+        existing?.id ??
+        tx
+          .insert(lists)
+          .values({
+            name: l.name,
+            nameNormalized: key,
+            description: l.description,
+            createdAt: l.createdAt,
+          })
+          .returning({ id: lists.id })
+          .get().id;
+      restoredLists++;
+
+      tx.delete(listItems).where(eq(listItems.listId, listId)).run();
+      let position = 0;
+      for (const b of l.books) {
+        const bookId = bookByKey.get(`${b.authorKey}|${b.titleKey}`);
+        if (bookId == null) {
+          missing.push(`liste « ${l.name} » → « ${b.title} »`);
+          continue;
+        }
+        position++;
+        tx.insert(listItems)
+          .values({ listId, bookId, position, note: b.note })
+          .run();
+        restoredListItems++;
+      }
+    }
   });
 
+  const savedListItems = (payload.lists ?? []).reduce(
+    (n, l) => n + l.books.length,
+    0
+  );
   console.log(
     `Restauré : ${restoredBooks}/${payload.books.length} analyse(s), ` +
-      `${restoredAuthors}/${payload.authors.length} biographie(s).`
+      `${restoredAuthors}/${payload.authors.length} biographie(s), ` +
+      `${restoredLists}/${(payload.lists ?? []).length} liste(s) ` +
+      `(${restoredListItems}/${savedListItems} entrées).`
   );
   // Une cible manquante signifie que le livre/auteur a disparu du seed : on le
   // signale bruyamment plutôt que de perdre le contenu en silence.

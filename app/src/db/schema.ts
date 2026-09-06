@@ -82,6 +82,60 @@ export const books = sqliteTable(
   ]
 );
 
+/**
+ * Listes de lecture personnelles.
+ *
+ * À ne pas confondre avec les parcours (`src/lib/roadmaps/`), qui sont du
+ * contenu éditorial rédigé, versionné et tenu par des tests. Une liste est ce
+ * que l'utilisateur compose lui-même depuis l'interface : « à lire cet été »,
+ * « offerts », « à relire ». Elle vit en base parce qu'elle change souvent et
+ * ne regarde que lui.
+ *
+ * Comme la case « Lu » et les analyses, les listes ne sont pas dans les
+ * fichiers de seed : elles sont sauvegardées et restaurées autour d'un reseed
+ * par src/db/generated-content.ts, par clé naturelle.
+ */
+export const lists = sqliteTable(
+  "lists",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    name: text("name").notNull(),
+    // Deux listes du même nom aux accents près sont la même liste.
+    nameNormalized: text("name_normalized").notNull(),
+    description: text("description"),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(datetime('now'))`),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(datetime('now'))`),
+  },
+  (t) => [uniqueIndex("lists_name_normalized_unique").on(t.nameNormalized)]
+);
+
+export const listItems = sqliteTable(
+  "list_items",
+  {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    listId: integer("list_id")
+      .notNull()
+      .references(() => lists.id, { onDelete: "cascade" }),
+    bookId: integer("book_id")
+      .notNull()
+      .references(() => books.id, { onDelete: "cascade" }),
+    // Rang dans la liste, à partir de 1. Une liste est un ordre, pas un sac.
+    position: integer("position").notNull(),
+    note: text("note"),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(datetime('now'))`),
+  },
+  (t) => [
+    uniqueIndex("list_items_list_book_unique").on(t.listId, t.bookId),
+    index("list_items_list_idx").on(t.listId),
+  ]
+);
+
 export const analysisJobs = sqliteTable("analysis_jobs", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   bookId: integer("book_id")
@@ -100,6 +154,9 @@ export type NewAuthor = typeof authors.$inferInsert;
 export type Book = typeof books.$inferSelect;
 export type NewBook = typeof books.$inferInsert;
 export type AnalysisJob = typeof analysisJobs.$inferSelect;
+export type List = typeof lists.$inferSelect;
+export type NewList = typeof lists.$inferInsert;
+export type ListItem = typeof listItems.$inferSelect;
 
 export type BookWithAuthor = Book & { author: Author };
 export type AuthorWithCount = Author & { bookCount: number };

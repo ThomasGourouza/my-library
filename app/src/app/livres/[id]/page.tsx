@@ -11,6 +11,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BookActions } from "@/components/books/book-actions";
 import { AnalysisPanel } from "@/components/books/analysis-panel";
+import { AddToList } from "@/components/lists/add-to-list";
+import { getListsForBook } from "@/lib/lists";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +36,7 @@ export default async function LivreDetailPage({
   const year = formatYear(book.publicationYear);
   const roadmaps = getRoadmapsForBook(book.id);
   const priority = priorityOf(book);
+  const memberOf = getListsForBook(book.id);
 
   return (
     <div className="space-y-6">
@@ -67,6 +70,7 @@ export default async function LivreDetailPage({
             title={book.title}
             label
           />
+          <AddToList bookId={book.id} memberOf={memberOf.map((l) => l.id)} />
           <Button asChild variant="outline">
             <Link href={`/livres/${book.id}/modifier`}>Modifier</Link>
           </Button>
@@ -125,6 +129,26 @@ export default async function LivreDetailPage({
           </ul>
         )}
       </section>
+
+      {memberOf.length > 0 && (
+        <section className="space-y-2">
+          <h2 className="text-lg font-semibold">
+            Mes listes qui contiennent ce livre ({memberOf.length})
+          </h2>
+          <ul className="divide-y rounded-md border">
+            {memberOf.map((list) => (
+              <li key={list.id} className="px-3 py-2">
+                <Link
+                  href={`/listes/${list.id}`}
+                  className="text-sm font-medium hover:underline"
+                >
+                  {list.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <AnalysisPanel book={book} />
     </div>
