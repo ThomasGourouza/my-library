@@ -12,11 +12,6 @@ export const visionScientifique: Roadmap = {
   entries: [
     {
       author: "Auguste Comte",
-      title: "Discours sur l'esprit positif",
-      note: "Le programme en peu de pages : renoncer aux causes premières, s'en tenir aux lois constatables. Point d'entrée le plus court dans la thèse qui commande tout le parcours.",
-    },
-    {
-      author: "Auguste Comte",
       title: "Cours de philosophie positive",
       note: "La version développée, avec la loi des trois états et le projet d'une physique sociale. Ambition démesurée, mais c'est ici que la sociologie reçoit son nom et son mandat.",
     },
@@ -29,11 +24,6 @@ export const visionScientifique: Roadmap = {
       author: "Hippolyte Taine",
       title: "Les Origines de la France contemporaine",
       note: "La race, le milieu et le moment appliqués à l'histoire de France. Première tentative française de traiter un passé national comme un objet de laboratoire — avec les biais que cela produit.",
-    },
-    {
-      author: "Hippolyte Taine",
-      title: "Essais de critique et d'histoire",
-      note: "La même méthode transposée à la littérature : une œuvre s'explique par les conditions qui l'ont rendue possible. La critique déterministe à son point de départ.",
     },
     {
       author: "Karl Marx",
@@ -91,11 +81,6 @@ export const visionScientifique: Roadmap = {
       note: "Trois sociétés dont chacune sélectionne un profil de personnalité différent : le caractère n'est pas donné, il est configuré. Première formulation grand public du relativisme culturel.",
     },
     {
-      author: "A.R. Radcliffe-Brown",
-      title: "Structure and Function in Primitive Society",
-      note: "Les institutions expliquées par la fonction qu'elles remplissent dans le maintien de l'ensemble. L'ambition la plus proche des sciences naturelles jamais tenue en anthropologie.",
-    },
-    {
       author: "Claude Lévi-Strauss",
       title: "Tristes Tropiques",
       note: "L'enquête de terrain doublée d'une réflexion sur ce que l'observateur détruit en observant. La conscience critique du programme, écrite dans une prose qui ne ressemble à aucune autre.",
@@ -108,27 +93,12 @@ export const visionScientifique: Roadmap = {
     {
       author: "Clifford Geertz",
       title: "The Interpretation of Cultures",
-      note: "Le tournant interprétatif : une culture se lit comme un texte plutôt qu'elle ne s'explique comme un mécanisme. Le contre-argument le plus sérieux à Radcliffe-Brown, à lire en regard.",
-    },
-    {
-      author: "Georges Balandier",
-      title: "Sociologie française",
-      note: "Un état des lieux de la discipline française par un de ses praticiens, utile pour situer les auteurs précédents les uns par rapport aux autres.",
+      note: "Le tournant interprétatif : une culture se lit comme un texte plutôt qu'elle ne s'explique comme un mécanisme. La « description dense » qu'il propose marque la limite que ce programme finit par s'imposer à lui-même.",
     },
     {
       author: "Pierre Bourdieu",
       title: "Les Héritiers",
       note: "L'école montrée comme un dispositif qui reproduit les inégalités en les faisant passer pour des dons. La démonstration statistique remplace ici l'hypothèse générale.",
-    },
-    {
-      author: "Henri Lefebvre",
-      title: "Le Droit à la ville",
-      note: "L'espace urbain traité comme une production sociale, donc comme un enjeu politique. Le déterminisme appliqué à ce qu'on croyait n'être qu'un décor.",
-    },
-    {
-      author: "Henri Lefebvre",
-      title: "La Production de l'espace",
-      note: "La version théorique complète de la même thèse. Difficile, mais c'est le livre qui a fait passer l'espace du statut de contenant à celui de produit historique.",
     },
     {
       author: "Michel Foucault",
