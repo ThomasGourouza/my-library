@@ -9,7 +9,7 @@ qu'une fois commité.
 
 ## Chantiers
 
-- [ ] 1. Restaurer les analyses et biographies perdues (3 + 3)
+- [x] 1. Restaurer les analyses et biographies perdues (3 + 3)
 - [ ] 2. Corriger les 3 problèmes de lint
 - [ ] 3. Fusionner les 5 doublons d'œuvres anonymes + garde-fou de test
 - [ ] 4. Supprimer le code mort `themes` de `getFilterOptions`
@@ -31,3 +31,8 @@ qu'une fois commité.
 - Audit terminé, plan et progression écrits. Base de départ mesurée :
   2 043 livres, 1 069 auteurs, 0 lu, 0 analyse en base, 15 tests verts,
   3 problèmes de lint, `tsc` propre.
+- **1 ✔** `npx tsx src/db/generated-content.ts restore` → 3/3 analyses,
+  3/3 biographies revenues en base. Vérifié à l'écran sur
+  `/livres/8726` (Crime et Châtiment), clair et sombre. Ajout d'un script
+  `npm run db:reseed` qui enchaîne sauvegarde + seed + restauration, pour que
+  l'oubli qui a causé la perte ne soit plus possible.

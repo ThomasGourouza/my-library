@@ -4,7 +4,12 @@
  * Sans fichiers de seed, insère une petite fixture (dev Phase 0/1).
  * Idempotent : relancer reproduit exactement le même contenu.
  *
- * Usage : npm run db:seed   (depuis app/)
+ * Usage : npm run db:reseed  (depuis app/)
+ *
+ * ⚠ `npm run db:seed` appelle ce script **seul** : il efface au passage les
+ * analyses, biographies, listes personnelles et cases « Lu », qui ne sont pas
+ * dans les fichiers de seed. Passer par `db:reseed`, qui encadre le seed par
+ * la sauvegarde et la restauration de src/db/generated-content.ts.
  */
 import fs from "node:fs";
 import path from "node:path";

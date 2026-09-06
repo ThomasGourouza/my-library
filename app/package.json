@@ -9,6 +9,7 @@
     "lint": "eslint",
     "db:push": "drizzle-kit push",
     "db:seed": "tsx src/db/seed.ts",
+    "db:reseed": "tsx src/db/generated-content.ts save && tsx src/db/seed.ts && tsx src/db/generated-content.ts restore",
     "test": "vitest run"
   },
   "dependencies": {

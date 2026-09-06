@@ -13,8 +13,15 @@
  * clés primaires.
  *
  * Usage :
+ *   npm run db:reseed                             (sauvegarde + seed + restaure)
+ *
+ * ou, si l'on veut piloter les trois étapes à la main :
  *   npx tsx src/db/generated-content.ts save      (avant le reseed)
  *   npx tsx src/db/generated-content.ts restore   (après le reseed)
+ *
+ * Préférer `npm run db:reseed`. Un `npm run db:seed` lancé seul a déjà effacé
+ * 3 analyses et 3 biographies le 6 septembre 2026 : l'enchaînement manuel avait
+ * été fait à moitié. Le script npm rend l'oubli impossible.
  */
 import fs from "node:fs";
 import path from "node:path";
