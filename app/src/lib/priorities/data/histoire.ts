@@ -202,6 +202,5 @@ export const histoire: PriorityEntry[] = [
   { author: "Yuval Noah Harari", title: "21 leçons pour le XXIe siècle", priority: "complementaire" },
   { author: "Yuval Noah Harari", title: "Homo Deus", priority: "complementaire" },
   { author: "Yuval Noah Harari", title: "Nexus", priority: "complementaire" },
-  { author: "Yuval Noah Harari", title: "Nexus: A Brief History of Information Networks", priority: "complementaire" },
   { author: "Yuval Noah Harari", title: "Sapiens", priority: "important" },
 ];

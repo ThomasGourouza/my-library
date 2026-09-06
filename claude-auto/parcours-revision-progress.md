@@ -150,12 +150,17 @@ existant ne le porte. Ne pas en créer pour recueillir des livres orphelins :
 c'est exactement l'erreur qu'on corrige.
 
 ### Doublons à traiter au passage
-- [ ] Harari : *Nexus* et *Nexus: A Brief History of Information Networks* — même
-      livre, deux fiches.
-- [ ] Strauss & Howe : *The Fourth Turning* et *The Fourth Turning Is Here*.
-      Fusionner comme Montaigne et Pascal l'ont été (voir le commit `38273e1`) :
-      enrichir la fiche conservée, repointer les parcours, retirer du seed, de la
-      base et du fichier de priorités.
+- [x] Harari : *Nexus* et *Nexus: A Brief History of Information Networks* — même
+      livre, deux fiches. Fusionnés : la fiche anglaise est retirée du seed, de
+      la base et du fichier de priorités ; « Nexus » est conservé (langue
+      d'origine et thème correctement renseignés). 2044 → 2043 livres.
+- [x] Strauss & Howe : *The Fourth Turning* et *The Fourth Turning Is Here*.
+      **Ce ne sont pas des doublons** : *The Fourth Turning* (Strauss et Howe,
+      1997) et *The Fourth Turning Is Here* (Howe seul, 2023) sont deux livres
+      distincts, à vingt-six ans d'écart. Aucune fusion faite ; les deux fiches
+      restent en bibliothèque. Ils sortent en revanche de
+      `civilisations-et-longue-duree`, où Spengler et Toynbee portent déjà la
+      thèse des cycles avec plus de poids.
 
 ### Clôture
 - [ ] `npm test` au vert, `npx tsc --noEmit`, `npm run build`.
