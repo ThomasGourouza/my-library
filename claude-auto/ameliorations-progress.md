@@ -18,7 +18,7 @@ qu'une fois commité.
 - [x] 7. Accessibilité (aria-sort, lignes au clavier, lien d'évitement)
 - [x] 8. Progression de lecture dans les parcours
 - [x] 9. Tableau de bord d'accueil sur `/`
-- [ ] 10. Palette de commandes globale (⌘K / Ctrl+K)
+- [x] 10. Palette de commandes globale (⌘K / Ctrl+K)
 - [ ] 11. Filtres d'auteurs synchronisés à l'URL
 - [ ] 12. Listes personnelles (créer, ordonner, supprimer)
 - [ ] 13. Export CSV / JSON de la bibliothèque
@@ -89,3 +89,10 @@ qu'une fois commité.
   avec 6 livres marqués lus puis avec 0 (état réel) : la page tient les deux.
   Onglet nommé « Accueil » — « Vue d'ensemble » faisait passer la navigation
   sur deux lignes en mobile.
+- **10 ✔** Palette de commandes globale (⌘K / Ctrl+K, et un bouton
+  « Rechercher » dans l'en-tête). Cherche d'un coup livres, auteurs et
+  parcours via `GET /api/search`. Vérifié au navigateur : « nietz » →
+  6 livres + 1 auteur, navigation au clavier, Entrée ouvre la fiche, les deux
+  raccourcis fonctionnent, en clair et en sombre. Un bug attrapé à la
+  vérification : l'alias SQL `rank` n'existe pas dans ORDER BY côté SQLite,
+  la route renvoyait 500.

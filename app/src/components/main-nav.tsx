@@ -7,6 +7,7 @@ import { useTheme } from "next-themes";
 import { LibraryBig, Moon, Sun } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { CommandPalette } from "@/components/command-palette";
 
 const tabs = [
   // « Accueil » plutôt que « Vue d'ensemble » : à 390 px, le libellé long
@@ -82,7 +83,8 @@ export function MainNav() {
             );
           })}
         </nav>
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-2">
+          <CommandPalette />
           <ThemeToggle />
         </div>
       </div>
