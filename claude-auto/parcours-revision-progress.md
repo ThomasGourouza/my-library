@@ -119,7 +119,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `economie-et-critique-du-capitalisme`
 - [x] `chine-et-japon`
 - [x] `phenomenologie-et-existentialisme`
-- [ ] `vision-chretienne`
+- [x] `vision-chretienne`
 - [ ] `vision-aristocratique`
 - [ ] `psychologie-et-connaissance-de-soi`
 - [ ] `science-fiction-et-anticipation`

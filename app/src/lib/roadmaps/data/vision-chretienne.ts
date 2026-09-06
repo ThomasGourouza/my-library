@@ -76,11 +76,6 @@ export const visionChretienne: Roadmap = {
       note: "La distinction entre la mystique et la politique, née de l'affaire Dreyfus : toute mystique se dégrade en politique, et c'est ce qu'il faut combattre. Une des idées les plus reprises du siècle.",
     },
     {
-      author: "Charles Péguy",
-      title: "L'Argent",
-      note: "L'éloge du monde d'avant, où le travail était sa propre récompense, et la dénonciation de ce qui l'a remplacé. La critique chrétienne du capitalisme sans passer par le socialisme.",
-    },
-    {
       author: "Georges Bernanos",
       title: "Journal d'un curé de campagne",
       note: "Un prêtre médiocre, malade et sans succès, à travers qui la grâce passe quand même. Le livre où cette vision atteint sa forme romanesque la plus juste.",
@@ -92,16 +87,6 @@ export const visionChretienne: Roadmap = {
     },
     {
       author: "Georges Bernanos",
-      title: "Dialogues des Carmélites",
-      note: "La peur de la mort et le courage échangés entre deux femmes, à contretemps. La grâce y circule d'une personne à l'autre — l'idée de communion des saints rendue dramatique.",
-    },
-    {
-      author: "Georges Bernanos",
-      title: "La Grande Peur des bien-pensants",
-      note: "Le pamphlet contre une bourgeoisie catholique qui a fait de la religion une assurance sur l'ordre social. Bernanos attaque ici les siens, ce qui donne au livre sa violence.",
-    },
-    {
-      author: "Georges Bernanos",
       title: "Les Grands Cimetières sous la lune",
       note: "Témoin des massacres franquistes à Majorque, un royaliste catholique dénonce les crimes de son propre camp bénis par des évêques. Le moment où la vision chrétienne se retourne contre ses gardiens.",
     },
@@ -109,16 +94,6 @@ export const visionChretienne: Roadmap = {
       author: "Georges Bernanos",
       title: "La France contre les robots",
       note: "La machine et la technique comme puissances qui dispensent l'homme d'être libre. La critique de la modernité tirée directement de l'anthropologie chrétienne.",
-    },
-    {
-      author: "Georges Bernanos",
-      title: "La Liberté, pour quoi faire ?",
-      note: "Conférences d'après-guerre : la liberté n'est pas un droit qu'on reçoit mais un risque qu'on prend. Le versant le plus accessible de sa pensée politique.",
-    },
-    {
-      author: "Georges Bernanos",
-      title: "Français, si vous saviez...",
-      note: "Les derniers textes, écrits contre la reconstruction et son optimisme. À lire en dernier de la série Bernanos : c'est le bilan d'un homme qui n'attend plus rien du siècle.",
     },
     {
       author: "François Mauriac",
@@ -141,21 +116,6 @@ export const visionChretienne: Roadmap = {
       note: "La distinction entre une morale close, qui protège le groupe, et une morale ouverte, portée par des figures mystiques. Un philosophe non chrétien fournit ici l'argument le plus favorable à la sainteté.",
     },
     {
-      author: "Maurice Clavel",
-      title: "Ce que je crois",
-      note: "La conversion tardive d'un intellectuel de gauche, exposée sans apologétique. Utile pour voir comment cette vision se reformule après 1968, en pleine domination du structuralisme.",
-    },
-    {
-      author: "Pierre Boutang",
-      title: "Apocalypse du désir",
-      note: "Le désir traité comme ce qui, en l'homme, appelle plus que ce qui existe. Une métaphysique exigeante, à réserver au lecteur déjà familier des textes précédents.",
-    },
-    {
-      author: "Jean Madiran",
-      title: "L'Hérésie du XXe siècle",
-      note: "L'accusation portée contre l'épiscopat français d'avoir dissous la doctrine dans le social. Document majeur du conflit interne au catholicisme après le concile.",
-    },
-    {
       author: "René Girard",
       title: "Mensonge romantique et vérité romanesque",
       note: "Point d'entrée dans Girard : le désir n'est jamais spontané, il copie celui d'un autre. Démonstration menée sur Cervantès, Stendhal, Proust et Dostoïevski.",
@@ -174,41 +134,6 @@ export const visionChretienne: Roadmap = {
       author: "René Girard",
       title: "Le Bouc émissaire",
       note: "Le mécanisme appliqué à des documents précis, des textes de persécution médiévaux aux mythes. Le plus démonstratif de la série, et le plus facile à vérifier.",
-    },
-    {
-      author: "René Girard",
-      title: "Je vois Satan tomber comme l'éclair",
-      note: "La version tardive et la plus directement théologique : le souci moderne des victimes serait un effet différé de la Passion. À lire quand l'appareil est déjà connu.",
-    },
-    {
-      author: "René Girard",
-      title: "Géométries du désir",
-      note: "Reprises et entretiens qui montrent l'hypothèse mimétique à l'œuvre sur d'autres corpus. Complément utile plutôt que porte d'entrée.",
-    },
-    {
-      author: "Jean-Yves Leloup",
-      title: "L'Amour et la Solitude",
-      note: "La tradition contemplative orientale relue pour des lecteurs contemporains. Contrepoint au versant polémique du parcours : ici la vision chrétienne se dit sur le mode de l'expérience intérieure.",
-    },
-    {
-      author: "Augustin Berthe",
-      title: "Jésus-Christ, sa vie, sa passion, son triomphe",
-      note: "Une vie de Jésus du XIXe siècle, écrite pour l'édification et non pour l'enquête historique. Elle documente ce que la piété d'une époque attendait d'un tel récit.",
-    },
-    {
-      author: "Jacomino Baptiste",
-      title: "La Philosophie chrétienne",
-      note: "Une mise au point sur une question ancienne : existe-t-il une manière proprement chrétienne de philosopher, ou seulement des philosophes chrétiens ? Utile pour ordonner ce qu'on vient de lire.",
-    },
-    {
-      author: "Ivan Blot",
-      title: "L'homme défiguré",
-      note: "La modernité décrite comme une amputation de la part spirituelle de l'homme. Une reprise contemporaine du diagnostic de Bernanos, sur un ton plus doctrinal.",
-    },
-    {
-      author: "Jean Sévillia",
-      title: "L'Église en procès",
-      note: "La réponse polémique aux réquisitoires courants contre le catholicisme, croisades et Inquisition comprises. À lire comme une pièce du débat, en gardant en tête le camp de l'auteur.",
     },
     {
       author: "Chantal Delsol",
