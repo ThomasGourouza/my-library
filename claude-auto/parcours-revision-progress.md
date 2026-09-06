@@ -168,6 +168,13 @@ c'est exactement l'erreur qu'on corrige.
       thèse des cycles avec plus de poids.
 
 ### Clôture
-- [ ] `npm test` au vert, `npx tsc --noEmit`, `npm run build`.
-- [ ] `npx tsx scripts/parcours-metrics.ts "APRÈS révision"` et reporter les
-      chiffres dans le rapport final, en regard des mesures de référence.
+- [x] `npm test` au vert (15/15), `npx tsx --noEmit` propre, `npm run build`
+      réussi, `npm run lint` inchangé (les 3 problèmes préexistants).
+- [x] `npx tsx scripts/parcours-metrics.ts "APRÈS révision"` :
+      53 parcours · 1546 entrées · 1152/2043 livres couverts (56,4 %) ·
+      tailles 10/26/91 · ratio parcours/livre : essentiel 1,94 · important 1,44 ·
+      complémentaire 1,18 · spécialisé 1,05.
+      Le chiffre qui compte n'est pas le ratio mais la couverture par priorité :
+      **les livres spécialisés couverts passent de 615/615 à 41/615**, les
+      complémentaires de 893/893 à 577/892, tandis que les essentiels restent à
+      111/111 et les importants à 423/425. La contrainte a disparu.
