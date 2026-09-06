@@ -88,7 +88,7 @@ parcours, et l'effondrement du 1,06.
       bibliothèque, mais « ordre de lecture recommandé » n'est pas la forme
       juste pour eux. Quelques titres peuvent rester en cas d'école si la note
       les nomme comme tels.
-- [ ] `grands-essais-et-art-de-penser` — était le « filet de sécurité » déclaré.
+- [x] `grands-essais-et-art-de-penser` — était le « filet de sécurité » déclaré.
       Reconstruire autour de l'objectif réel : travailler la forme essai.
 - [ ] `recits-de-soi` — 100 % de ses livres exclusifs sont C ou S.
 - [ ] `nouvelles-et-formes-breves` — 94 %.
