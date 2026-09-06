@@ -120,7 +120,7 @@ qu'aucune des familles prévues n'accueillait correctement.
 - [x] `recits-de-soi` — Mémoires, Autobiographie, Journal, Correspondance, Biographie
 - [x] `nouvelles-et-formes-breves` — Nouvelle, Conte (adulte), Fable, Maximes
 - [x] `science-fiction-et-anticipation`
-- [ ] `grands-essais-et-art-de-penser` — essais restants, filet de sécurité
+- [x] `grands-essais-et-art-de-penser` — essais restants, filet de sécurité
 
 ### Balayage final (obligatoire)
 - [ ] Lancer `npm test`, récupérer la liste des livres non couverts, et rattacher
