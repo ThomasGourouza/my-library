@@ -105,7 +105,7 @@ parcours, et l'effondrement du 1,06.
       sans rapport.
 - [x] `le-monde-anglo-saxon` — les 15 dernières positions dégénèrent en romans
       d'aéroport.
-- [ ] `le-roman-russe`
+- [x] `le-roman-russe`
 - [ ] `roman-francais-xxe` — un bloc québécois déversé en positions 79-81, deux
       essais en 83-84 dans un parcours de romans.
 - [ ] `romantisme-francais` — des poèmes isolés catalogués comme livres en 57-59
