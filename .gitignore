@@ -10,4 +10,5 @@ pipeline/output/
 __pycache__/
 scratchpad/
 claude-auto/runs/
+claude-auto/*.log
 npm-debug.log*
