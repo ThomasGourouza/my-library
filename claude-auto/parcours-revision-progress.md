@@ -114,7 +114,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `les-maitres-du-soupcon`
 - [x] `litterature-contemporaine`
 - [x] `la-poesie`
-- [ ] `realisme-et-naturalisme`
+- [x] `realisme-et-naturalisme`
 - [ ] `sources-moyen-age-renaissance`
 - [ ] `economie-et-critique-du-capitalisme`
 - [ ] `chine-et-japon`
