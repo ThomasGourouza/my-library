@@ -14,7 +14,7 @@ qu'une fois commité.
 - [x] 3. Fusionner les 5 doublons d'œuvres anonymes + garde-fou de test
 - [x] 4. Supprimer le code mort `themes` de `getFilterOptions`
 - [x] 5. Tableau des livres : sélecteur de colonnes persisté dans l'URL
-- [ ] 6. Tableau des livres : virtualisation des lignes
+- [x] 6. Tableau des livres : virtualisation des lignes
 - [ ] 7. Accessibilité (aria-sort, lignes au clavier, lien d'évitement)
 - [ ] 8. Progression de lecture dans les parcours
 - [ ] 9. Tableau de bord d'accueil sur `/`
@@ -63,3 +63,9 @@ qu'une fois commité.
   de `router.replace`. Mesuré avant/après sur `/livres` en tapant « proust » :
   8 requêtes RSC et 8 Mo de charge utile → 0 et 0. Le serveur resérialisait les
   2 038 livres à chaque caractère tapé. Même correction sur `/parcours`.
+- **6b ✔** Virtualisation avec `@tanstack/react-virtual`. Mesures au
+  navigateur : 2 038 lignes dans le DOM → 28 ; taper « proust » dans la
+  recherche passe de 16,3 s à 3,3 s (dont 0,7 s de frappe simulée et 1,5 s
+  d'attente fixe). Tri, filtres, case « Lu » et en-tête collant vérifiés en
+  clair et en sombre ; la barre de défilement garde sa taille réelle
+  (83 468 px).

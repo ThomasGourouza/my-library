@@ -13,6 +13,7 @@ import {
   type SortingFn,
   type SortingState,
 } from "@tanstack/react-table";
+import { useVirtualizer } from "@tanstack/react-virtual";
 import { formatYear } from "@/lib/normalize";
 import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
 import { priorityRank } from "@/lib/priorities/types";
@@ -302,11 +303,42 @@ export function BooksTable({
   });
 
   const rows = table.getRowModel().rows;
+  const columnCount = table.getVisibleFlatColumns().length;
+
+  // Virtualisation : seules les lignes visibles (plus une marge) existent dans
+  // le DOM. Rendre les 2 038 d'un bloc coûtait environ deux secondes à chaque
+  // frappe dans la barre de recherche, puisque le filtrage reconstruit la
+  // liste. Deux lignes-tampons portent la hauteur du reste, pour que la barre
+  // de défilement garde sa taille réelle.
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const virtualizer = useVirtualizer({
+    count: rows.length,
+    getScrollElement: () => scrollRef.current,
+    // Hauteur d'une ligne : py-2 + une ligne de texte. Mesurée ensuite pour de
+    // vrai, l'estimation ne sert qu'au premier rendu.
+    estimateSize: () => 41,
+    overscan: 10,
+  });
+  const virtualRows = virtualizer.getVirtualItems();
+  const paddingTop = virtualRows.length > 0 ? virtualRows[0].start : 0;
+  const paddingBottom =
+    virtualRows.length > 0
+      ? virtualizer.getTotalSize() - virtualRows[virtualRows.length - 1].end
+      : 0;
+
+  // Revenir en haut quand la liste change d'ordre ou de contenu : rester à la
+  // ligne 800 après avoir filtré ou retrié montre une portion arbitraire.
+  React.useEffect(() => {
+    scrollRef.current?.scrollTo({ top: 0 });
+  }, [books, sorting]);
 
   return (
     // Le conteneur remplit la hauteur disponible : les deux barres de défilement
     // (verticale et horizontale) restent à l'intérieur du cadre du tableau.
-    <Table containerClassName="h-full overflow-y-auto rounded-md border">
+    <Table
+      containerRef={scrollRef}
+      containerClassName="h-full overflow-y-auto rounded-md border"
+    >
       {/* En-tête collant : le trait de séparation est une ombre interne, la
           bordure du <tr> disparaîtrait au défilement (border-collapse). */}
       <TableHeader className="sticky top-0 z-10 [&_th]:bg-background [&_th]:shadow-[inset_0_-1px_0_var(--border)] [&_tr]:border-b-0">
@@ -355,26 +387,43 @@ export function BooksTable({
         {rows.length === 0 ? (
           <TableRow>
             <TableCell
-              colSpan={table.getVisibleFlatColumns().length}
+              colSpan={columnCount}
               className="h-24 text-center text-muted-foreground"
             >
               Aucun livre ne correspond aux critères.
             </TableCell>
           </TableRow>
         ) : (
-          rows.map((row) => (
-            <TableRow
-              key={row.id}
-              className="cursor-pointer"
-              onClick={() => router.push(`/livres/${row.original.id}`)}
-            >
-              {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </TableCell>
-              ))}
-            </TableRow>
-          ))
+          <>
+            {paddingTop > 0 && (
+              <tr aria-hidden>
+                <td colSpan={columnCount} style={{ height: paddingTop }} />
+              </tr>
+            )}
+            {virtualRows.map((virtualRow) => {
+              const row = rows[virtualRow.index];
+              return (
+                <TableRow
+                  key={row.id}
+                  data-index={virtualRow.index}
+                  ref={virtualizer.measureElement}
+                  className="cursor-pointer"
+                  onClick={() => router.push(`/livres/${row.original.id}`)}
+                >
+                  {row.getVisibleCells().map((cell) => (
+                    <TableCell key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              );
+            })}
+            {paddingBottom > 0 && (
+              <tr aria-hidden>
+                <td colSpan={columnCount} style={{ height: paddingBottom }} />
+              </tr>
+            )}
+          </>
         )}
       </TableBody>
     </Table>
