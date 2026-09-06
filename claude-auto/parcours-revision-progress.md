@@ -75,7 +75,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `geopolitique-du-monde-contemporain` — 0 % essentiel, 52 % spécialisé,
       contient un atlas et un manuel de relations internationales.
 - [x] `comprendre-l-univers` — 92 % complémentaire+spécialisé.
-- [ ] `les-mathematiques` — 86 %.
+- [x] `les-mathematiques` — 86 %.
 - [ ] `histoire-et-philosophie-des-sciences` — 76 %.
 - [ ] `le-vivant` — 73 %.
 - [ ] `histoire-de-france` — cinq biographies de De Gaulle à la suite puis quatre
