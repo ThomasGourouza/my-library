@@ -27,28 +27,8 @@ export const lumieresLitteraires: Roadmap = {
     },
     {
       author: "Voltaire",
-      title: "La Henriade",
-      note: "L'épopée nationale que Voltaire voulait laisser à la postérité, sur Henri IV et la tolérance. On la lit aujourd'hui pour l'écart entre son ambition et ce qui a survécu de lui.",
-    },
-    {
-      author: "Voltaire",
-      title: "Zaïre",
-      note: "Tragédie à sujet oriental où la religion sépare deux amants. Le succès théâtral qui a fait de Voltaire une autorité avant qu'il ne soit un polémiste.",
-    },
-    {
-      author: "Voltaire",
       title: "Mahomet ou le Fanatisme",
       note: "L'attaque contre l'imposture religieuse déplacée sur l'islam pour viser l'Église. Cas d'école du détour par l'ailleurs, procédé courant du siècle.",
-    },
-    {
-      author: "Voltaire",
-      title: "Le Mondain",
-      note: "L'éloge du luxe et du confort contre la nostalgie de l'âge d'or. Voltaire y assume la modernité matérielle, à rebours de ce que Rousseau dira vingt ans plus tard.",
-    },
-    {
-      author: "Voltaire",
-      title: "Discours sur l’homme",
-      note: "Sept discours en vers sur le bonheur, la liberté, la modération. Le versant doctrinal de Voltaire, avant que Lisbonne ne l'oblige à revoir son optimisme.",
     },
     {
       author: "Voltaire",
@@ -64,11 +44,6 @@ export const lumieresLitteraires: Roadmap = {
       author: "Jeanne-Marie Leprince de Beaumont",
       title: "La Belle et la Bête",
       note: "Le conte moral tel que le siècle l'entend : une leçon sur le mariage et le jugement, destinée aux jeunes filles. À lire pour ce qu'il enseigne, pas seulement pour l'histoire.",
-    },
-    {
-      author: "Madame de Genlis",
-      title: "Les Contes moraux",
-      note: "L'éducation par la fiction, appliquée avec méthode par la gouvernante des enfants d'Orléans. Le pendant pédagogique des grands textes du parcours.",
     },
     {
       author: "Jean-Jacques Rousseau",
@@ -106,16 +81,6 @@ export const lumieresLitteraires: Roadmap = {
       note: "La vertu systématiquement punie, thèse répétée à chaque épisode. Version la plus lisible de Sade : elle donne la structure de toute son œuvre.",
     },
     {
-      author: "Marquis de Sade",
-      title: "Juliette",
-      note: "Le contre-livre de Justine : le vice y réussit, avec les mêmes démonstrations retournées. Le diptyque forme un système philosophique complet, aussi rigoureux que révoltant.",
-    },
-    {
-      author: "Marquis de Sade",
-      title: "Les 120 Journées de Sodome",
-      note: "Écrit à la Bastille, classificatoire jusqu'à l'obsession. Livre-limite, à aborder en sachant qu'il pousse la logique des Lumières — tout énumérer, tout expliquer — jusqu'à l'horreur.",
-    },
-    {
       author: "Beaumarchais",
       title: "Le Barbier de Séville",
       note: "L'intrigue de comédie italienne remise à neuf, et un valet plus vif que son maître. Retour au rire après les livres les plus noirs du parcours.",
@@ -124,11 +89,6 @@ export const lumieresLitteraires: Roadmap = {
       author: "Beaumarchais",
       title: "Le Mariage de Figaro",
       note: "Le monologue de Figaro contre les privilèges de naissance, joué devant la cour cinq ans avant 1789. Le théâtre le plus explicitement politique du siècle.",
-    },
-    {
-      author: "Beaumarchais",
-      title: "La Mère coupable",
-      note: "Vingt ans après, les mêmes personnages devenus tristes, dans un drame sans gaieté. La trilogie vieillit avec son siècle : c'est ce qui la rend émouvante.",
     },
     {
       author: "Louis de Rouvroy de Saint-Simon",
@@ -147,11 +107,6 @@ export const lumieresLitteraires: Roadmap = {
     },
     {
       author: "André Chénier",
-      title: "Bucoliques",
-      note: "La Grèce refaite en français, avec un métier de vers que le siècle avait délaissé. Chénier prépare techniquement le romantisme sans en partager les idées.",
-    },
-    {
-      author: "André Chénier",
       title: "Élégies",
       note: "L'amour et la mort dans une langue antiquisante mais nue. C'est là que le lyrisme personnel revient dans la poésie française, après cent ans d'absence.",
     },
@@ -159,11 +114,6 @@ export const lumieresLitteraires: Roadmap = {
       author: "André Chénier",
       title: "Iambes",
       note: "Les vers de colère contre la Terreur, écrits en prison. La poésie redevient un acte dangereux : leur auteur a été guillotiné trois jours avant la chute de Robespierre.",
-    },
-    {
-      author: "André Chénier",
-      title: "La Jeune Captive",
-      note: "Le poème d'un condamné sur une autre condamnée qui veut vivre. Fin du parcours : le siècle du rire et des idées s'achève sur une voix qu'on va faire taire.",
     },
   ],
 };
