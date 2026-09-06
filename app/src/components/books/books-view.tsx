@@ -15,6 +15,9 @@ import {
 } from "@/lib/priorities/types";
 import { AUDIENCES, CATEGORIES, PERIODS } from "@/lib/validation";
 import { cn } from "@/lib/utils";
+import type { ExportColumn } from "@/lib/export";
+import { formatYear } from "@/lib/normalize";
+import { ExportMenu } from "@/components/export-menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -68,6 +71,25 @@ import {
 // aucun parcours : cette valeur de filtre permet de les retrouver et d'auditer
 // ce qui est resté dehors. Ce n'est pas un slug, aucune collision possible.
 const SANS_PARCOURS = "__aucun__";
+
+/** Colonnes du fichier exporté : tout ce que porte un livre, en clair. */
+const EXPORT_COLUMNS: ExportColumn<BookWithRoadmaps>[] = [
+  { header: "Titre", value: (b) => b.title },
+  { header: "Auteur", value: (b) => b.author.name },
+  { header: "Priorité", value: (b) => b.priority && PRIORITY_LABELS[b.priority] },
+  { header: "Catégorie", value: (b) => b.category },
+  { header: "Genre", value: (b) => b.genre },
+  { header: "Courant", value: (b) => b.courant },
+  { header: "Thème", value: (b) => b.theme },
+  { header: "Période", value: (b) => b.period },
+  { header: "Année de publication", value: (b) => formatYear(b.publicationYear) },
+  { header: "Langue originale", value: (b) => b.originalLanguage },
+  { header: "Public", value: (b) => capitalize(b.audience) },
+  { header: "Lu", value: (b) => b.read },
+  { header: "Parcours", value: (b) => b.roadmaps.map((r) => r.title).join(" · ") },
+  { header: "Ajout Claude", value: (b) => b.enriched },
+  { header: "Notes", value: (b) => b.notes },
+];
 
 // ---------------------------------------------------------------------------
 // Sérialisation URL
@@ -440,8 +462,17 @@ export function BooksView({
             <X className="size-4" aria-hidden />
           </Button>
         )}
+        <div className="ml-auto flex items-center gap-2">
+          <ExportMenu
+            rows={filtered}
+            columns={EXPORT_COLUMNS}
+            basename="ma-bibliotheque-livres"
+            label="livre"
+            order="par titre"
+          />
+        </div>
         {view === "table" && (
-          <div className="ml-auto">
+          <div>
             <ColumnsMenu
               hidden={hiddenColumns}
               onToggle={(id) =>

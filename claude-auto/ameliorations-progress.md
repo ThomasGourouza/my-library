@@ -21,7 +21,7 @@ qu'une fois commité.
 - [x] 10. Palette de commandes globale (⌘K / Ctrl+K)
 - [x] 11. Filtres d'auteurs synchronisés à l'URL
 - [x] 12. Listes personnelles (créer, ordonner, supprimer)
-- [ ] 13. Export CSV / JSON de la bibliothèque
+- [x] 13. Export CSV / JSON de la bibliothèque
 - [ ] 14. Visibilité de « Analyse Claude »
 - [ ] 15. Tests unitaires manquants
 - [ ] 16. README réel
@@ -108,3 +108,8 @@ qu'une fois commité.
   en aller-retour complet (1/1 liste, 2/2 entrées, ordre conservé). La liste de
   démonstration utilisée pour la vérification a été supprimée — la base rendue
   à Tom n'a aucune liste inventée.
+- **13 ✔** Export CSV et JSON de la vue filtrée, sur les livres et sur les
+  auteurs. Vérifié en téléchargeant réellement les fichiers : « zola » →
+  8 lignes + en-tête, BOM UTF-8 (les accents s'ouvrent correctement dans un
+  tableur), guillemets RFC 4180, fins de ligne CRLF, JSON valide relu et
+  reparsé.

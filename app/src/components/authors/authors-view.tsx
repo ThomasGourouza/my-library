@@ -7,9 +7,11 @@ import { ArrowDown, ArrowUp, ArrowUpDown, Check, Plus, X } from "lucide-react";
 import type { AuthorWithCount } from "@/db/schema";
 import type { AuthorFilterOptions } from "@/lib/queries";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { formatLifespan, normalizeKey } from "@/lib/normalize";
+import { formatLifespan, formatYear, normalizeKey } from "@/lib/normalize";
 import { PERIODS } from "@/lib/validation";
 import { cn } from "@/lib/utils";
+import type { ExportColumn } from "@/lib/export";
+import { ExportMenu } from "@/components/export-menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -97,6 +99,20 @@ const SORT_KEYS: SortKey[] = [
 ];
 
 const DEFAULT_SORT: SortState = { key: "name", dir: "asc" };
+
+/** Colonnes du fichier exporté. */
+const EXPORT_COLUMNS: ExportColumn<AuthorWithCount>[] = [
+  { header: "Nom", value: (a) => a.name },
+  { header: "Naissance", value: (a) => formatYear(a.birthYear) },
+  { header: "Décès", value: (a) => formatYear(a.deathYear) },
+  { header: "Nationalité", value: (a) => a.nationality },
+  { header: "Langue", value: (a) => a.language },
+  { header: "Genre principal", value: (a) => a.mainGenre },
+  { header: "Domaine", value: (a) => a.mainField },
+  { header: "Période", value: (a) => a.period },
+  { header: "Nombre de livres", value: (a) => a.bookCount },
+  { header: "Notes", value: (a) => a.notes },
+];
 
 // ---------------------------------------------------------------------------
 // Sérialisation URL — même contrat que la page Livres : ce qu'on voit à
@@ -435,6 +451,15 @@ export function AuthorsView({
             <X className="size-4" aria-hidden />
           </Button>
         )}
+        <div className="ml-auto">
+          <ExportMenu
+            rows={sorted}
+            columns={EXPORT_COLUMNS}
+            basename="ma-bibliotheque-auteurs"
+            label="auteur"
+            order="dans l’ordre affiché"
+          />
+        </div>
       </div>
 
       {Object.values(filters).some((v) => v.length > 0) && (
