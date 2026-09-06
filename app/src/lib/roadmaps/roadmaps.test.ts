@@ -1,22 +1,68 @@
 /**
  * Garde-fous des parcours de lecture.
  *
- * Le test de couverture est la contrepartie exécutable de l'exigence « tout
- * livre appartient à au moins un parcours » : sans lui, un livre ajouté à la
- * bibliothèque disparaîtrait silencieusement de la navigation par parcours.
+ * Ce fichier a changé de rôle. Il imposait auparavant que **tout** livre de la
+ * bibliothèque appartienne à un parcours : une force qui poussait les livres
+ * dedans, et qui a produit ce qu'on pouvait en attendre — un livre spécialisé
+ * apparaissait en moyenne 1,06 fois, c'est-à-dire exactement une fois, parce
+ * qu'il fallait bien le caser.
  *
- * Le test de résolution attrape les fautes de frappe sur les titres et les noms
- * d'auteur, invisibles autrement : une entrée qui ne correspond à rien est
- * simplement ignorée à l'affichage.
+ * Le critère est désormais la pertinence seule, et les tests deviennent une
+ * force qui tient les livres **dehors** : un parcours doit avoir une colonne
+ * vertébrale et ne pas se remplir d'ouvrages de niche. La couverture n'est plus
+ * une exigence ; elle est mesurée par `scripts/parcours-metrics.ts`, et un
+ * livre sans parcours est un résultat normal.
  */
 import { describe, expect, it } from "vitest";
 import { listBooks } from "@/lib/queries";
+import { priorityIndex, priorityOf } from "@/lib/priorities/resolve";
 import { ROADMAPS } from "./index";
 import { resolveLibrary } from "./resolve";
 import { ROADMAP_FAMILIES } from "./types";
 
 const books = listBooks();
 const resolved = resolveLibrary(books);
+const prios = priorityIndex();
+
+/** Longueur minimale d'un chemin de lecture. En dessous, c'est une liste. */
+const MIN_ENTREES = 8;
+/** Sans ce socle de livres qui comptent, un parcours n'a pas de colonne vertébrale. */
+const MIN_COLONNE_VERTEBRALE = 6;
+/** Au-delà, le parcours se remplit d'ouvrages de niche. */
+const MAX_PART_SPECIALISEE = 20;
+
+/**
+ * Parcours dont le sujet EST une littérature spécialisée : la règle ci-dessus
+ * n'a pas de sens pour eux, et l'exception doit rester nommée, jamais implicite.
+ */
+const SPECIALISE_ASSUME = new Set(["le-mythe-arthurien"]);
+
+/**
+ * L'échelle de priorité est celle de la culture générale adulte : un album
+ * illustré y est structurellement « complémentaire ». Ces parcours se jugent
+ * sur leur propre axe.
+ */
+const HORS_ECHELLE_ADULTE = new Set([
+  "lire-avec-les-tout-petits",
+  "classiques-de-l-enfance",
+]);
+
+function stats(slug: string) {
+  const items = resolved.itemsBySlug.get(slug) ?? [];
+  let specialise = 0;
+  let colonne = 0;
+  for (const item of items) {
+    const p = priorityOf(item.book, prios);
+    if (p === "specialise") specialise++;
+    if (p === "essentiel" || p === "important") colonne++;
+  }
+  return {
+    n: items.length,
+    specialise,
+    colonne,
+    partSpecialisee: items.length ? (specialise / items.length) * 100 : 0,
+  };
+}
 
 describe("parcours — résolution", () => {
   it("chaque entrée correspond à un livre de la bibliothèque", () => {
@@ -31,9 +77,7 @@ describe("parcours — résolution", () => {
     for (const [slug, items] of resolved.itemsBySlug) {
       const seen = new Set<number>();
       for (const item of items) {
-        if (seen.has(item.book.id)) {
-          duplicates.push(`${slug} : « ${item.book.title} »`);
-        }
+        if (seen.has(item.book.id)) duplicates.push(`${slug} : « ${item.book.title} »`);
         seen.add(item.book.id);
       }
     }
@@ -41,23 +85,37 @@ describe("parcours — résolution", () => {
   });
 });
 
-describe("parcours — couverture", () => {
-  it("tout livre de la bibliothèque appartient à au moins un parcours", () => {
-    const uncovered = books
-      .filter((book) => !resolved.refsByBookId.has(book.id))
-      .map((book) => `${book.category} | ${book.author.name} | ${book.title}`);
-    // Message d'échec utile : on liste les manquants, pas juste un compte.
+describe("parcours — forme", () => {
+  it("chaque parcours est assez long pour être un chemin", () => {
+    const courts = ROADMAPS.map((r) => ({ slug: r.slug, ...stats(r.slug) }))
+      .filter((s) => s.n < MIN_ENTREES)
+      .map((s) => `${s.slug} : ${s.n} entrées`);
+    expect(courts, `minimum ${MIN_ENTREES} entrées`).toEqual([]);
+  });
+
+  it("chaque parcours a une colonne vertébrale", () => {
+    const sansSocle = ROADMAPS.filter((r) => !HORS_ECHELLE_ADULTE.has(r.slug))
+      .map((r) => ({ slug: r.slug, ...stats(r.slug) }))
+      .filter((s) => s.colonne < MIN_COLONNE_VERTEBRALE)
+      .map((s) => `${s.slug} : ${s.colonne} livre(s) essentiel/important sur ${s.n}`);
     expect(
-      uncovered,
-      `${uncovered.length} livre(s) sans parcours sur ${books.length}`
+      sansSocle,
+      `minimum ${MIN_COLONNE_VERTEBRALE} livres essentiels ou importants par parcours`
     ).toEqual([]);
   });
 
-  it("aucun parcours n'est vide", () => {
-    const empty = ROADMAPS.filter(
-      (r) => (resolved.itemsBySlug.get(r.slug)?.length ?? 0) === 0
-    ).map((r) => r.slug);
-    expect(empty).toEqual([]);
+  it("aucun parcours ne se remplit d'ouvrages de niche", () => {
+    const charges = ROADMAPS.filter(
+      (r) => !SPECIALISE_ASSUME.has(r.slug) && !HORS_ECHELLE_ADULTE.has(r.slug)
+    )
+      .map((r) => ({ slug: r.slug, ...stats(r.slug) }))
+      .filter((s) => s.partSpecialisee > MAX_PART_SPECIALISEE)
+      .sort((a, b) => b.partSpecialisee - a.partSpecialisee)
+      .map((s) => `${s.slug} : ${s.partSpecialisee.toFixed(0)} % (${s.specialise}/${s.n})`);
+    expect(
+      charges,
+      `maximum ${MAX_PART_SPECIALISEE} % d'entrées spécialisées par parcours`
+    ).toEqual([]);
   });
 });
 
@@ -84,16 +142,15 @@ describe("parcours — intégrité", () => {
   });
 
   it("chaque livre est justifié par une note propre", () => {
-    const weak: string[] = [];
+    // Plancher relevé de 40 à 110 : le minimum réel du corpus était déjà 102,
+    // l'ancien seuil ne protégeait donc plus rien.
+    const faibles: string[] = [];
     for (const r of ROADMAPS) {
       for (const entry of r.entries) {
-        // Une note trop courte est du remplissage : on l'interdit.
-        if (entry.note.trim().length < 40) {
-          weak.push(`${r.slug} : « ${entry.title} »`);
-        }
+        if (entry.note.trim().length < 110) faibles.push(`${r.slug} : « ${entry.title} »`);
       }
     }
-    expect(weak).toEqual([]);
+    expect(faibles).toEqual([]);
   });
 
   it("les notes ne sont pas copiées d'un livre à l'autre", () => {

@@ -50,6 +50,11 @@ import {
 
 export type BookFilterOptions = ReturnType<typeof getFilterOptions>;
 
+// Depuis l'abandon de la couverture intégrale, un livre peut n'appartenir à
+// aucun parcours : cette valeur de filtre permet de les retrouver et d'auditer
+// ce qui est resté dehors. Ce n'est pas un slug, aucune collision possible.
+const SANS_PARCOURS = "__aucun__";
+
 // ---------------------------------------------------------------------------
 // Sérialisation URL
 // ---------------------------------------------------------------------------
@@ -239,7 +244,7 @@ export function BooksView({
         matches(filters.read, b.read ? "lu" : "non-lu") &&
         matchesAny(
           filters.roadmap,
-          b.roadmaps.map((r) => r.slug)
+          b.roadmaps.length ? b.roadmaps.map((r) => r.slug) : [SANS_PARCOURS]
         )
     );
   }, [books, search, filters]);
@@ -251,9 +256,12 @@ export function BooksView({
     for (const book of books) {
       for (const r of book.roadmaps) bySlug.set(r.slug, r.title);
     }
-    return [...bySlug]
+    const tries = [...bySlug]
       .map(([slug, title]) => ({ slug, title }))
       .sort((a, b) => a.title.localeCompare(b.title, "fr"));
+    // En tête : c'est la valeur qu'on cherche quand on ouvre ce filtre pour
+    // vérifier ce qui n'a pas trouvé de place.
+    return [{ slug: SANS_PARCOURS, title: "Sans parcours" }, ...tries];
   }, [books]);
   const roadmapTitles = React.useMemo(
     () => new Map(roadmapOptions.map((r) => [r.slug, r.title])),

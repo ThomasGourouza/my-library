@@ -92,18 +92,23 @@ fi
 # $REPORT). Conséquence : un accent grave ou un $(...) dans le texte y serait
 # exécuté au lancement. Déjà arrivé une fois — d'où ce garde-fou.
 echo
-echo "run.sh — sûreté du heredoc de prompt :"
-prompt_block=$(awk '/^PROMPT=\$\(cat <<EOF$/{f=1;next} f&&/^EOF$/{exit} f' ../claude-auto/run.sh 2>/dev/null \
-  || awk '/^PROMPT=\$\(cat <<EOF$/{f=1;next} f&&/^EOF$/{exit} f' ./run.sh)
-if printf '%s' "$prompt_block" | grep -q '`'; then
-  fail=$(( fail + 1 )); echo "  FAIL accent grave dans le prompt (serait exécuté)"
-elif printf '%s' "$prompt_block" | grep -q '\$('; then
-  fail=$(( fail + 1 )); echo "  FAIL substitution \$(...) dans le prompt"
-elif [ -z "$prompt_block" ]; then
-  fail=$(( fail + 1 )); echo "  FAIL bloc de prompt introuvable dans run.sh"
-else
-  pass=$(( pass + 1 )); echo "  ok   aucun accent grave ni \$(...) dans le prompt"
-fi
+echo "sûreté des heredocs de prompt (tous les lanceurs) :"
+# Chaque heredoc de prompt est volontairement NON quoté, pour interpoler $REPO
+# ou $REPORT. Un accent grave ou un $(...) y serait donc exécuté au lancement.
+for f in ./run.sh ./run-parcours.sh ./run-revision.sh; do
+  [ -f "$f" ] || continue
+  bloc=$(awk '/<<EOF$/{f=1;next} f&&/^EOF$/{exit} f' "$f")
+  nom=$(basename "$f")
+  if [ -z "$bloc" ]; then
+    fail=$(( fail + 1 )); printf '  FAIL %-18s bloc de prompt introuvable\n' "$nom"
+  elif printf '%s' "$bloc" | grep -q '`'; then
+    fail=$(( fail + 1 )); printf '  FAIL %-18s accent grave (serait exécuté)\n' "$nom"
+  elif printf '%s' "$bloc" | grep -q '\$('; then
+    fail=$(( fail + 1 )); printf '  FAIL %-18s substitution $(...)\n' "$nom"
+  else
+    pass=$(( pass + 1 )); printf '  ok   %-18s propre\n' "$nom"
+  fi
+done
 
 echo
 echo "$pass réussis, $fail échoués"
