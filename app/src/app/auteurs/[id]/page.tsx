@@ -4,7 +4,10 @@ import Markdown from "react-markdown";
 import { Pencil, Plus } from "lucide-react";
 import type { Metadata } from "next";
 import { getAuthor } from "@/lib/queries";
-import { formatLifespan } from "@/lib/normalize";
+import { formatLifespan, formatYear } from "@/lib/normalize";
+import { priorityIndex, priorityOf } from "@/lib/priorities/resolve";
+import { PriorityBadge } from "@/components/books/priority-badge";
+import { ReadCheckbox } from "@/components/books/read-checkbox";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -45,6 +48,15 @@ export default async function AuthorPage({ params }: PageProps) {
   if (!author) notFound();
 
   const lifespan = formatLifespan(author.birthYear, author.deathYear);
+
+  // Même échelle et même case que partout ailleurs : la fiche d'un auteur est
+  // aussi un endroit d'où l'on choisit quoi lire.
+  const index = priorityIndex();
+  const authorBooks = author.books.map((book) => ({
+    book,
+    priority: priorityOf({ title: book.title, author }, index),
+  }));
+  const readCount = author.books.filter((b) => b.read).length;
 
   const identityRows = (
     [
@@ -154,6 +166,11 @@ export default async function AuthorPage({ params }: PageProps) {
       <section className="space-y-2">
         <h2 className="text-lg font-semibold">
           Livres de cet auteur ({author.books.length})
+          {readCount > 0 && (
+            <span className="ml-2 text-sm font-normal text-muted-foreground">
+              — {readCount} lu{readCount > 1 ? "s" : ""}
+            </span>
+          )}
         </h2>
         {author.books.length === 0 ? (
           <div className="space-y-3">
@@ -167,26 +184,44 @@ export default async function AuthorPage({ params }: PageProps) {
           </div>
         ) : (
           <ul className="divide-y rounded-md border">
-            {author.books.map((book) => (
-              <li
-                key={book.id}
-                className="flex flex-wrap items-center justify-between gap-2 px-3 py-2"
-              >
-                <Link
-                  href={`/livres/${book.id}`}
-                  className="text-sm font-medium hover:underline"
+            {authorBooks.map(({ book, priority }) => {
+              const year = formatYear(book.publicationYear);
+              return (
+                <li
+                  key={book.id}
+                  className="flex flex-wrap items-center justify-between gap-2 px-3 py-2"
                 >
-                  {book.title}
-                </Link>
-                <div className="flex flex-wrap gap-1.5">
-                  <Badge variant="secondary">{book.category}</Badge>
-                  {book.period && <Badge variant="outline">{book.period}</Badge>}
-                  {book.enriched && (
-                    <Badge variant="outline">Ajout Claude</Badge>
-                  )}
-                </div>
-              </li>
-            ))}
+                  <span className="flex min-w-0 items-center gap-2">
+                    <ReadCheckbox
+                      bookId={book.id}
+                      read={book.read}
+                      title={book.title}
+                    />
+                    <Link
+                      href={`/livres/${book.id}`}
+                      className="truncate text-sm font-medium hover:underline"
+                    >
+                      {book.title}
+                    </Link>
+                    {year && (
+                      <span className="shrink-0 text-xs text-muted-foreground">
+                        ({year})
+                      </span>
+                    )}
+                  </span>
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <PriorityBadge priority={priority} />
+                    <Badge variant="secondary">{book.category}</Badge>
+                    {book.period && (
+                      <Badge variant="outline">{book.period}</Badge>
+                    )}
+                    {book.enriched && (
+                      <Badge variant="outline">Ajout Claude</Badge>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
           </ul>
         )}
       </section>

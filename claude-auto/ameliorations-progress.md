@@ -138,3 +138,6 @@ qu'une fois commité.
   routes (`/`, `/listes`, `/listes/[id]`) — les autres en avaient déjà.
   Vérifiés à l'écran en injectant temporairement un délai serveur : 51 blocs sur
   l'accueil, 21 sur les listes, en clair et en sombre. Le délai a été retiré.
+- **19 ✔** (hors plan initial) Fiche auteur : chaque livre porte sa priorité,
+  sa case « Lu » et son année, et le titre de section indique combien sont lus.
+  La fiche d'un auteur est aussi un endroit d'où l'on choisit quoi lire.
