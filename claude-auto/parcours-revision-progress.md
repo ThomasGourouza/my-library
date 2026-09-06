@@ -117,7 +117,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `realisme-et-naturalisme`
 - [x] `sources-moyen-age-renaissance`
 - [x] `economie-et-critique-du-capitalisme`
-- [ ] `chine-et-japon`
+- [x] `chine-et-japon`
 - [ ] `phenomenologie-et-existentialisme`
 - [ ] `vision-chretienne`
 - [ ] `vision-aristocratique`
