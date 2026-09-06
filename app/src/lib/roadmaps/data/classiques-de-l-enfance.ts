@@ -36,11 +36,6 @@ export const classiquesDeLEnfance: Roadmap = {
       note: "La gouvernante qui ne s'explique jamais. Le livre est plus sec et plus étrange que sa réputation : le merveilleux y est un fait, pas une récompense.",
     },
     {
-      author: "P. L. Travers",
-      title: "Mary Poppins de A à Z",
-      note: "Le prolongement en forme de jeu alphabétique, à lire après le roman quand le personnage est devenu familier.",
-    },
-    {
       author: "Frances Hodgson Burnett",
       title: "Le Jardin secret",
       note: "Une orpheline butée, un jardin muré, un cousin qu'on croit condamné : le roman où l'on comprend qu'on peut se transformer soi-même. Le premier livre vraiment intérieur du parcours.",
@@ -61,11 +56,6 @@ export const classiquesDeLEnfance: Roadmap = {
       note: "Le contrepoint sage de Sophie. À lire ensuite pour voir l'auteur opposer deux modèles d'éducation, ce qui donne matière à discuter avec l'enfant.",
     },
     {
-      author: "Comtesse de Ségur",
-      title: "Les Vacances",
-      note: "Le troisième volet, qui referme le cycle et fait grandir les personnages. Une série complète, ce qui compte beaucoup à cet âge.",
-    },
-    {
       author: "Johanna Spyri",
       title: "Heidi",
       note: "La montagne contre la ville, la liberté contre le corset social. Roman consolant, souvent relu, où l'on retient surtout le mal du pays.",
@@ -79,11 +69,6 @@ export const classiquesDeLEnfance: Roadmap = {
       author: "Hector Malot",
       title: "Sans famille",
       note: "L'enfant seul sur les routes, qui gagne sa vie et sa dignité. Le grand roman de l'apprentissage par l'épreuve — et un des rares où la pauvreté est décrite sans détour.",
-    },
-    {
-      author: "Hector Malot",
-      title: "En famille",
-      note: "Le pendant du précédent, avec une héroïne. À lire après, pour voir le même auteur reprendre son motif et le retourner.",
     },
     {
       author: "Henri Bosco",
@@ -104,11 +89,6 @@ export const classiquesDeLEnfance: Roadmap = {
       author: "Albert Barillé",
       title: "Il était une fois… la Vie",
       note: "Le corps humain expliqué de l'intérieur. À lire quand l'enfant commence à poser des questions de biologie que l'on ne sait pas résoudre.",
-    },
-    {
-      author: "Albert Barillé",
-      title: "Il était une fois… l’Espace",
-      note: "Fin du parcours, ouverture vers le ciel : la curiosité scientifique prend le relais de la fiction. Il mène directement au parcours « Comprendre l'univers ».",
     },
   ],
 };

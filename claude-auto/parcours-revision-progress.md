@@ -143,9 +143,11 @@ parcours, et l'effondrement du 1,06.
       `europe-du-nord-et-centrale` — 0 à 6 % de spécialisé. Les deux premiers
       élagués de leurs doublons de fiche et de leurs quatrièmes titres ;
       `europe-du-nord-et-centrale` laissé intact, rien à en retirer.
-- [ ] `lire-avec-les-tout-petits` · `classiques-de-l-enfance` — **ne pas vider** :
+- [x] `lire-avec-les-tout-petits` · `classiques-de-l-enfance` — **ne pas vider** :
       l'échelle de priorité est adulte, un album illustré y est structurellement
-      « complémentaire ». Les juger sur leur propre axe.
+      « complémentaire ». Les juger sur leur propre axe. Jugés ainsi : seuls
+      sortent les doublons de recueil et les suites de série, jamais un titre
+      parce qu'il est « complémentaire ».
 
 ### Créations éventuelles
 Autorisées si un objectif réel apparaît pendant la révision et qu'aucun parcours
