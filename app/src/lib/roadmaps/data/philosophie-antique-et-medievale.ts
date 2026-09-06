@@ -11,11 +11,6 @@ export const philosophieAntiqueEtMedievale: Roadmap = {
   family: "philosophie",
   entries: [
     {
-      author: "Anonyme (texte hindou)",
-      title: "Les Upanishads",
-      note: "À lire avant les Grecs : la même question — qu’y a-t-il derrière le multiple ? — posée plus tôt, et résolue vers l’identité du soi et de l’absolu plutôt que vers la substance. Schopenhauer y verra la clé de sa propre pensée.",
-    },
-    {
       author: "Diogène Laërce",
       title: "Vies, doctrines et sentences des philosophes illustres",
       note: "Le panorama antique des écoles, avec anecdotes et résumés. Il donne d'emblée la chose essentielle : chaque doctrine était portée par un genre de vie.",
@@ -96,11 +91,6 @@ export const philosophieAntiqueEtMedievale: Roadmap = {
       note: "L'atomisme mis en vers pour libérer les hommes de la superstition. Le seul exposé complet de la physique épicurienne qui nous soit parvenu.",
     },
     {
-      author: "Zénon de Citium",
-      title: "La République",
-      note: "Le projet stoïcien primitif, connu par fragments : une communauté de sages sans institutions. Il rappelle que le stoïcisme fut d'abord scandaleux.",
-    },
-    {
       author: "Sénèque",
       title: "Lettres à Lucilius",
       note: "La doctrine appliquée aux circonstances les plus ordinaires, lettre après lettre. La forme épistolaire est ici un choix philosophique : on progresse par occasions.",
@@ -146,19 +136,9 @@ export const philosophieAntiqueEtMedievale: Roadmap = {
       note: "« La foi cherchant l'intelligence », et l'argument ontologique. Le premier grand geste rationnel de la théologie médiévale.",
     },
     {
-      author: "Al-Fârâbî",
-      title: "Les Opinions des habitants de la cité vertueuse",
-      note: "Platon relu dans un cadre islamique, avec le prophète en philosophe-roi. La transmission de la Grèce passe d'abord par Bagdad, pas par Rome.",
-    },
-    {
       author: "Avicenne",
       title: "Le Livre de la guérison",
       note: "La distinction entre essence et existence, qui deviendra centrale chez Thomas d'Aquin. Un des concepts les plus féconds de toute l'histoire de la métaphysique.",
-    },
-    {
-      author: "Al-Ghazâlî",
-      title: "L’Éducation de l’âme",
-      note: "Le contre-mouvement : la discipline spirituelle contre l'orgueil des philosophes. La critique interne du rationalisme islamique.",
     },
     {
       author: "Maïmonide",
@@ -176,11 +156,6 @@ export const philosophieAntiqueEtMedievale: Roadmap = {
       note: "Le même auteur argumentant sans recours à l'Écriture. C'est là qu'on mesure la part strictement philosophique du thomisme.",
     },
     {
-      author: "Jean Duns Scot",
-      title: "Questions quodlibétiques",
-      note: "La contestation de Thomas depuis l'intérieur de la scolastique, sur l'univocité de l'être et la primauté de la volonté. Difficile, et décisif pour la suite.",
-    },
-    {
       author: "Pierre Hadot",
       title: "Exercices spirituels et philosophie antique",
       note: "La thèse qui a changé la lecture de toute cette période : la philosophie antique était un ensemble d'exercices, non un corpus de doctrines. À lire après les textes.",
@@ -189,21 +164,6 @@ export const philosophieAntiqueEtMedievale: Roadmap = {
       author: "Pierre Hadot",
       title: "La Citadelle intérieure",
       note: "Marc Aurèle relu discipline par discipline, sans le sentimentalisme habituel. Le meilleur commentaire d'une œuvre antique en français.",
-    },
-    {
-      author: "Pierre Hadot",
-      title: "Introduction aux « Pensées » de Marc Aurèle",
-      note: "Le complément technique du précédent : la structure des Pensées, ses répétitions, sa fonction. Il montre comment un texte s'écrit pour soi.",
-    },
-    {
-      author: "Jean Baubérot",
-      title: "Petite histoire du christianisme",
-      note: "Le cadre historique de la seconde moitié du parcours, en un format bref. Nécessaire pour situer les conciles et les querelles auxquels ces textes répondent.",
-    },
-    {
-      author: "Mircea Eliade",
-      title: "Histoire des croyances et des idées religieuses",
-      note: "La longue durée du religieux, bien au-delà de la Méditerranée. Elle replace les débats médiévaux dans une échelle où ils cessent d'être uniques.",
     },
   ],
 };
