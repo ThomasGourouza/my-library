@@ -101,7 +101,7 @@ parcours, et l'effondrement du 1,06.
 
 ### À élaguer (le contenu est bon, la traîne ne l'est pas)
 - [x] `le-theatre` — 100 entrées, fin construite : élagage léger seulement.
-- [ ] `philosophie-contemporaine` — finit sur deux monographies de sociologie
+- [x] `philosophie-contemporaine` — finit sur deux monographies de sociologie
       sans rapport.
 - [ ] `le-monde-anglo-saxon` — les 15 dernières positions dégénèrent en romans
       d'aéroport.

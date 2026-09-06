@@ -1,0 +1,10 @@
+2026-09-06 14:57:44  👁  chaînage armé — attend run, puis lancera next.sh
+2026-09-06 14:57:44     statut : RUNNING
+2026-09-06 14:57:50     statut : DONE
+2026-09-06 14:57:50  ✅ run surveillé terminé — lancement de next.sh
+2026-09-06 14:58:00  🚀 lancé (pid 99497) — journal : claude-auto/chain-next.log
+2026-09-06 14:58:05  👁  chaînage armé — attend run, puis lancera next.sh
+2026-09-06 14:58:05     statut : FAILED_PERMANENT
+2026-09-06 14:58:05  ⛔ run surveillé en échec définitif — enchaînement ANNULÉ.
+2026-09-06 14:58:05     L'état du dépôt est incertain ; relancer manuellement après examen :
+2026-09-06 14:58:05     /tmp/chain-test/next.sh

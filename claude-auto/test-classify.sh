@@ -126,7 +126,7 @@ echo
 echo "sûreté des heredocs de prompt (tous les lanceurs) :"
 # Chaque heredoc de prompt est volontairement NON quoté, pour interpoler $REPO
 # ou $REPORT. Un accent grave ou un $(...) y serait donc exécuté au lancement.
-for f in ./run.sh ./run-parcours.sh ./run-revision.sh; do
+for f in ./run.sh ./run-parcours.sh ./run-revision.sh ./run-ameliorations.sh; do
   [ -f "$f" ] || continue
   bloc=$(awk '/<<EOF$/{f=1;next} f&&/^EOF$/{exit} f' "$f")
   nom=$(basename "$f")
