@@ -111,6 +111,10 @@ contient un ensemble cohérent de livres sur la peinture, l'image et la musique
 qu'aucune des familles prévues n'accueillait correctement.
 - [x] `arts-et-musique` — histoire de l'art, théorie de l'image, cursus musical
 
+### Politique, histoire, société (ajouts en cours de route)
+- [x] `propagande-et-theories-du-complot` — outillage critique d'abord, corpus
+      complotiste ensuite, lu comme objet et jamais comme source
+
 ### Formes et pratiques de lecture
 - [x] `recits-de-soi` — Mémoires, Autobiographie, Journal, Correspondance, Biographie
 - [x] `nouvelles-et-formes-breves` — Nouvelle, Conte (adulte), Fable, Maximes
