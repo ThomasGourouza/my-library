@@ -16,11 +16,6 @@ export const rationalismeEtLumieres: Roadmap = {
       note: "La Folie fait son propre éloge et démonte au passage moines, théologiens et princes. La satire humaniste à son point d'équilibre entre le rire et la critique.",
     },
     {
-      author: "Érasme",
-      title: "Adages",
-      note: "Des milliers de proverbes antiques commentés, réédités et augmentés toute une vie. L'érudition y devient un instrument de circulation des idées à l'échelle européenne.",
-    },
-    {
       author: "Thomas More",
       title: "L’Utopie",
       note: "Une île où la propriété privée n'existe pas, décrite avec un sérieux qui ne se laisse pas percer. Le mot et le genre naissent avec ce livre.",
@@ -34,11 +29,6 @@ export const rationalismeEtLumieres: Roadmap = {
       author: "Nicolas Machiavel",
       title: "Discours sur la première décade de Tite-Live",
       note: "Le versant républicain du même auteur, souvent oublié au profit du Prince. Machiavel y préfère la liberté populaire à l'homme fort : les deux livres se corrigent.",
-    },
-    {
-      author: "Nicolas Machiavel",
-      title: "L’Art de la guerre",
-      note: "Un plaidoyer pour la milice citoyenne contre les mercenaires. La compétence militaire y est présentée comme une condition de l'indépendance politique.",
     },
     {
       author: "Étienne de La Boétie",
@@ -56,16 +46,6 @@ export const rationalismeEtLumieres: Roadmap = {
       note: "Contre le syllogisme aristotélicien, l'induction à partir de l'expérience. La théorie des idoles — les erreurs propres à l'esprit humain — reste un modèle d'analyse.",
     },
     {
-      author: "Francis Bacon",
-      title: "La Nouvelle Atlantide",
-      note: "Une île gouvernée par une institution de recherche organisée. Le programme scientifique moderne, imaginé avant d'exister : la Royal Society s'en réclamera.",
-    },
-    {
-      author: "Francis Bacon",
-      title: "Essais",
-      note: "Des textes brefs sur la vérité, la mort, les jardins, les négociations. Le même homme pratique le genre de Montaigne avec une sécheresse toute anglaise.",
-    },
-    {
       author: "René Descartes",
       title: "Discours de la méthode",
       note: "Quatre règles, une autobiographie intellectuelle, et le cogito. Écrit en français pour être lu hors des universités : c'est un acte politique autant que philosophique.",
@@ -76,34 +56,9 @@ export const rationalismeEtLumieres: Roadmap = {
       note: "Le doute poussé jusqu'au malin génie, puis reconstruit à partir d'une seule certitude. Publié avec les objections de ses adversaires et ses réponses : à lire ainsi.",
     },
     {
-      author: "René Descartes",
-      title: "Principes de la philosophie",
-      note: "Le système complet, physique comprise, destiné à remplacer les manuels scolastiques. La partie scientifique a vieilli ; l'ambition d'unifier le savoir demeure exemplaire.",
-    },
-    {
-      author: "René Descartes",
-      title: "Lettre au marquis de Newcastle",
-      note: "La thèse des animaux-machines exposée en quelques pages à un correspondant. Elle a des conséquences morales dont on discute encore aujourd'hui.",
-    },
-    {
-      author: "Pierre Gassendi",
-      title: "Syntagma philosophicum",
-      note: "L'atomisme d'Épicure réhabilité et concilié avec le christianisme, contre Descartes. Le grand rival oublié du cartésianisme, et l'inspirateur de Locke.",
-    },
-    {
-      author: "Nicolas Malebranche",
-      title: "De la recherche de la vérité",
-      note: "Nous voyons toutes choses en Dieu, et les causes ne sont qu'occasionnelles. Le cartésianisme poussé jusqu'à supprimer l'efficace des choses elles-mêmes.",
-    },
-    {
       author: "Antoine Arnauld",
       title: "La Logique de Port-Royal",
       note: "L'art de penser exposé pour un public cultivé, avec des exemples pris à la vie ordinaire. Le manuel de logique le plus lu d'Europe pendant deux siècles.",
-    },
-    {
-      author: "Antoine Arnauld",
-      title: "Grammaire de Port-Royal",
-      note: "Une grammaire fondée sur les opérations de l'esprit plutôt que sur l'usage. Chomsky y verra l'ancêtre de la grammaire générative : le débat reste ouvert.",
     },
     {
       author: "Blaise Pascal",
@@ -157,11 +112,6 @@ export const rationalismeEtLumieres: Roadmap = {
     },
     {
       author: "David Hume",
-      title: "Traité de la nature humaine",
-      note: "L'esprit ramené à des impressions et des idées, le moi dissous en un faisceau de perceptions. Un chef-d'œuvre publié à vingt-huit ans et ignoré à sa parution.",
-    },
-    {
-      author: "David Hume",
       title: "Enquête sur l’entendement humain",
       note: "La causalité réduite à une habitude, sans nécessité démontrable. C'est ce texte qui a « réveillé Kant de son sommeil dogmatique ».",
     },
@@ -201,39 +151,9 @@ export const rationalismeEtLumieres: Roadmap = {
       note: "Vingt-huit volumes pour rassembler tous les savoirs et, par des renvois calculés, saper l'autorité religieuse. L'entreprise collective la plus ambitieuse du siècle.",
     },
     {
-      author: "Jean Le Rond d’Alembert",
-      title: "Discours préliminaire de l’Encyclopédie",
-      note: "La classification des connaissances et le récit du progrès de l'esprit humain. Le manifeste des Lumières françaises, placé en tête de l'entreprise.",
-    },
-    {
-      author: "Étienne Bonnot de Condillac",
-      title: "Traité des sensations",
-      note: "Une statue à qui l'on donne les sens un à un, jusqu'à ce qu'elle devienne un esprit. L'expérience de pensée la plus élégante du siècle.",
-    },
-    {
       author: "Julien Offray de La Mettrie",
       title: "L’Homme-Machine",
       note: "L'homme réduit à un mécanisme, sans âme distincte. Le matérialisme le plus franc du XVIIIe siècle : son auteur a dû fuir en Prusse.",
-    },
-    {
-      author: "Julien Offray de La Mettrie",
-      title: "Histoire naturelle de l’âme",
-      note: "L'âme traitée comme une propriété de la matière organisée. Le livre a été brûlé par le bourreau : à lire pour mesurer le risque qu'on prenait à publier.",
-    },
-    {
-      author: "Claude-Adrien Helvétius",
-      title: "De l’esprit",
-      note: "Tout ce que nous sommes vient de l'éducation et de l'intérêt bien compris. Condamné par le pape, le parlement et la Sorbonne à la fois : rare unanimité.",
-    },
-    {
-      author: "Paul Henri Thiry d’Holbach",
-      title: "Système de la nature",
-      note: "L'athéisme exposé comme une physique complète, sans concession déiste. Le livre le plus radical des Lumières, publié sous un faux nom d'auteur mort.",
-    },
-    {
-      author: "Jean Meslier",
-      title: "Testament",
-      note: "Un curé de campagne laisse à ses paroissiens un manuscrit athée et révolutionnaire. Document sans équivalent : la critique venue de l'intérieur du clergé.",
     },
     {
       author: "Jean-Jacques Rousseau",
@@ -247,11 +167,6 @@ export const rationalismeEtLumieres: Roadmap = {
     },
     {
       author: "Jean-Jacques Rousseau",
-      title: "Discours sur l’origine et les fondements de l’inégalité parmi les hommes",
-      note: "Le même texte sous son titre complet. Comparer les éditions rappelle que ces discours ont circulé sous plusieurs formes avant de devenir canoniques.",
-    },
-    {
-      author: "Jean-Jacques Rousseau",
       title: "Du contrat social",
       note: "La volonté générale, la souveraineté inaliénable du peuple, et l'idée qu'on peut être « forcé d'être libre ». Le texte le plus cité et le plus mal lu de la Révolution.",
     },
@@ -261,39 +176,14 @@ export const rationalismeEtLumieres: Roadmap = {
       note: "Une éducation qui suit la nature de l'enfant plutôt que les programmes des adultes. Condamné et brûlé, il a néanmoins refondé la pédagogie occidentale.",
     },
     {
-      author: "Jean-Jacques Rousseau",
-      title: "Profession de foi du vicaire savoyard",
-      note: "Le morceau d'Émile qui a provoqué la condamnation : une religion sans dogme ni Église. La conscience y est l'unique juge.",
-    },
-    {
-      author: "Jean-Jacques Rousseau",
-      title: "Essai sur l’origine des langues",
-      note: "Le langage né du chant et de la passion avant le besoin. Texte posthume, longtemps négligé, redevenu central avec Derrida.",
-    },
-    {
       author: "Nicolas de Condorcet",
       title: "Esquisse d’un tableau historique des progrès de l’esprit humain",
       note: "Dix époques et une confiance intacte dans l'avenir, écrites en se cachant de la Terreur. Le testament des Lumières, rédigé par une de leurs victimes.",
     },
     {
-      author: "Nicolas de Condorcet",
-      title: "Réflexions sur l’esclavage des nègres",
-      note: "L'abolition défendue par un mathématicien, avec un plan graduel et chiffré. La philosophie s'y traduit directement en proposition législative.",
-    },
-    {
-      author: "Jeremy Bentham",
-      title: "An Introduction to the Principles of Morals and Legislation",
-      note: "Le principe d'utilité et le calcul des plaisirs et des peines, dans le texte original. Le point de départ de toute la tradition conséquentialiste.",
-    },
-    {
       author: "Jeremy Bentham",
       title: "Introduction aux principes de morale et de législation",
-      note: "La version française du même ouvrage. L'utilitarisme y apparaît comme un projet de réforme du droit avant d'être une morale.",
-    },
-    {
-      author: "Jeremy Bentham",
-      title: "Le Panoptique",
-      note: "Une prison où un seul surveillant peut voir tous les détenus sans être vu. Foucault en fera le modèle du pouvoir moderne : lire d'abord le projet réel.",
+      note: "Le principe d'utilité posé comme fondement du droit : une action vaut par la somme des plaisirs et des peines qu'elle produit, et le législateur doit calculer. L'utilitarisme est ici un programme de réforme législative avant d'être une morale.",
     },
     {
       author: "Emmanuel Kant",
@@ -316,16 +206,6 @@ export const rationalismeEtLumieres: Roadmap = {
       note: "Le beau, le sublime et la finalité du vivant, entre nature et liberté. La troisième Critique, la moins lue, est celle dont l'esthétique moderne descend.",
     },
     {
-      author: "Emmanuel Kant",
-      title: "Anthropologie d’un point de vue pragmatique",
-      note: "Le cours donné pendant trente ans sur l'homme concret : caractère, tempérament, nations. Le Kant le plus accessible, et le plus surprenant.",
-    },
-    {
-      author: "Johann Gottlieb Fichte",
-      title: "Doctrine de la science",
-      note: "Le Moi posant à la fois lui-même et son opposé, sans chose en soi. La première tentative de faire un système complet à partir de Kant.",
-    },
-    {
       author: "Edmund Burke",
       title: "Réflexions sur la Révolution de France",
       note: "Écrit dès 1790 : une société n'est pas un contrat révocable mais un héritage. L'acte de naissance du conservatisme politique moderne.",
@@ -334,11 +214,6 @@ export const rationalismeEtLumieres: Roadmap = {
       author: "Joseph de Maistre",
       title: "Considérations sur la France",
       note: "La Révolution lue comme un châtiment providentiel. La contre-révolution la plus intelligente, et donc la plus utile à lire pour qui la combat.",
-    },
-    {
-      author: "Joseph de Maistre",
-      title: "La Franc-maçonnerie : mémoire inédit au duc de Brunswick",
-      note: "Un mémoire de jeunesse, écrit quand Maistre était lui-même franc-maçon. Il complique utilement l'image du réactionnaire monolithique.",
     },
   ],
 };

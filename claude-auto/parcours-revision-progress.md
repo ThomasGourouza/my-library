@@ -110,7 +110,7 @@ parcours, et l'effondrement du 1,06.
       essais en 83-84 dans un parcours de romans.
 - [x] `romantisme-francais` — des poèmes isolés catalogués comme livres en 57-59
       et 62-64.
-- [ ] `rationalisme-et-lumieres`
+- [x] `rationalisme-et-lumieres`
 - [ ] `les-maitres-du-soupcon`
 - [ ] `litterature-contemporaine`
 - [ ] `la-poesie`
