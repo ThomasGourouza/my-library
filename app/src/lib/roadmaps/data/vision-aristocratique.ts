@@ -41,11 +41,6 @@ export const visionAristocratique: Roadmap = {
       note: "La grandeur poussée jusqu'au meurtre de sa propre sœur au nom de Rome. Corneille montre ici le point où l'héroïsme cesse d'être admirable — et ne tranche pas.",
     },
     {
-      author: "Pierre Corneille",
-      title: "Polyeucte",
-      note: "Le martyre traité comme le sommet de l'ambition héroïque plutôt que comme une humilité. La rencontre, rare, de la vision aristocratique et de la foi.",
-    },
-    {
       author: "Stendhal",
       title: "Le Rouge et le Noir",
       note: "Un fils de charpentier décide de valoir mieux que sa condition, dans une société qui n'offre plus de champ de bataille. L'énergie héroïque privée de guerre devient ambition, puis crime.",
@@ -81,39 +76,9 @@ export const visionAristocratique: Roadmap = {
       note: "Sept jeunes Lorrains montés à Paris, coupés de ce qui les tenait. Barrès substitue à la noblesse de sang un enracinement transmis, qui hiérarchise autrement.",
     },
     {
-      author: "Maurice Barrès",
-      title: "La Terre et les morts",
-      note: "La formule qui a fait fortune : on appartient d'abord à un sol et à une lignée. Le texte court qui donne la doctrine à l'état pur.",
-    },
-    {
-      author: "Charles Maurras",
-      title: "Enquête sur la monarchie",
-      note: "La démonstration que la France ne peut durer que sous un régime héréditaire, menée comme une enquête de terrain. Le fondement doctrinal de l'Action française.",
-    },
-    {
       author: "Charles Maurras",
       title: "Mes idées politiques",
       note: "La synthèse écrite pour être lue par des non-spécialistes : inégalité assumée, primat de l'ordre, hostilité au principe électif. Le meilleur point d'entrée dans l'auteur.",
-    },
-    {
-      author: "Charles Maurras",
-      title: "L'Ordre et le désordre",
-      note: "L'opposition qui commande tout son système, appliquée aux institutions comme aux lettres. Utile pour voir comment un classicisme esthétique se convertit en programme politique.",
-    },
-    {
-      author: "Charles Maurras",
-      title: "Napoléon ou la France ?",
-      note: "Le refus d'un héros au profit de la continuité de l'État : rare exemple d'une pensée aristocratique hostile à l'homme providentiel.",
-    },
-    {
-      author: "Charles Maurras",
-      title: "L'Avenir des intellectuels",
-      note: "La question du rôle des clercs, posée du côté opposé à Julien Benda. À lire en regard de La Trahison des clercs, dont c'est presque l'anti-texte.",
-    },
-    {
-      author: "Léon de Montesquiou",
-      title: "Les Raisons du nationalisme",
-      note: "L'exposé scolaire de la doctrine par un disciple. Il montre ce que Maurras devenait une fois transmis, ce qui est souvent plus révélateur que l'original.",
     },
     {
       author: "Ernst Jünger",
@@ -171,11 +136,6 @@ export const visionAristocratique: Roadmap = {
       note: "Un bréviaire écrit comme un testament, qui tente de transposer l'éthique du samouraï à l'Europe. Il éclaire une filiation revendiquée entre Mishima et une certaine droite française.",
     },
     {
-      author: "Julien Rochedy",
-      title: "Philosophie de droite",
-      note: "Une tentative de donner à cette sensibilité une charpente conceptuelle explicite, à destination d'un public jeune. Utile pour voir l'état actuel de la tradition, hors de ses références historiques.",
-    },
-    {
       author: "Alain de Benoist",
       title: "Vu de droite",
       note: "Un inventaire critique des auteurs revendiqués par la nouvelle droite, écrit en 1977. Le livre qui a organisé ce courant intellectuellement, et qui sert ici de carte du terrain.",
@@ -184,11 +144,6 @@ export const visionAristocratique: Roadmap = {
       author: "Alain de Benoist",
       title: "Critique des droits de l'homme",
       note: "L'argument anti-universaliste dans sa version la plus construite : des droits abstraits contre des appartenances concrètes. À lire en vis-à-vis du parcours classique, qu'il conteste point par point.",
-    },
-    {
-      author: "Alain de Benoist",
-      title: "La Bibliothèque du jeune Européen",
-      note: "Une liste raisonnée de lectures pour former une culture européenne selon ces principes. Elle montre ce qu'une vision du monde fait d'une bibliothèque — exactement l'exercice mené ici.",
     },
   ],
 };

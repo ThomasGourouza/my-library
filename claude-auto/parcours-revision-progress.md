@@ -120,7 +120,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `chine-et-japon`
 - [x] `phenomenologie-et-existentialisme`
 - [x] `vision-chretienne`
-- [ ] `vision-aristocratique`
+- [x] `vision-aristocratique`
 - [ ] `psychologie-et-connaissance-de-soi`
 - [ ] `science-fiction-et-anticipation`
 - [ ] `le-mythe-arthurien` — Markale *est* le sujet, mais 13 titres du même
