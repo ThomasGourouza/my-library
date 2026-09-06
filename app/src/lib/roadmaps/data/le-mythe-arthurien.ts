@@ -27,11 +27,6 @@ export const leMytheArthurien: Roadmap = {
     },
     {
       author: "Chrétien de Troyes",
-      title: "Cligès",
-      note: "Une intrigue byzantine et une fausse mort empruntée au Tristan, qu'il conteste explicitement. Chrétien y répond à un autre roman : la matière se constitue par débat.",
-    },
-    {
-      author: "Chrétien de Troyes",
       title: "Lancelot ou le Chevalier de la charrette",
       note: "Le meilleur chevalier du monde monte dans la charrette d'infamie pour sa reine. La soumission amoureuse portée jusqu'au déshonneur volontaire : le cœur de l'idéal courtois.",
     },
@@ -66,11 +61,6 @@ export const leMytheArthurien: Roadmap = {
       note: "La trahison de Mordret, la bataille de Salesbières, l'épée rendue au lac. La fin du monde arthurien, écrite avec une sobriété qui tranche sur tout le reste.",
     },
     {
-      author: "Anonyme (œuvre médiévale)",
-      title: "La Mort le roi Artu",
-      note: "Une seconde entrée du même dénouement, sous une autre attribution et une autre graphie. La matière arthurienne circule ainsi, recopiée et remaniée sans auteur fixe.",
-    },
-    {
       author: "Thomas Malory",
       title: "Le Morte d’Arthur",
       note: "Un chevalier anglais emprisonné compile et traduit l'ensemble du cycle. C'est cette version, imprimée par Caxton en 1485, que liront Tennyson, Twain et le cinéma.",
@@ -79,11 +69,6 @@ export const leMytheArthurien: Roadmap = {
       author: "Béroul",
       title: "Tristan et Iseut",
       note: "La version dite commune, rude et proche du conte : le philtre y a une durée limitée. À lire en premier parmi les Tristan pour sentir la matière avant sa mise en forme.",
-    },
-    {
-      author: "Anonyme (œuvre médiévale)",
-      title: "Tristan et Iseult",
-      note: "Une autre rédaction médiévale du même récit, en ancien français. Les fragments conservés diffèrent assez pour qu'aucune reconstitution ne fasse autorité.",
     },
     {
       author: "Anonyme (légende médiévale)",
@@ -101,14 +86,14 @@ export const leMytheArthurien: Roadmap = {
       note: "La légende ramenée à deux amants et à la nuit, sans roi Marc moralement coupable. Wagner en fait une métaphysique du désir, et la musique occidentale en sort changée.",
     },
     {
-      author: "Anonyme (légende médiévale)",
-      title: "Robin des bois",
-      note: "L'autre grand cycle légendaire des îles britanniques, populaire et non courtois. Le contraste avec Arthur est instructif : un hors-la-loi contre le shérif, pas un roi contre le destin.",
-    },
-    {
       author: "Mark Twain",
       title: "Un Yankee à la cour du roi Arthur",
       note: "Un ingénieur américain débarque à Camelot et y installe le progrès, avec un résultat sanglant. La première grande démolition moderne du mythe.",
+    },
+    {
+      author: "T. S. Eliot",
+      title: "La Terre vaine",
+      note: "La quête du Graal et le Roi Pêcheur employés en 1922 comme armature d'un poème sur l'Europe d'après-guerre. La reprise la plus improbable de cette matière, et la preuve qu'elle sert encore à dire ce qu'aucune autre image ne dirait.",
     },
     {
       author: "Jean Markale",
@@ -122,58 +107,8 @@ export const leMytheArthurien: Roadmap = {
     },
     {
       author: "Jean Markale",
-      title: "Lancelot du Lac",
-      note: "L'enlèvement par la fée, l'éducation dans le monde de l'autre côté de l'eau. Markale insiste sur ce que la légende doit aux récits féeriques irlandais.",
-    },
-    {
-      author: "Jean Markale",
-      title: "Perceval le Gallois",
-      note: "Le naïf devenu quêteur, dans une version qui restitue au personnage sa rudesse galloise. Le contraste avec le Perceval de Chrétien est tout l'intérêt du volume.",
-    },
-    {
-      author: "Jean Markale",
-      title: "Galaad et le Roi Pêcheur",
-      note: "L'aboutissement de la quête et la figure du roi blessé dont la terre est stérile. Markale y voit un motif de souveraineté celtique antérieur au christianisme.",
-    },
-    {
-      author: "Jean Markale",
-      title: "Gauvain et les chemins d’Avalon",
-      note: "Le neveu du roi, héros solaire des versions les plus anciennes, remis au premier plan. Il montre comment la faveur des auteurs s'est déplacée d'un chevalier à l'autre.",
-    },
-    {
-      author: "Jean Markale",
-      title: "La Fée Morgane",
-      note: "La sœur d'Arthur traitée non comme une sorcière mais comme une divinité déchue. La thèse est discutable, et c'est la plus stimulante de la série.",
-    },
-    {
-      author: "Jean Markale",
-      title: "La Mort du roi Arthur",
-      note: "Le dernier volume : la trahison, la bataille et le départ pour Avalon. Markale refuse la clôture chrétienne : le roi dort, il ne meurt pas.",
-    },
-    {
-      author: "Jean Markale",
-      title: "Brocéliande et l’énigme du Graal",
-      note: "L'essai qui expose la méthode : rattacher la matière de Bretagne à un substrat celtique reconstitué. À lire après les romans, comme leur justification théorique.",
-    },
-    {
-      author: "Jean Markale",
-      title: "Guide spirituel de la forêt de Brocéliande",
-      note: "Une topographie de Paimpont commentée site par site. Le mythe redevient un lieu qu'on peut parcourir à pied : usage inattendu de la littérature.",
-    },
-    {
-      author: "Jean Markale",
       title: "Contes et légendes des pays celtes",
       note: "Le fonds irlandais, gallois et breton dont Markale fait dériver l'ensemble. Indispensable pour évaluer sa thèse plutôt que la croire sur parole.",
-    },
-    {
-      author: "Jean Markale",
-      title: "Contes populaires de Bretagne",
-      note: "La tradition orale bretonne recueillie et présentée. Elle donne à entendre le registre populaire d'où sortent, de loin, les romans de cour.",
-    },
-    {
-      author: "Jean Markale",
-      title: "Gisors et l’énigme des Templiers",
-      note: "Un pas de côté vers l'ésotérisme des trésors cachés. À lire avec distance : il montre comment la matière médiévale nourrit aussi la mythologie contemporaine du secret.",
     },
   ],
 };
