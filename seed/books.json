@@ -2044,20 +2044,6 @@
   "enriched": false
  },
  {
-  "title": "L'Épopée de Gilgamesh",
-  "authorKey": "anonyme",
-  "category": "Littérature",
-  "genre": "Épopée",
-  "courant": null,
-  "theme": null,
-  "period": "Antiquité",
-  "publicationYear": null,
-  "audience": "tous",
-  "originalLanguage": "akkadien",
-  "notes": null,
-  "enriched": false
- },
- {
   "title": "Godefroy de Bouillon",
   "authorKey": "anonyme-chanson-de-geste",
   "category": "Littérature",
@@ -2138,7 +2124,7 @@
   "publicationYear": null,
   "audience": "adultes",
   "originalLanguage": "ancien français",
-  "notes": null,
+  "notes": "Dernière branche du Cycle Vulgate (Lancelot-Graal).",
   "enriched": false
  },
  {
@@ -2207,7 +2193,7 @@
   "period": "Moyen Âge",
   "publicationYear": null,
   "audience": "adultes",
-  "originalLanguage": "allemand",
+  "originalLanguage": "moyen haut-allemand",
   "notes": "Nibelungenlied.",
   "enriched": false
  },
@@ -2244,13 +2230,13 @@
   "authorKey": "anonyme-legende-medievale",
   "category": "Littérature",
   "genre": "Conte",
-  "courant": null,
-  "theme": null,
+  "courant": "Légende médiévale",
+  "theme": "Légende de Tristan",
   "period": "Moyen Âge",
   "publicationYear": null,
   "audience": "tous",
-  "originalLanguage": null,
-  "notes": null,
+  "originalLanguage": "ancien français",
+  "notes": "Légende médiévale ; plusieurs versions (Béroul, Thomas d’Angleterre).",
   "enriched": false
  },
  {
@@ -2268,34 +2254,6 @@
   "enriched": false
  },
  {
-  "title": "Beowulf",
-  "authorKey": "anonyme-oeuvre-medievale",
-  "category": "Littérature",
-  "genre": "Épopée",
-  "courant": null,
-  "theme": null,
-  "period": "Moyen Âge",
-  "publicationYear": null,
-  "audience": "adultes",
-  "originalLanguage": "vieil anglais",
-  "notes": null,
-  "enriched": false
- },
- {
-  "title": "La Chanson des Nibelungen",
-  "authorKey": "anonyme-oeuvre-medievale",
-  "category": "Littérature",
-  "genre": "Épopée",
-  "courant": null,
-  "theme": null,
-  "period": "Moyen Âge",
-  "publicationYear": null,
-  "audience": "adultes",
-  "originalLanguage": "moyen haut-allemand",
-  "notes": null,
-  "enriched": false
- },
- {
   "title": "La Farce de Maître Pathelin",
   "authorKey": "anonyme-oeuvre-medievale",
   "category": "Littérature",
@@ -2307,20 +2265,6 @@
   "audience": "tous",
   "originalLanguage": "français",
   "notes": "Farce médiévale anonyme (vers 1460).",
-  "enriched": false
- },
- {
-  "title": "La Mort le roi Artu",
-  "authorKey": "anonyme-oeuvre-medievale",
-  "category": "Littérature",
-  "genre": "Roman",
-  "courant": null,
-  "theme": null,
-  "period": "Moyen Âge",
-  "publicationYear": null,
-  "audience": "adultes",
-  "originalLanguage": "français",
-  "notes": "Dernière branche du Cycle Vulgate (Lancelot-Graal).",
   "enriched": false
  },
  {
@@ -2363,20 +2307,6 @@
   "audience": "tous",
   "originalLanguage": "français",
   "notes": null,
-  "enriched": false
- },
- {
-  "title": "Tristan et Iseult",
-  "authorKey": "anonyme-oeuvre-medievale",
-  "category": "Littérature",
-  "genre": "Roman",
-  "courant": "Légende médiévale",
-  "theme": "Légende de Tristan",
-  "period": "Moyen Âge",
-  "publicationYear": null,
-  "audience": "tous",
-  "originalLanguage": "ancien français",
-  "notes": "Légende médiévale ; plusieurs versions (Béroul, Thomas d’Angleterre).",
   "enriched": false
  },
  {

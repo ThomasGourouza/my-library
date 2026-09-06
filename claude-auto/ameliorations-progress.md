@@ -11,7 +11,7 @@ qu'une fois commité.
 
 - [x] 1. Restaurer les analyses et biographies perdues (3 + 3)
 - [x] 2. Corriger les 3 problèmes de lint
-- [ ] 3. Fusionner les 5 doublons d'œuvres anonymes + garde-fou de test
+- [x] 3. Fusionner les 5 doublons d'œuvres anonymes + garde-fou de test
 - [ ] 4. Supprimer le code mort `themes` de `getFilterOptions`
 - [ ] 5. Tableau des livres : sélecteur de colonnes persisté dans l'URL
 - [ ] 6. Tableau des livres : virtualisation des lignes
@@ -40,3 +40,9 @@ qu'une fois commité.
   2 avertissements). L'erreur de `main-nav.tsx` est corrigée sur le fond : la
   bascule de thème choisit son icône en CSS et n'a plus d'état « monté ».
   Vérifié au navigateur : exactement une icône visible en clair comme en sombre.
+- **3 ✔** 5 fusions : Gilgamesh, Beowulf, La Chanson des Nibelungen, La Mort le
+  Roi Artu, Tristan et Iseut. 2 043 → 2 038 livres. Aucun parcours n'a eu à
+  être touché : les 53 pointaient déjà tous sur l'entrée conservée. L'auteur
+  fourre-tout « Anonyme » devient « Anonyme (roman chinois) ». Nouveau fichier
+  `src/lib/library.test.ts` (4 tests) pour que le cas ne revienne pas.
+  19 tests verts, `validate.py` vert, lint et build propres.

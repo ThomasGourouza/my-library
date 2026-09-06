@@ -913,15 +913,15 @@
  },
  {
   "key": "anonyme",
-  "name": "Anonyme",
+  "name": "Anonyme (roman chinois)",
   "birthYear": null,
   "deathYear": null,
   "nationality": null,
-  "language": null,
-  "mainGenre": null,
+  "language": "chinois",
+  "mainGenre": "Roman",
   "mainField": "Littérature",
-  "period": null,
-  "notes": null
+  "period": "XVIe siècle",
+  "notes": "Roman chinois anonyme du XVIe siècle, attribué au pseudonyme « Lanling Xiaoxiao Sheng »."
  },
  {
   "key": "anonyme-chanson-de-geste",
