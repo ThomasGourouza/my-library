@@ -19,7 +19,7 @@ qu'une fois commité.
 - [x] 8. Progression de lecture dans les parcours
 - [x] 9. Tableau de bord d'accueil sur `/`
 - [x] 10. Palette de commandes globale (⌘K / Ctrl+K)
-- [ ] 11. Filtres d'auteurs synchronisés à l'URL
+- [x] 11. Filtres d'auteurs synchronisés à l'URL
 - [ ] 12. Listes personnelles (créer, ordonner, supprimer)
 - [ ] 13. Export CSV / JSON de la bibliothèque
 - [ ] 14. Visibilité de « Analyse Claude »
@@ -96,3 +96,7 @@ qu'une fois commité.
   raccourcis fonctionnent, en clair et en sombre. Un bug attrapé à la
   vérification : l'alias SQL `rank` n'existe pas dans ORDER BY côté SQLite,
   la route renvoyait 500.
+- **11 ✔** Page Auteurs mise au niveau de la page Livres : recherche, cinq
+  filtres et tri écrits dans l'URL (`?q=a&mainField=…&sort=bookCount.asc`,
+  rechargée et vérifiée), même mise en page pleine hauteur avec en-tête
+  collant, et virtualisation — 1 069 lignes dans le DOM → 30.
