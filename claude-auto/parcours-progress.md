@@ -123,7 +123,34 @@ qu'aucune des familles prévues n'accueillait correctement.
 - [x] `grands-essais-et-art-de-penser` — essais restants, filet de sécurité
 
 ### Balayage final (obligatoire)
-- [ ] Lancer `npm test`, récupérer la liste des livres non couverts, et rattacher
+- [x] Lancer `npm test`, récupérer la liste des livres non couverts, et rattacher
       **chacun** au parcours existant le plus pertinent (en ajoutant l'entrée et
       sa note). Répéter jusqu'à ce que le test de couverture passe au vert.
       Aucun livre ne doit rester orphelin — c'est l'exigence centrale.
+
+      Décompte des passes : 199 → 197 → 175 → 164 → 148 → 142 → 141 → 124 → 113
+      → 93 → 66 → 26 → 6 → 0. Les six derniers (le cycle des *Rois maudits* de
+      Druon, *Les Romains* de Max Gallo, *Iron Kingdom* de Clark) ont été
+      insérés dans `histoire-de-france`, `rome-et-le-stoicisme` et
+      `civilisations-et-longue-duree`, à leur place chronologique et non en fin
+      de liste.
+
+## État final
+
+**Terminé.** `npm test` : 8 tests au vert, dont la couverture.
+
+- 54 parcours, 2 483 entrées, 2 029 / 2 029 livres couverts.
+- 399 livres appartiennent à au moins deux parcours.
+- Notes : 102 caractères au minimum, 151 en moyenne (le test en exige 40).
+- `npx tsc --noEmit` propre ; `npm run lint` : 3 problèmes, tous préexistants
+  (dont l'erreur de `main-nav.tsx`) ; `npm run build` réussit.
+
+Quatre parcours ont été ajoutés à la liste initiale, parce que le balayage
+final aurait sinon entassé une centaine de livres sans rapport dans le filet de
+sécurité :
+
+- `arts-et-musique` (famille **`arts`**, ajoutée à `types.ts` — l'UI lit
+  `ROADMAP_FAMILIES` / `FAMILY_LABELS`, rien d'autre à modifier) ;
+- `propagande-et-theories-du-complot` (famille `societe`) ;
+- `la-bataille-des-idees` (famille `societe`) ;
+- et, dans les visions, aucun ajout : les sept prévues suffisaient.

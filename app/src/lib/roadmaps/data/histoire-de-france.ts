@@ -106,6 +106,26 @@ export const histoireDeFrance: Roadmap = {
       note: "La dynastie suivie sur trois siècles, avec ses structures de pouvoir et sa renaissance culturelle. Le travail de référence en français.",
     },
     {
+      author: "Maurice Druon",
+      title: "Les Rois maudits",
+      note: "Le cycle romanesque qui a formé l'image populaire du XIVe siècle français : la fin des Capétiens directs, les Templiers, l'ouverture de la guerre de Cent Ans. Documentation sérieuse au service de la fiction, à lire avant les biographies savantes qui suivent.",
+    },
+    {
+      author: "Maurice Druon",
+      title: "Le Roi de fer",
+      note: "Le premier volume, où Philippe le Bel liquide l'ordre du Temple et se heurte à la malédiction du bûcher. Il montre l'État royal moderne en train de se constituer contre les pouvoirs concurrents.",
+    },
+    {
+      author: "Maurice Druon",
+      title: "La Louve de France",
+      note: "Isabelle de France, reine d'Angleterre, prend le parti de renverser son mari. Le volume qui expose le nœud dynastique d'où sortira la revendication anglaise sur la couronne.",
+    },
+    {
+      author: "Maurice Druon",
+      title: "Le roi sans royaume",
+      note: "Le dernier volume, écrit vingt ans après les autres, qui mène le cycle jusqu'à Poitiers et à la captivité de Jean le Bon. Transition naturelle vers la France de Jeanne d'Arc.",
+    },
+    {
       author: "Max Gallo",
       title: "Jeanne d’Arc",
       note: "La biographie grand public d'une figure que chaque camp politique a revendiquée. Le récit est classique ; l'usage du personnage est le vrai sujet.",

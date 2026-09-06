@@ -191,6 +191,11 @@ export const romeEtLeStoicisme: Roadmap = {
       note: "Douze biographies impériales où les manies privées comptent autant que les guerres. L'indiscrétion y devient une méthode historique.",
     },
     {
+      author: "Max Gallo",
+      title: "Les Romains",
+      note: "Le cycle romanesque contemporain qui reprend l'histoire impériale du point de vue des acteurs, de Spartacus à Constantin. À lire après les sources antiques : on mesure alors ce que le romancier ajoute et ce qu'il emprunte.",
+    },
+    {
       author: "Plotin",
       title: "Les Ennéades",
       note: "L'Un, l'Intellect, l'Âme : Platon repris et systématisé au IIIe siècle. Le néoplatonisme irriguera Augustin, puis toute la mystique chrétienne et musulmane.",

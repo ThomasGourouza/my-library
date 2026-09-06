@@ -191,6 +191,11 @@ export const civilisationsEtLongueDuree: Roadmap = {
       note: "L'histoire de la Pologne, pays effacé de la carte pendant plus d'un siècle. Le cas limite qui oblige à repenser ce qu'est une nation.",
     },
     {
+      author: "Christopher Clark",
+      title: "Iron Kingdom",
+      note: "La Prusse suivie de 1600 à sa dissolution en 1947 : un État sans frontières naturelles qui se construit par l'administration et l'armée. Le pendant allemand du cas polonais, et l'antidote aux récits qui font de la Prusse une simple préfiguration du nazisme.",
+    },
+    {
       author: "Philippe Nourry",
       title: "Histoire de l’Espagne : Des origines à nos jours",
       note: "L'Espagne des royaumes, de l'empire et des guerres civiles en une synthèse. Le pays européen le plus souvent absent des histoires générales.",
