@@ -17,7 +17,7 @@ qu'une fois commité.
 - [x] 6. Tableau des livres : virtualisation des lignes
 - [x] 7. Accessibilité (aria-sort, lignes au clavier, lien d'évitement)
 - [x] 8. Progression de lecture dans les parcours
-- [ ] 9. Tableau de bord d'accueil sur `/`
+- [x] 9. Tableau de bord d'accueil sur `/`
 - [ ] 10. Palette de commandes globale (⌘K / Ctrl+K)
 - [ ] 11. Filtres d'auteurs synchronisés à l'URL
 - [ ] 12. Listes personnelles (créer, ordonner, supprimer)
@@ -81,3 +81,11 @@ qu'une fois commité.
   marquant temporairement 4 livres comme lus (« 3 lus sur 14 · 21 % »,
   « Prochain à lire : 2. Apprendre à vivre »), puis remis à 0 : aucune donnée
   de lecture inventée n'est laissée en base.
+- **9 ✔** Tableau de bord sur `/` (remplace la redirection vers `/livres`) :
+  4 tuiles, progression par rang de priorité, répartition par catégorie,
+  parcours en cours ou suggestions de départ, essentiels non lus les plus
+  cités, analyses Claude existantes. Tout est cliquable vers la liste filtrée
+  correspondante. Vérifié à l'écran dans les deux thèmes, en 1440 et 390 px,
+  avec 6 livres marqués lus puis avec 0 (état réel) : la page tient les deux.
+  Onglet nommé « Accueil » — « Vue d'ensemble » faisait passer la navigation
+  sur deux lignes en mobile.

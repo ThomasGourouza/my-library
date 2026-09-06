@@ -9,6 +9,9 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const tabs = [
+  // « Accueil » plutôt que « Vue d'ensemble » : à 390 px, le libellé long
+  // faisait passer la barre de navigation sur deux lignes.
+  { href: "/", label: "Accueil" },
   { href: "/livres", label: "Livres" },
   { href: "/auteurs", label: "Auteurs" },
   { href: "/parcours", label: "Parcours" },
@@ -46,10 +49,7 @@ export function MainNav() {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
       <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:gap-6 sm:px-6">
-        <Link
-          href="/livres"
-          className="flex shrink-0 items-center gap-2 font-semibold"
-        >
+        <Link href="/" className="flex shrink-0 items-center gap-2 font-semibold">
           <LibraryBig className="size-5" aria-hidden />
           {/* Sous 640 px, le nom faisait passer l'en-tête sur deux lignes et
               poussait la bascule de thème hors de l'écran. L'icône reste le
@@ -59,8 +59,12 @@ export function MainNav() {
         </Link>
         <nav className="flex items-center gap-1" aria-label="Navigation principale">
           {tabs.map((tab) => {
+            // « / » n'est actif que sur lui-même : sans ce cas particulier,
+            // startsWith("/") le rendrait actif sur toutes les pages.
             const active =
-              pathname === tab.href || pathname.startsWith(tab.href + "/");
+              tab.href === "/"
+                ? pathname === "/"
+                : pathname === tab.href || pathname.startsWith(tab.href + "/");
             return (
               <Link
                 key={tab.href}
