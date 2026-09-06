@@ -57,7 +57,7 @@ export const philosophieMoraleEtArtDeVivre: Roadmap = {
     },
     {
       author: "Blaise Pascal",
-      title: "Pensées",
+      title: "Les Pensées",
       note: "Le divertissement comme fuite devant la condition humaine : l'analyse reste imbattable. On peut la retenir sans partager l'apologétique qui la porte.",
     },
     {

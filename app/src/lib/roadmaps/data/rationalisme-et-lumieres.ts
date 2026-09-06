@@ -107,13 +107,8 @@ export const rationalismeEtLumieres: Roadmap = {
     },
     {
       author: "Blaise Pascal",
-      title: "Pensées",
-      note: "Les fragments d'une apologie inachevée : le divertissement, les deux infinis, le pari. Contre Descartes, la raison y est jugée incapable de fonder l'essentiel.",
-    },
-    {
-      author: "Blaise Pascal",
       title: "Les Pensées",
-      note: "Une autre édition du même chantier, dans un ordre différent. Le classement des fragments est une interprétation : comparer deux éditions le rend évident.",
+      note: "Les fragments d'une apologie inachevée : le divertissement, les deux infinis, le pari. Contre Descartes, la raison y est jugée incapable de fonder l'essentiel.",
     },
     {
       author: "Blaise Pascal",

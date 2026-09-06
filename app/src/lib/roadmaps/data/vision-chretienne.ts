@@ -22,7 +22,7 @@ export const visionChretienne: Roadmap = {
     },
     {
       author: "Blaise Pascal",
-      title: "Pensées",
+      title: "Les Pensées",
       note: "La formule qui donne son titre au parcours : la misère d'un roi dépossédé. Pascal fait du divertissement le mécanisme central par lequel l'homme s'évite lui-même.",
     },
     {

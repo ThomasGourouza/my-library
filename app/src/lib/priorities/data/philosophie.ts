@@ -33,7 +33,6 @@ export const philosophie: PriorityEntry[] = [
   { author: "Baruch Spinoza", title: "Traité théologico-politique", priority: "complementaire" },
   { author: "Blaise Pascal", title: "Les Pensées", priority: "essentiel" },
   { author: "Blaise Pascal", title: "Lettres provinciales", priority: "important" },
-  { author: "Blaise Pascal", title: "Pensées", priority: "essentiel" },
   { author: "Boèce", title: "La Consolation de la philosophie", priority: "important" },
   { author: "Charles Fourier", title: "Vers la liberté en amour", priority: "specialise" },
   { author: "Cicéron", title: "De l’amitié", priority: "complementaire" },

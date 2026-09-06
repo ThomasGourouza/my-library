@@ -3990,20 +3990,6 @@
   "enriched": false
  },
  {
-  "title": "Pensées",
-  "authorKey": "blaise-pascal",
-  "category": "Philosophie & psychologie",
-  "genre": "Essai",
-  "courant": null,
-  "theme": "Misère de l'homme sans Dieu",
-  "period": "XVIIe siècle",
-  "publicationYear": 1670,
-  "audience": "adultes",
-  "originalLanguage": "français",
-  "notes": null,
-  "enriched": false
- },
- {
   "title": "Traité du triangle arithmétique",
   "authorKey": "blaise-pascal",
   "category": "Mathématiques",
@@ -19852,20 +19838,6 @@
   "enriched": false
  },
  {
-  "title": "Essais",
-  "authorKey": "michel-de-montaigne",
-  "category": "Littérature",
-  "genre": "Essai",
-  "courant": null,
-  "theme": null,
-  "period": "XVIe siècle",
-  "publicationYear": 1580,
-  "audience": "adultes",
-  "originalLanguage": "français",
-  "notes": "Édition mentionnée : celle établie par Bernard Combeaud.",
-  "enriched": false
- },
- {
   "title": "Les Essais",
   "authorKey": "michel-de-montaigne",
   "category": "Philosophie & psychologie",
@@ -19876,7 +19848,7 @@
   "publicationYear": 1580,
   "audience": "adultes",
   "originalLanguage": "français",
-  "notes": "édition Bernard Combeaud",
+  "notes": "Édition mentionnée : celle établie par Bernard Combeaud.",
   "enriched": false
  },
  {

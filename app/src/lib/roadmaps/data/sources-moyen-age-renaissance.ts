@@ -187,7 +187,7 @@ export const sourcesMoyenAgeRenaissance: Roadmap = {
     },
     {
       author: "Michel de Montaigne",
-      title: "Essais",
+      title: "Les Essais",
       note: "Le terme d'arrivée du parcours : un homme qui prend sa propre pensée pour objet, sans autorité et sans système. Tout ce qui précède y est cité, digéré, mis en doute.",
     },
   ],

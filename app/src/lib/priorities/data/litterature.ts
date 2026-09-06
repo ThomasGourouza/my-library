@@ -158,7 +158,6 @@ export const litterature: PriorityEntry[] = [
   { author: "Marquis de Sade", title: "Justine ou Les Malheurs de la vertu", priority: "complementaire" },
   { author: "Marquis de Sade", title: "Les 120 Journées de Sodome", priority: "specialise" },
   { author: "Matthew Gregory Lewis", title: "Le Moine", priority: "complementaire" },
-  { author: "Michel de Montaigne", title: "Essais", priority: "essentiel" },
   { author: "Miguel de Cervantes", title: "Don Quichotte", priority: "essentiel" },
   { author: "Miguel de Cervantes", title: "Nouvelles exemplaires", priority: "complementaire" },
   { author: "Molière", title: "Dom Juan", priority: "important" },

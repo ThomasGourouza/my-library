@@ -12,7 +12,7 @@ export const grandsEssaisEtArtDePenser: Roadmap = {
   entries: [
     {
       author: "Michel de Montaigne",
-      title: "Essais",
+      title: "Les Essais",
       note: "Le livre qui donne son nom au genre : essayer ses jugements sur soi-même, revenir dessus, ne rien clore. Tout ce parcours descend de cette décision de forme.",
     },
     {
