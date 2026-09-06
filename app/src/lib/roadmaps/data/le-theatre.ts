@@ -276,41 +276,6 @@ export const leTheatre: Roadmap = {
       note: "Une pièce écrite sans souci de représentation, avec des dizaines de lieux et de personnages. La liberté du théâtre dans un fauteuil, avant la mise en scène moderne.",
     },
     {
-      author: "Lord Byron",
-      title: "Caïn",
-      note: "Le premier meurtrier discute avec Lucifer et n'est pas convaincu par Dieu. Le drame métaphysique romantique, publié malgré les poursuites pour blasphème.",
-    },
-    {
-      author: "Richard Wagner",
-      title: "L’Or du Rhin",
-      note: "Le prologue de la Tétralogie : un anneau volé au fleuve, et la malédiction commence. Le livret est écrit avant la musique, comme un poème dramatique autonome.",
-    },
-    {
-      author: "Richard Wagner",
-      title: "La Walkyrie",
-      note: "L'inceste des jumeaux et la désobéissance de Brünnhilde. Le volet le plus humain du cycle, et le plus souvent joué seul.",
-    },
-    {
-      author: "Richard Wagner",
-      title: "Siegfried",
-      note: "Un héros sans peur forge son épée et tue le dragon, avant de découvrir la peur devant une femme endormie. Le conte germanique intégré à l'opéra total.",
-    },
-    {
-      author: "Richard Wagner",
-      title: "Le Crépuscule des dieux",
-      note: "La fin du cycle : trahison, incendie du Walhalla, retour de l'anneau au fleuve. Quinze heures de spectacle s'y résolvent d'un coup.",
-    },
-    {
-      author: "Richard Wagner",
-      title: "Tristan et Isolde",
-      note: "Le philtre, la nuit et l'accord qui ne se résout pas avant la dernière mesure. L'œuvre où la musique occidentale change de siècle.",
-    },
-    {
-      author: "Richard Wagner",
-      title: "Parsifal",
-      note: "Le Graal et la compassion comme voie de rédemption, dans une œuvre conçue pour un théâtre unique. Le point d'arrivée du projet wagnérien.",
-    },
-    {
       author: "Alexandre Pouchkine",
       title: "Boris Godounov",
       note: "Un tsar usurpateur, un faux prétendant, et un peuple qui se tait à la fin. Écrit d'après Shakespeare pour fonder un théâtre historique russe.",
@@ -319,16 +284,6 @@ export const leTheatre: Roadmap = {
       author: "Nikolaï Gogol",
       title: "Le Révizor",
       note: "Une petite ville prend un voyageur de passage pour un inspecteur du tsar. La satire administrative la plus efficace jamais écrite, applaudie par le tsar lui-même.",
-    },
-    {
-      author: "Alexandre Ostrovski",
-      title: "L’Orage",
-      note: "Une jeune femme étouffée par sa belle-mère et par la morale marchande de province. Le théâtre russe se donne pour sujet la vie ordinaire.",
-    },
-    {
-      author: "Alexandre Ostrovski",
-      title: "Sans dot",
-      note: "Une fille pauvre et belle vendue au plus offrant, jusqu'au coup de feu final. Ostrovski décrit le mariage comme une transaction, sans commentaire.",
     },
     {
       author: "Léon Tolstoï",
