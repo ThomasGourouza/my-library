@@ -59,3 +59,7 @@ qu'une fois commité.
   largeur de l'écran (1 230 → 1 390 px utiles à 1 440). Deux défauts trouvés
   au passage et corrigés : le sélecteur « Grouper par » restait vide jusqu'à
   l'hydratation, et l'espace manquait avant le compteur des groupes.
+- **6a ✔** Synchronisation de l'URL par `window.history.replaceState` au lieu
+  de `router.replace`. Mesuré avant/après sur `/livres` en tapant « proust » :
+  8 requêtes RSC et 8 Mo de charge utile → 0 et 0. Le serveur resérialisait les
+  2 038 livres à chaque caractère tapé. Même correction sur `/parcours`.

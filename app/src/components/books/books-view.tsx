@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Check, Columns3, Plus, X } from "lucide-react";
 import type { SortingState } from "@tanstack/react-table";
 import type { BookFilterOptions } from "@/lib/queries";
@@ -237,7 +237,6 @@ export function BooksView({
   books: BookWithRoadmaps[];
   options: BookFilterOptions;
 }) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -285,8 +284,14 @@ export function BooksView({
     const cols = serializeHiddenColumns(hiddenColumns);
     if (cols !== null) params.set("cols", cols);
     const qs = params.toString();
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-  }, [search, filters, view, groupBy, sorting, hiddenColumns, pathname, router]);
+    // history.replaceState plutôt que router.replace : Next intègre l'API
+    // native au routeur (l'URL et useSearchParams restent synchronisés) mais
+    // sans déclencher de navigation. router.replace, lui, refait un aller-retour
+    // serveur à chaque frappe — mesuré sur cette page : taper « proust »
+    // coûtait 8 requêtes, 8 Mo de charge utile et près de 15 secondes, parce
+    // que le serveur resérialisait les 2 038 livres à chaque caractère.
+    window.history.replaceState(null, "", qs ? `${pathname}?${qs}` : pathname);
+  }, [search, filters, view, groupBy, sorting, hiddenColumns, pathname]);
 
   const toggleFilter = (key: FilterKey, value: string) => {
     setFilters((prev) => ({

@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { BookOpen, X } from "lucide-react";
 import { normalizeKey } from "@/lib/normalize";
 import type { RoadmapSummary } from "@/lib/roadmaps/queries";
@@ -22,7 +22,6 @@ function isFamily(v: string | null): v is RoadmapFamily {
 }
 
 export function RoadmapsView({ roadmaps }: { roadmaps: RoadmapSummary[] }) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -38,8 +37,10 @@ export function RoadmapsView({ roadmaps }: { roadmaps: RoadmapSummary[] }) {
     if (search) params.set("q", search);
     if (family) params.set("famille", family);
     const qs = params.toString();
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-  }, [search, family, pathname, router]);
+    // Même raison que dans books-view : l'API native d'historique est intégrée
+    // au routeur Next et ne déclenche pas de re-rendu serveur.
+    window.history.replaceState(null, "", qs ? `${pathname}?${qs}` : pathname);
+  }, [search, family, pathname]);
 
   const filtered = React.useMemo(() => {
     const key = normalizeKey(search);
