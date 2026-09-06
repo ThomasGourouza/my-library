@@ -16,11 +16,6 @@ export const lettresAllemandes: Roadmap = {
       note: "Siegfried, Kriemhild et un massacre final sans survivants. L'épopée germanique la plus noire du Moyen Âge, et le fonds où puisera le nationalisme du XIXe siècle.",
     },
     {
-      author: "Anonyme (œuvre médiévale)",
-      title: "La Chanson des Nibelungen",
-      note: "La même matière sous une autre entrée de bibliothèque, en moyen haut-allemand. Occasion de mesurer combien la transmission médiévale multiplie les états d'un texte.",
-    },
-    {
       author: "Wolfram von Eschenbach",
       title: "Parzival",
       note: "La quête du Graal traitée comme une éducation morale : le héros échoue d'abord par manque de compassion. Le modèle du roman de formation existe donc dès 1210.",
@@ -61,29 +56,9 @@ export const lettresAllemandes: Roadmap = {
       note: "Deux souveraines, deux légitimités, et une rencontre inventée pour les confronter. Schiller met au point le drame historique classique allemand.",
     },
     {
-      author: "Friedrich Schiller",
-      title: "Guillaume Tell",
-      note: "Le serment du Grütli et la révolte contre le bailli autrichien. Un dramaturge allemand fournit à la Suisse son récit national : cas d'école de littérature fondatrice.",
-    },
-    {
       author: "Frères Grimm",
       title: "Contes de l’enfance et du foyer",
       note: "Le recueil originel, collecté pour des raisons philologiques autant que patriotiques. Les premières éditions sont bien plus crues que celles qu'on lit aux enfants.",
-    },
-    {
-      author: "Frères Grimm",
-      title: "Contes",
-      note: "L'édition courante, remaniée au fil des rééditions par Wilhelm Grimm lui-même. Comparer les versions révèle un siècle de censure douce.",
-    },
-    {
-      author: "Frères Grimm",
-      title: "Contes de Grimm",
-      note: "Une sélection resserrée sur les titres devenus universels. Elle sert de porte d'entrée avant le recueil complet, qui est long et inégal.",
-    },
-    {
-      author: "E.T.A. Hoffmann",
-      title: "L’Homme au sable",
-      note: "Un automate pris pour une femme, un marchand de lunettes inquiétant, une chute par la fenêtre. La nouvelle sur laquelle Freud a bâti son concept d'inquiétante étrangeté.",
     },
     {
       author: "E.T.A. Hoffmann",
@@ -142,11 +117,6 @@ export const lettresAllemandes: Roadmap = {
     },
     {
       author: "Hermann Hesse",
-      title: "Demian",
-      note: "Un adolescent guidé par une figure qui l'initie à sa propre part obscure. Publié sous pseudonyme en 1919, il a saisi une génération sortie de la guerre.",
-    },
-    {
-      author: "Hermann Hesse",
       title: "Siddhartha",
       note: "Un brahmane quitte les doctrines pour apprendre du fleuve. La rencontre de l'Allemagne et de l'Inde, qui deviendra un motif de toute la contre-culture.",
     },
@@ -169,11 +139,6 @@ export const lettresAllemandes: Roadmap = {
       author: "Erich Maria Remarque",
       title: "Trois camarades",
       note: "L'amitié d'anciens combattants dans l'Allemagne de l'inflation. La génération perdue allemande, entre garage, alcool et sanatorium.",
-    },
-    {
-      author: "Erich Maria Remarque",
-      title: "Arc de Triomphe",
-      note: "Un chirurgien allemand sans papiers à Paris en 1939. L'exil comme condition permanente, écrit par un exilé.",
     },
     {
       author: "Ernst Jünger",
@@ -202,16 +167,6 @@ export const lettresAllemandes: Roadmap = {
     },
     {
       author: "Stefan Zweig",
-      title: "Vingt-quatre heures de la vie d’une femme",
-      note: "Une veuve anglaise sauve un joueur ruiné, et se perd. Zweig y met en pratique ce qu'il doit à Freud : la vie entière décidée en un jour.",
-    },
-    {
-      author: "Stefan Zweig",
-      title: "La Confusion des sentiments",
-      note: "Un étudiant découvre le désir caché de son professeur pour lui. Le non-dit y est traité avec une délicatesse rare pour 1927.",
-    },
-    {
-      author: "Stefan Zweig",
       title: "Le Joueur d’échecs",
       note: "Un homme torturé par l'isolement a appris les échecs de mémoire dans une cellule de la Gestapo. Dernier texte de Zweig, écrit avant son suicide au Brésil.",
     },
@@ -234,11 +189,6 @@ export const lettresAllemandes: Roadmap = {
       author: "Günter Grass",
       title: "Le Chat et la Souris",
       note: "Un adolescent de Dantzig, une pomme d'Adam trop visible, une décoration militaire volée. Récit court, central dans la trilogie de Dantzig.",
-    },
-    {
-      author: "Günter Grass",
-      title: "Les Années de chien",
-      note: "Trente ans d'histoire allemande suivis à travers une lignée de chiens de berger. La satire y devient méthode historique.",
     },
     {
       author: "Fritz Zorn",
