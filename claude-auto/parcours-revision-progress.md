@@ -78,7 +78,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `les-mathematiques` — 86 %.
 - [x] `histoire-et-philosophie-des-sciences` — 76 %.
 - [x] `le-vivant` — 73 %.
-- [ ] `histoire-de-france` — cinq biographies de De Gaulle à la suite puis quatre
+- [x] `histoire-de-france` — cinq biographies de De Gaulle à la suite puis quatre
       Mitterrand : inventaire de rayon.
 - [ ] `civilisations-et-longue-duree` — 78 %, et deux paires de doublons non
       détectés dans les quatre dernières positions.
