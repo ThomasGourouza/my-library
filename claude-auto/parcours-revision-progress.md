@@ -168,7 +168,7 @@ c'est exactement l'erreur qu'on corrige.
       thèse des cycles avec plus de poids.
 
 ### Clôture
-- [x] `npm test` au vert (15/15), `npx tsx --noEmit` propre, `npm run build`
+- [x] `npm test` au vert (15/15), `npx tsc --noEmit` propre, `npm run build`
       réussi, `npm run lint` inchangé (les 3 problèmes préexistants).
 - [x] `npx tsx scripts/parcours-metrics.ts "APRÈS révision"` :
       53 parcours · 1546 entrées · 1152/2043 livres couverts (56,4 %) ·
