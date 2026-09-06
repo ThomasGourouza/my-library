@@ -36,26 +36,6 @@ export const romantismeFrancais: Roadmap = {
       note: "Le recueil qui, en 1820, fait basculer la poésie française du côté de l'intime. Le succès fut immédiat : on y reconnaissait enfin une voix, non un exercice.",
     },
     {
-      author: "Alphonse de Lamartine",
-      title: "Le Lac",
-      note: "Le poème le plus lu du recueil : un lieu qui demeure quand l'être aimé disparaît. Le motif du temps irréversible y trouve sa formulation française canonique.",
-    },
-    {
-      author: "Alphonse de Lamartine",
-      title: "Harmonies poétiques et religieuses",
-      note: "Lamartine cherche à faire de la prière un genre poétique. Il permet de mesurer ce que le romantisme doit à la sensibilité religieuse, et non à la seule mélancolie.",
-    },
-    {
-      author: "Alphonse de Lamartine",
-      title: "Jocelyn",
-      note: "Une épopée intime en vers, sur un prêtre et un amour renoncé. Tentative de roman poétique que le siècle abandonnera : instructive comme voie sans suite.",
-    },
-    {
-      author: "Alphonse de Lamartine",
-      title: "La Chute d’un ange",
-      note: "Fragment d'une immense épopée de l'humanité jamais achevée. L'ambition démesurée du romantisme s'y voit à nu, échec compris.",
-    },
-    {
       author: "Victor Hugo",
       title: "Hernani",
       note: "La bataille de 1830 : le vers disloqué, le mélange des tons, le public qui se bat en salle. Le romantisme prend le théâtre par la force, et c'est ce soir-là qu'il gagne.",
@@ -67,18 +47,8 @@ export const romantismeFrancais: Roadmap = {
     },
     {
       author: "Victor Hugo",
-      title: "Les Feuilles d’automne",
-      note: "Le Hugo intime d'avant l'exil : l'enfance, la famille, la fenêtre ouverte. Nécessaire pour ne pas réduire Hugo au prophète des dernières années.",
-    },
-    {
-      author: "Victor Hugo",
       title: "Ruy Blas",
       note: "Un laquais devient premier ministre et aime la reine. Le drame romantique à son point d'équilibre : invraisemblable et parfaitement tenu.",
-    },
-    {
-      author: "Victor Hugo",
-      title: "Les Rayons et les Ombres",
-      note: "Le recueil où Hugo formule sa doctrine du poète comme guide des peuples. Charnière entre le lyrisme personnel et la poésie de mission.",
     },
     {
       author: "Victor Hugo",
@@ -92,23 +62,8 @@ export const romantismeFrancais: Roadmap = {
     },
     {
       author: "Victor Hugo",
-      title: "Demain dès l’aube",
-      note: "Douze vers d'une simplicité absolue, où l'on ne comprend qu'à la fin qu'il s'agit d'une tombe. Le contraire exact de l'éloquence des Châtiments.",
-    },
-    {
-      author: "Victor Hugo",
       title: "Les Misérables",
       note: "Le roman total : bagne, égouts, barricades, digressions sur Waterloo et l'argot. Hugo y tient ensemble le feuilleton populaire et le traité social.",
-    },
-    {
-      author: "Victor Hugo",
-      title: "Quatrevingt-treize",
-      note: "Le dernier roman, sur la Terreur et la Vendée, où chaque camp a ses raisons. Hugo y juge enfin la Révolution qu'il avait toujours défendue en bloc.",
-    },
-    {
-      author: "Alfred de Musset",
-      title: "Les Caprices de Marianne",
-      note: "Une comédie qui tourne au meurtre en trois actes. Musset écrit un théâtre injouable pour son temps, donc entièrement libre de forme.",
     },
     {
       author: "Alfred de Musset",
@@ -122,11 +77,6 @@ export const romantismeFrancais: Roadmap = {
     },
     {
       author: "Alfred de Musset",
-      title: "Rolla",
-      note: "Le poème du désœuvrement d'après Napoléon : une génération sans guerre et sans foi. À lire avec la Confession, dont il est le condensé en vers.",
-    },
-    {
-      author: "Alfred de Musset",
       title: "La Confession d’un enfant du siècle",
       note: "Le diagnostic explicite du mal du siècle par celui qui en souffre. Le premier chapitre est un morceau d'histoire des mentalités autant que de littérature.",
     },
@@ -136,34 +86,9 @@ export const romantismeFrancais: Roadmap = {
       note: "Le dialogue du Poète et de la Muse, en quatre nuits, après la rupture avec George Sand. Musset y fait de la douleur la condition même de l'écriture.",
     },
     {
-      author: "Alfred de Musset",
-      title: "Tristesse",
-      note: "Un sonnet de bilan : tout est perdu, sauf d'avoir quelquefois pleuré. Le romantisme réduit à quatorze vers sans emphase.",
-    },
-    {
-      author: "Alfred de Musset",
-      title: "Poésies nouvelles",
-      note: "Le second versant de l'œuvre, plus bref et plus amer. Il montre un poète qui se survit, ce que les anthologies escamotent.",
-    },
-    {
-      author: "Gérard de Nerval",
-      title: "Odelettes",
-      note: "Des pièces courtes, d'une grâce ancienne, avant la folie et les Chimères. Elles font entendre le Nerval le plus léger, souvent oublié.",
-    },
-    {
       author: "Gérard de Nerval",
       title: "Les Chimères",
       note: "Douze sonnets où le mythe, l'ésotérisme et la biographie deviennent indissociables. La poésie française y devient obscure volontairement : Mallarmé s'en souviendra.",
-    },
-    {
-      author: "Gérard de Nerval",
-      title: "El Desdichado",
-      note: "« Je suis le ténébreux, le veuf, l'inconsolé » : le sonnet le plus commenté de la langue. Chaque vers y résiste, ce qui en fait un excellent exercice de lecture.",
-    },
-    {
-      author: "Gérard de Nerval",
-      title: "Vers dorés",
-      note: "Le panthéisme énoncé en quatorze vers : tout est sensible, jusqu'à la pierre. Il donne la clé philosophique des Chimères.",
     },
     {
       author: "George Sand",
@@ -176,19 +101,9 @@ export const romantismeFrancais: Roadmap = {
       note: "Le roman champêtre : la campagne berrichonne saisie sans condescendance. Sand y invente une voie française entre idylle et observation.",
     },
     {
-      author: "George Sand",
-      title: "La Petite Fadette",
-      note: "Une fille pauvre et mal vue transformée par le regard d'un autre. Le meilleur des romans champêtres, longtemps lu à l'école pour de mauvaises raisons.",
-    },
-    {
       author: "Alexandre Dumas",
       title: "Les Trois Mousquetaires",
       note: "Le romantisme passé au feuilleton quotidien : histoire, panache et rythme de publication. Placé ici pour rappeler que le siècle se lisait aussi dans les journaux.",
-    },
-    {
-      author: "Alexandre Dumas",
-      title: "La Reine Margot",
-      note: "La Saint-Barthélemy en roman noir de cour. Dumas y montre la politique comme une série de crimes intimes.",
     },
     {
       author: "Alexandre Dumas",
@@ -201,49 +116,9 @@ export const romantismeFrancais: Roadmap = {
       note: "L'exotisme espagnol traité avec une sécheresse d'ethnographe. Mérimée fait le contraire de Hugo : il refroidit une matière brûlante.",
     },
     {
-      author: "Théodore de Banville",
-      title: "Les Cariatides",
-      note: "Le premier recueil d'un virtuose de la rime, admiré par Baudelaire et Rimbaud. Il ouvre la partie du parcours où la forme prend le pas sur la confidence.",
-    },
-    {
-      author: "Théodore de Banville",
-      title: "Les Stalactites",
-      note: "Des poèmes brefs et ciselés, travaillés comme des objets. On y voit naître le Parnasse : l'émotion se déplace vers le métier.",
-    },
-    {
-      author: "Théodore de Banville",
-      title: "Les Exilés",
-      note: "Le sommet parnassien de Banville, avec ses dieux grecs en exil dans le monde moderne. Motif que Mallarmé reprendra tout autrement.",
-    },
-    {
-      author: "Théodore de Banville",
-      title: "Odelettes",
-      note: "Le retour aux formes anciennes, ronsardiennes, pratiquées comme un jeu savant. Utile pour mesurer combien le XIXe siècle relit le XVIe.",
-    },
-    {
       author: "Charles Baudelaire",
       title: "Les Fleurs du mal",
       note: "Le livre qui coupe le siècle en deux : la ville, le vice et l'ennui deviennent poétiques, et six pièces sont condamnées en justice. Tout ce qui suit dans ce parcours en dépend.",
-    },
-    {
-      author: "Charles Baudelaire",
-      title: "L’Albatros",
-      note: "Le poète comme oiseau ridicule à terre : l'allégorie la plus claire du recueil. À lire en premier pour entrer sans difficulté dans les Fleurs du mal.",
-    },
-    {
-      author: "Charles Baudelaire",
-      title: "L’Invitation au voyage",
-      note: "« Luxe, calme et volupté » : l'ailleurs rêvé comme équivalent de l'ordre intérieur. Le versant consolant de Baudelaire, rare et donc précieux.",
-    },
-    {
-      author: "Charles Baudelaire",
-      title: "Spleen",
-      note: "L'ennui érigé en état métaphysique, avec ses cloches et son couvercle de ciel. C'est le contrepoids exact du poème précédent.",
-    },
-    {
-      author: "Charles Baudelaire",
-      title: "Le Voyage",
-      note: "Le poème final du recueil : après avoir tout parcouru, plonger « au fond de l'Inconnu pour trouver du nouveau ». Il donne au livre sa conclusion et son programme.",
     },
     {
       author: "Charles Baudelaire",
@@ -267,18 +142,8 @@ export const romantismeFrancais: Roadmap = {
     },
     {
       author: "Paul Verlaine",
-      title: "Clair de lune",
-      note: "Le poème d'ouverture des Fêtes galantes, mis en musique par Debussy et Fauré. Il illustre ce que Verlaine appelle « de la musique avant toute chose ».",
-    },
-    {
-      author: "Paul Verlaine",
       title: "Romances sans paroles",
       note: "Le recueil de la vie avec Rimbaud et de la fuite en Belgique. Le vers impair et l'effacement du sens y sont poussés le plus loin.",
-    },
-    {
-      author: "Paul Verlaine",
-      title: "Il pleure dans mon cœur",
-      note: "Une tristesse sans cause, ce qui est nouveau : la poésie renonce à expliquer son motif. Court, et décisif pour la suite du siècle.",
     },
     {
       author: "Paul Verlaine",
@@ -292,21 +157,6 @@ export const romantismeFrancais: Roadmap = {
     },
     {
       author: "Arthur Rimbaud",
-      title: "Le Dormeur du val",
-      note: "Un sonnet de paysage dont le dernier vers révèle un cadavre. La mécanique du poème à chute, apprise très tôt et jamais oubliée.",
-    },
-    {
-      author: "Arthur Rimbaud",
-      title: "Le Bateau ivre",
-      note: "Cent vers écrits par un adolescent qui n'a jamais vu la mer. La dérive du bateau y figure l'abandon de tout contrôle : le manifeste du « dérèglement des sens ».",
-    },
-    {
-      author: "Arthur Rimbaud",
-      title: "Voyelles",
-      note: "Chaque voyelle reçoit une couleur, sans que la clé soit donnée. Le sonnet a lancé un siècle d'exégèse : bon exemple de poème qui vaut par sa résistance.",
-    },
-    {
-      author: "Arthur Rimbaud",
       title: "Une Saison en enfer",
       note: "Le seul livre que Rimbaud ait publié lui-même : un règlement de comptes avec sa propre entreprise poétique. À lire comme un adieu, ce qu'il fut.",
     },
@@ -314,21 +164,6 @@ export const romantismeFrancais: Roadmap = {
       author: "Arthur Rimbaud",
       title: "Illuminations",
       note: "Des proses brèves, sans narration ni destinataire, publiées quand l'auteur trafiquait des armes en Afrique. Le point d'arrivée de la poésie du siècle.",
-    },
-    {
-      author: "Stéphane Mallarmé",
-      title: "Brise marine",
-      note: "« La chair est triste, hélas ! et j'ai lu tous les livres » : le désir de fuir énoncé dans une langue encore claire. Bonne porte d'entrée avant l'hermétisme.",
-    },
-    {
-      author: "Stéphane Mallarmé",
-      title: "L’Après-midi d’un faune",
-      note: "L'églogue qui a donné son prélude à Debussy. Le sens y flotte volontairement entre le rêve et le souvenir : premier grand poème du doute sur le réel.",
-    },
-    {
-      author: "Stéphane Mallarmé",
-      title: "Hérodiade",
-      note: "Un chantier repris pendant trente ans, autour d'une figure de refus absolu. Il éclaire l'idéal mallarméen : une beauté stérile parce que pure.",
     },
     {
       author: "Stéphane Mallarmé",
@@ -344,11 +179,6 @@ export const romantismeFrancais: Roadmap = {
       author: "Jules Laforgue",
       title: "Les Complaintes",
       note: "Le symbolisme passé à l'ironie et au vers libre naissant. Laforgue introduit l'autodérision dans le lyrisme, ce que ni Baudelaire ni Mallarmé ne faisaient.",
-    },
-    {
-      author: "Jules Laforgue",
-      title: "Moralités légendaires",
-      note: "Hamlet, Salomé et Lohengrin réécrits en prose désinvolte. La parodie des grands mythes annonce le rapport moderne à l'héritage.",
     },
     {
       author: "Joris-Karl Huysmans",
