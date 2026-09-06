@@ -146,6 +146,11 @@ export const leVivant: Roadmap = {
       note: "Un physicien conteste la manière dont les rapports climatiques sont résumés au public. Position minoritaire, vivement critiquée : à lire en regard d'Emanuel.",
     },
     {
+      author: "Hans Jonas",
+      title: "Le Principe responsabilité",
+      note: "Le passage de la biologie à l’obligation : si nous pouvons détruire les conditions de la vie, alors la connaissance du vivant engage une responsabilité et non plus seulement une curiosité.",
+    },
+    {
       author: "Andreas Malm",
       title: "How to Blow Up a Pipeline",
       note: "Un plaidoyer pour le sabotage des infrastructures fossiles, par un universitaire suédois. Le débat sur les moyens de l'action écologique posé sans détour.",

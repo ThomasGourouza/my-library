@@ -61,6 +61,11 @@ export const visionScientifique: Roadmap = {
       note: "Le sacré expliqué comme la société se prenant elle-même pour objet de culte. La démonstration la plus ambitieuse du principe durkheimien : traiter les faits sociaux comme des choses.",
     },
     {
+      author: "Marcel Mauss",
+      title: "Essai sur le don",
+      note: "Le prolongement direct de Durkheim : le lien social n’est pas un sentiment mais une structure d’obligations, aussi lisible dans le potlatch que dans le cadeau d’anniversaire.",
+    },
+    {
       author: "Max Weber",
       title: "L'Éthique protestante et l'esprit du capitalisme",
       note: "L'objection interne au parcours : ici, ce sont des croyances religieuses qui produisent une structure économique, et non l'inverse. À lire immédiatement après Marx.",

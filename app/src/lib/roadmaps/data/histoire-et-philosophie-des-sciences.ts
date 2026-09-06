@@ -131,6 +131,16 @@ export const histoireEtPhilosophieDesSciences: Roadmap = {
       note: "La machine de Turing, la calculabilité et les fondements de l'informatique. Le pont entre les mathématiques et les technologies actuelles.",
     },
     {
+      author: "Norbert Wiener",
+      title: "La Cybernétique",
+      note: "1948 : la rétroaction devient un concept commun à la machine, à l’organisme et à la société. Tout ce que ce parcours contient ensuite sur l’ordinateur et l’intelligence artificielle en découle.",
+    },
+    {
+      author: "Claude Shannon",
+      title: "Théorie mathématique de la communication",
+      note: "La même année, la mesure de l’information indépendamment de son sens. C’est de là que vient le bit, et avec lui la possibilité même du numérique.",
+    },
+    {
       author: "David Patterson",
       title: "Computer Organization and Design",
       note: "Comment une instruction devient un signal électrique, du processeur à la mémoire. Le manuel de référence : la seule façon de savoir ce qu'est vraiment un ordinateur.",

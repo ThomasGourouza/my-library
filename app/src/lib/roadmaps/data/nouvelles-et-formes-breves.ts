@@ -26,6 +26,11 @@ export const nouvellesEtFormesBreves: Roadmap = {
       note: "La fable russifiée dans une langue si populaire qu'elle a produit des proverbes. Elle montre comment une forme se naturalise dans une culture.",
     },
     {
+      author: "Anonyme (conte arabe)",
+      title: "Les Mille et Une Nuits",
+      note: "Le récit-cadre porté à sa perfection : Shéhérazade tient sa vie d’une histoire à finir chaque nuit. Le recueil n’atteint l’Europe qu’en 1704 avec Galland, mais son procédé précède de loin tous les autres de ce parcours.",
+    },
+    {
       author: "Giovanni Boccace",
       title: "Le Décaméron",
       note: "Cent nouvelles encadrées par le récit de leurs narrateurs. La structure du recueil enchâssé, reprise par Marguerite de Navarre puis par tout le genre.",

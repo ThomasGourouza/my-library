@@ -36,6 +36,11 @@ export const economieEtCritiqueDuCapitalisme: Roadmap = {
       note: "L'économie de marché exposée sans équations, avec une constance libérale assumée. Le contre-manuel utile à lire en regard de Mankiw.",
     },
     {
+      author: "Adam Smith",
+      title: "La Richesse des nations",
+      note: "La lettre à laquelle tout le reste du parcours répond. La division du travail, le marché comme coordination sans coordinateur — et, sous la plume du même moraliste, la méfiance envers les marchands dès qu’ils se concertent.",
+    },
+    {
       author: "Frédéric Bastiat",
       title: "La Loi",
       note: "La spoliation légale et la fonction limitée de l'État, en soixante pages incisives. Le libéralisme français du XIXe siècle dans sa formulation la plus nette.",

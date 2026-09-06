@@ -42,6 +42,20 @@
   "enriched": false
  },
  {
+  "title": "La Richesse des nations",
+  "authorKey": "adam-smith",
+  "category": "Sciences géopolitiques",
+  "genre": "Traité",
+  "courant": "Libéralisme",
+  "theme": "Économie",
+  "period": "XVIIIe siècle",
+  "publicationYear": 1776,
+  "audience": "adultes",
+  "originalLanguage": "anglais",
+  "notes": null,
+  "enriched": false
+ },
+ {
   "title": "Apprendre à philosopher avec Spinoza",
   "authorKey": "adelino-braz",
   "category": "Philosophie & psychologie",
@@ -123,6 +137,20 @@
   "audience": "adultes",
   "originalLanguage": "français",
   "notes": "Coécrit avec Mikhaïl Gromov.",
+  "enriched": false
+ },
+ {
+  "title": "Les Soleils des indépendances",
+  "authorKey": "ahmadou-kourouma",
+  "category": "Littérature",
+  "genre": "Roman",
+  "courant": null,
+  "theme": "Afrique postcoloniale",
+  "period": "XXe siècle",
+  "publicationYear": 1968,
+  "audience": "adultes",
+  "originalLanguage": "français",
+  "notes": null,
   "enriched": false
  },
  {
@@ -2086,6 +2114,20 @@
   "enriched": false
  },
  {
+  "title": "Les Mille et Une Nuits",
+  "authorKey": "anonyme-conte-arabe",
+  "category": "Littérature",
+  "genre": "Conte",
+  "courant": null,
+  "theme": null,
+  "period": "Moyen Âge",
+  "publicationYear": null,
+  "audience": "tous",
+  "originalLanguage": "arabe",
+  "notes": null,
+  "enriched": false
+ },
+ {
   "title": "La Mort le Roi Artu",
   "authorKey": "anonyme-cycle-de-la-vulgate",
   "category": "Littérature",
@@ -2447,6 +2489,34 @@
   "audience": "tous",
   "originalLanguage": "hébreu ancien",
   "notes": "Ancien Testament.",
+  "enriched": false
+ },
+ {
+  "title": "La Bhagavad-Gîtâ",
+  "authorKey": "anonyme-texte-hindou",
+  "category": "Philosophie & psychologie",
+  "genre": "Texte religieux",
+  "courant": "Hindouisme",
+  "theme": "Devoir et action",
+  "period": "Antiquité",
+  "publicationYear": -200,
+  "audience": "adultes",
+  "originalLanguage": "sanskrit",
+  "notes": null,
+  "enriched": false
+ },
+ {
+  "title": "Les Upanishads",
+  "authorKey": "anonyme-texte-hindou",
+  "category": "Philosophie & psychologie",
+  "genre": "Texte religieux",
+  "courant": "Védisme",
+  "theme": "Métaphysique",
+  "period": "Antiquité",
+  "publicationYear": -700,
+  "audience": "adultes",
+  "originalLanguage": "sanskrit",
+  "notes": null,
   "enriched": false
  },
  {
@@ -3567,6 +3637,20 @@
   "audience": "adultes",
   "originalLanguage": "français",
   "notes": "Étude consacrée à Hegel.",
+  "enriched": false
+ },
+ {
+  "title": "Le Feu vert",
+  "authorKey": "bernard-charbonneau",
+  "category": "Philosophie & psychologie",
+  "genre": "Essai",
+  "courant": "Critique de la technique",
+  "theme": "Écologie",
+  "period": "XXe siècle",
+  "publicationYear": 1980,
+  "audience": "adultes",
+  "originalLanguage": "français",
+  "notes": null,
   "enriched": false
  },
  {
@@ -5054,6 +5138,20 @@
   "enriched": false
  },
  {
+  "title": "Le monde s’effondre",
+  "authorKey": "chinua-achebe",
+  "category": "Littérature",
+  "genre": "Roman",
+  "courant": null,
+  "theme": "Colonisation",
+  "period": "XXe siècle",
+  "publicationYear": 1958,
+  "audience": "adultes",
+  "originalLanguage": "anglais",
+  "notes": null,
+  "enriched": false
+ },
+ {
   "title": "Les Liaisons dangereuses",
   "authorKey": "choderlos-de-laclos",
   "category": "Littérature",
@@ -5484,6 +5582,20 @@
   "publicationYear": 1955,
   "audience": "adultes",
   "originalLanguage": "français",
+  "notes": null,
+  "enriched": false
+ },
+ {
+  "title": "Théorie mathématique de la communication",
+  "authorKey": "claude-shannon",
+  "category": "Mathématiques",
+  "genre": "Traité",
+  "courant": "Théorie de l’information",
+  "theme": "Information",
+  "period": "XXe siècle",
+  "publicationYear": 1948,
+  "audience": "adultes",
+  "originalLanguage": "anglais",
   "notes": null,
   "enriched": false
  },
@@ -11158,6 +11270,20 @@
   "enriched": false
  },
  {
+  "title": "Le Principe responsabilité",
+  "authorKey": "hans-jonas",
+  "category": "Philosophie & psychologie",
+  "genre": "Essai",
+  "courant": "Éthique appliquée",
+  "theme": "Écologie",
+  "period": "XXe siècle",
+  "publicationYear": 1979,
+  "audience": "adultes",
+  "originalLanguage": "allemand",
+  "notes": null,
+  "enriched": false
+ },
+ {
   "title": "The Great Pianists",
   "authorKey": "harold-c-schonberg",
   "category": "Histoire",
@@ -12334,6 +12460,20 @@
   "enriched": false
  },
  {
+  "title": "Discours sur l’histoire universelle (Muqaddima)",
+  "authorKey": "ibn-khaldoun",
+  "category": "Histoire",
+  "genre": "Traité",
+  "courant": "Philosophie de l’histoire",
+  "theme": "Civilisations",
+  "period": "Moyen Âge",
+  "publicationYear": 1377,
+  "audience": "adultes",
+  "originalLanguage": "arabe",
+  "notes": null,
+  "enriched": false
+ },
+ {
   "title": "i : Poésies & théories",
   "authorKey": "idriss-aberkane-et-victor-le-brun",
   "category": "Littérature",
@@ -12680,6 +12820,20 @@
   "publicationYear": 1847,
   "audience": "adultes",
   "originalLanguage": "russe",
+  "notes": null,
+  "enriched": false
+ },
+ {
+  "title": "La Convivialité",
+  "authorKey": "ivan-illich",
+  "category": "Philosophie & psychologie",
+  "genre": "Essai",
+  "courant": "Critique de la technique",
+  "theme": "Technique",
+  "period": "XXe siècle",
+  "publicationYear": 1973,
+  "audience": "adultes",
+  "originalLanguage": "anglais",
   "notes": null,
   "enriched": false
  },
@@ -16422,6 +16576,20 @@
   "enriched": false
  },
  {
+  "title": "Marelle",
+  "authorKey": "julio-cortazar",
+  "category": "Littérature",
+  "genre": "Roman",
+  "courant": "Littérature expérimentale",
+  "theme": null,
+  "period": "XXe siècle",
+  "publicationYear": 1963,
+  "audience": "adultes",
+  "originalLanguage": "espagnol",
+  "notes": null,
+  "enriched": false
+ },
+ {
   "title": "La Clef",
   "authorKey": "junichiro-tanizaki",
   "category": "Littérature",
@@ -18410,6 +18578,20 @@
   "enriched": true
  },
  {
+  "title": "Essai sur le don",
+  "authorKey": "marcel-mauss",
+  "category": "Philosophie & psychologie",
+  "genre": "Essai",
+  "courant": "École sociologique française",
+  "theme": "Anthropologie",
+  "period": "XXe siècle",
+  "publicationYear": 1925,
+  "audience": "adultes",
+  "originalLanguage": "français",
+  "notes": null,
+  "enriched": false
+ },
+ {
   "title": "La Gloire de mon père",
   "authorKey": "marcel-pagnol",
   "category": "Littérature",
@@ -18446,6 +18628,20 @@
   "theme": null,
   "period": "XXe siècle",
   "publicationYear": 1929,
+  "audience": "adultes",
+  "originalLanguage": "français",
+  "notes": null,
+  "enriched": false
+ },
+ {
+  "title": "À l’ombre des jeunes filles en fleurs",
+  "authorKey": "marcel-proust",
+  "category": "Littérature",
+  "genre": "Roman",
+  "courant": null,
+  "theme": null,
+  "period": "XXe siècle",
+  "publicationYear": 1919,
   "audience": "adultes",
   "originalLanguage": "français",
   "notes": null,
@@ -18505,20 +18701,6 @@
   "audience": "adultes",
   "originalLanguage": "français",
   "notes": "aussi « Journées de lecture »",
-  "enriched": false
- },
- {
-  "title": "À l’ombre des jeunes filles en fleurs",
-  "authorKey": "marcel-proust",
-  "category": "Littérature",
-  "genre": "Roman",
-  "courant": null,
-  "theme": null,
-  "period": "XXe siècle",
-  "publicationYear": 1919,
-  "audience": "adultes",
-  "originalLanguage": "français",
-  "notes": null,
   "enriched": false
  },
  {
@@ -21098,6 +21280,20 @@
   "enriched": false
  },
  {
+  "title": "La Cybernétique",
+  "authorKey": "norbert-wiener",
+  "category": "Sciences",
+  "genre": "Traité",
+  "courant": "Cybernétique",
+  "theme": "Information",
+  "period": "XXe siècle",
+  "publicationYear": 1948,
+  "audience": "adultes",
+  "originalLanguage": "anglais",
+  "notes": null,
+  "enriched": false
+ },
+ {
   "title": "Europe at War 1939-1945",
   "authorKey": "norman-davies",
   "category": "Histoire",
@@ -21136,6 +21332,20 @@
   "publicationYear": 1996,
   "audience": "adultes",
   "originalLanguage": "anglais",
+  "notes": null,
+  "enriched": false
+ },
+ {
+  "title": "Le Labyrinthe de la solitude",
+  "authorKey": "octavio-paz",
+  "category": "Littérature",
+  "genre": "Essai",
+  "courant": null,
+  "theme": "Identité",
+  "period": "XXe siècle",
+  "publicationYear": 1950,
+  "audience": "adultes",
+  "originalLanguage": "espagnol",
   "notes": null,
   "enriched": false
  },
@@ -21500,6 +21710,20 @@
   "publicationYear": null,
   "audience": "enfants",
   "originalLanguage": "anglais",
+  "notes": null,
+  "enriched": false
+ },
+ {
+  "title": "Chant général",
+  "authorKey": "pablo-neruda",
+  "category": "Littérature",
+  "genre": "Poésie",
+  "courant": null,
+  "theme": "Amérique latine",
+  "period": "XXe siècle",
+  "publicationYear": 1950,
+  "audience": "adultes",
+  "originalLanguage": "espagnol",
   "notes": null,
   "enriched": false
  },
@@ -22722,20 +22946,6 @@
   "enriched": false
  },
  {
-  "title": "Œdipe",
-  "authorKey": "pierre-corneille",
-  "category": "Littérature",
-  "genre": "Théâtre",
-  "courant": "Classicisme",
-  "theme": null,
-  "period": "XVIIe siècle",
-  "publicationYear": 1659,
-  "audience": "adultes",
-  "originalLanguage": "français",
-  "notes": null,
-  "enriched": false
- },
- {
   "title": "Horace",
   "authorKey": "pierre-corneille",
   "category": "Littérature",
@@ -22800,6 +23010,20 @@
   "theme": null,
   "period": "XVIIe siècle",
   "publicationYear": 1629,
+  "audience": "adultes",
+  "originalLanguage": "français",
+  "notes": null,
+  "enriched": false
+ },
+ {
+  "title": "Œdipe",
+  "authorKey": "pierre-corneille",
+  "category": "Littérature",
+  "genre": "Théâtre",
+  "courant": "Classicisme",
+  "theme": null,
+  "period": "XVIIe siècle",
+  "publicationYear": 1659,
   "audience": "adultes",
   "originalLanguage": "français",
   "notes": null,
@@ -25858,6 +26082,20 @@
   "enriched": false
  },
  {
+  "title": "Électre",
+  "authorKey": "sophocle",
+  "category": "Littérature",
+  "genre": "Théâtre",
+  "courant": "Tragédie grecque",
+  "theme": null,
+  "period": "Antiquité",
+  "publicationYear": -410,
+  "audience": "adultes",
+  "originalLanguage": "grec ancien",
+  "notes": "Titre également porté par Euripide et Giraudoux.",
+  "enriched": false
+ },
+ {
   "title": "Œdipe à Colone",
   "authorKey": "sophocle",
   "category": "Littérature",
@@ -25883,20 +26121,6 @@
   "audience": "adultes",
   "originalLanguage": "grec ancien",
   "notes": null,
-  "enriched": false
- },
- {
-  "title": "Électre",
-  "authorKey": "sophocle",
-  "category": "Littérature",
-  "genre": "Théâtre",
-  "courant": "Tragédie grecque",
-  "theme": null,
-  "period": "Antiquité",
-  "publicationYear": -410,
-  "audience": "adultes",
-  "originalLanguage": "grec ancien",
-  "notes": "Titre également porté par Euripide et Giraudoux.",
   "enriched": false
  },
  {
@@ -26456,6 +26680,20 @@
   "publicationYear": 1919,
   "audience": "adultes",
   "originalLanguage": "anglais",
+  "notes": null,
+  "enriched": false
+ },
+ {
+  "title": "Annales",
+  "authorKey": "tacite",
+  "category": "Histoire",
+  "genre": "Histoire",
+  "courant": null,
+  "theme": "Rome antique",
+  "period": "Antiquité",
+  "publicationYear": 116,
+  "audience": "adultes",
+  "originalLanguage": "latin",
   "notes": null,
   "enriched": false
  },

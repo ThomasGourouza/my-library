@@ -11,6 +11,11 @@ export const visionGeopolitique: Roadmap = {
   family: "visions",
   entries: [
     {
+      author: "Ibn Khaldoun",
+      title: "Discours sur l’histoire universelle (Muqaddima)",
+      note: "Le texte fondateur de ce regard, placé avant Braudel parce qu’il l’annonce : les peuples n’y sont pas jugés mais décrits dans leur montée et leur usure, sur des durées qu’aucun acteur ne perçoit de son vivant.",
+    },
+    {
       author: "Fernand Braudel",
       title: "La Méditerranée",
       note: "Trois temps superposés : celui de la géographie, presque immobile, celui des économies, et celui des événements. Le livre qui donne à ce parcours son échelle de mesure.",

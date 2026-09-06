@@ -11,6 +11,11 @@ export const philosophieAntiqueEtMedievale: Roadmap = {
   family: "philosophie",
   entries: [
     {
+      author: "Anonyme (texte hindou)",
+      title: "Les Upanishads",
+      note: "À lire avant les Grecs : la même question — qu’y a-t-il derrière le multiple ? — posée plus tôt, et résolue vers l’identité du soi et de l’absolu plutôt que vers la substance. Schopenhauer y verra la clé de sa propre pensée.",
+    },
+    {
       author: "Diogène Laërce",
       title: "Vies, doctrines et sentences des philosophes illustres",
       note: "Le panorama antique des écoles, avec anecdotes et résumés. Il donne d'emblée la chose essentielle : chaque doctrine était portée par un genre de vie.",

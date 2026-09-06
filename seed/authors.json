@@ -36,6 +36,18 @@
   "notes": "Journaliste d'investigation britannique."
  },
  {
+  "key": "adam-smith",
+  "name": "Adam Smith",
+  "birthYear": 1723,
+  "deathYear": 1790,
+  "nationality": "britannique",
+  "language": "anglais",
+  "mainGenre": "Traité",
+  "mainField": "Sciences géopolitiques",
+  "period": "XVIIIe siècle",
+  "notes": null
+ },
+ {
   "key": "adelino-braz",
   "name": "Adelino Braz",
   "birthYear": null,
@@ -105,6 +117,18 @@
   "mainGenre": "Roman",
   "mainField": "Littérature",
   "period": "XXIe siècle",
+  "notes": null
+ },
+ {
+  "key": "ahmadou-kourouma",
+  "name": "Ahmadou Kourouma",
+  "birthYear": 1927,
+  "deathYear": 2003,
+  "nationality": "ivoirienne",
+  "language": "français",
+  "mainGenre": "Roman",
+  "mainField": "Littérature",
+  "period": "XXe siècle",
   "notes": null
  },
  {
@@ -924,6 +948,18 @@
   "notes": null
  },
  {
+  "key": "anonyme-conte-arabe",
+  "name": "Anonyme (conte arabe)",
+  "birthYear": null,
+  "deathYear": null,
+  "nationality": null,
+  "language": "arabe",
+  "mainGenre": "Conte",
+  "mainField": "Littérature",
+  "period": "Moyen Âge",
+  "notes": "Recueil de contes de tradition arabe, persane et indienne, fixé progressivement."
+ },
+ {
   "key": "anonyme-cycle-de-la-vulgate",
   "name": "Anonyme (Cycle de la Vulgate)",
   "birthYear": null,
@@ -1006,6 +1042,18 @@
   "mainField": "Philosophie & psychologie",
   "period": "Antiquité",
   "notes": null
+ },
+ {
+  "key": "anonyme-texte-hindou",
+  "name": "Anonyme (texte hindou)",
+  "birthYear": null,
+  "deathYear": null,
+  "nationality": null,
+  "language": "sanskrit",
+  "mainGenre": "Texte religieux",
+  "mainField": "Philosophie & psychologie",
+  "period": "Antiquité",
+  "notes": "Corpus sanskrit de la tradition hindoue, longtemps transmis oralement."
  },
  {
   "key": "anselme-de-cantorbery",
@@ -1444,6 +1492,18 @@
   "name": "Bernard Bourgeois",
   "birthYear": null,
   "deathYear": null,
+  "nationality": "française",
+  "language": "français",
+  "mainGenre": "Essai",
+  "mainField": "Philosophie & psychologie",
+  "period": "XXe siècle",
+  "notes": null
+ },
+ {
+  "key": "bernard-charbonneau",
+  "name": "Bernard Charbonneau",
+  "birthYear": 1910,
+  "deathYear": 1996,
   "nationality": "française",
   "language": "français",
   "mainGenre": "Essai",
@@ -2136,6 +2196,18 @@
   "notes": "Historien et anthropologue sénégalais des civilisations africaines."
  },
  {
+  "key": "chinua-achebe",
+  "name": "Chinua Achebe",
+  "birthYear": 1930,
+  "deathYear": 2013,
+  "nationality": "nigériane",
+  "language": "anglais",
+  "mainGenre": "Roman",
+  "mainField": "Littérature",
+  "period": "XXe siècle",
+  "notes": null
+ },
+ {
   "key": "choderlos-de-laclos",
   "name": "Choderlos de Laclos",
   "birthYear": 1741,
@@ -2362,6 +2434,18 @@
   "mainField": "Philosophie & psychologie",
   "period": "XXe siècle",
   "notes": "Fondateur de l'anthropologie structurale."
+ },
+ {
+  "key": "claude-shannon",
+  "name": "Claude Shannon",
+  "birthYear": 1916,
+  "deathYear": 2001,
+  "nationality": "américaine",
+  "language": "anglais",
+  "mainGenre": "Traité",
+  "mainField": "Mathématiques",
+  "period": "XXe siècle",
+  "notes": null
  },
  {
   "key": "clement-marot",
@@ -5124,6 +5208,18 @@
   "notes": "Donne au conte une profondeur psychologique et poétique nouvelle."
  },
  {
+  "key": "hans-jonas",
+  "name": "Hans Jonas",
+  "birthYear": 1903,
+  "deathYear": 1993,
+  "nationality": "allemande",
+  "language": "allemand",
+  "mainGenre": "Essai",
+  "mainField": "Philosophie & psychologie",
+  "period": "XXe siècle",
+  "notes": null
+ },
+ {
   "key": "harold-c-schonberg",
   "name": "Harold C. Schonberg",
   "birthYear": 1915,
@@ -5580,6 +5676,18 @@
   "notes": "Grand vulgarisateur britannique."
  },
  {
+  "key": "ibn-khaldoun",
+  "name": "Ibn Khaldoun",
+  "birthYear": 1332,
+  "deathYear": 1406,
+  "nationality": "tunisienne",
+  "language": "arabe",
+  "mainGenre": "Traité",
+  "mainField": "Histoire",
+  "period": "Moyen Âge",
+  "notes": null
+ },
+ {
   "key": "idriss-aberkane-et-victor-le-brun",
   "name": "Idriss Aberkane & Victor Le Brun",
   "birthYear": null,
@@ -5722,6 +5830,18 @@
   "mainField": "Littérature",
   "period": "XIXe siècle",
   "notes": "Figure de « l'oblomovisme » (apathie sociale)."
+ },
+ {
+  "key": "ivan-illich",
+  "name": "Ivan Illich",
+  "birthYear": 1926,
+  "deathYear": 2002,
+  "nationality": "autrichienne",
+  "language": "anglais",
+  "mainGenre": "Essai",
+  "mainField": "Philosophie & psychologie",
+  "period": "XXe siècle",
+  "notes": null
  },
  {
   "key": "ivan-krylov",
@@ -7368,6 +7488,18 @@
   "notes": null
  },
  {
+  "key": "julio-cortazar",
+  "name": "Julio Cortázar",
+  "birthYear": 1914,
+  "deathYear": 1984,
+  "nationality": "argentine",
+  "language": "espagnol",
+  "mainGenre": "Roman",
+  "mainField": "Littérature",
+  "period": "XXe siècle",
+  "notes": null
+ },
+ {
   "key": "junichiro-tanizaki",
   "name": "Junichirō Tanizaki",
   "birthYear": 1886,
@@ -8284,6 +8416,18 @@
   "name": "Marcel Conche",
   "birthYear": 1922,
   "deathYear": 2022,
+  "nationality": "française",
+  "language": "français",
+  "mainGenre": "Essai",
+  "mainField": "Philosophie & psychologie",
+  "period": "XXe siècle",
+  "notes": null
+ },
+ {
+  "key": "marcel-mauss",
+  "name": "Marcel Mauss",
+  "birthYear": 1872,
+  "deathYear": 1950,
   "nationality": "française",
   "language": "français",
   "mainGenre": "Essai",
@@ -9348,6 +9492,18 @@
   "notes": "Linguiste et critique politique."
  },
  {
+  "key": "norbert-wiener",
+  "name": "Norbert Wiener",
+  "birthYear": 1894,
+  "deathYear": 1964,
+  "nationality": "américaine",
+  "language": "anglais",
+  "mainGenre": "Traité",
+  "mainField": "Sciences",
+  "period": "XXe siècle",
+  "notes": null
+ },
+ {
   "key": "norman-davies",
   "name": "Norman Davies",
   "birthYear": 1939,
@@ -9358,6 +9514,18 @@
   "mainField": "Histoire",
   "period": "XXe siècle",
   "notes": "Historien de l'Europe."
+ },
+ {
+  "key": "octavio-paz",
+  "name": "Octavio Paz",
+  "birthYear": 1914,
+  "deathYear": 1998,
+  "nationality": "mexicaine",
+  "language": "espagnol",
+  "mainGenre": "Essai",
+  "mainField": "Littérature",
+  "period": "XXe siècle",
+  "notes": null
  },
  {
   "key": "olivia-bianchi",
@@ -9502,6 +9670,18 @@
   "mainField": "Littérature",
   "period": "XXe siècle",
   "notes": "Créatrice de Mary Poppins."
+ },
+ {
+  "key": "pablo-neruda",
+  "name": "Pablo Neruda",
+  "birthYear": 1904,
+  "deathYear": 1973,
+  "nationality": "chilienne",
+  "language": "espagnol",
+  "mainGenre": "Poésie",
+  "mainField": "Littérature",
+  "period": "XXe siècle",
+  "notes": null
  },
  {
   "key": "pascal-bruckner",
@@ -11710,6 +11890,18 @@
   "mainField": "Littérature",
   "period": "XXe siècle",
   "notes": "Poète et critique anglo-américain ; Nobel de littérature 1948 ; figure majeure du modernisme."
+ },
+ {
+  "key": "tacite",
+  "name": "Tacite",
+  "birthYear": 58,
+  "deathYear": 120,
+  "nationality": "romaine",
+  "language": "latin",
+  "mainGenre": "Histoire",
+  "mainField": "Histoire",
+  "period": "Antiquité",
+  "notes": null
  },
  {
   "key": "tennessee-williams",

@@ -356,6 +356,11 @@ export const leMondeAngloSaxon: Roadmap = {
       note: "Trois jours d'un artificier américain en Espagne républicaine. Hemingway y écrit une guerre où aucun camp n'a le monopole de la cruauté.",
     },
     {
+      author: "Chinua Achebe",
+      title: "Le monde s’effondre",
+      note: "Le roman qui a retourné la langue anglaise contre le récit colonial : une société igbo décrite de l’intérieur, avec ses règles et ses failles, à l’instant où le missionnaire arrive. Publié en 1958, deux ans avant l’indépendance du Nigeria.",
+    },
+    {
       author: "Ernest Hemingway",
       title: "Le Vieil Homme et la Mer",
       note: "Un pêcheur, un espadon, et un squelette ramené au port. Cent pages qui lui valent le Nobel et concentrent toute sa poétique.",

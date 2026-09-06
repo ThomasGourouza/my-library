@@ -21,6 +21,11 @@ export const visionCynique: Roadmap = {
       note: "La guerre y est affaire de tromperie et d'économie de moyens, jamais d'honneur. Un contrepoint chinois qui montre que ce regard n'est pas une spécialité occidentale.",
     },
     {
+      author: "Tacite",
+      title: "Annales",
+      note: "« Ils font un désert et appellent cela la paix. » Tacite ne dénonce pas, il rapporte — et c’est la froideur du compte rendu qui constitue la charge la plus lourde contre le pouvoir.",
+    },
+    {
       author: "Suétone",
       title: "Les Douze Césars",
       note: "L'histoire impériale racontée par les vices privés des empereurs. La grandeur romaine y devient une affaire de chambre à coucher et de peur — l'un des premiers exercices de démolition d'une majesté.",

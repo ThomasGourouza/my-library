@@ -11,6 +11,11 @@ export const philosophieContemporaine: Roadmap = {
   family: "philosophie",
   entries: [
     {
+      author: "Marcel Mauss",
+      title: "Essai sur le don",
+      note: "Avant l’échange marchand, le don : donner, recevoir, rendre. Mauss montre que l’obligation de rendre fonde le lien social lui-même — la matrice dont sort Lévi-Strauss, qui le suit immédiatement ici.",
+    },
+    {
       author: "Claude Lévi-Strauss",
       title: "Tristes Tropiques",
       note: "« Je hais les voyages et les explorateurs » : un récit d'ethnographe qui est aussi un livre de deuil sur les cultures détruites. La meilleure entrée dans le structuralisme, parce qu'elle n'en a pas l'air.",
@@ -434,6 +439,21 @@ export const philosophieContemporaine: Roadmap = {
       author: "Bernard Stiegler",
       title: "Qu’appelle-t-on panser ?",
       note: "Le jeu de mots du titre est le programme : penser, c'est soigner ce que la technique a blessé. Le dernier grand chantier de son auteur.",
+    },
+    {
+      author: "Ivan Illich",
+      title: "La Convivialité",
+      note: "Une thèse simple et dérangeante : passé un certain seuil, l’outil cesse de servir l’homme et le contraint. Illich l’applique à l’école, à la médecine, à la vitesse, et donne ainsi son critère à toute la critique de la technique.",
+    },
+    {
+      author: "Hans Jonas",
+      title: "Le Principe responsabilité",
+      note: "L’éthique classique ne concernait que les contemporains ; Jonas la refonde pour une puissance technique capable d’engager les générations futures. Agir de sorte que les effets de l’action restent compatibles avec une vie humaine durable.",
+    },
+    {
+      author: "Bernard Charbonneau",
+      title: "Le Feu vert",
+      note: "L’écologie pensée dès les années 1930 par un auteur resté obscur jusqu’à sa mort, et qui redoutait déjà qu’elle ne devienne un motif d’administration supplémentaire au lieu d’une libération.",
     },
     {
       author: "Michel Serres",

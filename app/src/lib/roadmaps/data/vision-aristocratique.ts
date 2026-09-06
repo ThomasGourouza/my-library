@@ -16,6 +16,11 @@ export const visionAristocratique: Roadmap = {
       note: "Achille préfère une vie brève et un nom qui dure. La source de tout le parcours : l'excellence s'y mesure au regard des autres héros, jamais à l'utilité commune.",
     },
     {
+      author: "Anonyme (texte hindou)",
+      title: "La Bhagavad-Gîtâ",
+      note: "Arjuna veut déposer les armes ; Krishna lui enseigne que se dérober à son rang est une faute plus lourde que de combattre. La grandeur y est un devoir d’état et non une conquête personnelle : le contrepoint indien à Nietzsche.",
+    },
+    {
       author: "Plutarque",
       title: "Vies parallèles",
       note: "La biographie inventée comme genre moral : on raconte une vie pour qu'elle serve de modèle. Le livre de chevet des ambitieux européens pendant quinze siècles.",

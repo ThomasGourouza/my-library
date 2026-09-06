@@ -76,6 +76,11 @@ export const romeEtLeStoicisme: Roadmap = {
       note: "Un manuel de séduction en trois livres, adressé aux hommes puis aux femmes. Sa légèreté a probablement contribué à l'exil de son auteur.",
     },
     {
+      author: "Tacite",
+      title: "Annales",
+      note: "L’envers du stoïcisme impérial : pendant que Sénèque écrit sur la vertu, Tacite rapporte ce que la cour de Néron fait réellement aux hommes. À lire en regard l’un de l’autre, jamais séparément.",
+    },
+    {
       author: "Ovide",
       title: "Les Héroïdes",
       note: "Des lettres d'héroïnes mythologiques à l'homme qui les a quittées. L'invention du monologue féminin en littérature occidentale.",

@@ -261,6 +261,11 @@ export const lesMathematiques: Roadmap = {
       note: "Le programme formaliste exposé par son auteur principal, après le coup porté par Gödel. Document sur la manière dont une discipline encaisse une réfutation.",
     },
     {
+      author: "Claude Shannon",
+      title: "Théorie mathématique de la communication",
+      note: "L’information reçoit une unité et une entropie, comme la thermodynamique en avait donné une au désordre. Un des rares articles de mathématiques appliquées à avoir fondé une industrie entière.",
+    },
+    {
       author: "George Boolos, Richard Jeffrey",
       title: "Computability and Logic",
       note: "Calculabilité, machines de Turing et théorèmes limitatifs, avec exercices. Le manuel universitaire de référence sur ces questions.",

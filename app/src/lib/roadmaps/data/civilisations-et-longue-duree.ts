@@ -76,6 +76,11 @@ export const civilisationsEtLongueDuree: Roadmap = {
       note: "La conversion de l'Empire décrite comme un processus long et incertain, non comme une décision. L'historien qui a inventé l'Antiquité tardive comme période.",
     },
     {
+      author: "Ibn Khaldoun",
+      title: "Discours sur l’histoire universelle (Muqaddima)",
+      note: "L’invention de l’histoire comme science des civilisations, quatre siècles avant Braudel : cycles de fondation et de décadence, opposition du nomade et du citadin, et l’asabiyya — la cohésion d’un groupe — comme moteur puis comme fragilité des empires.",
+    },
+    {
       author: "Peter Brown",
       title: "The Rise of Western Christendom",
       note: "La formation de la chrétienté latine entre 200 et 1000, dans toute sa diversité régionale. Le grand livre sur le passage d'un monde à l'autre.",
@@ -299,6 +304,16 @@ export const civilisationsEtLongueDuree: Roadmap = {
       author: "Jared Diamond",
       title: "Effondrement",
       note: "Pourquoi certaines sociétés disparaissent : ressources, environnement, décisions collectives. Le pendant sombre du livre précédent.",
+    },
+    {
+      author: "Chinua Achebe",
+      title: "Le monde s’effondre",
+      note: "La longue durée vue par le bas : ce que l’arrivée d’une administration et d’une religion étrangères défait concrètement dans une société qui tenait debout.",
+    },
+    {
+      author: "Ahmadou Kourouma",
+      title: "Les Soleils des indépendances",
+      note: "L’après-indépendance sans illusion : un prince déchu erre dans un État neuf qui ne tient pas ses promesses. Le contrepoint nécessaire aux récits de libération.",
     },
     {
       author: "Yuval Noah Harari",

@@ -26,6 +26,16 @@ export const textesSacresEtTradition: Roadmap = {
       note: "Une adaptation française continue, sans lacunes ni notes. C'est la porte d'entrée à conseiller avant d'affronter les traductions savantes.",
     },
     {
+      author: "Anonyme (texte hindou)",
+      title: "Les Upanishads",
+      note: "La source de toute la spéculation indienne : le moment où le rite cède la place à la question, et où l’on cherche le principe unique derrière la multiplicité des apparences.",
+    },
+    {
+      author: "Anonyme (texte hindou)",
+      title: "La Bhagavad-Gîtâ",
+      note: "Un guerrier refuse le combat à l’instant de l’engager ; un dieu lui répond sur le devoir et sur le détachement à l’égard des fruits de l’action. Le seul texte du parcours où la question morale se pose sur un champ de bataille.",
+    },
+    {
       author: "Anonyme (texte biblique)",
       title: "Genèse",
       note: "Création, chute, déluge, alliance : cinquante chapitres qui fournissent à l'Occident ses images premières. À lire avant tout commentaire, pour la surprise du texte nu.",

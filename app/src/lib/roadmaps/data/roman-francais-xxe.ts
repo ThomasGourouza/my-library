@@ -301,6 +301,11 @@ export const romanFrancaisXxe: Roadmap = {
       note: "Un médecin alchimiste dans l'Europe des guerres de religion. La liberté de pensée traquée par son époque : sujet que Yourcenar traite sans anachronisme.",
     },
     {
+      author: "Ahmadou Kourouma",
+      title: "Les Soleils des indépendances",
+      note: "Le français y est travaillé de l’intérieur par le malinké : syntaxe, images, rythme. Le roman qui a montré qu’une langue pouvait être héritée sans être subie.",
+    },
+    {
       author: "Julien Gracq",
       title: "Le Rivage des Syrtes",
       note: "Une guerre qui n'a pas lieu, une frontière que personne ne franchit, et l'attente comme matière. Gracq refuse le Goncourt et fixe une position : la littérature contre le marché.",

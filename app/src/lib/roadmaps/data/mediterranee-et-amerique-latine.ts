@@ -156,6 +156,21 @@ export const mediterraneeEtAmeriqueLatine: Roadmap = {
       note: "Un homme cherche son père dans un village dont tous les habitants sont morts. Cent trente pages sans lesquelles Cent ans de solitude n'existerait pas.",
     },
     {
+      author: "Octavio Paz",
+      title: "Le Labyrinthe de la solitude",
+      note: "L’essai qui a appris au Mexique à se lire lui-même : la fête, le masque, la solitude comme héritage de la Conquête. Le pendant réflexif des romans qui l’entourent ici.",
+    },
+    {
+      author: "Julio Cortázar",
+      title: "Marelle",
+      note: "Un roman qui se lit dans deux ordres au choix du lecteur. Cortázar fait de la construction du livre le sujet du livre — l’expérimentation formelle que le réalisme magique laissait de côté.",
+    },
+    {
+      author: "Pablo Neruda",
+      title: "Chant général",
+      note: "Quinze mille vers pour donner à un continent l’épopée qui lui manquait : géologie, conquête, dictatures. La poésie y retrouve la fonction qu’elle avait chez Homère, dire d’où l’on vient.",
+    },
+    {
       author: "Gabriel García Márquez",
       title: "Cent ans de solitude",
       note: "Six générations à Macondo, entre guerres civiles et prodiges traités comme des faits ordinaires. Le réalisme magique y trouve sa forme définitive.",
