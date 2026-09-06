@@ -56,79 +56,14 @@ export const nouvellesEtFormesBreves: Roadmap = {
       note: "Le passage du conte collecté au conte d'auteur, avec des fins souvent malheureuses. Andersen invente une tristesse que le genre n'admettait pas.",
     },
     {
-      author: "Alexandre Fabbri",
-      title: "Contes",
-      note: "Un recueil contemporain qui montre que la forme reste vivante hors du patrimoine. Utile pour ne pas croire le genre clos au XIXe siècle.",
-    },
-    {
-      author: "Philippe Chatel",
-      title: "Émilie Jolie",
-      note: "Un conte musical devenu patrimoine familial français. La forme brève y passe par la chanson, autre voie de transmission.",
-    },
-    {
-      author: "Oscar Wilde",
-      title: "Le Prince heureux",
-      note: "Une statue dorée se dépouille pour les pauvres, aidée par une hirondelle qui en meurt. Le conte moral chez Wilde ne récompense jamais la vertu.",
-    },
-    {
-      author: "Oscar Wilde",
-      title: "Le Rossignol et la Rose",
-      note: "Un oiseau meurt pour créer une rose rouge dont l'étudiant ne fera rien. La cruauté du dénouement est la signature de l'auteur.",
-    },
-    {
-      author: "Oscar Wilde",
-      title: "Le Géant égoïste",
-      note: "Un mur abattu, un jardin rendu aux enfants, et une fin explicitement christique. Le plus tendre des contes de Wilde.",
-    },
-    {
-      author: "Oscar Wilde",
-      title: "L’Enfant-étoile",
-      note: "Un enfant magnifique et cruel renie sa mère mendiante et devient monstrueux. Le conte de la punition et du rachat, sans complaisance.",
-    },
-    {
-      author: "Oscar Wilde",
-      title: "Le Fidèle Ami",
-      note: "Une amitié entièrement à sens unique, racontée par quelqu'un qui n'en voit pas l'ironie. La satire y passe par la naïveté du narrateur.",
-    },
-    {
-      author: "Oscar Wilde",
-      title: "La Fusée remarquable",
-      note: "Un feu d'artifice vaniteux qui prend son échec pour un triomphe. Le portrait de l'artiste imbu de lui-même, par quelqu'un qui savait de quoi il parlait.",
-    },
-    {
-      author: "Oscar Wilde",
-      title: "La maison de la grenouille",
-      note: "Un texte bref et moins connu du même recueil, dans la même veine morale. Il complète la série pour qui veut la lire entière.",
-    },
-    {
       author: "Oscar Wilde",
       title: "Le Prince heureux et autres contes",
-      note: "Le recueil complet, à lire d'affilée pour percevoir la cohérence de l'ensemble. Les contes s'éclairent les uns les autres.",
+      note: "Sept contes moraux où la vertu n'est jamais récompensée : la statue dorée qui se dépouille, le rossignol qui meurt pour une rose. Wilde emploie la forme la plus consolante qui soit pour dire exactement l'inverse.",
     },
     {
       author: "Charles Dickens",
       title: "Un chant de Noël",
       note: "La conversion d'un avare en une nuit, structurée par trois visites. Le récit qui a fixé la forme du conte de Noël pour toute l'Europe.",
-    },
-    {
-      author: "Charles Dickens",
-      title: "The Chimes",
-      note: "Le deuxième livre de Noël, plus social : un commissionnaire pauvre y voit l'avenir de sa fille. Dickens y attaque directement les économistes de son temps.",
-    },
-    {
-      author: "Charles Dickens",
-      title: "The Cricket on the Hearth",
-      note: "Un conte domestique où un grillon veille sur un ménage. Le plus doux de la série, et le plus vendu de son vivant.",
-    },
-    {
-      author: "Charles Dickens",
-      title: "The Battle of Life",
-      note: "Le seul des livres de Noël sans élément surnaturel, sur un sacrifice familial. Il montre l'auteur cherchant à renouveler sa propre formule.",
-    },
-    {
-      author: "Charles Dickens",
-      title: "The Haunted Man and the Ghost’s Bargain",
-      note: "Un homme obtient d'oublier ses chagrins et perd toute compassion. Le dernier livre de Noël, et le plus sombre : la mémoire y est une condition de l'humanité.",
     },
     {
       author: "Edgar Allan Poe",
@@ -204,11 +139,6 @@ export const nouvellesEtFormesBreves: Roadmap = {
       author: "Chamfort",
       title: "Maximes et Pensées",
       note: "La maxime à la veille de la Révolution, plus amère et plus politique. Elle montre ce que la forme devient quand la société qui la portait s'effondre.",
-    },
-    {
-      author: "Paul Valéry",
-      title: "Mauvaises pensées et autres",
-      note: "Des notes et fragments d'un esprit qui se méfie du continu. La maxime au XXe siècle, sans public de salon pour l'entendre.",
     },
     {
       author: "Emil Cioran",
