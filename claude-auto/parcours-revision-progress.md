@@ -82,7 +82,7 @@ parcours, et l'effondrement du 1,06.
       Mitterrand : inventaire de rayon.
 - [x] `civilisations-et-longue-duree` — 78 %, et deux paires de doublons non
       détectés dans les quatre dernières positions.
-- [ ] `propagande-et-theories-du-complot` — recentrer sur les œuvres d'analyse
+- [x] `propagande-et-theories-du-complot` — recentrer sur les œuvres d'analyse
       (Bernays, Ellul, Chomsky et Herman, Lippmann, Le Bon). Les textes
       négationnistes et conspirationnistes sortent : ils restent en
       bibliothèque, mais « ordre de lecture recommandé » n'est pas la forme
