@@ -103,7 +103,7 @@ colonne « Vision du monde », supprimée du tableau au profit de ces parcours.
 - [x] `vision-classique` — mesure, raison, équilibre des pouvoirs
 - [x] `vision-scientifique` — déterminismes biologiques, économiques, psychiques
 - [x] `vision-existentialiste` — liberté radicale, angoisse, absurde
-- [ ] `vision-geopolitique` — longue durée, rapports de force, civilisations
+- [x] `vision-geopolitique` — longue durée, rapports de force, civilisations
 
 ### Formes et pratiques de lecture
 - [ ] `recits-de-soi` — Mémoires, Autobiographie, Journal, Correspondance, Biographie

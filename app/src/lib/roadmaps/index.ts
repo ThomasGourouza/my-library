@@ -56,6 +56,7 @@ import { visionAristocratique } from "./data/vision-aristocratique";
 import { visionClassique } from "./data/vision-classique";
 import { visionScientifique } from "./data/vision-scientifique";
 import { visionExistentialiste } from "./data/vision-existentialiste";
+import { visionGeopolitique } from "./data/vision-geopolitique";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -106,6 +107,7 @@ export const ROADMAPS: Roadmap[] = [
   visionClassique,
   visionScientifique,
   visionExistentialiste,
+  visionGeopolitique,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));
