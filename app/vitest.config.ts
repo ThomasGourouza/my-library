@@ -10,8 +10,10 @@ export default defineConfig({
     alias: { "@": path.join(root, "src") },
   },
   test: {
-    // Les tests lisent la base SQLite réelle via better-sqlite3 (synchrone).
+    // Les tests lisent la base SQLite via better-sqlite3 (synchrone), mais sur
+    // une copie jetable : cf. vitest.global-setup.ts.
     environment: "node",
     include: ["src/**/*.test.ts"],
+    globalSetup: ["./vitest.global-setup.ts"],
   },
 });

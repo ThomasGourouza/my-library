@@ -23,7 +23,7 @@ qu'une fois commité.
 - [x] 12. Listes personnelles (créer, ordonner, supprimer)
 - [x] 13. Export CSV / JSON de la bibliothèque
 - [x] 14. Visibilité de « Analyse Claude »
-- [ ] 15. Tests unitaires manquants
+- [x] 15. Tests unitaires manquants
 - [ ] 16. README réel
 
 ## Journal
@@ -119,3 +119,8 @@ qu'une fois commité.
   sans biographie un lien direct vers un de ses livres au lieu d'une consigne.
   Aucune analyse n'a été générée : cela consommerait le quota d'abonnement de
   Tom, c'est à lui de décider.
+- **15 ✔** 15 → 61 tests (7 fichiers). Nouveaux : `normalize`, `export`,
+  `books-helpers`, `lists`. Les tests tournent désormais sur une copie jetable
+  de la base (`vitest.global-setup.ts`), ce qui rend possible de tester les
+  écritures des listes sans jamais toucher aux données de Tom — vérifié : la
+  base réelle a toujours 0 liste et 2 038 livres après la suite.
