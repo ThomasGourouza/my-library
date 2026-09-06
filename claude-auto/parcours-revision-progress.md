@@ -138,8 +138,10 @@ parcours, et l'effondrement du 1,06.
 - [ ] `vision-cynique` · `vision-classique` · `vision-existentialiste` ·
       `vision-scientifique` — mélange de priorités déjà sain, notes les plus
       longues du corpus.
-- [ ] `lettres-allemandes` · `mediterranee-et-amerique-latine` ·
-      `europe-du-nord-et-centrale` — 0 à 6 % de spécialisé.
+- [x] `lettres-allemandes` · `mediterranee-et-amerique-latine` ·
+      `europe-du-nord-et-centrale` — 0 à 6 % de spécialisé. Les deux premiers
+      élagués de leurs doublons de fiche et de leurs quatrièmes titres ;
+      `europe-du-nord-et-centrale` laissé intact, rien à en retirer.
 - [ ] `lire-avec-les-tout-petits` · `classiques-de-l-enfance` — **ne pas vider** :
       l'échelle de priorité est adulte, un album illustré y est structurellement
       « complémentaire ». Les juger sur leur propre axe.

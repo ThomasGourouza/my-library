@@ -67,18 +67,8 @@ export const mediterraneeEtAmeriqueLatine: Roadmap = {
     },
     {
       author: "Italo Calvino",
-      title: "Le Vicomte pourfendu",
-      note: "Un homme coupé en deux par un boulet, dont les moitiés vivent séparément le bien et le mal. Premier volet d'une trilogie où le conte philosophique redevient possible.",
-    },
-    {
-      author: "Italo Calvino",
       title: "Le Baron perché",
       note: "Un jeune noble monte dans un arbre à douze ans et n'en redescend jamais. La désobéissance tenue toute une vie, traitée avec une légèreté trompeuse.",
-    },
-    {
-      author: "Italo Calvino",
-      title: "Le Chevalier inexistant",
-      note: "Une armure vide qui fonctionne par pure volonté. Le troisième volet interroge ce qui reste d'un homme quand on lui ôte le corps.",
     },
     {
       author: "Italo Calvino",
@@ -89,11 +79,6 @@ export const mediterraneeEtAmeriqueLatine: Roadmap = {
       author: "Italo Calvino",
       title: "Si par une nuit d’hiver un voyageur",
       note: "Dix romans commencés et jamais finis, reliés par l'histoire d'un lecteur qui vous ressemble. Le sommet du jeu formel italien, et pourtant très lisible.",
-    },
-    {
-      author: "Italo Calvino",
-      title: "Pourquoi lire les classiques",
-      note: "Trente-six lectures d'auteurs, précédées d'une définition du classique en quatorze points. Calvino y explique de l'extérieur ce que ses fictions pratiquent.",
     },
     {
       author: "Umberto Eco",
@@ -126,16 +111,6 @@ export const mediterraneeEtAmeriqueLatine: Roadmap = {
       note: "Des fragments attribués à un employé de bureau lisboète, retrouvés dans une malle. L'auteur qui s'est démultiplié en hétéronymes y écrit sous son masque le plus nu.",
     },
     {
-      author: "Paulo Coelho",
-      title: "Le Pèlerin de Compostelle",
-      note: "Le récit du chemin de Saint-Jacques par lequel Coelho a commencé. Il précède L'Alchimiste et en donne la matrice autobiographique.",
-    },
-    {
-      author: "Paulo Coelho",
-      title: "Brida",
-      note: "Une initiation à la sorcellerie et à l'amour, dans l'Irlande des années quatre-vingt. Utile pour saisir la formule d'un des auteurs les plus lus au monde.",
-    },
-    {
       author: "Jorge Luis Borges",
       title: "Fictions",
       note: "Des bibliothèques infinies, des livres qui n'existent pas, un homme qui réécrit le Quichotte mot pour mot. Vingt nouvelles qui ont modifié l'idée qu'on se fait de la littérature.",
@@ -144,11 +119,6 @@ export const mediterraneeEtAmeriqueLatine: Roadmap = {
       author: "Jorge Luis Borges",
       title: "L’Aleph",
       note: "Un point de l'espace qui contient tous les autres, dans une cave de Buenos Aires. Le vertige métaphysique traité avec une ironie de bibliothécaire.",
-    },
-    {
-      author: "Jorge Luis Borges",
-      title: "Le Livre de sable",
-      note: "Le recueil tardif, écrit aveugle, plus dépouillé que Fictions. Les mêmes obsessions y reviennent sans leur appareil érudit.",
     },
     {
       author: "Juan Rulfo",
@@ -179,11 +149,6 @@ export const mediterraneeEtAmeriqueLatine: Roadmap = {
       author: "Gabriel García Márquez",
       title: "Chronique d’une mort annoncée",
       note: "Un meurtre que tout le village savait imminent et que personne n'a empêché. Le suspense y porte sur les raisons, jamais sur l'issue : construction exemplaire.",
-    },
-    {
-      author: "Gabriel García Márquez",
-      title: "L’Amour aux temps du choléra",
-      note: "Un homme attend cinquante et un ans la femme qu'il aime. Le roman le plus tendre de l'auteur, et le plus ironique sur la fidélité.",
     },
     {
       author: "Orhan Pamuk",
