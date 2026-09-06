@@ -16,19 +16,9 @@ export const leGrandSiecle: Roadmap = {
       note: "Le poète qui décide d'appauvrir volontairement la langue pour la rendre exacte. Sans cette coupe, ni Racine ni Boileau ne sont possibles : on commence donc par lui.",
     },
     {
-      author: "François de Malherbe",
-      title: "Odes",
-      note: "La poésie officielle, adressée au roi et aux grands. Elle montre à quoi sert un poète dans une monarchie qui se centralise.",
-    },
-    {
       author: "Claude Favre de Vaugelas",
       title: "Remarques sur la langue française",
       note: "Le bon usage défini par « la plus saine partie de la Cour ». Document de fond : la norme du français y est explicitement une affaire sociale.",
-    },
-    {
-      author: "Pierre Corneille",
-      title: "Mélite",
-      note: "La première comédie de Corneille, avant les grandes tragédies. Elle sert de point zéro : on mesure ensuite tout le chemin parcouru en huit ans.",
     },
     {
       author: "Pierre Corneille",
@@ -54,11 +44,6 @@ export const leGrandSiecle: Roadmap = {
       author: "Pierre Corneille",
       title: "Polyeucte",
       note: "La tragédie chrétienne : le martyre volontaire comme forme suprême de l'héroïsme cornélien. Elle prépare le versant religieux de fin de parcours.",
-    },
-    {
-      author: "Pierre Corneille",
-      title: "Œdipe",
-      note: "Le retour de Corneille au théâtre après six ans de silence, sur un sujet grec que Racine reprendra autrement. Utile pour comparer deux manières de traiter la fatalité.",
     },
     {
       author: "Molière",
@@ -132,26 +117,6 @@ export const leGrandSiecle: Roadmap = {
     },
     {
       author: "Jean de La Fontaine",
-      title: "Le Corbeau et le Renard",
-      note: "La fable minimale : une flatterie, un fromage, une leçon. Elle sert d'étalon pour mesurer les fables plus longues et plus sombres.",
-    },
-    {
-      author: "Jean de La Fontaine",
-      title: "La Cigale et la Fourmi",
-      note: "Fable d'ouverture du recueil, et la plus discutée : La Fontaine ne dit jamais qui a raison. L'ambiguïté est délibérée.",
-    },
-    {
-      author: "Jean de La Fontaine",
-      title: "Le Loup et l’Agneau",
-      note: "« La raison du plus fort est toujours la meilleure » : la fable la plus politique, énoncée sans consolation. Elle annonce les moralistes.",
-    },
-    {
-      author: "Jean de La Fontaine",
-      title: "Le Lièvre et la Tortue",
-      note: "La constance contre le talent : une des rares fables où la morale est franchement encourageante. Contrepoids utile au pessimisme des précédentes.",
-    },
-    {
-      author: "Jean de La Fontaine",
       title: "Fables",
       note: "Le recueil complet, dont les livres VII à XII sont bien plus âpres que les premiers. C'est là que La Fontaine devient un observateur de la cour.",
     },
@@ -189,16 +154,6 @@ export const leGrandSiecle: Roadmap = {
       author: "Charles Perrault",
       title: "Contes de ma mère l’Oye",
       note: "Le conte populaire réécrit pour les salons, avec moralités en vers. Perrault fixe les versions que l'Europe lira ensuite.",
-    },
-    {
-      author: "Charles Perrault",
-      title: "La Belle au bois dormant",
-      note: "Le conte isolé, dont la seconde partie — l'ogresse — a presque disparu des adaptations. Bon exemple de ce que la transmission efface.",
-    },
-    {
-      author: "Pierre Corneille",
-      title: "L’Imitation de Jésus-Christ",
-      note: "Le dramaturge traduit en vers le manuel de dévotion le plus lu d'Europe, et ce fut son plus grand succès de librairie. Rappel que le siècle est d'abord religieux.",
     },
     {
       author: "Jacques-Bénigne Bossuet",
