@@ -131,7 +131,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `le-vivant` *(déjà listé en reconstruction)*
 
 ### Conservés, vérification rapide seulement
-- [ ] `comprendre-la-puissance` — le plus sain hors visions (24 % E, 36 % I).
+- [x] `comprendre-la-puissance` — le plus sain hors visions (24 % E, 36 % I).
 - [ ] `les-fondations-grecques`
 - [ ] `philosophie-antique-et-medievale`
 - [ ] `rome-et-le-stoicisme`

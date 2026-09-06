@@ -41,11 +41,6 @@ export const comprendreLaPuissance: Roadmap = {
       note: "Le même auteur préférant la république au principat, et le conflit social à la concorde. Sans ce livre, on lit Le Prince de travers.",
     },
     {
-      author: "Patrick Boucheron",
-      title: "Un été avec Machiavel",
-      note: "Des chroniques radiophoniques qui restituent le Florentin dans sa situation historique. Le meilleur antidote à la légende du machiavélisme.",
-    },
-    {
       author: "Thomas Hobbes",
       title: "Léviathan",
       note: "La peur de la mort violente comme fondement rationnel de l'obéissance. La première théorie complète de l'État moderne, construite comme une géométrie.",
@@ -151,11 +146,6 @@ export const comprendreLaPuissance: Roadmap = {
       note: "Écrit à la veille d'octobre 1917 : l'État doit dépérir après la prise du pouvoir. Le contraste avec ce qui a suivi est le meilleur commentaire du texte.",
     },
     {
-      author: "Lénine",
-      title: "Le Gauchisme, maladie infantile du communisme",
-      note: "Le rappel à l'ordre tactique adressé aux radicaux de tous pays. Il montre la discipline comme le vrai contenu du léninisme.",
-    },
-    {
       author: "Mao Zedong",
       title: "De la contradiction",
       note: "La dialectique adaptée à une révolution paysanne, avec la notion de contradiction principale. L'outil d'analyse politique le plus utilisé du monde chinois.",
@@ -237,11 +227,6 @@ export const comprendreLaPuissance: Roadmap = {
     },
     {
       author: "Francis Fukuyama",
-      title: "Political Order and Political Decay",
-      note: "État, droit et responsabilité : trois piliers dont l'ordre d'apparition détermine tout. Fukuyama y corrige largement sa thèse de 1992.",
-    },
-    {
-      author: "Francis Fukuyama",
       title: "Trust",
       note: "La confiance sociale comme condition de la prospérité économique. Une variable culturelle mesurée, entre Weber et l'économie contemporaine.",
     },
@@ -261,29 +246,14 @@ export const comprendreLaPuissance: Roadmap = {
       note: "Le Complot, le Sauveur, l'Âge d'or, l'Unité : quatre schémas qui structurent l'imaginaire politique. Grille de lecture d'une utilité constante.",
     },
     {
-      author: "David Cumin",
-      title: "Histoire de la guerre",
-      note: "Une synthèse des formes de la guerre depuis l'Antiquité jusqu'aux conflits asymétriques. Le manuel qui manque souvent à ceux qui lisent Clausewitz seul.",
-    },
-    {
       author: "Pierre Conesa",
       title: "La Fabrication de l’ennemi",
       note: "Comment un État construit la figure de son adversaire, étape par étape. Écrit par un ancien du ministère de la Défense : la connaissance de l'intérieur se sent.",
     },
     {
-      author: "Pierre Conesa",
-      title: "Vendre la guerre",
-      note: "Le complexe militaro-intellectuel et l'industrie de la justification des conflits. Le prolongement du précédent, du côté des producteurs de discours.",
-    },
-    {
       author: "Comité invisible",
       title: "L’Insurrection qui vient",
       note: "Un texte anonyme appelant à la sécession d'avec la société marchande. Sa poursuite judiciaire en 2008 a fait de lui un objet politique en soi.",
-    },
-    {
-      author: "Étienne Chouard",
-      title: "Notre cause commune",
-      note: "Le tirage au sort et l'assemblée constituante citoyenne comme remèdes à la confiscation du pouvoir. Fin du parcours : la question de Manin reprise en programme militant.",
     },
   ],
 };
