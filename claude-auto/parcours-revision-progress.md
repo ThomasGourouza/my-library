@@ -77,7 +77,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `comprendre-l-univers` — 92 % complémentaire+spécialisé.
 - [x] `les-mathematiques` — 86 %.
 - [x] `histoire-et-philosophie-des-sciences` — 76 %.
-- [ ] `le-vivant` — 73 %.
+- [x] `le-vivant` — 73 %.
 - [ ] `histoire-de-france` — cinq biographies de De Gaulle à la suite puis quatre
       Mitterrand : inventaire de rayon.
 - [ ] `civilisations-et-longue-duree` — 78 %, et deux paires de doublons non
@@ -128,7 +128,7 @@ parcours, et l'effondrement du 1,06.
 - [ ] `le-grand-siecle`
 - [ ] `lumieres-litteraires`
 - [ ] `premiers-grands-romans`
-- [ ] `le-vivant` *(déjà listé en reconstruction)*
+- [x] `le-vivant` *(déjà listé en reconstruction)*
 
 ### Conservés, vérification rapide seulement
 - [ ] `comprendre-la-puissance` — le plus sain hors visions (24 % E, 36 % I).
