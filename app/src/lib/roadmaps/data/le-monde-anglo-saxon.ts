@@ -16,11 +16,6 @@ export const leMondeAngloSaxon: Roadmap = {
       note: "Trois combats contre des monstres, dans une langue germanique qui n'est pas encore l'anglais. Le premier long poème de cette tradition, et le seul survivant d'un manuscrit brûlé à moitié.",
     },
     {
-      author: "Anonyme (œuvre médiévale)",
-      title: "Beowulf",
-      note: "Le même poème, enregistré séparément en bibliothèque : la matière anonyme circule sous plusieurs attributions. Bon rappel que les textes médiévaux n'ont pas d'auteur au sens moderne.",
-    },
-    {
       author: "Geoffrey Chaucer",
       title: "Les Contes de Canterbury",
       note: "Des pèlerins de toutes conditions se racontent des histoires en chemin. Chaucer fonde l'anglais littéraire et invente au passage la galerie sociale.",
@@ -49,11 +44,6 @@ export const leMondeAngloSaxon: Roadmap = {
       author: "John Milton",
       title: "Le Paradis perdu",
       note: "La chute d'Adam racontée en vers blancs, avec un Satan si convaincant qu'on l'a cru le héros. L'épopée chrétienne en anglais, et un modèle de langue haute.",
-    },
-    {
-      author: "John Milton",
-      title: "Le Paradis reconquis",
-      note: "La tentation du Christ au désert, en quatre livres bien plus secs. Le contraste avec le poème précédent montre ce que Milton entendait par vertu.",
     },
     {
       author: "John Bunyan",
@@ -107,33 +97,13 @@ export const leMondeAngloSaxon: Roadmap = {
     },
     {
       author: "Lord Byron",
-      title: "Le Pèlerinage de Childe Harold",
-      note: "Un jeune homme blasé traverse l'Europe et devient un type européen. Le « héros byronien » naît ici et se répandra jusqu'en Russie.",
-    },
-    {
-      author: "Lord Byron",
       title: "Don Juan",
       note: "Seize mille vers d'un séducteur plutôt séduit, avec des digressions moqueuses. Byron y retourne son propre romantisme en comédie.",
-    },
-    {
-      author: "Lord Byron",
-      title: "Caïn",
-      note: "Le premier meurtrier converse avec Lucifer et n'accepte aucune justification divine. Le blasphème assumé comme position intellectuelle.",
-    },
-    {
-      author: "Percy Bysshe Shelley",
-      title: "Prométhée délivré",
-      note: "Le Titan refuse de céder et l'univers se libère avec lui. L'anarchisme poétique de Shelley dans sa forme la plus construite.",
     },
     {
       author: "Percy Bysshe Shelley",
       title: "Ode au vent d’Ouest",
       note: "Le vent d'automne appelé à disperser les mots du poète comme des feuilles. La strophe en terza rima montre ce que la métrique anglaise doit à Dante.",
-    },
-    {
-      author: "Percy Bysshe Shelley",
-      title: "Adonaïs",
-      note: "L'élégie pour Keats, mort à vingt-cinq ans, écrite un an avant sa propre noyade. Le romantisme anglais s'y contemple en train de disparaître.",
     },
     {
       author: "Edgar Allan Poe",
@@ -152,18 +122,8 @@ export const leMondeAngloSaxon: Roadmap = {
     },
     {
       author: "Charles Dickens",
-      title: "Un chant de Noël",
-      note: "Un avare converti en une nuit par trois fantômes. Le récit a durablement fixé ce que l'Occident entend par Noël.",
-    },
-    {
-      author: "Charles Dickens",
       title: "David Copperfield",
       note: "Le plus autobiographique de ses romans, de l'usine à cirage à la réussite littéraire. C'est celui que Dickens préférait, et Freud aussi.",
-    },
-    {
-      author: "Charles Dickens",
-      title: "A Tale of Two Cities",
-      note: "Londres et Paris pendant la Terreur, avec un sacrifice final resté célèbre. Dickens y écrit contre l'aristocratie et contre la foule à la fois.",
     },
     {
       author: "Charles Dickens",
@@ -196,19 +156,9 @@ export const leMondeAngloSaxon: Roadmap = {
       note: "Un employé répond « je préférerais ne pas » et cesse peu à peu de tout faire. Le refus sans motif, devenu une des grandes énigmes de la littérature.",
     },
     {
-      author: "Herman Melville",
-      title: "Billy Budd",
-      note: "Un marin innocent pendu par une loi que son capitaine juge injuste. Manuscrit posthume : la justice et la nécessité y sont mises face à face sans arbitre.",
-    },
-    {
       author: "Mark Twain",
       title: "Un Yankee à la cour du roi Arthur",
       note: "Un ingénieur du Connecticut modernise le VIe siècle et provoque un carnage industriel. La satire du progrès par celui qui y croyait le plus.",
-    },
-    {
-      author: "Edwin A. Abbott",
-      title: "Flatland",
-      note: "Un carré vivant dans un monde à deux dimensions découvre la troisième. Satire victorienne des hiérarchies sociales autant qu'initiation à la géométrie.",
     },
     {
       author: "Samuel Butler",
@@ -219,16 +169,6 @@ export const leMondeAngloSaxon: Roadmap = {
       author: "Arthur Conan Doyle",
       title: "Sherlock Holmes",
       note: "Le raisonnement par indices érigé en spectacle, dans un Londres de brouillard. Le personnage a fait naître un genre entier et une manière de lire.",
-    },
-    {
-      author: "Arthur Conan Doyle",
-      title: "La Compagnie blanche",
-      note: "Un roman de chevalerie médiévale que son auteur préférait à Holmes. Utile pour voir un écrivain se tromper sur sa propre œuvre.",
-    },
-    {
-      author: "Arthur Conan Doyle",
-      title: "Le Monde perdu",
-      note: "Un plateau d'Amazonie où survivent les dinosaures, avec un professeur Challenger insupportable. Le roman d'exploration scientifique à sensation.",
     },
     {
       author: "Bram Stoker",
@@ -257,16 +197,6 @@ export const leMondeAngloSaxon: Roadmap = {
     },
     {
       author: "Jack London",
-      title: "Croc-Blanc",
-      note: "Le trajet inverse : un loup apprivoisé par la douceur. Les deux livres forment une expérience sur ce que le milieu fait à un être.",
-    },
-    {
-      author: "Jack London",
-      title: "Le Loup des mers",
-      note: "Un capitaine nietzschéen et un intellectuel embarqués sur le même bateau. Le débat sur la force y est mené à coups de poing et d'arguments.",
-    },
-    {
-      author: "Jack London",
       title: "Martin Eden",
       note: "Un marin devient écrivain célèbre et n'y trouve rien. Le roman de la réussite comme forme de désillusion, largement autobiographique.",
     },
@@ -286,44 +216,14 @@ export const leMondeAngloSaxon: Roadmap = {
       note: "Une journée à Dublin calquée sur l'Odyssée, chaque chapitre dans un style différent. Le roman où la forme cesse d'être un véhicule pour devenir le sujet.",
     },
     {
-      author: "James Joyce",
-      title: "Finnegans Wake",
-      note: "Dix-sept ans de travail sur une langue de mots-valises multilingues. Terme extrême de l'expérimentation : à ouvrir en sachant qu'on n'en viendra pas à bout.",
-    },
-    {
-      author: "T. S. Eliot",
-      title: "The Love Song of J. Alfred Prufrock",
-      note: "Un homme n'ose ni parler ni manger une pêche. Le premier grand poème moderniste anglais, écrit par un Américain de vingt-trois ans.",
-    },
-    {
-      author: "T. S. Eliot",
-      title: "The Waste Land",
-      note: "Le texte original de 1922, avec ses citations en cinq langues et ses notes. Le poème qui a coupé la poésie anglaise en deux.",
-    },
-    {
       author: "T. S. Eliot",
       title: "La Terre vaine",
-      note: "La version française du même poème : lire les deux fait apercevoir tout ce qu'une traduction doit trancher. Exercice recommandé sur ce texte précis.",
-    },
-    {
-      author: "T. S. Eliot",
-      title: "Tradition and the Individual Talent",
-      note: "L'essai où Eliot soutient que le poète doit s'effacer devant la tradition qu'il modifie. La théorie qui a régenté la critique anglo-saxonne pendant quarante ans.",
-    },
-    {
-      author: "T. S. Eliot",
-      title: "Four Quartets",
-      note: "Quatre méditations sur le temps et la foi, écrites pendant le Blitz. Le versant chrétien et apaisé du même auteur, en anglais.",
+      note: "Un poème de quatre cents vers fait de citations, de voix et de langues mêlées, publié en 1922. Il a imposé l'idée qu'un poème moderne pouvait être un montage plutôt qu'un chant.",
     },
     {
       author: "T. S. Eliot",
       title: "Quatre Quatuors",
-      note: "La traduction française de ce cycle tardif. Placée ici pour permettre la lecture suivie à qui ne lit pas l'anglais poétique.",
-    },
-    {
-      author: "T. S. Eliot",
-      title: "Le Livre des chats du vieux Opossum",
-      note: "Des poèmes légers écrits pour ses filleuls, devenus une comédie musicale mondiale. L'auteur le plus austère du siècle avait aussi ce registre.",
+      note: "Quatre méditations sur le temps et la grâce, composées pendant la guerre et bâties comme des mouvements musicaux. La poésie anglaise y renonce au montage ironique pour tenter une forme qui tienne.",
     },
     {
       author: "Virginia Woolf",
@@ -334,11 +234,6 @@ export const leMondeAngloSaxon: Roadmap = {
       author: "Virginia Woolf",
       title: "To the Lighthouse",
       note: "Deux journées séparées par dix ans, dont la guerre et trois morts expédiées entre parenthèses. La section centrale est un sommet de composition romanesque.",
-    },
-    {
-      author: "Virginia Woolf",
-      title: "Les Vagues",
-      note: "Six voix qui parlent tour à tour depuis l'enfance jusqu'à la mort, sans narration. Le roman poussé aussi loin qu'il peut aller sans cesser d'en être un.",
     },
     {
       author: "F. Scott Fitzgerald",
@@ -381,11 +276,6 @@ export const leMondeAngloSaxon: Roadmap = {
       note: "Une histoire reconstituée par des gens qui ne l'ont pas vécue, et qui se contredisent. Le roman du Sud comme incapacité à savoir son propre passé.",
     },
     {
-      author: "Erskine Caldwell",
-      title: "La Route au tabac",
-      note: "Une famille de métayers géorgiens réduite à la misère et à l'inceste, traitée en farce. La cruauté sociale sans aucune compassion affichée.",
-    },
-    {
       author: "John Steinbeck",
       title: "Des souris et des hommes",
       note: "Deux ouvriers agricoles et un rêve de ferme qui ne se réalisera pas. Récit très court, construit comme une pièce, sur la solidarité des sans-rien.",
@@ -394,11 +284,6 @@ export const leMondeAngloSaxon: Roadmap = {
       author: "John Steinbeck",
       title: "Les Raisins de la colère",
       note: "L'exode des fermiers de l'Oklahoma vers la Californie pendant la Grande Dépression. Chapitres narratifs et chapitres documentaires alternent : le roman assume sa fonction d'enquête.",
-    },
-    {
-      author: "John Steinbeck",
-      title: "À l’est d’Éden",
-      note: "Caïn et Abel rejoués sur deux générations dans la vallée de Salinas. Steinbeck y place le mot hébreu « timshel » — tu peux — comme clé de tout le livre.",
     },
     {
       author: "Graham Greene",
@@ -446,26 +331,6 @@ export const leMondeAngloSaxon: Roadmap = {
       note: "Un érudit obèse et insupportable dans La Nouvelle-Orléans, publié onze ans après le suicide de son auteur. Le grand roman comique américain.",
     },
     {
-      author: "Agatha Christie",
-      title: "Hercule Poirot (série)",
-      note: "L'énigme en chambre close portée à son point de perfection industrielle. Le roman policier y devient un jeu réglé entre auteur et lecteur.",
-    },
-    {
-      author: "Ken Follett",
-      title: "Les Piliers de la Terre",
-      note: "La construction d'une cathédrale au XIIe siècle sur mille pages de romanesque documenté. Le best-seller historique comme forme populaire de vulgarisation.",
-    },
-    {
-      author: "Stephen King",
-      title: "Shining, l’enfant lumière",
-      note: "Un hôtel vide, un alcoolique et un enfant qui perçoit ce que les murs ont retenu. King y traite la violence domestique sous couvert de fantastique.",
-    },
-    {
-      author: "Robert Littell",
-      title: "The Amateur",
-      note: "Un cryptographe de la CIA exige de venger lui-même sa fiancée assassinée. Le roman d'espionnage américain, moins moral que son équivalent britannique.",
-    },
-    {
       author: "Bret Easton Ellis",
       title: "American Psycho",
       note: "Un trader new-yorkais alterne descriptions de marques et scènes de meurtre, sans changer de ton. La satire du consumérisme des années quatre-vingt, poussée jusqu'à l'insupportable.",
@@ -474,16 +339,6 @@ export const leMondeAngloSaxon: Roadmap = {
       author: "Donna Tartt",
       title: "Le Maître des illusions",
       note: "Des étudiants en grec ancien commettent un meurtre par excès de culture. Le campus novel américain remis au niveau de la tragédie qu'il cite.",
-    },
-    {
-      author: "Chuck Palahniuk",
-      title: "Fight Club",
-      note: "Un insomniaque fonde des clubs de combat clandestins pour se sentir exister. La virilité en crise comme sujet, avec un retournement final qui a fait école.",
-    },
-    {
-      author: "Irvine Welsh",
-      title: "Filth",
-      note: "Un policier corrompu d'Édimbourg, narré en dialecte écossais et parasité par un ténia. La langue régionale revendiquée contre l'anglais standard.",
     },
   ],
 };

@@ -103,7 +103,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `le-theatre` — 100 entrées, fin construite : élagage léger seulement.
 - [x] `philosophie-contemporaine` — finit sur deux monographies de sociologie
       sans rapport.
-- [ ] `le-monde-anglo-saxon` — les 15 dernières positions dégénèrent en romans
+- [x] `le-monde-anglo-saxon` — les 15 dernières positions dégénèrent en romans
       d'aéroport.
 - [ ] `le-roman-russe`
 - [ ] `roman-francais-xxe` — un bloc québécois déversé en positions 79-81, deux
