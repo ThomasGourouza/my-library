@@ -5,7 +5,7 @@ export const economieEtCritiqueDuCapitalisme: Roadmap = {
   title: "Économie et critique du capitalisme",
   goal: "Comprendre comment fonctionne l'économie de marché, et ce qu'on lui reproche depuis deux siècles.",
   description:
-    "Deux corpus se répondent ici : celui qui explique le marché de l'intérieur et celui qui le met en accusation. Le parcours commence par les manuels et les classiques libéraux, poursuit avec Keynes et Schumpeter, qui pensent les crises sans quitter le cadre, puis avec les critiques radicales — Marx, Polanyi, Graeber. La dernière partie porte sur la finance, la monnaie et les inégalités, où les débats contemporains sont les plus vifs. Un lecteur qui n'aurait rien lu d'économie devrait commencer par les quatre premiers titres, qui donnent le vocabulaire indispensable.",
+    "Deux corpus se répondent ici : celui qui explique le marché de l'intérieur et celui qui le met en accusation. Le parcours commence par les manuels et les classiques libéraux, poursuit avec Keynes et Schumpeter, qui pensent les crises sans quitter le cadre, puis avec les critiques radicales — Marx, Polanyi, Graeber. La dernière partie porte sur la finance, la monnaie et les inégalités, où les débats contemporains sont les plus vifs. Un lecteur qui n'aurait rien lu d'économie devrait commencer par les trois premiers titres, qui donnent le vocabulaire indispensable.",
   ageLabel: "Dès 17 ans",
   minAge: 17,
   family: "societe",
@@ -14,16 +14,6 @@ export const economieEtCritiqueDuCapitalisme: Roadmap = {
       author: "Jean-Marie Harribey",
       title: "Le Capitalisme expliqué à ma petite-fille",
       note: "Une définition simple du capitalisme et de ses mécanismes, sans mathématiques. Le préalable pour qui n'a jamais ouvert de livre d'économie.",
-    },
-    {
-      author: "Yanis Varoufakis",
-      title: "Économie : Mode d’emploi",
-      note: "Un économiste explique à sa fille d'où vient l'inégalité, en partant du surplus agricole. Le meilleur exposé narratif des notions de base.",
-    },
-    {
-      author: "Philippe Dessertine",
-      title: "L’Économie en 365 questions",
-      note: "Le format questions-réponses pour couvrir le vocabulaire courant. À garder comme instrument de vérification pendant tout le parcours.",
     },
     {
       author: "N. Gregory Mankiw",
@@ -44,11 +34,6 @@ export const economieEtCritiqueDuCapitalisme: Roadmap = {
       author: "Frédéric Bastiat",
       title: "La Loi",
       note: "La spoliation légale et la fonction limitée de l'État, en soixante pages incisives. Le libéralisme français du XIXe siècle dans sa formulation la plus nette.",
-    },
-    {
-      author: "Frédéric Bastiat",
-      title: "Harmonies économiques",
-      note: "L'idée que les intérêts individuels s'accordent spontanément. Optimisme systématique dont il est instructif de suivre les démonstrations.",
     },
     {
       author: "Friedrich Hayek",
@@ -96,21 +81,6 @@ export const economieEtCritiqueDuCapitalisme: Roadmap = {
       note: "Mai 68 lu comme la libéralisation des mœurs nécessaire à l'expansion des marchés de consommation. Thèse minoritaire, régulièrement redécouverte.",
     },
     {
-      author: "Michel Clouscard",
-      title: "Le Frivole et le Sérieux",
-      note: "Le prolongement du précédent : la culture du divertissement comme production économique. Le vocabulaire est marxiste, l'objet est très contemporain.",
-    },
-    {
-      author: "Bernard Maris et Gilles Dostaler",
-      title: "Capitalisme et pulsion de mort",
-      note: "Keynes et Freud rapprochés autour de l'amour de l'argent comme pathologie. Un essai bref et inattendu, par un économiste assassiné en 2015.",
-    },
-    {
-      author: "Alain Deneault",
-      title: "L’Économie de la nature",
-      note: "Le vocabulaire économique appliqué au vivant, et ce que cette extension recouvre. Un travail sur les mots plutôt que sur les chiffres.",
-    },
-    {
       author: "Thomas Piketty",
       title: "Le Capital au XXIe siècle",
       note: "Trois siècles de données sur le patrimoine, et la thèse que le rendement du capital dépasse la croissance. Le livre d'économie le plus discuté de la décennie.",
@@ -121,24 +91,9 @@ export const economieEtCritiqueDuCapitalisme: Roadmap = {
       note: "Le format court et pédagogique, antérieur au grand livre. Il donne les outils de mesure sans l'appareil historique.",
     },
     {
-      author: "Steven D. Levitt et Stephen J. Dubner",
-      title: "Freakonomics",
-      note: "Les incitations appliquées à des objets inattendus : sumos, agents immobiliers, criminalité. Un exercice de méthode plus qu'un livre de thèses.",
-    },
-    {
       author: "Niall Ferguson",
       title: "The Ascent of Money",
       note: "L'histoire de la finance de la Mésopotamie aux subprimes, crise par crise. La meilleure introduction historique aux instruments financiers.",
-    },
-    {
-      author: "Glyn Davies",
-      title: "A History of Money",
-      note: "L'histoire de la monnaie sur cinq mille ans, avec un souci de documentation rare. Il complète Ferguson par la profondeur plutôt que par le récit.",
-    },
-    {
-      author: "Georges Depeyrot",
-      title: "La Banque en Occident",
-      note: "L'institution bancaire suivie du Moyen Âge à aujourd'hui. Il montre que les innovations financières sont plus anciennes qu'on ne le croit.",
     },
     {
       author: "Liaquat Ahamed",
@@ -146,34 +101,9 @@ export const economieEtCritiqueDuCapitalisme: Roadmap = {
       note: "Quatre banquiers centraux et la crise de 1929, racontés comme un roman. La démonstration que des décisions individuelles font des désastres collectifs.",
     },
     {
-      author: "Adam LeBor",
-      title: "The Tower of Basel",
-      note: "L'histoire de la Banque des règlements internationaux, y compris ses activités pendant la guerre. Une institution discrète qu'aucun manuel ne traite.",
-    },
-    {
-      author: "Benjamin Graham",
-      title: "The Intelligent Investor",
-      note: "L'investissement dans la valeur, la marge de sécurité, et « M. le Marché ». Le manuel dont Warren Buffett se réclame depuis soixante ans.",
-    },
-    {
-      author: "Robert Kiyosaki",
-      title: "Père riche, père pauvre",
-      note: "L'opposition entre actif et passif comme leçon de vie financière. Best-seller mondial dont les conseils concrets sont largement contestés : à lire avec Graham à côté.",
-    },
-    {
       author: "Saifedean Ammous",
       title: "L’Étalon Bitcoin",
       note: "Une histoire de la monnaie servant à défendre une monnaie à quantité fixe. Argumenté, orienté, et indispensable pour comprendre l'idéologie du bitcoin.",
-    },
-    {
-      author: "Saifedean Ammous",
-      title: "The Fiat Standard",
-      note: "Le versant critique du même auteur sur la monnaie d'État et ses effets. Les deux volumes forment une thèse cohérente qu'il faut évaluer comme telle.",
-    },
-    {
-      author: "Jacques de Larosière",
-      title: "En finir avec le règne de l’illusion financière",
-      note: "Un ancien directeur général du FMI critique la politique monétaire des banques centrales. La contestation venue de l'intérieur du système.",
     },
     {
       author: "Joseph Stiglitz",
@@ -184,21 +114,6 @@ export const economieEtCritiqueDuCapitalisme: Roadmap = {
       author: "Jacques Sapir",
       title: "Faut-il sortir de l’euro ?",
       note: "L'argumentaire français de la sortie de l'euro, chiffres à l'appui. À confronter à Stiglitz, qui partage le diagnostic sans la conclusion.",
-    },
-    {
-      author: "Frédéric Lordon",
-      title: "La Malfaçon",
-      note: "L'euro analysé comme un dispositif de dépossession démocratique. Lordon écrit en économiste et en spinoziste : les deux registres se mêlent.",
-    },
-    {
-      author: "Philippe Herlin",
-      title: "France, la faillite ?",
-      note: "La dette publique française présentée comme un risque systémique. Le ton est alarmiste ; les données méritent d'être vérifiées et discutées.",
-    },
-    {
-      author: "Charles Gave",
-      title: "Des lions menés par des ânes",
-      note: "Une critique libérale de la gestion économique française. Représentatif d'un courant d'opinion influent dans les milieux d'affaires.",
     },
     {
       author: "Yanis Varoufakis",
@@ -214,11 +129,6 @@ export const economieEtCritiqueDuCapitalisme: Roadmap = {
       author: "Erik Brynjolfsson",
       title: "The Second Machine Age",
       note: "L'automatisation numérique comparée à la révolution industrielle, avec ses effets sur l'emploi. Optimiste sur la croissance, inquiet sur la répartition.",
-    },
-    {
-      author: "Nicolas Le Bault",
-      title: "Le Transhumanisme, stade terminal du capitalisme",
-      note: "L'amélioration technique de l'humain lue comme une extension du marché au corps. Le titre annonce la thèse ; l'argument mérite examen.",
     },
     {
       author: "Dennis Meadows",
