@@ -70,7 +70,7 @@ parcours, et l'effondrement du 1,06.
       polémiques dans `grands-essais-et-art-de-penser` reconstruit.
 
 ### À reconstruire (l'objectif reste, le contenu est refait)
-- [ ] `initiation-a-la-philosophie` — 72 % spécialisé, 7 E+I sur 47. Doit devenir
+- [x] `initiation-a-la-philosophie` — 72 % spécialisé, 7 E+I sur 47. Doit devenir
       l'un des plus **petits** parcours : 12-15 textes d'entrée, rien d'autre.
 - [ ] `geopolitique-du-monde-contemporain` — 0 % essentiel, 52 % spécialisé,
       contient un atlas et un manuel de relations internationales.
