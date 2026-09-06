@@ -94,7 +94,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `nouvelles-et-formes-breves` — 94 %.
 - [x] `arts-et-musique` — 41 % spécialisé, créé pendant le balayage.
 - [x] `philosophie-morale-et-art-de-vivre` — 49 % spécialisé.
-- [ ] `textes-sacres-et-tradition` — 39 %.
+- [x] `textes-sacres-et-tradition` — 39 %.
 - [ ] `vision-geopolitique` — 47 %, la vision qui a pris le plus de dette.
 - [ ] `guerres-et-totalitarismes-du-xxe` — 36 % ; c'est ici que se trouvent
       Faurisson, Irving, Verrall et Bardèche, qui sortent (voir ci-dessus).
