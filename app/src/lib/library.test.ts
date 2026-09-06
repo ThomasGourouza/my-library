@@ -65,6 +65,28 @@ describe("bibliothèque — intégrité", () => {
     expect(ecarts).toEqual([]);
   });
 
+  it("aucun champ texte ne contient d'apostrophe droite", () => {
+    // normalizeText impose l'apostrophe typographique, et les routes d'API
+    // l'appliquent. Le seed ne le faisait que pour le titre et le nom : la base
+    // proposait deux fois le même courant dans les filtres, « Liberté
+    // d'expression » et « Liberté d’expression ».
+    const fautifs: string[] = [];
+    for (const b of books) {
+      for (const [champ, valeur] of Object.entries({
+        title: b.title,
+        genre: b.genre,
+        courant: b.courant,
+        theme: b.theme,
+        notes: b.notes,
+        "author.name": b.author.name,
+        "author.notes": b.author.notes,
+      })) {
+        if (valeur?.includes("'")) fautifs.push(`${b.title} : ${champ}`);
+      }
+    }
+    expect(fautifs).toEqual([]);
+  });
+
   it("aucun champ texte ne contient de valeur creuse", () => {
     // Le pipeline remplaçait les cases vides par « — » ; une seule qui subsiste
     // remonte jusque dans les filtres comme si c'était une vraie valeur.

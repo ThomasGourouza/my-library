@@ -79,6 +79,23 @@ function loadSeedFiles(): { authors: SeedAuthor[]; books: SeedBook[]; source: st
   return { authors: FIXTURE_AUTHORS, books: FIXTURE_BOOKS, source: "fixture intégrée" };
 }
 
+/**
+ * Nettoyage d'affichage d'un champ texte facultatif.
+ *
+ * `normalizeText` n'était appliqué qu'au titre et au nom d'auteur : les autres
+ * colonnes entraient telles quelles, avec l'apostrophe droite des fichiers
+ * source. La base contenait donc « L’Étranger » à côté de « Philosophie de
+ * l'absurde », et les popovers de filtres proposaient deux fois le même
+ * courant (« Liberté d'expression » et « Liberté d’expression »). Les routes
+ * d'API, elles, normalisent déjà : le seed était la seule porte d'entrée qui
+ * ne le faisait pas.
+ */
+function cleanText(value: string | null | undefined): string | null {
+  if (value == null) return null;
+  const text = normalizeText(value);
+  return text === "" ? null : text;
+}
+
 function main() {
   const seed = loadSeedFiles();
   console.log(`Seed depuis : ${seed.source}`);
@@ -102,12 +119,12 @@ function main() {
             nameNormalized,
             birthYear: a.birthYear ?? null,
             deathYear: a.deathYear ?? null,
-            nationality: a.nationality ?? null,
-            language: a.language ?? null,
-            mainGenre: a.mainGenre ?? null,
-            mainField: a.mainField ?? null,
-            period: a.period ?? null,
-            notes: a.notes ?? null,
+            nationality: cleanText(a.nationality),
+            language: cleanText(a.language),
+            mainGenre: cleanText(a.mainGenre),
+            mainField: cleanText(a.mainField),
+            period: cleanText(a.period),
+            notes: cleanText(a.notes),
           })
           .returning({ id: authors.id })
           .get();
@@ -147,14 +164,14 @@ function main() {
             titleNormalized: normalizeKey(title),
             authorId,
             category: b.category,
-            genre: b.genre ?? null,
-            courant: b.courant ?? null,
-            theme: b.theme ?? null,
-            period: b.period ?? null,
+            genre: cleanText(b.genre),
+            courant: cleanText(b.courant),
+            theme: cleanText(b.theme),
+            period: cleanText(b.period),
             publicationYear: b.publicationYear ?? null,
             audience: b.audience ?? "adultes",
-            originalLanguage: b.originalLanguage ?? null,
-            notes: b.notes ?? null,
+            originalLanguage: cleanText(b.originalLanguage),
+            notes: cleanText(b.notes),
             enriched: b.enriched ?? false,
           })
           .run();

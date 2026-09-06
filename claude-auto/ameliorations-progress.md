@@ -128,3 +128,9 @@ qu'une fois commité.
   `create-next-app`. Démarrage, commandes (avec l'avertissement sur `db:seed`
   seul), écrans, pile, organisation, les quatre règles à connaître avant de
   toucher au code, et le fonctionnement de « Analyse Claude ».
+- **17 ✔** (hors plan initial) Normalisation typographique au moment du seed :
+  `normalizeText` n'était appliqué qu'au titre et au nom d'auteur, si bien que
+  129 valeurs de `courant`, `theme` et `notes` gardaient l'apostrophe droite des
+  fichiers source — et que les filtres proposaient deux fois « Liberté
+  d'expression ». Fusion nommée « OuLiPo » → « Oulipo ». 325 → 324 courants,
+  202 → 201 thèmes. Nouveau test de garde.
