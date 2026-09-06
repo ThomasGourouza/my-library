@@ -121,7 +121,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `phenomenologie-et-existentialisme`
 - [x] `vision-chretienne`
 - [x] `vision-aristocratique`
-- [ ] `psychologie-et-connaissance-de-soi`
+- [x] `psychologie-et-connaissance-de-soi`
 - [ ] `science-fiction-et-anticipation`
 - [ ] `le-mythe-arthurien` — Markale *est* le sujet, mais 13 titres du même
       auteur restent trop : garder les plus utiles.
