@@ -117,6 +117,7 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
   if (data.originalLanguage !== undefined)
     updates.originalLanguage = data.originalLanguage ?? null;
   if (data.notes !== undefined) updates.notes = data.notes ?? null;
+  if (data.read !== undefined) updates.read = data.read;
 
   // Vérification de doublon (titre, auteur) si l'un des deux change.
   if (updates.titleNormalized !== undefined || updates.authorId !== undefined) {

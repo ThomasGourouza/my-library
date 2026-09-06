@@ -17,6 +17,7 @@ import { formatYear } from "@/lib/normalize";
 import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
 import { priorityRank } from "@/lib/priorities/types";
 import { PriorityBadge } from "./priority-badge";
+import { ReadCheckbox } from "./read-checkbox";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -65,6 +66,29 @@ const yearSort: SortingFn<BookWithRoadmaps> = (rowA, rowB, columnId) => {
 // ---------------------------------------------------------------------------
 
 const columns: ColumnDef<BookWithRoadmaps>[] = [
+  {
+    id: "read",
+    accessorFn: (row) => row.read,
+    header: "Lu",
+    // Tri booléen : premier clic (croissant) = les non lus d'abord, qui sont
+    // ce qu'on cherche quand on trie sur cette colonne.
+    sortingFn: (rowA, rowB) =>
+      Number(rowA.original.read) - Number(rowB.original.read),
+    cell: ({ row }) => (
+      // La ligne entière ouvre la fiche : la case ne doit pas la déclencher.
+      <span
+        className="inline-flex"
+        onClick={(e) => e.stopPropagation()}
+        role="presentation"
+      >
+        <ReadCheckbox
+          bookId={row.original.id}
+          read={row.original.read}
+          title={row.original.title}
+        />
+      </span>
+    ),
+  },
   {
     id: "title",
     accessorFn: (row) => row.titleNormalized,

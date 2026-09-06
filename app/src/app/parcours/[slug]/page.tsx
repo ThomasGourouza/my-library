@@ -7,6 +7,7 @@ import { getRoadmapBySlug } from "@/lib/roadmaps/queries";
 import { FAMILY_LABELS } from "@/lib/roadmaps/types";
 import { Badge } from "@/components/ui/badge";
 import { PriorityBadge } from "@/components/books/priority-badge";
+import { ReadCheckbox } from "@/components/books/read-checkbox";
 
 export const dynamic = "force-dynamic";
 
@@ -65,6 +66,13 @@ export default async function ParcoursDetailPage({ params }: PageProps) {
                     aria-hidden
                   >
                     {position}.
+                  </span>
+                  <span className="mt-0.5 shrink-0">
+                    <ReadCheckbox
+                      bookId={book.id}
+                      read={book.read}
+                      title={book.title}
+                    />
                   </span>
                   <div className="min-w-0 space-y-1">
                     <div className="flex flex-wrap items-center gap-x-2 gap-y-1">

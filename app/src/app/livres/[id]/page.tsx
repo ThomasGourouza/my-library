@@ -4,6 +4,7 @@ import { getBook } from "@/lib/queries";
 import { getRoadmapsForBook } from "@/lib/roadmaps/queries";
 import { priorityOf } from "@/lib/priorities/resolve";
 import { PriorityBadge } from "@/components/books/priority-badge";
+import { ReadCheckbox } from "@/components/books/read-checkbox";
 import { formatLifespan, formatYear } from "@/lib/normalize";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -59,7 +60,13 @@ export default async function LivreDetailPage({
             {lifespan && <> ({lifespan})</>}
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
+          <ReadCheckbox
+            bookId={book.id}
+            read={book.read}
+            title={book.title}
+            label
+          />
           <Button asChild variant="outline">
             <Link href={`/livres/${book.id}/modifier`}>Modifier</Link>
           </Button>

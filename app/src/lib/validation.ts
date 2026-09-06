@@ -87,6 +87,8 @@ export const bookUpdateSchema = z.object({
   audience: z.enum(AUDIENCES).optional(),
   originalLanguage: z.string().trim().max(100).nullish(),
   notes: z.string().trim().max(4000).nullish(),
+  // Case « Lu » : seul champ que l'interface modifie hors formulaire.
+  read: z.boolean().optional(),
 });
 export type BookUpdate = z.infer<typeof bookUpdateSchema>;
 

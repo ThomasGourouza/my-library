@@ -67,6 +67,7 @@ function parseFilters(sp: URLSearchParams): Filters {
     courant: get("courant"),
     roadmap: get("roadmap"),
     priority: get("priority"),
+    read: get("read"),
   };
 }
 
@@ -235,6 +236,7 @@ export function BooksView({
         matches(filters.audience, b.audience) &&
         matches(filters.courant, b.courant) &&
         matches(filters.priority, b.priority) &&
+        matches(filters.read, b.read ? "lu" : "non-lu") &&
         matchesAny(
           filters.roadmap,
           b.roadmaps.map((r) => r.slug)
@@ -263,6 +265,11 @@ export function BooksView({
     options: string[];
     getLabel?: (v: string) => string;
   }[] = [
+    {
+      key: "read",
+      options: ["lu", "non-lu"],
+      getLabel: (v) => (v === "lu" ? "Lu" : "Non lu"),
+    },
     {
       key: "priority",
       options: [...PRIORITIES],

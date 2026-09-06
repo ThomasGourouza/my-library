@@ -1,6 +1,7 @@
 /**
- * Sauvegarde / restauration du contenu généré par Claude (résumés, analyses,
- * biographies).
+ * Sauvegarde / restauration de ce que les fichiers de seed ne contiennent pas :
+ * le contenu généré par Claude (résumés, analyses, biographies) et l'état de
+ * lecture coché par l'utilisateur.
  *
  * Pourquoi : `npm run db:seed` vide puis réinsère authors + books. Les colonnes
  * générées (books.summary/analysis, authors.bio) n'existent pas dans les
@@ -31,6 +32,7 @@ interface SavedBook {
   summary: string | null;
   analysis: string | null;
   analysisGeneratedAt: string | null;
+  read: boolean;
 }
 
 interface SavedAuthor {
@@ -51,7 +53,9 @@ function save(): void {
     .select({ book: books, author: authors })
     .from(books)
     .innerJoin(authors, eq(books.authorId, authors.id))
-    .where(or(isNotNull(books.summary), isNotNull(books.analysis)))
+    .where(
+      or(isNotNull(books.summary), isNotNull(books.analysis), eq(books.read, true))
+    )
     .all();
 
   const authorRows = db
@@ -69,6 +73,7 @@ function save(): void {
       summary: r.book.summary,
       analysis: r.book.analysis,
       analysisGeneratedAt: r.book.analysisGeneratedAt,
+      read: r.book.read,
     })),
     authors: authorRows.map((a) => ({
       authorKey: normalizeKey(a.name),
@@ -79,8 +84,9 @@ function save(): void {
   };
 
   fs.writeFileSync(FILE, JSON.stringify(payload, null, 1) + "\n", "utf-8");
+  const lus = payload.books.filter((b) => b.read).length;
   console.log(
-    `Sauvegardé : ${payload.books.length} livre(s) analysé(s), ` +
+    `Sauvegardé : ${payload.books.length} livre(s) (dont ${lus} lu(s)), ` +
       `${payload.authors.length} biographie(s) → ${FILE}`
   );
 }
@@ -122,6 +128,7 @@ function restore(): void {
           summary: b.summary,
           analysis: b.analysis,
           analysisGeneratedAt: b.analysisGeneratedAt,
+          read: b.read ?? false,
         })
         .where(eq(books.id, id))
         .run();

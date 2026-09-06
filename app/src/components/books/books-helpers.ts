@@ -62,11 +62,13 @@ export type FilterKey =
   | "audience"
   | "courant"
   | "roadmap"
-  | "priority";
+  | "priority"
+  | "read";
 
 export type Filters = Record<FilterKey, string[]>;
 
 export const FILTER_KEYS: FilterKey[] = [
+  "read",
   "priority",
   "category",
   "genre",
@@ -84,6 +86,7 @@ export const EMPTY_FILTERS: Filters = {
   courant: [],
   roadmap: [],
   priority: [],
+  read: [],
 };
 
 export const FILTER_LABELS: Record<FilterKey, string> = {
@@ -94,6 +97,7 @@ export const FILTER_LABELS: Record<FilterKey, string> = {
   courant: "Courant",
   roadmap: "Parcours",
   priority: "Priorité",
+  read: "Lu",
 };
 
 // ---------------------------------------------------------------------------
@@ -113,6 +117,7 @@ export const SORTABLE_COLUMNS = [
   "audience",
   "roadmaps",
   "priority",
+  "read",
 ] as const;
 export type SortableColumn = (typeof SORTABLE_COLUMNS)[number];
 

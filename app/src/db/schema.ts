@@ -62,6 +62,10 @@ export const books = sqliteTable(
     analysisGeneratedAt: text("analysis_generated_at"),
     // true = ajouté depuis les connaissances du modèle (ligne auteur-seul)
     enriched: integer("enriched", { mode: "boolean" }).notNull().default(false),
+    // Coché par l'utilisateur. Absent des fichiers de seed : c'est de l'état
+    // personnel, sauvegardé et restauré autour de db:seed par
+    // src/db/generated-content.ts, comme les analyses.
+    read: integer("read", { mode: "boolean" }).notNull().default(false),
     createdAt: text("created_at")
       .notNull()
       .default(sql`(datetime('now'))`),
