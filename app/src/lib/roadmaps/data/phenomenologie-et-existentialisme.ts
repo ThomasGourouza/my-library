@@ -27,23 +27,8 @@ export const phenomenologieEtExistentialisme: Roadmap = {
     },
     {
       author: "Henri Bergson",
-      title: "Le Rire",
-      note: "Est comique « du mécanique plaqué sur du vivant ». Une théorie complète tirée d'un phénomène apparemment mineur : exemple de méthode.",
-    },
-    {
-      author: "Henri Bergson",
       title: "Les Deux Sources de la morale et de la religion",
       note: "Morale close et morale ouverte, religion statique et religion dynamique. Le dernier livre, où Bergson affronte la politique et la mystique.",
-    },
-    {
-      author: "Frédéric Worms",
-      title: "Lire Bergson",
-      note: "Le guide contemporain qui restitue l'unité d'une œuvre qu'on lit d'ordinaire par morceaux. À placer après les cinq livres, non avant.",
-    },
-    {
-      author: "Edmund Husserl",
-      title: "Recherches logiques",
-      note: "Contre le psychologisme : les lois logiques ne se réduisent pas à des faits mentaux. Le point de départ de toute la phénoménologie, encore proche de la logique pure.",
     },
     {
       author: "Edmund Husserl",
@@ -62,23 +47,8 @@ export const phenomenologieEtExistentialisme: Roadmap = {
     },
     {
       author: "Martin Heidegger",
-      title: "Kant et le problème de la métaphysique",
-      note: "Une relecture de la première Critique comme fondation de l'ontologie. Elle a suscité la fameuse controverse de Davos avec Cassirer.",
-    },
-    {
-      author: "Martin Heidegger",
       title: "Lettre sur l’humanisme",
       note: "Réponse à Sartre : l'existentialisme reste un humanisme, donc une métaphysique. Le texte qui marque le « tournant » et sépare les deux traditions.",
-    },
-    {
-      author: "Martin Heidegger",
-      title: "Chemins qui ne mènent nulle part",
-      note: "L'origine de l'œuvre d'art, le mot de Nietzsche « Dieu est mort », l'époque des conceptions du monde. Le Heidegger tardif, où la pensée devient méditation de l'histoire.",
-    },
-    {
-      author: "François Fédier",
-      title: "Heidegger. Pensée de l’être",
-      note: "Une présentation par un traducteur français engagé dans la défense de son auteur. À lire en connaissant ce parti pris, dans un débat qui n'est pas clos.",
     },
     {
       author: "Karl Jaspers",
@@ -106,26 +76,6 @@ export const phenomenologieEtExistentialisme: Roadmap = {
       note: "L'écrivain est situé et responsable, la prose engage, la poésie non. La théorie de l'engagement, formulée au moment de sa plus grande influence.",
     },
     {
-      author: "Jean-Paul Sartre",
-      title: "Baudelaire",
-      note: "Le premier essai de « psychanalyse existentielle » : un homme choisit son destin plutôt qu'il ne le subit. La méthode est contestable, et féconde.",
-    },
-    {
-      author: "Jean-Paul Sartre",
-      title: "Saint Genet, comédien et martyr",
-      note: "Six cents pages pour expliquer comment un enfant traité de voleur décide de le devenir. Genet a dit que ce livre l'avait empêché d'écrire pendant des années.",
-    },
-    {
-      author: "Jean-Paul Sartre",
-      title: "L’Idiot de la famille",
-      note: "Trois mille pages inachevées sur Flaubert, croisant marxisme et psychanalyse. La méthode existentielle poussée jusqu'à l'épuisement de son objet et de son auteur.",
-    },
-    {
-      author: "Jean-Paul Sartre",
-      title: "Mallarmé",
-      note: "Un essai bref sur l'engagement d'un poète qui refusait tout engagement. Il montre les limites que Sartre reconnaît lui-même à sa théorie.",
-    },
-    {
       author: "Simone de Beauvoir",
       title: "Le Deuxième Sexe",
       note: "« On ne naît pas femme, on le devient » : la condition féminine analysée avec les outils de l'existentialisme. Le livre de philosophie française le plus influent du siècle dans le monde.",
@@ -151,39 +101,9 @@ export const phenomenologieEtExistentialisme: Roadmap = {
       note: "Le visage d'autrui comme commandement antérieur à toute liberté. L'éthique y devient philosophie première, contre l'ontologie de Heidegger.",
     },
     {
-      author: "Emmanuel Lévinas",
-      title: "Autrement qu’être ou au-delà de l’essence",
-      note: "La version radicalisée : la subjectivité comme otage d'autrui, dans une langue volontairement difficile. Le second grand livre, à ne pas aborder en premier.",
-    },
-    {
-      author: "Michel Henry",
-      title: "L’Essence de la manifestation",
-      note: "Contre la phénoménologie du visible : la vie s'éprouve elle-même sans se montrer. La contestation la plus profonde du programme husserlien.",
-    },
-    {
-      author: "Michel Henry",
-      title: "C’est moi la vérité",
-      note: "Une phénoménologie du christianisme, où le Christ est la vie s'auto-révélant. Cas rare de philosophie contemporaine assumant un contenu religieux.",
-    },
-    {
-      author: "Renaud Barbaras",
-      title: "Le Désir et la distance",
-      note: "Le désir comme structure fondamentale de l'existence, plus originaire que le besoin. La phénoménologie française contemporaine dans sa version la plus construite.",
-    },
-    {
       author: "Vladimir Jankélévitch",
       title: "La Mort",
       note: "La mort en troisième, en deuxième et en première personne : trois expériences incomparables. La distinction est devenue un lieu commun tant elle est juste.",
-    },
-    {
-      author: "Vladimir Jankélévitch",
-      title: "Penser la mort",
-      note: "Des entretiens qui reprennent le grand livre sous forme parlée. Le meilleur moyen d'entrer dans une œuvre à la prose très musicale.",
-    },
-    {
-      author: "Vladimir Jankélévitch",
-      title: "Le Je-ne-sais-quoi et le presque-rien",
-      note: "Ce qui est trop fugitif pour être conceptualisé — l'occasion, le charme, l'instant. Une philosophie de ce que les systèmes laissent tomber.",
     },
     {
       author: "Simone Weil",
@@ -207,18 +127,8 @@ export const phenomenologieEtExistentialisme: Roadmap = {
     },
     {
       author: "Emil Cioran",
-      title: "Syllogismes de l’amertume",
-      note: "Des aphorismes qui poussent le refus jusqu'au comique. Le pessimisme s'y sauve par le style : c'est la seule cohérence qu'il revendique.",
-    },
-    {
-      author: "Emil Cioran",
       title: "De l’inconvénient d’être né",
       note: "La naissance comme accident dont on ne se remet pas. Le livre le plus sombre, et pourtant lu comme une consolation par beaucoup.",
-    },
-    {
-      author: "Emil Cioran",
-      title: "Histoire et utopie",
-      note: "Sur la tentation de la tyrannie et les rêves de cité parfaite. Le seul Cioran franchement politique, écrit par un ancien tenté par les extrêmes.",
     },
   ],
 };
