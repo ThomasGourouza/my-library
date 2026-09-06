@@ -71,11 +71,6 @@ export const laPoesie: Roadmap = {
       note: "La page blanche devient un élément du poème, avec des corps de caractères différents. La poésie cesse d'être un texte pour devenir une disposition.",
     },
     {
-      author: "Charles Péguy",
-      title: "Le Mystère de la charité de Jeanne d’Arc",
-      note: "Le verset répétitif et litanique, qui avance par reprises minimes. Péguy invente une forme longue à contre-courant du poème bref symboliste.",
-    },
-    {
       author: "Paul Valéry",
       title: "La Jeune Parque",
       note: "Cinq cent douze alexandrins écrits en quatre ans, au moment où le vers régulier passe pour mort. Le retour volontaire à la contrainte maximale.",
@@ -87,23 +82,8 @@ export const laPoesie: Roadmap = {
     },
     {
       author: "Guillaume Apollinaire",
-      title: "Zone",
-      note: "Le poème d'ouverture d'Alcools, sans ponctuation, où Paris et l'aviation entrent dans le vers. La modernité prend la place que tenait la mythologie.",
-    },
-    {
-      author: "Guillaume Apollinaire",
       title: "Alcools",
       note: "Un recueil où voisinent la complainte médiévale et le collage cubiste, ponctuation supprimée au dernier moment. Le pivot du siècle en un volume.",
-    },
-    {
-      author: "Guillaume Apollinaire",
-      title: "Le Pont Mirabeau",
-      note: "Le refrain et le vers court remis en usage pour dire une rupture. Preuve qu'Apollinaire innove sans jamais renoncer à la chanson.",
-    },
-    {
-      author: "Guillaume Apollinaire",
-      title: "La Chanson du mal-aimé",
-      note: "Deux cent quatre-vingts vers en quintils réguliers sur un amour refusé. La forme ancienne y sert une plainte que rien ne console.",
     },
     {
       author: "Guillaume Apollinaire",
@@ -112,28 +92,8 @@ export const laPoesie: Roadmap = {
     },
     {
       author: "Saint-John Perse",
-      title: "Éloges",
-      note: "L'enfance antillaise en versets amples, premier livre d'un diplomate qui signera d'un pseudonyme toute sa vie. La phrase longue s'installe contre le vers.",
-    },
-    {
-      author: "Saint-John Perse",
       title: "Anabase",
       note: "Une marche de conquête sans époque ni lieu identifiables, traduite par Eliot en anglais. Le verset y atteint sa forme définitive : solennel et sans emphase.",
-    },
-    {
-      author: "Saint-John Perse",
-      title: "Vents",
-      note: "Écrit pendant l'exil américain : les vents comme force qui balaie les civilisations. Le poème prend en charge l'histoire mondiale sans jamais la nommer.",
-    },
-    {
-      author: "Saint-John Perse",
-      title: "Amers",
-      note: "La mer comme unique sujet, sur des centaines de versets. Le sommet de l'ambition cosmique du poète : à lire lentement, par sections.",
-    },
-    {
-      author: "Saint-John Perse",
-      title: "Oiseaux",
-      note: "Un texte bref né de gouaches de Braque, sur le vol et la ligne. Après les grands livres, la poésie revient à un objet unique et précis.",
     },
     {
       author: "Paul Éluard",
@@ -146,26 +106,6 @@ export const laPoesie: Roadmap = {
       note: "Les deux mots du titre sans conjonction : le programme d'Éluard tient dans cette absence. Poèmes très brefs, presque des formules.",
     },
     {
-      author: "Paul Éluard",
-      title: "Les Yeux fertiles",
-      note: "Le regard comme organe qui crée ce qu'il voit, motif central chez Éluard. À lire pour suivre une obsession d'un recueil à l'autre.",
-    },
-    {
-      author: "Paul Éluard",
-      title: "Liberté",
-      note: "« J'écris ton nom » : vingt et une strophes construites sur la même anaphore, parachutées par la RAF en 1942. Le poème devenu acte de résistance matérielle.",
-    },
-    {
-      author: "Paul Éluard",
-      title: "Poésie ininterrompue",
-      note: "Un long poème sans division, écrit après la guerre et la mort de Nusch. Éluard cherche une continuité que ses recueils fragmentés n'offraient pas.",
-    },
-    {
-      author: "Paul Éluard",
-      title: "Poésie involontaire et poésie intentionnelle",
-      note: "Un montage de phrases trouvées — journaux, manuels, réclames — présentées comme des poèmes. La question du ready-made posée à la littérature.",
-    },
-    {
       author: "Louis Aragon",
       title: "Le Crève-Cœur",
       note: "Le retour à la rime et au mètre en 1941, contre la liberté surréaliste. Le choix est politique : une poésie que tout le monde peut retenir et transmettre.",
@@ -174,16 +114,6 @@ export const laPoesie: Roadmap = {
       author: "Louis Aragon",
       title: "Les Yeux d’Elsa",
       note: "L'amour et la France occupée dans le même poème, avec une virtuosité de rimes assumée. Le modèle de la poésie de résistance chantable.",
-    },
-    {
-      author: "Louis Aragon",
-      title: "La Diane française",
-      note: "« La rose et le réséda » et les poèmes de la Libération. Aragon y fixe une mémoire commune de l'Occupation, croyant ou pas croyant.",
-    },
-    {
-      author: "Louis Aragon",
-      title: "Le Fou d’Elsa",
-      note: "Grenade en 1492, une somme mêlant vers, prose et notes érudites. Le poème long tenté une dernière fois, à contre-courant de son époque.",
     },
     {
       author: "René Char",
@@ -201,11 +131,6 @@ export const laPoesie: Roadmap = {
       note: "Le recueil qui rassemble l'œuvre de guerre et lui donne sa forme. L'aphorisme poétique y devient un genre français à part entière.",
     },
     {
-      author: "René Char",
-      title: "La Parole en archipel",
-      note: "Des textes isolés comme des îles, avec le blanc pour mer. Le titre décrit la méthode : lire par intervalles plutôt que d'un trait.",
-    },
-    {
       author: "Francis Ponge",
       title: "Le Parti pris des choses",
       note: "Le cageot, l'huître, le pain : des objets décrits sans métaphore ni émotion. La poésie renonce au sujet lyrique, ce que personne n'avait tenté aussi radicalement.",
@@ -216,54 +141,9 @@ export const laPoesie: Roadmap = {
       note: "Les brouillons publiés avec le poème, ratures comprises. Le travail devient l'œuvre : une des idées les plus fécondes du siècle.",
     },
     {
-      author: "Francis Ponge",
-      title: "Le Savon",
-      note: "Douze ans de notes sur un seul objet, du manque de savon sous l'Occupation à sa mousse. L'obstination y remplace l'inspiration.",
-    },
-    {
       author: "Jacques Prévert",
       title: "Paroles",
       note: "Le recueil le plus vendu de la poésie française du XXe siècle, en langue de tous les jours. Il prouve qu'un public de masse existe pour le poème.",
-    },
-    {
-      author: "Jacques Prévert",
-      title: "Les Feuilles mortes",
-      note: "Un texte devenu chanson mondiale grâce à Kosma et Montand. La frontière entre poème et parole de chanson cesse ici d'être nette.",
-    },
-    {
-      author: "Jacques Prévert",
-      title: "Barbara",
-      note: "Brest bombardée, une pluie, un tutoiement à une inconnue. Le poème antimilitariste le plus efficace du siècle, sans un mot de doctrine.",
-    },
-    {
-      author: "Jacques Prévert",
-      title: "Spectacle",
-      note: "Sketches, dialogues et poèmes mêlés, hérités du théâtre populaire. Prévert y refuse la séparation des genres que l'institution maintient.",
-    },
-    {
-      author: "Jacques Prévert",
-      title: "La Pluie et le beau temps",
-      note: "Le recueil tardif, plus amer, où l'humour ne protège plus de grand-chose. À lire après Paroles pour éviter l'image du Prévert seulement gentil.",
-    },
-    {
-      author: "Maurice Carême",
-      title: "Le Chat et le Soleil",
-      note: "Des poèmes courts destinés aux enfants mais construits avec une exactitude d'orfèvre. Ils font entendre le mètre à l'oreille avant qu'on l'apprenne.",
-    },
-    {
-      author: "Maurice Carême",
-      title: "La Lanterne magique",
-      note: "Le même art appliqué à des images d'enfance et de campagne. Utile dans ce parcours pour rappeler que la simplicité est un résultat, non un point de départ.",
-    },
-    {
-      author: "Pierre Morhange",
-      title: "La vie est unique",
-      note: "Un poète peu lu, proche des philosophes de sa génération, qui écrit une poésie éthique et abrupte. Il montre ce que le siècle a laissé de côté.",
-    },
-    {
-      author: "Idriss Aberkane & Victor Le Brun",
-      title: "i : Poésies & théories",
-      note: "Un recueil récent qui associe poèmes et discours théorique dans le même volume. Fin du parcours : le poème continue de s'écrire, et de s'expliquer.",
     },
   ],
 };

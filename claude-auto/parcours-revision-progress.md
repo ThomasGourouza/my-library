@@ -113,7 +113,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `rationalisme-et-lumieres`
 - [x] `les-maitres-du-soupcon`
 - [x] `litterature-contemporaine`
-- [ ] `la-poesie`
+- [x] `la-poesie`
 - [ ] `realisme-et-naturalisme`
 - [ ] `sources-moyen-age-renaissance`
 - [ ] `economie-et-critique-du-capitalisme`
