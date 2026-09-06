@@ -105,6 +105,12 @@ colonne « Vision du monde », supprimée du tableau au profit de ces parcours.
 - [x] `vision-existentialiste` — liberté radicale, angoisse, absurde
 - [x] `vision-geopolitique` — longue durée, rapports de force, civilisations
 
+### Arts et création
+Famille ajoutée en cours de route (`arts` dans `types.ts`) : la bibliothèque
+contient un ensemble cohérent de livres sur la peinture, l'image et la musique
+qu'aucune des familles prévues n'accueillait correctement.
+- [x] `arts-et-musique` — histoire de l'art, théorie de l'image, cursus musical
+
 ### Formes et pratiques de lecture
 - [x] `recits-de-soi` — Mémoires, Autobiographie, Journal, Correspondance, Biographie
 - [x] `nouvelles-et-formes-breves` — Nouvelle, Conte (adulte), Fable, Maximes

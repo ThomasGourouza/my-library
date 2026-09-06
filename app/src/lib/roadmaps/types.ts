@@ -26,6 +26,7 @@ export const ROADMAP_FAMILIES = [
   "philosophie",
   "societe",
   "sciences",
+  "arts",
   "visions",
   "formes",
 ] as const;
@@ -39,6 +40,7 @@ export const FAMILY_LABELS: Record<RoadmapFamily, string> = {
   philosophie: "Philosophie et connaissance de soi",
   societe: "Politique, histoire, société",
   sciences: "Sciences",
+  arts: "Arts et création",
   visions: "Visions du monde",
   formes: "Formes et pratiques de lecture",
 };
