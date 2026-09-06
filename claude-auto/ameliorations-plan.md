@@ -250,17 +250,86 @@ des champs individuels.
 
 ## 6. Journal des décisions en cours de route
 
-Complété au fil de l'exécution.
+Les questions rencontrées pendant l'exécution, et ce que j'ai tranché.
 
-- **Chantier 3, Gilgamesh** : les deux entrées portaient la même catégorie et
-  la même période ; seule la ligne « Anonyme (épopée mésopotamienne) » avait une
-  année (-2100). C'est elle qui est conservée. La ligne « Anonyme » ne laissait
-  qu'un seul livre à son auteur (Jin Ping Mei), qui reste donc sous « Anonyme ».
-- **Chantier 5** : le sélecteur écrit `cols=` dans l'URL uniquement quand des
-  colonnes sont masquées, et il masque par défaut Thème, Courant et Langue
-  originale — les trois colonnes les moins renseignées et les moins utilisées
-  pour décider quoi lire.
-- **Chantier 9** : le tableau de bord ne montre aucune donnée qui n'existe pas.
-  Tant que rien n'est marqué « Lu », il affiche des zéros honnêtes plutôt que
-  des indicateurs inventés, et met en avant les points d'entrée (essentiels non
-  lus, parcours à commencer).
+**Q11. Quelle entrée conserver pour Gilgamesh ?** Les deux portaient la même
+catégorie et la même période ; seule « Anonyme (épopée mésopotamienne) » avait
+un thème et une note. C'est elle qui est conservée. Règle appliquée aux cinq
+fusions : tout champ vide chez l'entrée conservée est repris de l'absorbée, et
+la priorité retenue est la plus haute des deux — l'œuvre est la même, le rang le
+plus généreux est celui qui a été posé en connaissance du texte. Une exception
+nommée : la langue des Nibelungen passe d'« allemand » à « moyen haut-allemand ».
+
+**Q12. Que faire de l'auteur « Anonyme » devenu presque vide ?** Il ne portait
+plus que le Jin Ping Mei. Renommé « Anonyme (roman chinois) » : un fourre-tout
+sans qualificatif attire les œuvres qui n'ont pas trouvé leur place, et c'est
+exactement comme cela que le doublon Gilgamesh était né.
+
+**Q13. Le tableau doit-il occuper toute la largeur de l'écran ?** Oui, mais lui
+seul. `<main>` reste borné à 80 rem — au-delà, une ligne de texte devient
+pénible à suivre, ce qui vaut pour les fiches, les parcours et les formulaires.
+Une page qui est d'abord un tableau se déclare `data-wide` et lève la borne pour
+elle. À 1 440 px, la zone utile passe de 1 230 à 1 390 px.
+
+**Q14. L'export doit-il respecter le tri affiché ?** Non, seulement les filtres.
+Dupliquer dans l'export les règles de tri multi-colonnes de la table ferait deux
+vérités à tenir, alors qu'un fichier se retrie dans le tableur. Le menu annonce
+explicitement l'ordre du fichier, pour que ce ne soit pas une surprise.
+
+**Q15. Les tests doivent-ils écrire dans la base de Tom ?** Non, jamais. Ils
+tournent désormais sur une copie jetable (`VACUUM INTO`, régénérée à chaque
+exécution). C'est ce qui a rendu possible de tester les écritures des listes ;
+sans cela, la seule option honnête aurait été de ne pas les tester.
+
+**Q16. Fallait-il normaliser les 129 apostrophes droites du corpus ?** Oui, mais
+au bon endroit. Les corriger dans les fichiers de seed aurait déplacé 365 lignes
+sans empêcher le problème de revenir. La correction est faite à la porte
+d'entrée : `seed.ts` applique `normalizeText` à tous les champs texte, comme les
+routes d'API le faisaient déjà. Un test refuse maintenant toute apostrophe
+droite dans les champs affichés.
+
+**Q17. Le tableau de bord doit-il inventer des indicateurs ?** Non. Tant que
+rien n'est marqué « Lu », il affiche des zéros et bascule de « Parcours en
+cours » à « Par où commencer ». Aucune donnée de lecture n'a été inventée : les
+quelques livres cochés pour vérifier les captures ont été décochés ensuite, et
+la liste de démonstration des listes personnelles a été supprimée.
+
+**Q18. Le sélecteur de colonnes masque quoi par défaut ?** Thème, Courant et
+Langue originale : les deux premières sont les colonnes les moins renseignées du
+corpus (79 % et 48 % de vide), la troisième ne sert pas à décider quoi lire.
+`cols` n'apparaît dans l'URL que si l'on s'écarte de ce choix.
+
+---
+
+## 7. Chantiers ajoutés en cours de route
+
+Non prévus au plan initial, décidés à partir de ce que l'exécution a révélé.
+
+| # | Chantier | Pourquoi |
+| --- | --- | --- |
+| 6a | URL synchronisée par `history.replaceState` | Mesure : taper « proust » coûtait 8 requêtes RSC, 8 Mo et 15 s |
+| 17 | Typographie normalisée au seed | Les filtres proposaient deux fois « Liberté d'expression » |
+| 18 | Squelettes de chargement des trois nouvelles pages | Les autres routes en avaient déjà |
+| 19 | Fiche auteur : priorité, case « Lu », année | On ne pouvait pas y choisir quoi lire |
+
+---
+
+## 8. Mesures, avant et après
+
+| | Avant | Après |
+| --- | --- | --- |
+| Livres | 2 043 (5 doublons) | 2 038 |
+| Analyses visibles | 0 (3 perdues) | 3 |
+| Biographies visibles | 0 (3 perdues) | 3 |
+| Problèmes de lint | 3 (dont 1 erreur) | 0 |
+| Tests | 15 | 62 |
+| Fichiers de test | 2 | 7 |
+| Lignes du tableau dans le DOM | 2 038 | 28 |
+| Lignes du tableau des auteurs | 1 069 | 30 |
+| Taper « proust » dans la recherche | 16,3 s, 8 Mo de RSC | 3,3 s, 0 Mo |
+| Largeur du tableau à 1 440 px | 1 894 px (déborde de 664) | 1 565 px, zone utile 1 390 |
+| Contraste du badge « Spécialisé » | 2,71:1 (échec AA) | 4,74:1 |
+| `SELECT DISTINCT` par page de liste | 7 | 2 (livres) / 4 (auteurs) |
+| Courants distincts | 325 | 324 |
+| Thèmes distincts | 202 | 201 |
+| Écrans | 4 | 6 (+ palette ⌘K) |

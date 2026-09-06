@@ -141,3 +141,20 @@ qu'une fois commité.
 - **19 ✔** (hors plan initial) Fiche auteur : chaque livre porte sa priorité,
   sa case « Lu » et son année, et le titre de section indique combien sont lus.
   La fiche d'un auteur est aussi un endroit d'où l'on choisit quoi lire.
+
+## Clôture
+
+Les 16 chantiers du plan sont faits, plus 4 ajoutés en cours de route (6a, 17,
+18, 19). Vérification finale, le 6 septembre 2026 à 23h35 :
+
+```
+npm test        7 fichiers, 62 tests  ✓
+npx tsc --noEmit                      ✓
+npx eslint      0 problème            ✓
+npm run build   compilé               ✓
+validate.py     validation réussie    ✓
+```
+
+Base rendue telle qu'elle était, augmentée de ce qui avait été perdu :
+2 038 livres, 1 069 auteurs, 3 analyses, 3 biographies, 0 lu, 0 liste. Aucune
+donnée inventée — ni lecture, ni liste, ni métadonnée complétée « au jugé ».
