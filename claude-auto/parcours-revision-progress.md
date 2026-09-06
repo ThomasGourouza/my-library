@@ -93,7 +93,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `recits-de-soi` — 100 % de ses livres exclusifs sont C ou S.
 - [x] `nouvelles-et-formes-breves` — 94 %.
 - [x] `arts-et-musique` — 41 % spécialisé, créé pendant le balayage.
-- [ ] `philosophie-morale-et-art-de-vivre` — 49 % spécialisé.
+- [x] `philosophie-morale-et-art-de-vivre` — 49 % spécialisé.
 - [ ] `textes-sacres-et-tradition` — 39 %.
 - [ ] `vision-geopolitique` — 47 %, la vision qui a pris le plus de dette.
 - [ ] `guerres-et-totalitarismes-du-xxe` — 36 % ; c'est ici que se trouvent
