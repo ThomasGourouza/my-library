@@ -80,7 +80,7 @@ parcours, et l'effondrement du 1,06.
 - [x] `le-vivant` — 73 %.
 - [x] `histoire-de-france` — cinq biographies de De Gaulle à la suite puis quatre
       Mitterrand : inventaire de rayon.
-- [ ] `civilisations-et-longue-duree` — 78 %, et deux paires de doublons non
+- [x] `civilisations-et-longue-duree` — 78 %, et deux paires de doublons non
       détectés dans les quatre dernières positions.
 - [ ] `propagande-et-theories-du-complot` — recentrer sur les œuvres d'analyse
       (Bernays, Ellul, Chomsky et Herman, Lippmann, Le Bon). Les textes
