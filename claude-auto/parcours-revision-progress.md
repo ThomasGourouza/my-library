@@ -63,7 +63,7 @@ parcours, et l'effondrement du 1,06.
 ## Parcours
 
 ### À supprimer
-- [ ] `la-bataille-des-idees` — 0 % essentiel, 0 % important, 85 % spécialisé,
+- [x] `la-bataille-des-idees` — 0 % essentiel, 0 % important, 85 % spécialisé,
       40 livres exclusifs tous complémentaires ou spécialisés. Créé pendant le
       balayage pour absorber le trop-plein. Retirer le fichier, l'import et
       l'entrée du registre `index.ts` ; récupérer au plus 5-6 titres réellement

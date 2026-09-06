@@ -4,7 +4,7 @@
  * Un fichier par parcours dans `data/`, importé ici dans l'ordre d'affichage.
  * Ajouter un parcours = créer le fichier puis l'ajouter à cette liste ; le test
  * `roadmaps.test.ts` vérifie ensuite que ses entrées existent en bibliothèque et
- * que l'ensemble couvre bien tous les livres.
+ * que le parcours tient ses garde-fous.
  */
 import type { Roadmap } from "./types";
 
@@ -60,7 +60,6 @@ import { visionGeopolitique } from "./data/vision-geopolitique";
 import { recitsDeSoi } from "./data/recits-de-soi";
 import { artsEtMusique } from "./data/arts-et-musique";
 import { propagandeEtTheoriesDuComplot } from "./data/propagande-et-theories-du-complot";
-import { laBatailleDesIdees } from "./data/la-bataille-des-idees";
 import { grandsEssaisEtArtDePenser } from "./data/grands-essais-et-art-de-penser";
 
 export const ROADMAPS: Roadmap[] = [
@@ -116,7 +115,6 @@ export const ROADMAPS: Roadmap[] = [
   recitsDeSoi,
   artsEtMusique,
   propagandeEtTheoriesDuComplot,
-  laBatailleDesIdees,
   grandsEssaisEtArtDePenser,
 ];
 
