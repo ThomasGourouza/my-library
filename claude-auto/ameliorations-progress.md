@@ -24,7 +24,7 @@ qu'une fois commité.
 - [x] 13. Export CSV / JSON de la bibliothèque
 - [x] 14. Visibilité de « Analyse Claude »
 - [x] 15. Tests unitaires manquants
-- [ ] 16. README réel
+- [x] 16. README réel
 
 ## Journal
 
@@ -124,3 +124,7 @@ qu'une fois commité.
   de la base (`vitest.global-setup.ts`), ce qui rend possible de tester les
   écritures des listes sans jamais toucher aux données de Tom — vérifié : la
   base réelle a toujours 0 liste et 2 038 livres après la suite.
+- **16 ✔** `app/README.md` réécrit : ce n'était plus le boilerplate
+  `create-next-app`. Démarrage, commandes (avec l'avertissement sur `db:seed`
+  seul), écrans, pile, organisation, les quatre règles à connaître avant de
+  toucher au code, et le fonctionnement de « Analyse Claude ».
