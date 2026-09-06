@@ -60,6 +60,7 @@ import { visionGeopolitique } from "./data/vision-geopolitique";
 import { recitsDeSoi } from "./data/recits-de-soi";
 import { artsEtMusique } from "./data/arts-et-musique";
 import { propagandeEtTheoriesDuComplot } from "./data/propagande-et-theories-du-complot";
+import { laBatailleDesIdees } from "./data/la-bataille-des-idees";
 
 export const ROADMAPS: Roadmap[] = [
   lireAvecLesToutPetits,
@@ -114,6 +115,7 @@ export const ROADMAPS: Roadmap[] = [
   recitsDeSoi,
   artsEtMusique,
   propagandeEtTheoriesDuComplot,
+  laBatailleDesIdees,
 ];
 
 const BY_SLUG = new Map(ROADMAPS.map((r) => [r.slug, r]));

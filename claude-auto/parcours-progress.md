@@ -114,6 +114,7 @@ qu'aucune des familles prévues n'accueillait correctement.
 ### Politique, histoire, société (ajouts en cours de route)
 - [x] `propagande-et-theories-du-complot` — outillage critique d'abord, corpus
       complotiste ensuite, lu comme objet et jamais comme source
+- [x] `la-bataille-des-idees` — essais de combat français, de 1977 au wokisme
 
 ### Formes et pratiques de lecture
 - [x] `recits-de-soi` — Mémoires, Autobiographie, Journal, Correspondance, Biographie
