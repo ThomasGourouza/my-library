@@ -354,7 +354,18 @@ export function BooksTable({
                     ? ArrowDown
                     : ArrowUpDown;
               return (
-                <TableHead key={header.id}>
+                <TableHead
+                  key={header.id}
+                  // Annonce l'état de tri aux lecteurs d'écran : l'icône seule
+                  // ne dit rien, et elle est en aria-hidden.
+                  aria-sort={
+                    sortState === "asc"
+                      ? "ascending"
+                      : sortState === "desc"
+                        ? "descending"
+                        : "none"
+                  }
+                >
                   {header.isPlaceholder ? null : (
                     <button
                       type="button"

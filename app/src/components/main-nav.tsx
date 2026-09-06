@@ -45,10 +45,17 @@ export function MainNav() {
   const pathname = usePathname();
   return (
     <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 flex h-14 items-center gap-6">
-        <Link href="/livres" className="flex items-center gap-2 font-semibold">
+      <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:gap-6 sm:px-6">
+        <Link
+          href="/livres"
+          className="flex shrink-0 items-center gap-2 font-semibold"
+        >
           <LibraryBig className="size-5" aria-hidden />
-          <span>Ma Bibliothèque</span>
+          {/* Sous 640 px, le nom faisait passer l'en-tête sur deux lignes et
+              poussait la bascule de thème hors de l'écran. L'icône reste le
+              lien vers l'accueil, et le nom revient dès qu'il y a la place. */}
+          <span className="hidden sm:inline">Ma Bibliothèque</span>
+          <span className="sr-only sm:hidden">Ma Bibliothèque</span>
         </Link>
         <nav className="flex items-center gap-1" aria-label="Navigation principale">
           {tabs.map((tab) => {

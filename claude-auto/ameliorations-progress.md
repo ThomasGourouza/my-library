@@ -15,7 +15,7 @@ qu'une fois commité.
 - [x] 4. Supprimer le code mort `themes` de `getFilterOptions`
 - [x] 5. Tableau des livres : sélecteur de colonnes persisté dans l'URL
 - [x] 6. Tableau des livres : virtualisation des lignes
-- [ ] 7. Accessibilité (aria-sort, lignes au clavier, lien d'évitement)
+- [x] 7. Accessibilité (aria-sort, lignes au clavier, lien d'évitement)
 - [ ] 8. Progression de lecture dans les parcours
 - [ ] 9. Tableau de bord d'accueil sur `/`
 - [ ] 10. Palette de commandes globale (⌘K / Ctrl+K)
@@ -69,3 +69,8 @@ qu'une fois commité.
   d'attente fixe). Tri, filtres, case « Lu » et en-tête collant vérifiés en
   clair et en sombre ; la barre de défilement garde sa taille réelle
   (83 468 px).
+- **7 ✔** Lien d'évitement (première tabulation, vérifiée au clavier),
+  `aria-sort` sur les en-têtes des deux tableaux, contraste du badge
+  « Spécialisé » remonté de 2,71:1 à 4,74:1 en clair (4,22 → 7,66 en sombre),
+  en-tête utilisable à 390 px (la bascule de thème était hors écran),
+  en-tête aligné sur le contenu élargi (marque et titre à 24 px tous les deux).

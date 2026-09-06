@@ -42,11 +42,22 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          {/* Lien d'évitement : au clavier, la première tabulation permet de
+              sauter l'en-tête. Invisible tant qu'il n'a pas le focus. */}
+          <a
+            href="#contenu"
+            className="sr-only rounded-md bg-background px-4 py-2 text-sm font-medium ring-2 ring-ring focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50"
+          >
+            Aller au contenu
+          </a>
           <MainNav />
           {/* La hauteur de l'en-tête (h-14) et le padding vertical de <main>
               (py-6) sont repris par --app-content-h dans globals.css : les
               modifier ici impose de mettre cette variable à jour. */}
-          <main className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6">
+          <main
+            id="contenu"
+            className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6"
+          >
             {children}
           </main>
           <Toaster richColors position="top-right" />

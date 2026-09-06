@@ -136,6 +136,11 @@
 main:has([data-wide]) {
   max-width: none;
 }
+/* L'en-tête suit la même largeur, sinon le titre de la page commence 80 px à
+   gauche du nom de l'application. */
+body:has(main [data-wide]) header > div {
+  max-width: none;
+}
 
 @layer base {
   * {

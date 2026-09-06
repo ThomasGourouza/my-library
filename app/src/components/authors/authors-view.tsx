@@ -156,7 +156,14 @@ function SortableHead({
   const active = sort.key === sortKey;
   const Icon = active ? (sort.dir === "asc" ? ArrowUp : ArrowDown) : ArrowUpDown;
   return (
-    <TableHead className={className}>
+    <TableHead
+      className={className}
+      // L'icône de tri est en aria-hidden : sans aria-sort, l'état de tri
+      // n'existe pas pour un lecteur d'écran.
+      aria-sort={
+        active ? (sort.dir === "asc" ? "ascending" : "descending") : "none"
+      }
+    >
       <button
         type="button"
         onClick={() => onSort(sortKey)}

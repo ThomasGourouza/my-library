@@ -12,7 +12,11 @@ const STYLES: Record<Priority, { variant: "default" | "secondary" | "outline"; c
   essentiel: { variant: "default" },
   important: { variant: "secondary" },
   complementaire: { variant: "outline" },
-  specialise: { variant: "outline", className: "text-muted-foreground opacity-70" },
+  // Pas d'opacité supplémentaire : text-muted-foreground sur outline donne
+  // déjà le rang le plus discret, et opacity-70 faisait tomber le contraste à
+  // 2,7:1 en thème clair — sous le minimum de 4,5:1, pour le rang qui porte
+  // 614 livres.
+  specialise: { variant: "outline", className: "text-muted-foreground" },
 };
 
 export function PriorityBadge({
