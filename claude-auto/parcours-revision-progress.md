@@ -135,9 +135,10 @@ parcours, et l'effondrement du 1,06.
 - [x] `les-fondations-grecques`
 - [x] `philosophie-antique-et-medievale`
 - [x] `rome-et-le-stoicisme`
-- [ ] `vision-cynique` · `vision-classique` · `vision-existentialiste` ·
+- [x] `vision-cynique` · `vision-classique` · `vision-existentialiste` ·
       `vision-scientifique` — mélange de priorités déjà sain, notes les plus
-      longues du corpus.
+      longues du corpus. Élagage léger sur les quatre ; seule
+      `vision-scientifique` dépassait encore le plafond de spécialisés.
 - [x] `lettres-allemandes` · `mediterranee-et-amerique-latine` ·
       `europe-du-nord-et-centrale` — 0 à 6 % de spécialisé. Les deux premiers
       élagués de leurs doublons de fiche et de leurs quatrièmes titres ;

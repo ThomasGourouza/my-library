@@ -137,11 +137,6 @@ export const visionCynique: Roadmap = {
     },
     {
       author: "Emil Cioran",
-      title: "Syllogismes de l'amertume",
-      note: "Le même propos ramené à la taille de l'aphorisme. À prendre par petites doses, comme un contrepoison aux enthousiasmes.",
-    },
-    {
-      author: "Emil Cioran",
       title: "De l'inconvénient d'être né",
       note: "Le soupçon poussé jusqu'à sa source : non plus les motifs, mais le fait même d'exister. Terminus logique de la série.",
     },
@@ -159,11 +154,6 @@ export const visionCynique: Roadmap = {
       author: "Philippe Muray",
       title: "L'Empire du bien",
       note: "Le retournement contemporain : ce n'est plus la vertu qui masque l'intérêt, c'est la bienveillance affichée qui devient l'instrument du conformisme. Muray applique le regard classique à une époque qui se croit affranchie.",
-    },
-    {
-      author: "Laurent Obertone",
-      title: "Éloge de la force",
-      note: "Une reprise polémique et actuelle du postulat de départ : les rapports de force n'ont pas disparu, ils se sont déplacés. Utile comme témoin de la persistance de ce regard aujourd'hui, à lire en gardant la distance qu'appelle le pamphlet.",
     },
     {
       author: "Michel Houellebecq",

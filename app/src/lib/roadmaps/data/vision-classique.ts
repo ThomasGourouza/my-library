@@ -71,11 +71,6 @@ export const visionClassique: Roadmap = {
       note: "La liberté d'expression défendue non pour les droits de celui qui parle, mais pour ce que la contradiction apporte à celui qui écoute. L'argument que reprendront les derniers livres du parcours.",
     },
     {
-      author: "Paul Valéry",
-      title: "Le Bilan de l'intelligence",
-      note: "Une conférence de 1935 sur l'état de l'esprit européen : trop d'informations, trop de sollicitations, pas assez de temps pour penser. Le diagnostic a peu vieilli.",
-    },
-    {
       author: "Julien Benda",
       title: "La Trahison des clercs",
       note: "L'accusation portée contre les intellectuels qui mettent leur autorité au service des passions nationales et de classe. Le texte fondateur de tout ce parcours dans sa version défensive.",
@@ -116,16 +111,6 @@ export const visionClassique: Roadmap = {
       note: "Le traité de relations internationales le plus complet écrit en français, où la prudence remplace à la fois le pacifisme et le bellicisme. La mesure appliquée à la politique étrangère.",
     },
     {
-      author: "Alain Renaut",
-      title: "La Pensée 68",
-      note: "L'examen critique de l'antihumanisme théorique des années soixante, mené sans caricature. Un des rares livres à discuter les structuralistes plutôt qu'à les dénoncer.",
-    },
-    {
-      author: "Alain Renaut",
-      title: "L'Ère de l'individu",
-      note: "La distinction entre individualisme et autonomie, qui permet de critiquer le premier sans abandonner la seconde. Exemple précis de ce que cette tradition sait faire d'une confusion courante.",
-    },
-    {
       author: "Alain Finkielkraut",
       title: "La Défaite de la pensée",
       note: "L'opposition entre une culture qui élève et une culture entendue comme la somme des façons de vivre. Le moment où l'universalisme des Lumières passe sur la défensive en France.",
@@ -156,24 +141,9 @@ export const visionClassique: Roadmap = {
       note: "La nation défendue comme le seul cadre où la démocratie a jusqu'ici fonctionné, contre l'idée d'une politique sans frontières. Argument mesuré sur un terrain qui l'est rarement.",
     },
     {
-      author: "Pierre Manent",
-      title: "Situation de la France",
-      note: "Une proposition de compromis explicite entre la République et l'islam de France, formulée en 2015. Cas d'école de ce que donne la recherche d'un équilibre quand le débat n'en veut plus.",
-    },
-    {
       author: "Pascal Bruckner",
       title: "La Tyrannie de la pénitence",
       note: "La critique du remords occidental érigé en seule attitude morale admise. Utile en fin de parcours parce qu'il pose la question de la juste mesure du repentir.",
-    },
-    {
-      author: "Jonathan Rauch",
-      title: "Kindly Inquisitors",
-      note: "La défense de la libre critique comme procédure collective de production du savoir, et non comme droit individuel. Le prolongement contemporain le plus rigoureux de Mill.",
-    },
-    {
-      author: "Andrew Doyle",
-      title: "Free Speech and Why It Matters",
-      note: "Un exposé bref et actuel des arguments en faveur de la liberté d'expression, contre les restrictions venues des deux bords. Bon point final : c'est le format pamphlet mis au service de la modération.",
     },
   ],
 };

@@ -96,16 +96,6 @@ export const visionExistentialiste: Roadmap = {
       note: "Oreste assume un meurtre dont il refuse le remords, contre les dieux et contre la cité. La liberté comme charge à porter seul, jouée sous l'Occupation.",
     },
     {
-      author: "Jean-Paul Sartre",
-      title: "Le Mur",
-      note: "Des hommes placés devant une exécution imminente, et ce que cela fait à leur rapport au corps et au temps. La situation-limite de Jaspers traitée en nouvelle.",
-    },
-    {
-      author: "Jean-Paul Sartre",
-      title: "Qu'est-ce que la littérature ?",
-      note: "L'écrivain tenu pour responsable des effets de ce qu'il publie. La conséquence politique de la doctrine : puisque nul ne décide à notre place, on ne peut pas se dire simple témoin.",
-    },
-    {
       author: "Simone de Beauvoir",
       title: "Le Deuxième Sexe",
       note: "On ne naît pas femme, on le devient : la thèse existentialiste appliquée à une condition concrète, avec le poids d'enquête qui manque souvent à ce parcours.",
@@ -159,11 +149,6 @@ export const visionExistentialiste: Roadmap = {
       author: "Eugène Ionesco",
       title: "Le Roi se meurt",
       note: "Un roi apprend qu'il va mourir et dispose de la durée de la pièce pour y consentir. L'être-pour-la-mort de Heidegger transposé en cérémonie comique.",
-    },
-    {
-      author: "Eugène Ionesco",
-      title: "Le Solitaire",
-      note: "Son unique roman : un homme touche un héritage, cesse de travailler, et se trouve seul face à un temps sans emploi. La liberté obtenue devient l'épreuve la plus difficile.",
     },
     {
       author: "Viktor E. Frankl",
