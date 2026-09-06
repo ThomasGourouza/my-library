@@ -126,8 +126,27 @@ export default async function AuthorPage({ params }: PageProps) {
           </div>
         ) : (
           <p className="text-sm text-muted-foreground">
-            Aucune biographie. Lancez « Analyse Claude » depuis la page d&apos;un
-            livre de cet auteur pour la générer.
+            Aucune biographie.{" "}
+            {author.books.length > 0 ? (
+              <>
+                Lancez « Analyse Claude » depuis{" "}
+                {/* Lien direct plutôt qu'une consigne : la phrase demandait de
+                    retrouver soi-même un livre de l'auteur. */}
+                <Link
+                  href={`/livres/${author.books[0].id}`}
+                  className="font-medium text-foreground hover:underline"
+                >
+                  « {author.books[0].title} »
+                </Link>{" "}
+                pour la générer — elle est produite une fois par auteur, avec la
+                première analyse d&apos;un de ses livres.
+              </>
+            ) : (
+              <>
+                Elle se génère avec l&apos;« Analyse Claude » d&apos;un livre de
+                cet auteur, et il n&apos;en a encore aucun.
+              </>
+            )}
           </p>
         )}
       </section>

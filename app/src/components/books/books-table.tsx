@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpDown, Sparkles } from "lucide-react";
 import {
   flexRender,
   getCoreRowModel,
@@ -112,6 +112,14 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
         >
           {row.original.title}
         </Link>
+        {row.original.analysis && (
+          // Trois livres sur 2 038 en ont une : un marqueur discret vaut mieux
+          // qu'une colonne vide à 99,9 %.
+          <Sparkles
+            className="size-3.5 shrink-0 text-muted-foreground"
+            aria-label="Analyse Claude disponible"
+          />
+        )}
         {row.original.enriched && (
           <Badge variant="secondary" className="shrink-0">
             Ajout Claude

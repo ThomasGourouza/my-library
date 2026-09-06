@@ -63,12 +63,14 @@ export type FilterKey =
   | "courant"
   | "roadmap"
   | "priority"
-  | "read";
+  | "read"
+  | "analysis";
 
 export type Filters = Record<FilterKey, string[]>;
 
 export const FILTER_KEYS: FilterKey[] = [
   "read",
+  "analysis",
   "priority",
   "category",
   "genre",
@@ -79,6 +81,7 @@ export const FILTER_KEYS: FilterKey[] = [
 ];
 
 export const EMPTY_FILTERS: Filters = {
+  analysis: [],
   category: [],
   genre: [],
   period: [],
@@ -98,6 +101,7 @@ export const FILTER_LABELS: Record<FilterKey, string> = {
   roadmap: "Parcours",
   priority: "Priorité",
   read: "Lu",
+  analysis: "Analyse Claude",
 };
 
 // ---------------------------------------------------------------------------

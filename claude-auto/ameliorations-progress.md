@@ -22,7 +22,7 @@ qu'une fois commité.
 - [x] 11. Filtres d'auteurs synchronisés à l'URL
 - [x] 12. Listes personnelles (créer, ordonner, supprimer)
 - [x] 13. Export CSV / JSON de la bibliothèque
-- [ ] 14. Visibilité de « Analyse Claude »
+- [x] 14. Visibilité de « Analyse Claude »
 - [ ] 15. Tests unitaires manquants
 - [ ] 16. README réel
 
@@ -113,3 +113,9 @@ qu'une fois commité.
   8 lignes + en-tête, BOM UTF-8 (les accents s'ouvrent correctement dans un
   tableur), guillemets RFC 4180, fins de ligne CRLF, JSON valide relu et
   reparsé.
+- **14 ✔** « Analyse Claude » devient visible : filtre Analysé / Non analysé
+  sur la liste des livres (vérifié : 3 sur 2 038), marqueur discret à côté du
+  titre, colonne « Analyse Claude » dans l'export, et sur la fiche d'un auteur
+  sans biographie un lien direct vers un de ses livres au lieu d'une consigne.
+  Aucune analyse n'a été générée : cela consommerait le quota d'abonnement de
+  Tom, c'est à lui de décider.

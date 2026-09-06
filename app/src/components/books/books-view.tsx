@@ -88,6 +88,7 @@ const EXPORT_COLUMNS: ExportColumn<BookWithRoadmaps>[] = [
   { header: "Lu", value: (b) => b.read },
   { header: "Parcours", value: (b) => b.roadmaps.map((r) => r.title).join(" · ") },
   { header: "Ajout Claude", value: (b) => b.enriched },
+  { header: "Analyse Claude", value: (b) => b.analysis != null },
   { header: "Notes", value: (b) => b.notes },
 ];
 
@@ -109,6 +110,7 @@ function parseFilters(sp: URLSearchParams): Filters {
     roadmap: get("roadmap"),
     priority: get("priority"),
     read: get("read"),
+    analysis: get("analysis"),
   };
 }
 
@@ -351,6 +353,7 @@ export function BooksView({
         matches(filters.courant, b.courant) &&
         matches(filters.priority, b.priority) &&
         matches(filters.read, b.read ? "lu" : "non-lu") &&
+        matches(filters.analysis, b.analysis ? "oui" : "non") &&
         matchesAny(
           filters.roadmap,
           b.roadmaps.length ? b.roadmaps.map((r) => r.slug) : [SANS_PARCOURS]
@@ -386,6 +389,11 @@ export function BooksView({
       key: "read",
       options: ["lu", "non-lu"],
       getLabel: (v) => (v === "lu" ? "Lu" : "Non lu"),
+    },
+    {
+      key: "analysis",
+      options: ["oui", "non"],
+      getLabel: (v) => (v === "oui" ? "Analysé" : "Non analysé"),
     },
     {
       key: "priority",
