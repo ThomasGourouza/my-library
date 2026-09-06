@@ -52,12 +52,15 @@ check "fatal + réseau (fatal prioritaire)"          fatal     "$BILLING"$'\n''s
 
 echo
 echo "limit_reset_epoch / limit_sleep_seconds :"
-printf '%s' "$REJECTED" > "$TMP/log"
+# La fonction ne retient que les réouvertures À VENIR : la donnée d'exemple doit
+# donc porter un horodatage futur, sans quoi le test mesurerait l'inverse.
+futur=$(( $(date +%s) + 3600 ))
+printf '%s' "{\"rate_limit_info\":{\"status\":\"rejected\",\"resetsAt\":$futur,\"rateLimitType\":\"five_hour\"}}" > "$TMP/log"
 got=$(limit_reset_epoch "$TMP/log")
-if [ "$got" = "1784430000" ]; then
-  pass=$(( pass + 1 )); echo "  ok   resetsAt extrait                              -> $got"
+if [ "$got" = "$futur" ]; then
+  pass=$(( pass + 1 )); echo "  ok   resetsAt à venir extrait                     -> $got"
 else
-  fail=$(( fail + 1 )); echo "  FAIL resetsAt extrait                              -> $got (attendu 1784430000)"
+  fail=$(( fail + 1 )); echo "  FAIL resetsAt à venir extrait                     -> $got (attendu $futur)"
 fi
 
 # resetsAt in the past (old log) must fall back to the 15 min floor, not a negative sleep.
@@ -77,6 +80,34 @@ if [ "$got" -ge 7200 ] && [ "$got" -le 7300 ]; then
   pass=$(( pass + 1 )); echo "  ok   fenêtre dans 2h -> sommeil ~7290s            -> $got"
 else
   fail=$(( fail + 1 )); echo "  FAIL fenêtre dans 2h                              -> $got (attendu ~7290)"
+fi
+
+# Cas réel du 6 septembre : deux fenêtres dans le même événement, la première
+# rouvre dans 10 min, l'autre dans 5 jours. Viser la seconde ferait dormir pour
+# rien ; on doit retenir la plus proche.
+proche=$(( $(date +%s) + 600 ))
+loin=$(( $(date +%s) + 400000 ))
+printf '%s' "{\"rate_limit_info\":{\"status\":\"rejected\",\"resetsAt\":$proche,\"rateLimitType\":\"five_hour\",\"unifiedWindows\":{\"five_hour\":{\"resetsAt\":$proche},\"seven_day\":{\"resetsAt\":$loin}}}}" > "$TMP/log"
+got=$(limit_reset_epoch "$TMP/log")
+if [ "$got" = "$proche" ]; then
+  pass=$(( pass + 1 )); echo "  ok   deux fenêtres -> la plus proche              -> $got"
+else
+  fail=$(( fail + 1 )); echo "  FAIL deux fenêtres -> la plus proche              -> $got (attendu $proche)"
+fi
+got=$(limit_sleep_seconds "$TMP/log")
+if [ "$got" -ge 600 ] && [ "$got" -le 700 ]; then
+  pass=$(( pass + 1 )); echo "  ok   sommeil calé sur la fenêtre courte           -> ${got}s"
+else
+  fail=$(( fail + 1 )); echo "  FAIL sommeil calé sur la fenêtre courte           -> ${got}s (attendu ~690)"
+fi
+
+# Toutes les fenêtres déjà rouvertes : plus rien à attendre, plancher.
+printf '%s' '{"rate_limit_info":{"status":"rejected","resetsAt":1000000000,"unifiedWindows":{"seven_day":{"resetsAt":1000000001}}}}' > "$TMP/log"
+got=$(limit_reset_epoch "$TMP/log")
+if [ -z "$got" ]; then
+  pass=$(( pass + 1 )); echo "  ok   fenêtres toutes passées -> aucune cible      -> (vide)"
+else
+  fail=$(( fail + 1 )); echo "  FAIL fenêtres toutes passées                      -> $got (attendu vide)"
 fi
 
 # Absurd timestamp must not park the run for days.

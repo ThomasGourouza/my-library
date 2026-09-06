@@ -62,22 +62,38 @@ classify_failure() {
   fi
 }
 
-# 5h windows announce their reopening as "resetsAt": <epoch seconds>.
+# Les fenêtres annoncent leur réouverture par "resetsAt": <epoch>.
+#
+# ATTENTION : il y en a PLUSIEURS. Un événement porte un objet unifiedWindows
+# avec au moins five_hour et une fenêtre plus longue (hebdomadaire). Prendre la
+# dernière valeur rencontrée — ce que faisait cette fonction — revenait à viser
+# la fenêtre lointaine et à dormir des heures alors que celle de 5 h rouvrait
+# dans quelques minutes. On retient donc la PLUS PROCHE encore à venir : c'est
+# la première contrainte qui se lève, et donc le bon réveil.
 limit_reset_epoch() {
-  tail -c 4000 "$1" 2>/dev/null | grep -o '"resetsAt":[0-9]*' | tail -1 | cut -d: -f2
+  local maintenant
+  maintenant=$(date +%s)
+  tail -c 4000 "$1" 2>/dev/null \
+    | grep -o '"resetsAt":[0-9]*' | cut -d: -f2 \
+    | awk -v now="$maintenant" '$1 > now' \
+    | sort -n | head -1
 }
 
 # Seconds to sleep before retrying a usage limit: until the window reopens (+90s
 # of margin), else a blind 15 min. Clamped to 6h so a bogus timestamp cannot
 # park a run forever.
 limit_sleep_seconds() {
-  local reset_at wait_s delay=900
+  local reset_at wait_s
   reset_at=$(limit_reset_epoch "$1")
-  if [ -n "$reset_at" ]; then
-    wait_s=$(( reset_at - $(date +%s) + 90 ))
-    if [ "$wait_s" -gt "$delay" ] && [ "$wait_s" -le 21600 ]; then delay="$wait_s"; fi
-  fi
-  echo "$delay"
+  # Sans horaire de réouverture, on ne peut que réessayer à l'aveugle.
+  [ -z "$reset_at" ] && { echo 900; return; }
+  wait_s=$(( reset_at - $(date +%s) + 90 ))
+  # Quand l'horaire est connu, il fait foi : le plancher de 15 min ne doit pas
+  # faire dormir plus longtemps qu'annoncé. Bornes : 60 s pour ne pas boucler,
+  # 6 h pour qu'un horodatage aberrant ne gare pas le run pendant des jours.
+  [ "$wait_s" -lt 60 ] && wait_s=60
+  [ "$wait_s" -gt 21600 ] && wait_s=900
+  echo "$wait_s"
 }
 
 # Sleep in slices, touching the log each time: a limit wait routinely exceeds
