@@ -90,7 +90,7 @@ parcours, et l'effondrement du 1,06.
       les nomme comme tels.
 - [x] `grands-essais-et-art-de-penser` — était le « filet de sécurité » déclaré.
       Reconstruire autour de l'objectif réel : travailler la forme essai.
-- [ ] `recits-de-soi` — 100 % de ses livres exclusifs sont C ou S.
+- [x] `recits-de-soi` — 100 % de ses livres exclusifs sont C ou S.
 - [ ] `nouvelles-et-formes-breves` — 94 %.
 - [ ] `arts-et-musique` — 41 % spécialisé, créé pendant le balayage.
 - [ ] `philosophie-morale-et-art-de-vivre` — 49 % spécialisé.
