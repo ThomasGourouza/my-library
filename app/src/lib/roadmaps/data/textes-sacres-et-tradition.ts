@@ -98,7 +98,7 @@ export const textesSacresEtTradition: Roadmap = {
     {
       author: "Ernest Renan",
       title: "Vie de Jésus",
-      note: "Fin du parcours : la même vie racontée sans miracle, en écartant tout ce qui ne se soutient pas comme document. Après quinze siècles de commentaires, le texte redevient une source qu'on interroge.",
+      note: "Fin du parcours : la vie de Jésus racontée sans miracle, en écartant tout ce qui ne se soutient pas comme document. Après quinze siècles de commentaires, le texte redevient une source qu'on interroge.",
     },
   ],
 };
