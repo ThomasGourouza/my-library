@@ -74,7 +74,7 @@ parcours, et l'effondrement du 1,06.
       l'un des plus **petits** parcours : 12-15 textes d'entrée, rien d'autre.
 - [x] `geopolitique-du-monde-contemporain` — 0 % essentiel, 52 % spécialisé,
       contient un atlas et un manuel de relations internationales.
-- [ ] `comprendre-l-univers` — 92 % complémentaire+spécialisé.
+- [x] `comprendre-l-univers` — 92 % complémentaire+spécialisé.
 - [ ] `les-mathematiques` — 86 %.
 - [ ] `histoire-et-philosophie-des-sciences` — 76 %.
 - [ ] `le-vivant` — 73 %.
