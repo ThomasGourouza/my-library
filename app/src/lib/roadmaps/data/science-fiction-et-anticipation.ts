@@ -31,11 +31,6 @@ export const scienceFictionEtAnticipation: Roadmap = {
       note: "L'invasion extraterrestre pensée sur le modèle du colonialisme britannique. Le retournement — être les colonisés — est le vrai sujet du livre.",
     },
     {
-      author: "H. G. Wells",
-      title: "L’Homme invisible",
-      note: "Un savant obtient un pouvoir absolu et devient aussitôt criminel. La question de l'anneau de Gygès traitée par la science.",
-    },
-    {
       author: "Ievgueni Zamiatine",
       title: "Nous",
       note: "Un État de verre où tout est visible, et des citoyens désignés par des numéros. Écrit en 1920 : Orwell et Huxley viennent après, et le savent.",
@@ -66,11 +61,6 @@ export const scienceFictionEtAnticipation: Roadmap = {
       note: "La colonisation de Mars en nouvelles liées, mélancoliques plutôt qu'héroïques. La conquête spatiale y est un miroir de la conquête de l'Ouest.",
     },
     {
-      author: "Ray Bradbury",
-      title: "L’Homme illustré",
-      note: "Dix-huit récits contenus dans les tatouages d'un homme. La forme brève portée à son efficacité maximale dans le genre.",
-    },
-    {
       author: "Isaac Asimov",
       title: "Les Robots",
       note: "Les trois lois de la robotique, et des nouvelles qui explorent chacune une faille de ce système. Le premier traitement rigoureux de l'éthique des machines.",
@@ -79,11 +69,6 @@ export const scienceFictionEtAnticipation: Roadmap = {
       author: "Isaac Asimov",
       title: "Fondation",
       note: "Une psychohistoire capable de prévoir l'avenir des masses mais pas des individus. Le space opera se dote d'une hypothèse de sciences sociales.",
-    },
-    {
-      author: "Isaac Asimov",
-      title: "Fondation et Empire",
-      note: "L'irruption du Mulet, un individu que la psychohistoire n'avait pas prévu. Asimov démolit lui-même son propre déterminisme : c'est ce qui sauve le cycle.",
     },
     {
       author: "Frank Herbert",
@@ -98,12 +83,7 @@ export const scienceFictionEtAnticipation: Roadmap = {
     {
       author: "Harry Harrison",
       title: "Soleil vert",
-      note: "Surpopulation, pénurie alimentaire et New York en 1999. La dystopie écologique avant que le mot n'existe.",
-    },
-    {
-      author: "Robert Silverberg",
-      title: "The Book of Skulls",
-      note: "Quatre étudiants cherchent une secte qui promet l'immortalité, sachant que deux devront mourir. Peu de science, beaucoup de tension morale.",
+      note: "New York en 1999, trente-cinq millions d'habitants et plus rien à manger : une seule variable, la surpopulation, et toutes ses conséquences déroulées. Le titre français vient du film, qui a ajouté la scène dont on se souvient.",
     },
     {
       author: "René Barjavel",
@@ -126,16 +106,6 @@ export const scienceFictionEtAnticipation: Roadmap = {
       note: "Sept pèlerins racontent chacun son histoire, dans une structure empruntée à Chaucer. La science-fiction s'y donne des ambitions ouvertement littéraires.",
     },
     {
-      author: "Iain M. Banks",
-      title: "Cycle de la Culture",
-      note: "Une civilisation postpénurie gouvernée par des intelligences artificielles bienveillantes. La rare utopie crédible du genre, examinée par ses marges.",
-    },
-    {
-      author: "Vernor Vinge",
-      title: "La Captive du temps perdu",
-      note: "Des bulles temporelles qui permettent de sauter dans le futur. Vinge est aussi l'auteur qui a popularisé la notion de singularité technologique.",
-    },
-    {
       author: "Christopher Priest",
       title: "Le Prestige",
       note: "Deux illusionnistes rivaux, un appareil de Tesla, et deux journaux qui se contredisent. La science-fiction employée comme machine narrative.",
@@ -156,11 +126,6 @@ export const scienceFictionEtAnticipation: Roadmap = {
       note: "Une société de fourmis décrite comme une civilisation à part entière. Le succès français qui a montré qu'un roman d'idées scientifiques pouvait être populaire.",
     },
     {
-      author: "Romain Benassaya",
-      title: "La Dernière Arche",
-      note: "Un vaisseau générationnel et la survie d'une humanité en fuite. La science-fiction française contemporaine dans sa veine la plus classique.",
-    },
-    {
       author: "Liu Cixin",
       title: "Le Problème à trois corps",
       note: "Une civilisation extraterrestre répond à un signal envoyé pendant la Révolution culturelle. Le genre cesse d'être une affaire occidentale.",
@@ -169,16 +134,6 @@ export const scienceFictionEtAnticipation: Roadmap = {
       author: "Aldous Huxley",
       title: "Île",
       note: "Le contraire exact du Meilleur des mondes : une utopie fondée sur la conscience et la sobriété. Dernier roman de son auteur, et le moins lu.",
-    },
-    {
-      author: "J. R. R. Tolkien",
-      title: "Le Seigneur des Anneaux",
-      note: "Une mythologie entière avec ses langues, ses cartes et ses trois âges. Ce n'est pas de la science-fiction, mais c'est l'autre grande construction de monde du siècle.",
-    },
-    {
-      author: "Laurent Obertone",
-      title: "Guerre",
-      note: "L'effondrement de l'ordre public français en quelques jours. Le roman d'anticipation employé comme argument politique : fin du parcours, sur un usage contesté du genre.",
     },
   ],
 };
