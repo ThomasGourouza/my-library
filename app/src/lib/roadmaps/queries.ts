@@ -12,8 +12,15 @@ import type { Roadmap } from "./types";
 
 export type { RoadmapItem, RoadmapRef };
 
-/** Un parcours tel qu'affiché dans la liste : sans les entrées, avec le compte. */
-export type RoadmapSummary = Omit<Roadmap, "entries"> & { bookCount: number };
+/**
+ * Un parcours tel qu'affiché dans la liste : sans les entrées, avec le nombre
+ * de livres et combien sont lus. La progression est ce qui répond à « où j'en
+ * suis » sans ouvrir les 53 parcours un par un.
+ */
+export type RoadmapSummary = Omit<Roadmap, "entries"> & {
+  bookCount: number;
+  readCount: number;
+};
 
 /** Champs repris explicitement : ajouter un champ à Roadmap force à décider
  *  ici s'il doit remonter jusqu'aux pages. */
@@ -31,10 +38,14 @@ function withoutEntries(r: Roadmap): Omit<Roadmap, "entries"> {
 
 export function listRoadmaps(): RoadmapSummary[] {
   const { itemsBySlug } = resolveLibrary();
-  return ROADMAPS.map((roadmap) => ({
-    ...withoutEntries(roadmap),
-    bookCount: itemsBySlug.get(roadmap.slug)?.length ?? 0,
-  }));
+  return ROADMAPS.map((roadmap) => {
+    const items = itemsBySlug.get(roadmap.slug) ?? [];
+    return {
+      ...withoutEntries(roadmap),
+      bookCount: items.length,
+      readCount: items.filter((i) => i.book.read).length,
+    };
+  });
 }
 
 /** Un parcours et ses livres, dans l'ordre de lecture. */

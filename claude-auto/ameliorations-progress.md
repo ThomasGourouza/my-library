@@ -16,7 +16,7 @@ qu'une fois commité.
 - [x] 5. Tableau des livres : sélecteur de colonnes persisté dans l'URL
 - [x] 6. Tableau des livres : virtualisation des lignes
 - [x] 7. Accessibilité (aria-sort, lignes au clavier, lien d'évitement)
-- [ ] 8. Progression de lecture dans les parcours
+- [x] 8. Progression de lecture dans les parcours
 - [ ] 9. Tableau de bord d'accueil sur `/`
 - [ ] 10. Palette de commandes globale (⌘K / Ctrl+K)
 - [ ] 11. Filtres d'auteurs synchronisés à l'URL
@@ -74,3 +74,10 @@ qu'une fois commité.
   « Spécialisé » remonté de 2,71:1 à 4,74:1 en clair (4,22 → 7,66 en sombre),
   en-tête utilisable à 390 px (la bascule de thème était hors écran),
   en-tête aligné sur le contenu élargi (marque et titre à 24 px tous les deux).
+- **8 ✔** Progression de lecture : barre + « x / n lus » sur chaque carte de
+  parcours, filtre d'avancement (À commencer / En cours / Terminé) avec
+  effectifs, et sur la page d'un parcours la progression, le prochain livre à
+  lire dans l'ordre et le surlignage des livres déjà lus. Vérifié à l'écran en
+  marquant temporairement 4 livres comme lus (« 3 lus sur 14 · 21 % »,
+  « Prochain à lire : 2. Apprendre à vivre »), puis remis à 0 : aucune donnée
+  de lecture inventée n'est laissée en base.

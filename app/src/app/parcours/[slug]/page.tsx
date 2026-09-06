@@ -1,13 +1,15 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import { BookOpen } from "lucide-react";
+import { ArrowRight, BookOpen } from "lucide-react";
 import { formatYear } from "@/lib/normalize";
+import { cn } from "@/lib/utils";
 import { getRoadmapBySlug } from "@/lib/roadmaps/queries";
 import { FAMILY_LABELS } from "@/lib/roadmaps/types";
 import { Badge } from "@/components/ui/badge";
 import { PriorityBadge } from "@/components/books/priority-badge";
 import { ReadCheckbox } from "@/components/books/read-checkbox";
+import { RoadmapProgress } from "@/components/roadmaps/roadmap-progress";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +26,11 @@ export default async function ParcoursDetailPage({ params }: PageProps) {
   const { slug } = await params;
   const roadmap = getRoadmapBySlug(slug);
   if (!roadmap) notFound();
+
+  const readCount = roadmap.items.filter((i) => i.book.read).length;
+  // Le prochain livre est le premier non lu dans l'ordre de lecture : c'est
+  // l'ordre qui fait le parcours, pas la liste des livres qu'il contient.
+  const next = roadmap.items.find((i) => !i.book.read);
 
   return (
     <div className="space-y-6">
@@ -47,6 +54,31 @@ export default async function ParcoursDetailPage({ params }: PageProps) {
         </div>
       </div>
 
+      {roadmap.items.length > 0 && (
+        <div className="max-w-md space-y-2">
+          <RoadmapProgress read={readCount} total={roadmap.items.length} />
+          {next ? (
+            <p className="text-sm">
+              <span className="text-muted-foreground">Prochain à lire : </span>
+              <Link
+                href={`/livres/${next.book.id}`}
+                className="font-medium hover:underline"
+              >
+                {next.position}. {next.book.title}
+              </Link>
+              <ArrowRight
+                className="ml-1 inline size-3.5 text-muted-foreground"
+                aria-hidden
+              />
+            </p>
+          ) : (
+            <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">
+              Parcours terminé.
+            </p>
+          )}
+        </div>
+      )}
+
       <p className="max-w-3xl text-sm leading-relaxed">{roadmap.description}</p>
 
       <section className="space-y-2">
@@ -60,7 +92,13 @@ export default async function ParcoursDetailPage({ params }: PageProps) {
             {roadmap.items.map(({ position, book, note, priority }) => {
               const year = formatYear(book.publicationYear);
               return (
-                <li key={book.id} className="flex gap-3 px-3 py-3">
+                <li
+                  key={book.id}
+                  className={cn(
+                    "flex gap-3 px-3 py-3",
+                    book.read && "bg-muted/40"
+                  )}
+                >
                   <span
                     className="mt-0.5 w-6 shrink-0 text-sm font-medium tabular-nums text-muted-foreground"
                     aria-hidden
