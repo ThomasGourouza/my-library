@@ -12,7 +12,7 @@ qu'une fois commité.
 - [x] 1. Restaurer les analyses et biographies perdues (3 + 3)
 - [x] 2. Corriger les 3 problèmes de lint
 - [x] 3. Fusionner les 5 doublons d'œuvres anonymes + garde-fou de test
-- [ ] 4. Supprimer le code mort `themes` de `getFilterOptions`
+- [x] 4. Supprimer le code mort `themes` de `getFilterOptions`
 - [ ] 5. Tableau des livres : sélecteur de colonnes persisté dans l'URL
 - [ ] 6. Tableau des livres : virtualisation des lignes
 - [ ] 7. Accessibilité (aria-sort, lignes au clavier, lien d'évitement)
@@ -46,3 +46,8 @@ qu'une fois commité.
   fourre-tout « Anonyme » devient « Anonyme (roman chinois) ». Nouveau fichier
   `src/lib/library.test.ts` (4 tests) pour que le cas ne revienne pas.
   19 tests verts, `validate.py` vert, lint et build propres.
+- **4 ✔** `getFilterOptions()` devient `getBookFilterOptions()` (2 requêtes) et
+  `getAuthorFilterOptions()` (4). L'option `themes`, calculée à chaque rendu et
+  consommée par personne, disparaît. `/livres` et `/auteurs` ne font plus que
+  les `SELECT DISTINCT` qui les concernent : 7 par page → 2 et 4.
+  `authors-view` partage désormais le type au lieu d'en redéclarer un.

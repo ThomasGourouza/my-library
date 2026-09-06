@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowDown, ArrowUp, ArrowUpDown, Check, Plus, X } from "lucide-react";
 import type { AuthorWithCount } from "@/db/schema";
+import type { AuthorFilterOptions } from "@/lib/queries";
 import { formatLifespan, normalizeKey } from "@/lib/normalize";
 import { PERIODS } from "@/lib/validation";
 import { cn } from "@/lib/utils";
@@ -36,13 +37,6 @@ import {
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
-
-interface FilterOptions {
-  mainFields: string[];
-  mainGenres: string[];
-  nationalities: string[];
-  languages: string[];
-}
 
 type FilterKey =
   | "mainField"
@@ -187,7 +181,7 @@ export function AuthorsView({
   options,
 }: {
   authors: AuthorWithCount[];
-  options: FilterOptions;
+  options: AuthorFilterOptions;
 }) {
   const router = useRouter();
   const [search, setSearch] = React.useState("");

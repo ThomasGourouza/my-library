@@ -123,28 +123,46 @@ export function countBooksByAuthor(authorId: number): number {
   return row?.n ?? 0;
 }
 
-/** Valeurs distinctes pour alimenter les popovers de filtres. */
-export function getFilterOptions(): {
+/**
+ * Valeurs distinctes pour alimenter les popovers de filtres.
+ *
+ * Deux fonctions plutôt qu'une : `/livres` n'a que faire des nationalités et
+ * `/auteurs` que faire des courants. Une seule fonction faisait sept
+ * `SELECT DISTINCT` sur les deux pages, dont la moitié pour rien.
+ */
+const distinct = (
+  col: SQL<string | null>,
+  table: typeof books | typeof authors
+): string[] =>
+  db
+    .selectDistinct({ v: col })
+    .from(table)
+    .all()
+    .map((r) => r.v)
+    .filter((v): v is string => v != null && v !== "")
+    .sort((a, b) => a.localeCompare(b, "fr"));
+
+export interface BookFilterOptions {
   genres: string[];
   courants: string[];
-  themes: string[];
+}
+
+export function getBookFilterOptions(): BookFilterOptions {
+  return {
+    genres: distinct(sql`${books.genre}`, books),
+    courants: distinct(sql`${books.courant}`, books),
+  };
+}
+
+export interface AuthorFilterOptions {
   nationalities: string[];
   languages: string[];
   mainFields: string[];
   mainGenres: string[];
-} {
-  const distinct = (col: SQL<string | null>, table: typeof books | typeof authors) =>
-    db
-      .selectDistinct({ v: col })
-      .from(table)
-      .all()
-      .map((r) => r.v)
-      .filter((v): v is string => v != null && v !== "")
-      .sort((a, b) => a.localeCompare(b, "fr"));
+}
+
+export function getAuthorFilterOptions(): AuthorFilterOptions {
   return {
-    genres: distinct(sql`${books.genre}`, books),
-    courants: distinct(sql`${books.courant}`, books),
-    themes: distinct(sql`${books.theme}`, books),
     nationalities: distinct(sql`${authors.nationality}`, authors),
     languages: distinct(sql`${authors.language}`, authors),
     mainFields: distinct(sql`${authors.mainField}`, authors),

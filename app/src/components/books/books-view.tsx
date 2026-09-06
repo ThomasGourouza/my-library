@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Check, Plus, X } from "lucide-react";
 import type { SortingState } from "@tanstack/react-table";
-import type { getFilterOptions } from "@/lib/queries";
+import type { BookFilterOptions } from "@/lib/queries";
 import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
 import { normalizeKey } from "@/lib/normalize";
 import {
@@ -47,8 +47,6 @@ import {
   type GroupByKey,
   type ViewMode,
 } from "./books-helpers";
-
-export type BookFilterOptions = ReturnType<typeof getFilterOptions>;
 
 // Depuis l'abandon de la couverture intégrale, un livre peut n'appartenir à
 // aucun parcours : cette valeur de filtre permet de les retrouver et d'auditer

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getFilterOptions } from "@/lib/queries";
+import { getBookFilterOptions } from "@/lib/queries";
 import { listBooksWithRoadmaps } from "@/lib/roadmaps/queries";
 import { BooksView } from "@/components/books/books-view";
 
@@ -9,7 +9,7 @@ export const metadata = { title: "Livres" };
 
 export default function LivresPage() {
   const books = listBooksWithRoadmaps();
-  const options = getFilterOptions();
+  const options = getBookFilterOptions();
 
   return (
     <React.Suspense fallback={null}>
