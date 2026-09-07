@@ -40,6 +40,25 @@ function extractJson(text: string): unknown {
   return null;
 }
 
+/**
+ * Environnement du sous-processus Claude Code, privé des variables qui
+ * imposeraient une authentification par clé d'API.
+ *
+ * ANTHROPIC_API_KEY est exportée dans le shell de l'utilisateur, donc héritée
+ * par le serveur Next, donc par le SDK — qui la préfère alors au login
+ * claude.ai. Résultat quand la clé est révoquée ou sans crédit :
+ * « 401 API key is invalid », alors que l'abonnement, lui, fonctionne.
+ *
+ * Le SDK REMPLACE entièrement l'environnement quand on passe `env` : il faut
+ * donc recopier process.env, moins les variables d'authentification.
+ */
+function envSansCleApi(): Record<string, string | undefined> {
+  const env = { ...process.env };
+  delete env.ANTHROPIC_API_KEY;
+  delete env.ANTHROPIC_AUTH_TOKEN;
+  return env;
+}
+
 function isAnalysisResult(v: unknown): v is AnalysisResult {
   return (
     typeof v === "object" &&
@@ -82,6 +101,9 @@ export async function runAnalysis(bookId: number, jobId: number): Promise<void> 
         maxTurns: 3,
         allowedTools: [],
         outputFormat: { type: "json_schema", schema: buildSchema(includeBio) },
+        // Sans cela, l'analyse échoue en 401 dès que la clé du shell est
+        // révoquée ou épuisée, alors que l'abonnement est valide.
+        env: envSansCleApi(),
       },
     })) {
       if (message.type === "result") {
