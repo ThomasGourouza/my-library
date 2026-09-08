@@ -1,5 +1,11 @@
 # Ma Bibliothèque — Personal Library App
 
+> **Statut : document de construction initial, en partie historique.** La
+> couche de données décrite ici (SQLite + Drizzle + `seed/`, `db:push`,
+> `db:seed`, `db:reseed`) a été remplacée en septembre 2026 par un unique
+> fichier JSON versionné, `data/library.json`, que l'application écrit en
+> direct. Voir `app/README.md` pour l'état courant.
+
 ## Context
 
 Tom has ~2,300 raw rows of book data spread across two LibreOffice spreadsheets and a markdown file in `/Users/tom/Documents/my-library` — heavily duplicated, partially wrong, inconsistently structured (one sheet has Author/Title reversed, one has parallel side-by-side tables, hundreds of junk/author-only rows, WhatsApp-paste artifacts). He wants a polished, professional library web app that uses **all** of this data — deduplicated, corrected, and enriched — with full CRUD for books and authors, multiple browse modes, fine-grained filtering/sorting, and an on-demand "Analyse Claude" feature that generates a summary, deep analysis, and author biography per book. Build should leverage many parallel agents.

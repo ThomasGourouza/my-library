@@ -68,10 +68,10 @@ CE QUI EST INTERDIT, SANS EXCEPTION
 - Toute action qui engage Tom : achat, abonnement, création de compte, service
   externe payant, déploiement, envoi de courriel ou de message, publication.
 - Toute dépendance nécessitant une clé d'API ou un paiement.
-- Détruire des données : ne lance jamais npm run db:seed sans avoir fait avant
-  npx tsx src/db/generated-content.ts save, et la restauration juste après.
-  Les analyses Claude, les biographies et l'état de lecture ne sont pas dans
-  les fichiers de seed.
+- Détruire des données : data/library.json EST la bibliothèque, versionnée et
+  écrite en direct par l'appli. Analyses, biographies, état de lecture et
+  listes y sont. On ne la régénère pas, on ne l'écrase pas : on la modifie via
+  l'appli, et on commit le résultat.
 - Modifier master, réécrire l'historique, forcer un push.
 - Casser l'existant : le tableau des livres, les parcours, les priorités et la
   case Lu fonctionnent et sont testés. Une amélioration qui régresse n'en est
