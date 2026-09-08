@@ -2,17 +2,21 @@
  * Données du tableau de bord.
  *
  * Une seule lecture de la base et une seule résolution des parcours : tout ce
- * que la page affiche se déduit de `listBooksWithRoadmaps()`, qui porte déjà
- * l'auteur, les parcours et la priorité de chaque livre.
+ * que la page affiche se déduit d'un unique `resolveLibrary`, dont on tire à la
+ * fois les livres augmentés (auteur, parcours, priorité) et le récapitulatif
+ * des parcours. Enchaîner `listBooksWithRoadmaps()` puis `listRoadmaps()`
+ * indexerait 2 038 livres deux fois pour afficher la même page.
  *
  * Règle tenue partout ici : ne rien afficher qui n'existe pas. Tant qu'aucun
  * livre n'est marqué « Lu », les compteurs affichent zéro plutôt qu'un
  * indicateur inventé, et la page met en avant les points d'entrée.
  */
 import { store } from "@/lib/store";
+import { listBooks } from "@/lib/queries";
 import { CATEGORIES, type Category } from "@/lib/validation";
 import { PRIORITIES, type Priority } from "@/lib/priorities/types";
-import { listRoadmaps, listBooksWithRoadmaps } from "@/lib/roadmaps/queries";
+import { booksWithRoadmaps, roadmapSummaries } from "@/lib/roadmaps/queries";
+import { resolveLibrary } from "@/lib/roadmaps/resolve";
 import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
 import type { RoadmapSummary } from "@/lib/roadmaps/queries";
 
@@ -84,11 +88,15 @@ function tally<T extends string>(
   return keys.map((k) => index.get(k)!);
 }
 
-export function getDashboard(): Dashboard {
-  const books = listBooksWithRoadmaps();
-  const roadmaps = listRoadmaps();
+export async function getDashboard(): Promise<Dashboard> {
+  const rows = await listBooks();
+  const resolved = resolveLibrary(rows);
+  const books = booksWithRoadmaps(rows, resolved);
+  const roadmaps = roadmapSummaries(resolved);
 
-  const authorCount = store().authors.length;
+  // Deuxième appel au magasin, mais pas deuxième lecture de la source : le
+  // plancher de fraîcheur d'une seconde le sert depuis la mémoire.
+  const authorCount = (await store()).authors.length;
 
   const analysed = books
     .filter((b) => b.analysis != null)

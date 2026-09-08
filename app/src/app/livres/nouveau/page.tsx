@@ -5,8 +5,8 @@ export const dynamic = "force-dynamic";
 
 export const metadata = { title: "Nouveau livre" };
 
-export default function NouveauLivrePage() {
-  const authors = listAuthors().map((a) => ({ id: a.id, name: a.name }));
+export default async function NouveauLivrePage() {
+  const authors = (await listAuthors()).map((a) => ({ id: a.id, name: a.name }));
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">

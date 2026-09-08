@@ -17,8 +17,8 @@ function percent(part: number, whole: number): number {
   return whole > 0 ? Math.round((part / whole) * 100) : 0;
 }
 
-export default function AccueilPage() {
-  const d = getDashboard();
+export default async function AccueilPage() {
+  const d = await getDashboard();
   const readPercent = percent(d.totals.read, d.totals.books);
   const suggestions = d.inProgress.length > 0 ? d.inProgress : d.toStart;
 

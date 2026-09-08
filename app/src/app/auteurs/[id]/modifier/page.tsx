@@ -16,7 +16,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const id = parseId((await params).id);
-  const author = id != null ? getAuthor(id) : undefined;
+  const author = id != null ? await getAuthor(id) : undefined;
   return { title: author ? `Modifier ${author.name}` : "Auteur introuvable" };
 }
 
@@ -24,7 +24,7 @@ export default async function ModifierAuteurPage({ params }: PageProps) {
   const id = parseId((await params).id);
   if (id == null) notFound();
 
-  const author = getAuthor(id);
+  const author = await getAuthor(id);
   if (!author) notFound();
 
   return (

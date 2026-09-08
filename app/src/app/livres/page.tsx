@@ -7,9 +7,9 @@ export const dynamic = "force-dynamic";
 
 export const metadata = { title: "Livres" };
 
-export default function LivresPage() {
-  const books = listBooksWithRoadmaps();
-  const options = getBookFilterOptions();
+export default async function LivresPage() {
+  const books = await listBooksWithRoadmaps();
+  const options = await getBookFilterOptions();
 
   return (
     <React.Suspense fallback={null}>

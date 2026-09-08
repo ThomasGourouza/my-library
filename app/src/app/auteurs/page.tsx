@@ -6,9 +6,9 @@ export const dynamic = "force-dynamic";
 
 export const metadata = { title: "Auteurs" };
 
-export default function AuteursPage() {
-  const authors = listAuthors();
-  const options = getAuthorFilterOptions();
+export default async function AuteursPage() {
+  const authors = await listAuthors();
+  const options = await getAuthorFilterOptions();
 
   // useSearchParams doit être sous une frontière Suspense, comme sur /livres.
   return (

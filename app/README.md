@@ -4,8 +4,11 @@ Application web locale pour une bibliothèque personnelle de ~2 000 livres :
 parcourir, filtrer, hiérarchiser, suivre ce qui est lu, et faire produire par
 Claude un résumé, une analyse et une biographie d'auteur à la demande.
 
-Mono-utilisateur. Pas d'authentification, pas de déploiement : elle se lance en
-local et lit un seul fichier JSON versionné, `../data/library.json`.
+Mono-utilisateur, et adossée à un seul fichier JSON versionné,
+`../data/library.json`. Elle tourne de deux façons : **en local**, où elle lit et
+écrit ce fichier sur le disque, et **en ligne**, où elle lit et réécrit la copie
+qui est sur `master` — chaque modification devient un commit. Voir
+[En ligne](#en-ligne).
 
 ## Démarrer
 
@@ -45,8 +48,10 @@ Ce que cela change au quotidien :
 - **On le commit comme du code.** `git push` d'un poste, `git pull` de
   l'autre, et la bibliothèque est identique — analyses et listes comprises.
 - **Serveur tournant, un `git pull` est pris en compte** au rafraîchissement
-  suivant, sans redémarrage : `src/lib/store.ts` compare le `mtime` du fichier
-  avant chaque lecture.
+  suivant, sans redémarrage : `src/lib/store.ts` revalide la source avant
+  chaque lecture — le `mtime` du fichier en local, un GET conditionnel en
+  ligne. Une seconde de fraîcheur au plus (cf. `FRESH_MS`), ce qui évite qu'une
+  page qui lit trois fois fasse trois allers-retours.
 - **Sur un second poste, `git pull` avant de modifier.** Deux machines qui
   ajoutent un livre chacune sans se synchroniser produisent un conflit sur ce
   fichier, à résoudre à la main. Le tri par clé naturelle est là pour que ces
@@ -68,15 +73,100 @@ Ce que cela change au quotidien :
 | `/auteurs`, `/auteurs/[id]` | Idem côté auteurs, avec la biographie générée |
 | `/parcours`, `/parcours/[slug]` | Les 53 parcours de lecture et leur progression |
 | `/listes`, `/listes/[id]` | Listes personnelles : créer, ordonner, supprimer |
+| `/connexion` | Mot de passe — n'apparaît qu'en ligne (cf. [En ligne](#en-ligne)) |
 
 `⌘K` (ou `Ctrl+K`) ouvre une recherche transverse depuis n'importe quelle page.
+
+## En ligne
+
+L'application déployée lit et écrit **la copie de `data/library.json` qui est
+sur `master`**, via l'API GitHub. La bibliothèque est donc identique en ligne et
+en local au dernier commit, sans base de données ni synchronisation à écrire.
+
+> **URL** : à renseigner après le premier `vercel --prod` (le déploiement
+> lui-même n'est pas encore fait).
+
+### Les deux backends, et comment ils sont choisis
+
+`src/lib/store.ts` choisit une fois pour toutes, sans configuration en local :
+
+| Backend | Choisi quand | Lecture | Écriture |
+| --- | --- | --- | --- |
+| `store/file.ts` | par défaut | `../data/library.json` sur le disque | temporaire + `rename` atomique |
+| `store/github.ts` | `GITHUB_REPO` est défini (ou `LIBRARY_BACKEND=github`) | `GET /contents` conditionnel (`If-None-Match`) | `PUT /contents`, soit un commit |
+
+Sur Vercel, un `GITHUB_REPO` absent ou mal orthographié **échoue franchement en
+nommant la variable manquante**, plutôt que de retomber en silence sur un
+backend fichier qui n'a ni `data/` ni disque inscriptible.
+
+### Les cinq variables
+
+| Variable | Rôle |
+| --- | --- |
+| `GITHUB_TOKEN` | PAT à granularité fine, limité à ce dépôt, `Contents: read and write` |
+| `GITHUB_REPO` | `ThomasGourouza/my-library` |
+| `GITHUB_BRANCH` | `master` |
+| `LIBRARY_PASSWORD` | la porte ; un mot de passe aléatoire de 32 caractères |
+| `LIBRARY_SESSION_SECRET` | signe le cookie de session |
+
+Aucune ne porte le préfixe `NEXT_PUBLIC_` : elles restent côté serveur. Les deux
+dernières suffisent à activer la porte — poser les deux en local permet de la
+tester (`npm run build && npm start`).
+
+### Le mot de passe protège les écritures, pas les lectures
+
+**Le dépôt est public.** Toute la bibliothèque, chaque analyse produite par
+Claude et un commit horodaté par clic sur « Lu » sont lisibles par n'importe qui
+sur github.com. La porte empêche un inconnu de *modifier* la bibliothèque — pas
+de la lire à la source. Pour fermer aussi la lecture, il faut passer le dépôt en
+privé ; le token fonctionne pareil, on perd l'historique public comme sauvegarde
+consultable.
+
+### Déployer
+
+Root Directory `app`, les cinq variables, puis :
+
+```bash
+vercel --prod        # le code — les données, elles, n'ont rien à déployer
+```
+
+`app/vercel.json` porte `git.deploymentEnabled: false` : **un commit de données
+ne déclenche aucun déploiement.** Sans cela, cocher une case redéploierait
+l'application — ce qui redémarre les instances et vide leur cache mémoire à
+chaque clic. Le revers assumé : un changement de *code* se livre à la main, avec
+la commande ci-dessus.
+
+### Tirer avant de modifier
+
+En local, `git pull` avant de toucher à la bibliothèque. L'application déployée
+commite à chaque modification ; deux copies divergentes du même fichier de
+56 000 lignes se résolvent à la main. Si le fichier a des modifications non
+committées, `git pull` refuse de s'exécuter — c'est le garde-fou, pas un
+obstacle à contourner.
+
+Deux conséquences moins évidentes :
+
+- **Un conflit d'écriture n'est jamais rejoué.** Si la branche a bougé entre la
+  lecture et l'écriture, GitHub répond 409, rien n'est écrasé, et l'interface
+  affiche « La bibliothèque a changé entre-temps ». Rejouer automatiquement
+  déplacerait un livre d'un cran de trop, ou ferait dire « existe déjà » d'une
+  création qui a réussi.
+- **Un `library.json` cassé se répare sans redéployer.** La donnée est lue à
+  l'exécution : la corriger dans l'éditeur web de GitHub remet la production
+  d'aplomb.
+
+### Ce qui reste local
+
+« Analyse Claude » ne s'exécute qu'en local, où la session Claude Code est
+accessible : en ligne le bouton disparaît et `POST …/analysis` renvoie 403. Les
+analyses **déjà produites s'affichent partout** — elles sont dans le fichier.
 
 ## Pile technique
 
 Next.js 16 (App Router) · React 19 · TypeScript · Tailwind v4 + shadcn/ui ·
-un fichier JSON versionné chargé en mémoire (`src/lib/store.ts`) · TanStack
-Table & Virtual · Vitest · `@anthropic-ai/claude-agent-sdk` pour
-« Analyse Claude ».
+un fichier JSON versionné chargé en mémoire (`src/lib/store.ts`), sur le disque
+ou dans le dépôt · TanStack Table & Virtual · Vitest ·
+`@anthropic-ai/claude-agent-sdk` pour « Analyse Claude ».
 
 Pas de base de données, pas d'ORM : 2 038 livres et 1 069 auteurs se lisent en
 8 ms et se filtrent en mémoire. Un moteur coûterait plus en synchronisation
@@ -94,8 +184,13 @@ src/
 ├─ components/
 │  ├─ books/ authors/ roadmaps/ lists/ dashboard/   par domaine
 │  └─ ui/                shadcn — modifié à la marge seulement
+├─ proxy.ts             la porte par mot de passe, en amont de tout
 └─ lib/
-   ├─ store.ts           le fichier de données : lecture, écriture, intégrité
+   ├─ store.ts           le magasin : revalidation, mutex, intégrité
+   ├─ store/file.ts      backend local — le fichier sur le disque
+   ├─ store/github.ts    backend en ligne — GET conditionnel, PUT = commit
+   ├─ session.ts         signature et vérification du cookie (sans Next)
+   ├─ auth.ts            `requireAuth()` pour les 12 routes mutantes
    ├─ types.ts           la forme des données (types seuls)
    ├─ queries.ts         livres et auteurs : lecture, écriture, unicité
    ├─ normalize.ts       clés de recherche et de déduplication
@@ -154,9 +249,20 @@ Quatre familles :
 - **contenu rédigé** (`lib/roadmaps/`, `lib/priorities/`) — résolution, forme, calibration ;
 - **mécanique pure** (`lib/normalize`, `lib/export`, `components/books/books-helpers`) ;
 - **écriture** (`lib/lists`) — cycle de vie, ordre, cascade, et le fait que la
-  modification atteigne bien le disque.
+  modification atteigne bien le disque ;
+- **backend GitHub** (`lib/store/github.test.ts`) — `fetch` remplacé, pour tenir
+  les deux erreurs muettes de ce backend : le type de média `raw` (sans lui,
+  l'API tronque à 1 Mo en répondant 200) et les deux formes de l'ETag (nue pour
+  le `sha` d'un `PUT`, entre guillemets pour `If-None-Match`).
 
 ## « Analyse Claude »
+
+**Local uniquement** : le bouton n'apparaît que sur l'installation locale, et
+`POST /api/books/[id]/analysis` renvoie 403 en ligne. Deux raisons, et la
+seconde est la vraie : la documentation de l'Agent SDK interdit aux tiers de
+réutiliser le login claude.ai, et une instance serverless peut être gelée dès la
+réponse envoyée — or `runAnalysis` travaille une minute après le 202. Les
+analyses déjà écrites, elles, s'affichent partout.
 
 Le bouton d'une fiche livre lance `runAnalysis`, qui appelle l'Agent SDK avec la
 **session Claude Code locale** : pas de clé d'API, pas de facturation à part.

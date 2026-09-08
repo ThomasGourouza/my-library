@@ -50,11 +50,20 @@ function extractJson(text: string): unknown {
  *
  * Le SDK REMPLACE entièrement l'environnement quand on passe `env` : il faut
  * donc recopier process.env, moins les variables d'authentification.
+ *
+ * Les secrets de l'application partent avec le reste, et n'ont rien à faire
+ * dans un sous-processus : le token GitHub donne l'écriture sur le dépôt, et le
+ * secret de session permet de forger un cookie d'accès. `allowedTools: []` rend
+ * la fuite inexploitable aujourd'hui, ce qui est un argument pour l'étourderie
+ * de demain, pas contre le nettoyage.
  */
-function envSansCleApi(): Record<string, string | undefined> {
+function envSansSecrets(): Record<string, string | undefined> {
   const env = { ...process.env };
   delete env.ANTHROPIC_API_KEY;
   delete env.ANTHROPIC_AUTH_TOKEN;
+  delete env.GITHUB_TOKEN;
+  delete env.LIBRARY_SESSION_SECRET;
+  delete env.LIBRARY_PASSWORD;
   return env;
 }
 
@@ -75,7 +84,7 @@ function isAnalysisResult(v: unknown): v is AnalysisResult {
  */
 export async function runAnalysis(bookId: number, jobId: number): Promise<void> {
   try {
-    const s = store();
+    const s = await store();
     const book = s.books.find((b) => b.id === bookId);
     if (!book) throw new Error("Livre introuvable");
     const author = s.authors.find((a) => a.id === book.authorId);
@@ -99,7 +108,7 @@ export async function runAnalysis(bookId: number, jobId: number): Promise<void> 
         outputFormat: { type: "json_schema", schema: buildSchema(includeBio) },
         // Sans cela, l'analyse échoue en 401 dès que la clé du shell est
         // révoquée ou épuisée, alors que l'abonnement est valide.
-        env: envSansCleApi(),
+        env: envSansSecrets(),
       },
     })) {
       if (message.type === "result") {
@@ -131,30 +140,33 @@ export async function runAnalysis(bookId: number, jobId: number): Promise<void> 
     // lus avant l'appel agent (~1 min) et peuvent appartenir à une version
     // périmée du fichier. C'est la règle que la transaction SQL tenait à sa
     // place, avec sa relecture explicite.
-    mutate((fresh) => {
-      const b = fresh.books.find((x) => x.id === bookId);
-      if (!b) throw new Error("Livre introuvable");
-      b.summary = result.summary;
-      b.analysis = result.analysis;
-      b.analysisGeneratedAt = generatedAt;
+    await mutate(
+      (fresh) => {
+        const b = fresh.books.find((x) => x.id === bookId);
+        if (!b) throw new Error("Livre introuvable");
+        b.summary = result.summary;
+        b.analysis = result.analysis;
+        b.analysisGeneratedAt = generatedAt;
 
-      const a = fresh.authors.find((x) => x.id === b.authorId);
-      // Re-vérifier bio == null évite (a) d'écraser une saisie faite par
-      // l'utilisateur pendant l'analyse et (b) une double génération de bio si
-      // deux analyses du même auteur tournent en parallèle.
-      if (includeBio && result.authorBio && a && a.bio == null) {
-        const info = result.authorInfo ?? {};
-        a.bio = result.authorBio;
-        a.bioGeneratedAt = generatedAt;
-        // Enrichissement fill-only-if-null : jamais d'écrasement.
-        a.nationality ??= info.nationality ?? null;
-        a.language ??= info.language ?? null;
-        a.birthYear ??= info.birthYear ?? null;
-        a.deathYear ??= info.deathYear ?? null;
-        a.mainGenre ??= info.mainGenre ?? null;
-        a.mainField ??= info.mainField ?? null;
-      }
-    });
+        const a = fresh.authors.find((x) => x.id === b.authorId);
+        // Re-vérifier bio == null évite (a) d'écraser une saisie faite par
+        // l'utilisateur pendant l'analyse et (b) une double génération de bio si
+        // deux analyses du même auteur tournent en parallèle.
+        if (includeBio && result.authorBio && a && a.bio == null) {
+          const info = result.authorInfo ?? {};
+          a.bio = result.authorBio;
+          a.bioGeneratedAt = generatedAt;
+          // Enrichissement fill-only-if-null : jamais d'écrasement.
+          a.nationality ??= info.nationality ?? null;
+          a.language ??= info.language ?? null;
+          a.birthYear ??= info.birthYear ?? null;
+          a.deathYear ??= info.deathYear ?? null;
+          a.mainGenre ??= info.mainGenre ?? null;
+          a.mainField ??= info.mainField ?? null;
+        }
+      },
+      () => `Analyse Claude : ${book.title}`
+    );
     finishJob(jobId, "done");
   } catch (e) {
     finishJob(jobId, "error", e instanceof Error ? e.message : String(e));

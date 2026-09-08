@@ -10,6 +10,9 @@
  * Les entrées d'une liste sont imbriquées dans la liste, et l'ordre du tableau
  * *est* le rang : il n'y a plus de colonne `position` à renuméroter, ni de
  * cascade à écrire quand une liste disparaît.
+ *
+ * Tout est asynchrone depuis que la source peut être distante (cf. `store.ts`),
+ * et chaque écriture porte le message qui la décrira dans l'historique git.
  */
 import { z } from "zod";
 import { DuplicateError, cmp, mutate, nextId, now, store } from "@/lib/store";
@@ -41,8 +44,8 @@ const meta = (l: ListMeta & { items?: unknown }): ListMeta => ({
   createdAt: l.createdAt,
 });
 
-export function listLists(): ListSummary[] {
-  const s = store();
+export async function listLists(): Promise<ListSummary[]> {
+  const s = await store();
   const readById = new Map(s.books.map((b) => [b.id, b.read]));
   return s.lists
     .map((l) => ({
@@ -55,8 +58,8 @@ export function listLists(): ListSummary[] {
     .sort((a, b) => cmp(a.nameNormalized, b.nameNormalized));
 }
 
-export function getList(id: number): ListWithItems | undefined {
-  const s = store();
+export async function getList(id: number): Promise<ListWithItems | undefined> {
+  const s = await store();
   const list = s.lists.find((l) => l.id === id);
   if (!list) return undefined;
   const authorsById = new Map(s.authors.map((a) => [a.id, a]));
@@ -81,106 +84,156 @@ export function getList(id: number): ListWithItems | undefined {
 }
 
 /** Listes contenant un livre donné — affiché sur la fiche du livre. */
-export function getListsForBook(bookId: number): ListMeta[] {
-  return store()
-    .lists.filter((l) => l.items.some((it) => it.bookId === bookId))
+export async function getListsForBook(bookId: number): Promise<ListMeta[]> {
+  const s = await store();
+  return s.lists
+    .filter((l) => l.items.some((it) => it.bookId === bookId))
     .map(meta)
     .sort((a, b) => cmp(a.nameNormalized, b.nameNormalized));
 }
 
-export function createList(input: ListInput): ListMeta {
-  return mutate((s) => {
-    const name = normalizeText(input.name);
-    const nameNormalized = normalizeKey(name);
-    // Deux listes du même nom aux accents près sont la même liste. La
-    // vérification était portée par l'index unique SQL, elle est ici
-    // maintenant : c'est la seule garantie que le refactor déplace vraiment.
-    if (s.lists.some((l) => l.nameNormalized === nameNormalized)) {
-      throw new DuplicateError("Une liste porte déjà ce nom");
-    }
-    const list = {
-      id: nextId(s.lists),
-      name,
-      nameNormalized,
-      description: input.description ?? null,
-      createdAt: now(),
-      items: [],
-    };
-    s.lists.push(list);
-    return meta(list);
-  });
+export function createList(input: ListInput): Promise<ListMeta> {
+  return mutate(
+    (s) => {
+      const name = normalizeText(input.name);
+      const nameNormalized = normalizeKey(name);
+      // Deux listes du même nom aux accents près sont la même liste. La
+      // vérification était portée par l'index unique SQL, elle est ici
+      // maintenant : c'est la seule garantie que le refactor déplace vraiment.
+      if (s.lists.some((l) => l.nameNormalized === nameNormalized)) {
+        throw new DuplicateError("Une liste porte déjà ce nom");
+      }
+      const list = {
+        id: nextId(s.lists),
+        name,
+        nameNormalized,
+        description: input.description ?? null,
+        createdAt: now(),
+        items: [],
+      };
+      s.lists.push(list);
+      return meta(list);
+    },
+    (list) => `Nouvelle liste ${list.name}`
+  );
 }
 
 export function updateList(
   id: number,
   input: Partial<ListInput>
-): ListMeta | undefined {
-  return mutate((s) => {
-    const list = s.lists.find((l) => l.id === id);
-    if (!list) return undefined;
-    if (input.name !== undefined) {
-      const name = normalizeText(input.name);
-      const nameNormalized = normalizeKey(name);
-      if (s.lists.some((l) => l.id !== id && l.nameNormalized === nameNormalized)) {
-        throw new DuplicateError("Une liste porte déjà ce nom");
+): Promise<ListMeta | undefined> {
+  return mutate(
+    (s) => {
+      const list = s.lists.find((l) => l.id === id);
+      if (!list) return undefined;
+      if (input.name !== undefined) {
+        const name = normalizeText(input.name);
+        const nameNormalized = normalizeKey(name);
+        if (s.lists.some((l) => l.id !== id && l.nameNormalized === nameNormalized)) {
+          throw new DuplicateError("Une liste porte déjà ce nom");
+        }
+        list.name = name;
+        list.nameNormalized = nameNormalized;
       }
-      list.name = name;
-      list.nameNormalized = nameNormalized;
-    }
-    if (input.description !== undefined) {
-      list.description = input.description ?? null;
-    }
-    return meta(list);
-  });
+      if (input.description !== undefined) {
+        list.description = input.description ?? null;
+      }
+      return meta(list);
+    },
+    (list) => `Modification de la liste ${list?.name ?? id}`
+  );
 }
 
-export function deleteList(id: number): boolean {
-  return mutate((s) => {
-    const i = s.lists.findIndex((l) => l.id === id);
-    if (i === -1) return false;
-    // Les entrées sont imbriquées : elles partent avec la liste, sans cascade.
-    s.lists.splice(i, 1);
-    return true;
-  });
+export function deleteList(id: number): Promise<boolean> {
+  let name = "";
+  return mutate(
+    (s) => {
+      const i = s.lists.findIndex((l) => l.id === id);
+      if (i === -1) return false;
+      name = s.lists[i].name;
+      // Les entrées sont imbriquées : elles partent avec la liste, sans cascade.
+      s.lists.splice(i, 1);
+      return true;
+    },
+    (ok) => (ok ? `Suppression de la liste ${name}` : "")
+  );
+}
+
+/**
+ * Le titre du livre et le nom de la liste, retenus pendant la mutation pour
+ * que le message de commit les nomme. Les lire après coup imposerait une
+ * seconde lecture — un aller-retour réseau de plus sur le backend GitHub.
+ */
+interface Named {
+  book: string;
+  list: string;
 }
 
 /** Ajoute un livre en fin de liste. Sans effet s'il y est déjà. */
-export function addBookToList(listId: number, bookId: number): boolean {
-  return mutate((s) => {
-    const list = s.lists.find((l) => l.id === listId);
-    if (!list) return false;
-    if (list.items.some((it) => it.bookId === bookId)) return false;
-    list.items.push({ bookId, note: null, createdAt: now() });
-    return true;
-  });
+export function addBookToList(listId: number, bookId: number): Promise<boolean> {
+  const named: Named = { book: String(bookId), list: String(listId) };
+  return mutate(
+    (s) => {
+      const list = s.lists.find((l) => l.id === listId);
+      if (!list) return false;
+      if (list.items.some((it) => it.bookId === bookId)) return false;
+      named.list = list.name;
+      named.book = s.books.find((b) => b.id === bookId)?.title ?? named.book;
+      list.items.push({ bookId, note: null, createdAt: now() });
+      return true;
+    },
+    (ok) => (ok ? `Ajout de ${named.book} à la liste ${named.list}` : "")
+  );
 }
 
-export function removeBookFromList(listId: number, bookId: number): boolean {
-  return mutate((s) => {
-    const list = s.lists.find((l) => l.id === listId);
-    if (!list) return false;
-    const i = list.items.findIndex((it) => it.bookId === bookId);
-    if (i === -1) return false;
-    list.items.splice(i, 1);
-    return true;
-  });
+export function removeBookFromList(
+  listId: number,
+  bookId: number
+): Promise<boolean> {
+  const named: Named = { book: String(bookId), list: String(listId) };
+  return mutate(
+    (s) => {
+      const list = s.lists.find((l) => l.id === listId);
+      if (!list) return false;
+      const i = list.items.findIndex((it) => it.bookId === bookId);
+      if (i === -1) return false;
+      named.list = list.name;
+      named.book = s.books.find((b) => b.id === bookId)?.title ?? named.book;
+      list.items.splice(i, 1);
+      return true;
+    },
+    (ok) => (ok ? `Retrait de ${named.book} de la liste ${named.list}` : "")
+  );
 }
 
-/** Déplace un livre d'un cran. L'ordre du tableau porte le rang : il n'y a
- *  rien à renuméroter, et donc plus de trous à rattraper. */
+/**
+ * Déplace un livre d'un cran. L'ordre du tableau porte le rang : il n'y a
+ * rien à renuméroter, et donc plus de trous à rattraper.
+ *
+ * L'échange se fait par index courant, ce qui ne survivrait pas à un rejeu —
+ * rejouée, la mutation déplacerait le livre d'un cran de plus. C'est l'une des
+ * raisons pour lesquelles un conflit d'écriture n'est jamais rejoué
+ * automatiquement (cf. `StaleWriteError`).
+ */
 export function moveBookInList(
   listId: number,
   bookId: number,
   direction: "up" | "down"
-): boolean {
-  return mutate((s) => {
-    const list = s.lists.find((l) => l.id === listId);
-    if (!list) return false;
-    const i = list.items.findIndex((it) => it.bookId === bookId);
-    if (i === -1) return false;
-    const target = direction === "up" ? i - 1 : i + 1;
-    if (target < 0 || target >= list.items.length) return false;
-    [list.items[i], list.items[target]] = [list.items[target], list.items[i]];
-    return true;
-  });
+): Promise<boolean> {
+  const named: Named = { book: String(bookId), list: String(listId) };
+  return mutate(
+    (s) => {
+      const list = s.lists.find((l) => l.id === listId);
+      if (!list) return false;
+      const i = list.items.findIndex((it) => it.bookId === bookId);
+      if (i === -1) return false;
+      const target = direction === "up" ? i - 1 : i + 1;
+      if (target < 0 || target >= list.items.length) return false;
+      named.list = list.name;
+      named.book = s.books.find((b) => b.id === bookId)?.title ?? named.book;
+      [list.items[i], list.items[target]] = [list.items[target], list.items[i]];
+      return true;
+    },
+    (ok) => (ok ? `Déplacement de ${named.book} dans la liste ${named.list}` : "")
+  );
 }

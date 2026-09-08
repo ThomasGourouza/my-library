@@ -38,8 +38,10 @@ export async function GET(request: NextRequest) {
       roadmaps: [],
     } satisfies SearchResults);
   }
-  const bookRows = searchBooks(key, LIMIT);
-  const authorRows = searchAuthors(key, LIMIT);
+  // Deux lectures du magasin, un seul aller-retour : la seconde est servie
+  // depuis la mémoire par le plancher de fraîcheur (cf. `@/lib/store`).
+  const bookRows = await searchBooks(key, LIMIT);
+  const authorRows = await searchAuthors(key, LIMIT);
 
   // Les parcours vivent dans des fichiers, pas en base : filtrés en mémoire.
   const roadmapHits = ROADMAPS.filter(

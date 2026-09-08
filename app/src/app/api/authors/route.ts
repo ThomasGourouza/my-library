@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAuthor, listAuthors, type AuthorFilters } from "@/lib/queries";
-import { DuplicateError } from "@/lib/store";
+import { isConflict } from "@/lib/store";
+import { requireAuth } from "@/lib/auth";
 import { authorInputSchema } from "@/lib/validation";
 
 export async function GET(request: NextRequest) {
@@ -18,10 +19,13 @@ export async function GET(request: NextRequest) {
     const value = sp.get(key);
     if (value) filters[key] = value;
   }
-  return NextResponse.json({ authors: listAuthors(filters) });
+  return NextResponse.json({ authors: await listAuthors(filters) });
 }
 
 export async function POST(request: NextRequest) {
+  const denied = await requireAuth();
+  if (denied) return denied;
+
   let body: unknown;
   try {
     body = await request.json();
@@ -46,9 +50,14 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    return NextResponse.json({ author: createAuthor(parsed.data) }, { status: 201 });
+    return NextResponse.json(
+      { author: await createAuthor(parsed.data) },
+      { status: 201 }
+    );
   } catch (err) {
-    if (err instanceof DuplicateError) {
+    // Doublon refusé, ou source modifiée entre la lecture et l'écriture : dans
+    // les deux cas un 409 assorti du message, que les clients affichent en toast.
+    if (isConflict(err)) {
       return NextResponse.json({ error: err.message }, { status: 409 });
     }
     throw err;

@@ -18,13 +18,13 @@ type PageProps = { params: Promise<{ slug: string }> };
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const roadmap = getRoadmapBySlug((await params).slug);
+  const roadmap = await getRoadmapBySlug((await params).slug);
   return { title: roadmap ? roadmap.title : "Parcours introuvable" };
 }
 
 export default async function ParcoursDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const roadmap = getRoadmapBySlug(slug);
+  const roadmap = await getRoadmapBySlug(slug);
   if (!roadmap) notFound();
 
   const readCount = roadmap.items.filter((i) => i.book.read).length;

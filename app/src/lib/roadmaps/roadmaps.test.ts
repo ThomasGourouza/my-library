@@ -20,7 +20,7 @@ import { ROADMAPS } from "./index";
 import { resolveLibrary } from "./resolve";
 import { ROADMAP_FAMILIES } from "./types";
 
-const books = listBooks();
+const books = await listBooks();
 const resolved = resolveLibrary(books);
 const prios = priorityIndex();
 

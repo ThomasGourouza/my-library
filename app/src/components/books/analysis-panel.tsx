@@ -50,11 +50,22 @@ function Markdown({ children }: { children: string }) {
   );
 }
 
-export function AnalysisPanel({ book }: { book: BookWithAuthor }) {
+export function AnalysisPanel({
+  book,
+  disabled = false,
+}: {
+  book: BookWithAuthor;
+  /** Vrai quand la génération n'est pas disponible (application déployée). */
+  disabled?: boolean;
+}) {
   const router = useRouter();
 
+  // Clé neutralisée quand la génération est impossible : sans cela, l'affichage
+  // de **chaque** fiche livre déclenchait un GET — soit une invocation et une
+  // lecture complète de la bibliothèque de plus — pour des champs que `book`
+  // porte déjà. Le bouton mort et la requête inutile partent ensemble.
   const { data, mutate } = useSWR<AnalysisData>(
-    `/api/books/${book.id}/analysis`,
+    disabled ? null : `/api/books/${book.id}/analysis`,
     fetcher,
     // Polling 2 s uniquement tant qu'un job tourne (dérivé, pas d'état local).
     { refreshInterval: (latest) => (latest?.job?.status === "running" ? 2000 : 0) }
@@ -102,7 +113,11 @@ export function AnalysisPanel({ book }: { book: BookWithAuthor }) {
     }
   };
 
-  const button = running ? (
+  const button = disabled ? (
+    <p className="text-xs text-muted-foreground">
+      Génération disponible sur l’installation locale
+    </p>
+  ) : running ? (
     <Button disabled>
       <Loader2 className="size-4 animate-spin" aria-hidden />
       Génération en cours…
@@ -136,9 +151,19 @@ export function AnalysisPanel({ book }: { book: BookWithAuthor }) {
       {!hasContent && !running && (
         <Card>
           <CardContent className="py-8 text-center text-sm text-muted-foreground">
-            Aucune analyse pour ce livre. Lancez « Analyse Claude » pour
-            générer un résumé, une analyse approfondie et la biographie de
-            l&apos;auteur.
+            {disabled ? (
+              <>
+                Aucune analyse pour ce livre. « Analyse Claude » s&apos;exécute
+                depuis l&apos;installation locale ; les analyses produites
+                là-bas s&apos;affichent ensuite ici.
+              </>
+            ) : (
+              <>
+                Aucune analyse pour ce livre. Lancez « Analyse Claude » pour
+                générer un résumé, une analyse approfondie et la biographie de
+                l&apos;auteur.
+              </>
+            )}
           </CardContent>
         </Card>
       )}

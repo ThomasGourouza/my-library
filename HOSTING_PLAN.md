@@ -2,6 +2,24 @@
 
 > Plan d'exécution. Le document de construction initial est `PLAN.md` ; l'état
 > courant de l'application est décrit dans `app/README.md`.
+>
+> **Avancement (8 septembre 2026).** Étapes 0 à 4 et 7 faites et vérifiées en
+> local : passage à l'asynchrone, mutex de mutation, `assertIntegrity` avant
+> écriture, plancher de fraîcheur, backend GitHub, porte par mot de passe,
+> analyse désactivée en ligne, `app/vercel.json`, documentation. Restent les
+> étapes **5 (déploiement)** et **6 (l'aller-retour)**, qui demandent un compte
+> Vercel et un PAT — donc l'utilisateur. Ce que ces deux étapes vérifieront et
+> que rien d'autre ne peut vérifier : qu'un `PUT` d'un corps base64 de ~2 Mo
+> passe réellement (repli documenté à l'étape 2 : l'API Git Data).
+>
+> Deux écarts assumés par rapport au texte ci-dessous, tous deux notés à
+> l'endroit concerné : `mutate()` prend un second paramètre qui dérive le
+> message de commit (les 13 fonctions publiques et les routes, elles, gardent
+> leur signature) ; et `src/proxy.ts` vérifie la **signature** du cookie et pas
+> seulement sa présence — le proxy tourne sur le runtime Node.js depuis Next 16,
+> donc la raison invoquée plus bas (éviter de dupliquer la crypto entre deux
+> environnements) ne tient plus, la crypto étant dans un seul module appelé par
+> les deux couches. `requireAuth()` reste appelée par les 12 routes mutantes.
 
 ## Contexte
 

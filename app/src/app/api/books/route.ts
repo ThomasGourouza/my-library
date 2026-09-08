@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { authorExists, createBook, listBooks } from "@/lib/queries";
-import { DuplicateError } from "@/lib/store";
+import { createBook, listBooks } from "@/lib/queries";
+import { isConflict } from "@/lib/store";
+import { requireAuth } from "@/lib/auth";
 import { bookInputSchema, bookQuerySchema } from "@/lib/validation";
 
 export async function GET(request: NextRequest) {
@@ -17,10 +18,13 @@ export async function GET(request: NextRequest) {
       { status: 400 }
     );
   }
-  return NextResponse.json({ books: listBooks(parsed.data) });
+  return NextResponse.json({ books: await listBooks(parsed.data) });
 }
 
 export async function POST(request: NextRequest) {
+  const denied = await requireAuth();
+  if (denied) return denied;
+
   let body: unknown;
   try {
     body = await request.json();
@@ -43,16 +47,17 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
   }
-  const data = parsed.data;
 
-  if (data.authorId != null && !authorExists(data.authorId)) {
-    return NextResponse.json({ error: "Auteur introuvable" }, { status: 400 });
-  }
-
+  // L'existence de l'auteur est vérifiée dans le callback de `createBook`, et
+  // non plus ici : la lecture étant asynchrone, un contrôle fait dans la route
+  // pouvait être invalidé avant l'écriture — et fabriquer un livre orphelin.
   try {
-    return NextResponse.json({ book: createBook(data) }, { status: 201 });
+    return NextResponse.json(
+      { book: await createBook(parsed.data) },
+      { status: 201 }
+    );
   } catch (err) {
-    if (err instanceof DuplicateError) {
+    if (isConflict(err)) {
       return NextResponse.json({ error: err.message }, { status: 409 });
     }
     throw err;

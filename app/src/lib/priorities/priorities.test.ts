@@ -15,7 +15,7 @@ import { PRIORITY_ENTRIES } from "./index";
 import { priorityIndex, priorityOf, unresolvedEntries } from "./resolve";
 import { PRIORITIES, type Priority } from "./types";
 
-const books = listBooks();
+const books = await listBooks();
 const index = priorityIndex();
 
 /** Au-delà, le rang « Essentiel » ne se lit plus d'un trait et perd son usage. */

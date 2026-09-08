@@ -12,7 +12,6 @@
  */
 import type { BookWithAuthor } from "@/lib/types";
 import { normalizeKey } from "@/lib/normalize";
-import { listBooks } from "@/lib/queries";
 import { priorityIndex, priorityOf } from "@/lib/priorities/resolve";
 import type { Priority } from "@/lib/priorities/types";
 import { ROADMAPS } from "./index";
@@ -40,8 +39,8 @@ function entryKey(author: string, title: string): string {
 }
 
 /**
- * Index des livres par clé naturelle. Construit à la demande à partir de
- * `listBooks()` : ~2000 lignes, négligeable, et toujours à jour après un reseed.
+ * Index des livres par clé naturelle. Construit à la demande : ~2000 lignes,
+ * négligeable, et toujours à jour puisqu'il part des livres qu'on lui passe.
  */
 function buildBookIndex(books: BookWithAuthor[]): Map<string, BookWithAuthor> {
   const index = new Map<string, BookWithAuthor>();
@@ -68,11 +67,17 @@ export interface ResolvedLibrary {
 }
 
 /**
- * Résout tous les parcours d'un coup : une seule lecture de la base, un seul
- * index. Les pages qui en ont besoin appellent cette fonction plutôt que de
- * refaire le travail parcours par parcours.
+ * Résout tous les parcours d'un coup : un seul index, partagé. Les pages qui en
+ * ont besoin appellent cette fonction plutôt que de refaire le travail parcours
+ * par parcours.
+ *
+ * `books` est un paramètre **obligatoire**, et doit le rester. Il valait
+ * auparavant `listBooks()` par défaut, ce qui résolvait la bibliothèque deux
+ * fois sur l'accueil — et, la lecture étant devenue asynchrone, un appel de
+ * données dans un paramètre par défaut est de toute façon impossible à
+ * `await`.
  */
-export function resolveLibrary(books = listBooks()): ResolvedLibrary {
+export function resolveLibrary(books: BookWithAuthor[]): ResolvedLibrary {
   const index = buildBookIndex(books);
   const priorities = priorityIndex();
   const itemsBySlug = new Map<string, RoadmapItem[]>();

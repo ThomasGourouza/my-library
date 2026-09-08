@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { deleteList, getList, listInputSchema, updateList } from "@/lib/lists";
-import { DuplicateError } from "@/lib/store";
+import { isConflict } from "@/lib/store";
+import { requireAuth } from "@/lib/auth";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -15,11 +16,14 @@ const notFound = () =>
 export async function GET(_request: NextRequest, { params }: RouteContext) {
   const id = parseId((await params).id);
   if (id == null) return notFound();
-  const list = getList(id);
+  const list = await getList(id);
   return list ? NextResponse.json({ list }) : notFound();
 }
 
 export async function PUT(request: NextRequest, { params }: RouteContext) {
+  const denied = await requireAuth();
+  if (denied) return denied;
+
   const id = parseId((await params).id);
   if (id == null) return notFound();
 
@@ -45,10 +49,10 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
     );
   }
   try {
-    const list = updateList(id, parsed.data);
+    const list = await updateList(id, parsed.data);
     return list ? NextResponse.json({ list }) : notFound();
   } catch (err) {
-    if (err instanceof DuplicateError) {
+    if (isConflict(err)) {
       return NextResponse.json({ error: err.message }, { status: 409 });
     }
     throw err;
@@ -56,7 +60,17 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
 }
 
 export async function DELETE(_request: NextRequest, { params }: RouteContext) {
+  const denied = await requireAuth();
+  if (denied) return denied;
+
   const id = parseId((await params).id);
   if (id == null) return notFound();
-  return deleteList(id) ? NextResponse.json({ ok: true }) : notFound();
+  try {
+    return (await deleteList(id)) ? NextResponse.json({ ok: true }) : notFound();
+  } catch (err) {
+    if (isConflict(err)) {
+      return NextResponse.json({ error: err.message }, { status: 409 });
+    }
+    throw err;
+  }
 }

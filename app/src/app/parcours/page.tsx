@@ -6,8 +6,8 @@ export const dynamic = "force-dynamic";
 
 export const metadata = { title: "Parcours" };
 
-export default function ParcoursPage() {
-  const roadmaps = listRoadmaps();
+export default async function ParcoursPage() {
+  const roadmaps = await listRoadmaps();
 
   return (
     <React.Suspense fallback={null}>

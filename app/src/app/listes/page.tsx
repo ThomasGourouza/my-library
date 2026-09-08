@@ -5,6 +5,9 @@ export const dynamic = "force-dynamic";
 
 export const metadata = { title: "Mes listes" };
 
-export default function ListesPage() {
-  return <ListsView lists={listLists()} />;
+export default async function ListesPage() {
+  // Sorti du JSX : un appel de données en ligne n'est pas `await`-able là où il
+  // était.
+  const lists = await listLists();
+  return <ListsView lists={lists} />;
 }

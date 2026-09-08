@@ -6,15 +6,16 @@
  * règle doit être tenue en un seul endroit par lequel tous les appelants
  * passent — sinon la deuxième route qui crée un auteur oublie la vérification.
  * Elles sont donc ici, à côté des lectures, comme le faisait déjà `lists.ts`.
+ *
+ * Tout est asynchrone depuis que la source peut être distante (cf. `store.ts`).
+ * Conséquence à ne pas perdre de vue : **les contrôles d'existence appartiennent
+ * au callback de `mutate`**, jamais à la route. Un `getAuthor` suivi d'un
+ * `deleteAuthor` était atomique tant que la lecture l'était ; il ne l'est plus,
+ * et la fenêtre entre les deux laisse passer des livres orphelins — que
+ * `assertIntegrity` refuse ensuite de relire, ce qui met toutes les pages en
+ * 500.
  */
-import {
-  DuplicateError,
-  cmp,
-  mutate,
-  nextId,
-  now,
-  store,
-} from "@/lib/store";
+import { DuplicateError, ConflictError, cmp, mutate, nextId, now, store } from "@/lib/store";
 import type {
   Author,
   AuthorWithCount,
@@ -70,8 +71,8 @@ const SORTS: Record<
  * Liste des livres avec leur auteur, filtrée et triée.
  * Recherche insensible aux accents via les clés *Normalized.
  */
-export function listBooks(filters: BookQuery = {}): BookWithAuthor[] {
-  const s = store();
+export async function listBooks(filters: BookQuery = {}): Promise<BookWithAuthor[]> {
+  const s = await store();
   const authors = byId(s);
   const key = filters.search ? normalizeKey(filters.search) : null;
 
@@ -101,8 +102,8 @@ export function listBooks(filters: BookQuery = {}): BookWithAuthor[] {
   return rows;
 }
 
-export function getBook(id: number): BookWithAuthor | undefined {
-  const s = store();
+export async function getBook(id: number): Promise<BookWithAuthor | undefined> {
+  const s = await store();
   const book = s.books.find((b) => b.id === id);
   return book ? withAuthor(book, byId(s)) : undefined;
 }
@@ -116,8 +117,10 @@ export interface AuthorFilters {
   language?: string;
 }
 
-export function listAuthors(filters: AuthorFilters = {}): AuthorWithCount[] {
-  const s = store();
+export async function listAuthors(
+  filters: AuthorFilters = {}
+): Promise<AuthorWithCount[]> {
+  const s = await store();
   const key = filters.search ? normalizeKey(filters.search) : null;
 
   // Compté sur tous les livres : les filtres ne portent que sur des colonnes
@@ -139,10 +142,10 @@ export function listAuthors(filters: AuthorFilters = {}): AuthorWithCount[] {
     .sort((a, b) => cmp(a.nameNormalized, b.nameNormalized));
 }
 
-export function getAuthor(
+export async function getAuthor(
   id: number
-): (Author & { books: Book[] }) | undefined {
-  const s = store();
+): Promise<(Author & { books: Book[] }) | undefined> {
+  const s = await store();
   const author = s.authors.find((a) => a.id === id);
   if (!author) return undefined;
   return {
@@ -152,13 +155,6 @@ export function getAuthor(
       .sort((a, b) => cmp(a.titleNormalized, b.titleNormalized)),
   };
 }
-
-export function countBooksByAuthor(authorId: number): number {
-  return store().books.filter((b) => b.authorId === authorId).length;
-}
-
-export const authorExists = (id: number): boolean =>
-  store().authors.some((a) => a.id === id);
 
 /**
  * Valeurs distinctes pour alimenter les popovers de filtres.
@@ -179,8 +175,8 @@ export interface BookFilterOptions {
   courants: string[];
 }
 
-export function getBookFilterOptions(): BookFilterOptions {
-  const { books } = store();
+export async function getBookFilterOptions(): Promise<BookFilterOptions> {
+  const { books } = await store();
   return {
     genres: distinct(books.map((b) => b.genre)),
     courants: distinct(books.map((b) => b.courant)),
@@ -194,8 +190,8 @@ export interface AuthorFilterOptions {
   mainGenres: string[];
 }
 
-export function getAuthorFilterOptions(): AuthorFilterOptions {
-  const { authors } = store();
+export async function getAuthorFilterOptions(): Promise<AuthorFilterOptions> {
+  const { authors } = await store();
   return {
     nationalities: distinct(authors.map((a) => a.nationality)),
     languages: distinct(authors.map((a) => a.language)),
@@ -213,11 +209,11 @@ export function getAuthorFilterOptions(): AuthorFilterOptions {
 const prefixFirst = (value: string, key: string): number =>
   value.startsWith(key) ? 0 : 1;
 
-export function searchBooks(
+export async function searchBooks(
   key: string,
   limit: number
-): { id: number; title: string; author: string }[] {
-  const s = store();
+): Promise<{ id: number; title: string; author: string }[]> {
+  const s = await store();
   const authors = byId(s);
   return s.books
     .map((b) => withAuthor(b, authors))
@@ -234,11 +230,11 @@ export function searchBooks(
     .map((b) => ({ id: b.id, title: b.title, author: b.author.name }));
 }
 
-export function searchAuthors(
+export async function searchAuthors(
   key: string,
   limit: number
-): { id: number; name: string; bookCount: number }[] {
-  const s = store();
+): Promise<{ id: number; name: string; bookCount: number }[]> {
+  const s = await store();
   const counts = new Map<number, number>();
   for (const b of s.books) counts.set(b.authorId, (counts.get(b.authorId) ?? 0) + 1);
   return s.authors
@@ -290,53 +286,78 @@ function resolveAuthor(s: Store, input: AuthorInput): Author {
   return author;
 }
 
-export function createAuthor(input: AuthorInput): Author {
-  return mutate((s) => {
-    const key = normalizeKey(normalizeText(input.name));
-    if (s.authors.some((a) => a.nameNormalized === key)) {
-      throw new DuplicateError("Cet auteur existe déjà");
-    }
-    const author = makeAuthor(s, input);
-    s.authors.push(author);
-    return author;
-  });
+export function createAuthor(input: AuthorInput): Promise<Author> {
+  return mutate(
+    (s) => {
+      const key = normalizeKey(normalizeText(input.name));
+      if (s.authors.some((a) => a.nameNormalized === key)) {
+        throw new DuplicateError("Cet auteur existe déjà");
+      }
+      const author = makeAuthor(s, input);
+      s.authors.push(author);
+      return author;
+    },
+    (author) => `Ajout de l'auteur ${author.name}`
+  );
 }
 
 export function updateAuthor(
   id: number,
   input: AuthorUpdate
-): Author | undefined {
-  return mutate((s) => {
-    const author = s.authors.find((a) => a.id === id);
-    if (!author) return undefined;
-    if (input.name !== undefined) {
-      const name = normalizeText(input.name);
-      const key = normalizeKey(name);
-      if (s.authors.some((a) => a.id !== id && a.nameNormalized === key)) {
-        throw new DuplicateError("Cet auteur existe déjà");
+): Promise<Author | undefined> {
+  return mutate(
+    (s) => {
+      const author = s.authors.find((a) => a.id === id);
+      if (!author) return undefined;
+      if (input.name !== undefined) {
+        const name = normalizeText(input.name);
+        const key = normalizeKey(name);
+        if (s.authors.some((a) => a.id !== id && a.nameNormalized === key)) {
+          throw new DuplicateError("Cet auteur existe déjà");
+        }
+        author.name = name;
+        author.nameNormalized = key;
       }
-      author.name = name;
-      author.nameNormalized = key;
-    }
-    if (input.birthYear !== undefined) author.birthYear = input.birthYear ?? null;
-    if (input.deathYear !== undefined) author.deathYear = input.deathYear ?? null;
-    if (input.nationality !== undefined) author.nationality = input.nationality ?? null;
-    if (input.language !== undefined) author.language = input.language ?? null;
-    if (input.mainGenre !== undefined) author.mainGenre = input.mainGenre ?? null;
-    if (input.mainField !== undefined) author.mainField = input.mainField ?? null;
-    if (input.period !== undefined) author.period = input.period ?? null;
-    if (input.notes !== undefined) author.notes = input.notes ?? null;
-    return author;
-  });
+      if (input.birthYear !== undefined) author.birthYear = input.birthYear ?? null;
+      if (input.deathYear !== undefined) author.deathYear = input.deathYear ?? null;
+      if (input.nationality !== undefined) author.nationality = input.nationality ?? null;
+      if (input.language !== undefined) author.language = input.language ?? null;
+      if (input.mainGenre !== undefined) author.mainGenre = input.mainGenre ?? null;
+      if (input.mainField !== undefined) author.mainField = input.mainField ?? null;
+      if (input.period !== undefined) author.period = input.period ?? null;
+      if (input.notes !== undefined) author.notes = input.notes ?? null;
+      return author;
+    },
+    (author) => `Modification de l'auteur ${author?.name ?? id}`
+  );
 }
 
-export function deleteAuthor(id: number): boolean {
-  return mutate((s) => {
-    const i = s.authors.findIndex((a) => a.id === id);
-    if (i === -1) return false;
-    s.authors.splice(i, 1);
-    return true;
-  });
+/**
+ * Résultat d'une suppression d'auteur : ce que la route doit savoir pour
+ * choisir son code HTTP, obtenu **sans** seconde lecture.
+ *
+ * Le comptage des livres se fait ici, dans le callback, et non plus dans la
+ * route : `getAuthor` → `countBooksByAuthor` → `deleteAuthor` laissait une
+ * fenêtre pendant laquelle un livre pouvait être rattaché à l'auteur qu'on
+ * s'apprêtait à supprimer. Il en serait resté orphelin, et le fichier illisible.
+ */
+export type AuthorDeletion =
+  | { ok: true; name: string }
+  | { ok: false; reason: "missing" }
+  | { ok: false; reason: "books"; bookCount: number };
+
+export function deleteAuthor(id: number): Promise<AuthorDeletion> {
+  return mutate(
+    (s): AuthorDeletion => {
+      const i = s.authors.findIndex((a) => a.id === id);
+      if (i === -1) return { ok: false, reason: "missing" };
+      const bookCount = s.books.filter((b) => b.authorId === id).length;
+      if (bookCount > 0) return { ok: false, reason: "books", bookCount };
+      const [author] = s.authors.splice(i, 1);
+      return { ok: true, name: author.name };
+    },
+    (r) => (r.ok ? `Suppression de l'auteur ${r.name}` : "")
+  );
 }
 
 function makeBook(s: Store, input: BookInput, authorId: number): Book {
@@ -371,87 +392,119 @@ function makeBook(s: Store, input: BookInput, authorId: number): Book {
  * pour doublon ne laisse donc pas derrière lui l'auteur qu'on venait de créer,
  * ce que faisaient les deux insertions séparées de l'ancienne route.
  */
-export function createBook(input: BookInput): BookWithAuthor {
-  return mutate((s) => {
-    const author =
-      input.authorId != null
-        ? s.authors.find((a) => a.id === input.authorId)!
-        : resolveAuthor(s, input.newAuthor!);
-    const title = normalizeKey(normalizeText(input.title));
-    if (s.books.some((b) => b.authorId === author.id && b.titleNormalized === title)) {
-      throw new DuplicateError("Ce livre existe déjà pour cet auteur");
-    }
-    const book = makeBook(s, input, author.id);
-    s.books.push(book);
-    return { ...book, author };
-  });
+export function createBook(input: BookInput): Promise<BookWithAuthor> {
+  return mutate(
+    (s) => {
+      const author =
+        input.authorId != null
+          ? s.authors.find((a) => a.id === input.authorId)
+          : resolveAuthor(s, input.newAuthor!);
+      // Vérifié ici, dans le callback : la route ne peut pas le faire sans
+      // rouvrir la fenêtre que le magasin asynchrone a créée. Sans ce
+      // contrôle, le `!` d'origine fabriquait un livre orphelin.
+      if (!author) throw new ConflictError("Auteur introuvable");
+
+      const title = normalizeKey(normalizeText(input.title));
+      if (s.books.some((b) => b.authorId === author.id && b.titleNormalized === title)) {
+        throw new DuplicateError("Ce livre existe déjà pour cet auteur");
+      }
+      const book = makeBook(s, input, author.id);
+      s.books.push(book);
+      return { ...book, author };
+    },
+    (book) => `Ajout de ${book.title} (${book.author.name})`
+  );
 }
 
 export function updateBook(
   id: number,
   input: BookUpdate
-): BookWithAuthor | undefined {
-  return mutate((s) => {
-    const book = s.books.find((b) => b.id === id);
-    if (!book) return undefined;
+): Promise<BookWithAuthor | undefined> {
+  // Cocher « Lu » est de loin la modification la plus fréquente, et elle mérite
+  // un message qui la nomme plutôt qu'un « Modification » indifférencié.
+  const onlyRead =
+    input.read !== undefined &&
+    Object.keys(input).filter((k) => input[k as keyof BookUpdate] !== undefined)
+      .length === 1;
 
-    let authorId = book.authorId;
-    if (input.authorId != null) {
-      authorId = input.authorId;
-    } else if (input.newAuthor != null) {
-      authorId = resolveAuthor(s, input.newAuthor).id;
-    }
+  return mutate(
+    (s) => {
+      const book = s.books.find((b) => b.id === id);
+      if (!book) return undefined;
 
-    const titleNormalized =
-      input.title !== undefined
-        ? normalizeKey(normalizeText(input.title))
-        : book.titleNormalized;
-
-    if (titleNormalized !== book.titleNormalized || authorId !== book.authorId) {
-      if (
-        s.books.some(
-          (b) =>
-            b.id !== id &&
-            b.authorId === authorId &&
-            b.titleNormalized === titleNormalized
-        )
-      ) {
-        throw new DuplicateError("Ce livre existe déjà pour cet auteur");
+      let authorId = book.authorId;
+      if (input.authorId != null) {
+        if (!s.authors.some((a) => a.id === input.authorId)) {
+          throw new ConflictError("Auteur introuvable");
+        }
+        authorId = input.authorId;
+      } else if (input.newAuthor != null) {
+        authorId = resolveAuthor(s, input.newAuthor).id;
       }
-    }
 
-    book.authorId = authorId;
-    if (input.title !== undefined) {
-      book.title = normalizeText(input.title);
-      book.titleNormalized = titleNormalized;
-    }
-    if (input.category !== undefined) book.category = input.category;
-    if (input.genre !== undefined) book.genre = input.genre ?? null;
-    if (input.courant !== undefined) book.courant = input.courant ?? null;
-    if (input.theme !== undefined) book.theme = input.theme ?? null;
-    if (input.period !== undefined) book.period = input.period ?? null;
-    if (input.publicationYear !== undefined)
-      book.publicationYear = input.publicationYear ?? null;
-    if (input.audience !== undefined) book.audience = input.audience;
-    if (input.originalLanguage !== undefined)
-      book.originalLanguage = input.originalLanguage ?? null;
-    if (input.notes !== undefined) book.notes = input.notes ?? null;
-    if (input.read !== undefined) book.read = input.read;
+      const titleNormalized =
+        input.title !== undefined
+          ? normalizeKey(normalizeText(input.title))
+          : book.titleNormalized;
 
-    return { ...book, author: s.authors.find((a) => a.id === authorId)! };
-  });
+      if (titleNormalized !== book.titleNormalized || authorId !== book.authorId) {
+        if (
+          s.books.some(
+            (b) =>
+              b.id !== id &&
+              b.authorId === authorId &&
+              b.titleNormalized === titleNormalized
+          )
+        ) {
+          throw new DuplicateError("Ce livre existe déjà pour cet auteur");
+        }
+      }
+
+      book.authorId = authorId;
+      if (input.title !== undefined) {
+        book.title = normalizeText(input.title);
+        book.titleNormalized = titleNormalized;
+      }
+      if (input.category !== undefined) book.category = input.category;
+      if (input.genre !== undefined) book.genre = input.genre ?? null;
+      if (input.courant !== undefined) book.courant = input.courant ?? null;
+      if (input.theme !== undefined) book.theme = input.theme ?? null;
+      if (input.period !== undefined) book.period = input.period ?? null;
+      if (input.publicationYear !== undefined)
+        book.publicationYear = input.publicationYear ?? null;
+      if (input.audience !== undefined) book.audience = input.audience;
+      if (input.originalLanguage !== undefined)
+        book.originalLanguage = input.originalLanguage ?? null;
+      if (input.notes !== undefined) book.notes = input.notes ?? null;
+      if (input.read !== undefined) book.read = input.read;
+
+      return { ...book, author: s.authors.find((a) => a.id === authorId)! };
+    },
+    (book) => {
+      if (!book) return "";
+      if (onlyRead) {
+        return `${book.title} — ${book.read ? "lu" : "non lu"}`;
+      }
+      return `Modification de ${book.title}`;
+    }
+  );
 }
 
-export function deleteBook(id: number): boolean {
-  return mutate((s) => {
-    const i = s.books.findIndex((b) => b.id === id);
-    if (i === -1) return false;
-    s.books.splice(i, 1);
-    // Ce que faisait ON DELETE CASCADE sur list_items.
-    for (const list of s.lists) {
-      const j = list.items.findIndex((it) => it.bookId === id);
-      if (j !== -1) list.items.splice(j, 1);
-    }
-    return true;
-  });
+export function deleteBook(id: number): Promise<boolean> {
+  let title = "";
+  return mutate(
+    (s) => {
+      const i = s.books.findIndex((b) => b.id === id);
+      if (i === -1) return false;
+      title = s.books[i].title;
+      s.books.splice(i, 1);
+      // Ce que faisait ON DELETE CASCADE sur list_items.
+      for (const list of s.lists) {
+        const j = list.items.findIndex((it) => it.bookId === id);
+        if (j !== -1) list.items.splice(j, 1);
+      }
+      return true;
+    },
+    (ok) => (ok ? `Suppression de ${title}` : "")
+  );
 }

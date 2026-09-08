@@ -18,7 +18,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const id = parseId((await params).id);
-  const list = id != null ? getList(id) : undefined;
+  const list = id != null ? await getList(id) : undefined;
   return { title: list ? list.name : "Liste introuvable" };
 }
 
@@ -26,7 +26,7 @@ export default async function ListeDetailPage({ params }: PageProps) {
   const id = parseId((await params).id);
   if (id == null) notFound();
 
-  const list = getList(id);
+  const list = await getList(id);
   if (!list) notFound();
 
   // Les priorités viennent de fichiers versionnés, pas de la base : elles se

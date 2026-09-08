@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  countBooksByAuthor,
-  deleteAuthor,
-  getAuthor,
-  updateAuthor,
-} from "@/lib/queries";
-import { DuplicateError } from "@/lib/store";
+import { deleteAuthor, getAuthor, updateAuthor } from "@/lib/queries";
+import { isConflict } from "@/lib/store";
+import { requireAuth } from "@/lib/auth";
 import { authorUpdateSchema } from "@/lib/validation";
 
 type RouteContext = { params: Promise<{ id: string }> };
@@ -22,12 +18,15 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
   const id = parseId((await params).id);
   if (id == null) return notFoundResponse();
 
-  const author = getAuthor(id);
+  const author = await getAuthor(id);
   if (!author) return notFoundResponse();
   return NextResponse.json({ author });
 }
 
 export async function PUT(request: NextRequest, { params }: RouteContext) {
+  const denied = await requireAuth();
+  if (denied) return denied;
+
   const id = parseId((await params).id);
   if (id == null) return notFoundResponse();
 
@@ -55,11 +54,11 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
   }
 
   try {
-    const author = updateAuthor(id, parsed.data);
+    const author = await updateAuthor(id, parsed.data);
     if (!author) return notFoundResponse();
     return NextResponse.json({ author });
   } catch (err) {
-    if (err instanceof DuplicateError) {
+    if (isConflict(err)) {
       return NextResponse.json({ error: err.message }, { status: 409 });
     }
     throw err;
@@ -67,22 +66,32 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
 }
 
 export async function DELETE(_request: NextRequest, { params }: RouteContext) {
+  const denied = await requireAuth();
+  if (denied) return denied;
+
   const id = parseId((await params).id);
   if (id == null) return notFoundResponse();
 
-  if (!getAuthor(id)) return notFoundResponse();
-  const bookCount = countBooksByAuthor(id);
-  if (bookCount > 0) {
+  // Existence et comptage des livres sont décidés **dans** la mutation, pas
+  // ici : la séquence getAuthor → countBooksByAuthor → deleteAuthor laissait
+  // passer, entre le comptage et la suppression, un livre rattaché à cet
+  // auteur. Il en serait resté orphelin, et le fichier illisible à la lecture
+  // suivante — donc toutes les pages en 500.
+  try {
+    const result = await deleteAuthor(id);
+    if (result.ok) return NextResponse.json({ ok: true });
+    if (result.reason === "missing") return notFoundResponse();
     return NextResponse.json(
       {
-        error:
-          "Impossible de supprimer : des livres sont rattachés à cet auteur",
-        bookCount,
+        error: "Impossible de supprimer : des livres sont rattachés à cet auteur",
+        bookCount: result.bookCount,
       },
       { status: 409 }
     );
+  } catch (err) {
+    if (isConflict(err)) {
+      return NextResponse.json({ error: err.message }, { status: 409 });
+    }
+    throw err;
   }
-
-  deleteAuthor(id);
-  return NextResponse.json({ ok: true });
 }

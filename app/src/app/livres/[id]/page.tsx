@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getBook } from "@/lib/queries";
+import { analysisEnabled } from "@/lib/store";
 import { getRoadmapsForBook } from "@/lib/roadmaps/queries";
 import { priorityOf } from "@/lib/priorities/resolve";
 import { PriorityBadge } from "@/components/books/priority-badge";
@@ -29,14 +30,14 @@ export default async function LivreDetailPage({
   const id = Number(rawId);
   if (!Number.isInteger(id) || id <= 0) notFound();
 
-  const book = getBook(id);
+  const book = await getBook(id);
   if (!book) notFound();
 
   const lifespan = formatLifespan(book.author.birthYear, book.author.deathYear);
   const year = formatYear(book.publicationYear);
-  const roadmaps = getRoadmapsForBook(book.id);
+  const roadmaps = await getRoadmapsForBook(book.id);
   const priority = priorityOf(book);
-  const memberOf = getListsForBook(book.id);
+  const memberOf = await getListsForBook(book.id);
 
   return (
     <div className="space-y-6">
@@ -150,7 +151,7 @@ export default async function LivreDetailPage({
         </section>
       )}
 
-      <AnalysisPanel book={book} />
+      <AnalysisPanel book={book} disabled={!analysisEnabled()} />
     </div>
   );
 }

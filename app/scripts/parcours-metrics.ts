@@ -13,7 +13,8 @@ import { resolveLibrary } from "@/lib/roadmaps/resolve";
 import { priorityIndex, priorityOf } from "@/lib/priorities/resolve";
 import { PRIORITIES, PRIORITY_LABELS, type Priority } from "@/lib/priorities/types";
 
-const books = listBooks();
+async function main() {
+const books = await listBooks();
 const { itemsBySlug, refsByBookId } = resolveLibrary(books);
 const idx = priorityIndex();
 
@@ -68,3 +69,11 @@ for (const p of horsNorme.slice(0, 12)) {
   console.log(`  ${p.pctSpe.toFixed(0).padStart(3)} % spé · ${String(p.ei).padStart(2)} E+I · ${String(p.n).padStart(3)} entrées  ${p.slug}`);
 }
 if (horsNorme.length > 12) console.log(`  … et ${horsNorme.length - 12} autres`);
+}
+
+// La lecture de la bibliothèque est asynchrone (cf. `@/lib/store`) : le corps
+// du script vit dans un `main()`, faute de quoi rien ne pourrait être `await`.
+main().catch((e) => {
+  console.error(e);
+  process.exitCode = 1;
+});

@@ -11,7 +11,7 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const book = getBook(Number(id));
+  const book = await getBook(Number(id));
   return { title: book ? `Modifier « ${book.title} »` : "Modifier" };
 }
 
@@ -24,10 +24,10 @@ export default async function ModifierLivrePage({
   const id = Number(rawId);
   if (!Number.isInteger(id) || id <= 0) notFound();
 
-  const book = getBook(id);
+  const book = await getBook(id);
   if (!book) notFound();
 
-  const authors = listAuthors().map((a) => ({ id: a.id, name: a.name }));
+  const authors = (await listAuthors()).map((a) => ({ id: a.id, name: a.name }));
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">

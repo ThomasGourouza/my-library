@@ -1,11 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import {
-  authorExists,
-  deleteBook,
-  getBook,
-  updateBook,
-} from "@/lib/queries";
-import { DuplicateError } from "@/lib/store";
+import { deleteBook, getBook, updateBook } from "@/lib/queries";
+import { isConflict } from "@/lib/store";
+import { requireAuth } from "@/lib/auth";
 import { bookUpdateSchema } from "@/lib/validation";
 
 type RouteContext = { params: Promise<{ id: string }> };
@@ -22,12 +18,15 @@ export async function GET(_request: NextRequest, { params }: RouteContext) {
   const id = parseId((await params).id);
   if (id == null) return notFoundResponse();
 
-  const book = getBook(id);
+  const book = await getBook(id);
   if (!book) return notFoundResponse();
   return NextResponse.json({ book });
 }
 
 export async function PUT(request: NextRequest, { params }: RouteContext) {
+  const denied = await requireAuth();
+  if (denied) return denied;
+
   const id = parseId((await params).id);
   if (id == null) return notFoundResponse();
 
@@ -53,21 +52,16 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
       { status: 400 }
     );
   }
-  const data = parsed.data;
 
-  if (data.authorId != null && !authorExists(data.authorId)) {
-    return NextResponse.json({ error: "Auteur introuvable" }, { status: 400 });
-  }
-
-  // `updateBook` porte la règle d'unicité (titre, auteur) : une seule
-  // vérification, là où la route en faisait une avant l'UPDATE et rattrapait
-  // en plus la violation de contrainte SQL après.
+  // `updateBook` porte la règle d'unicité (titre, auteur) et l'existence de
+  // l'auteur : une seule vérification, dans la mutation, là où elle ne peut
+  // plus être invalidée entre le contrôle et l'écriture.
   try {
-    const book = updateBook(id, data);
+    const book = await updateBook(id, parsed.data);
     if (!book) return notFoundResponse();
     return NextResponse.json({ book });
   } catch (err) {
-    if (err instanceof DuplicateError) {
+    if (isConflict(err)) {
       return NextResponse.json({ error: err.message }, { status: 409 });
     }
     throw err;
@@ -75,10 +69,20 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
 }
 
 export async function DELETE(_request: NextRequest, { params }: RouteContext) {
+  const denied = await requireAuth();
+  if (denied) return denied;
+
   const id = parseId((await params).id);
   if (id == null) return notFoundResponse();
 
   // Emporte les entrées de listes qui désignaient ce livre.
-  if (!deleteBook(id)) return notFoundResponse();
-  return NextResponse.json({ ok: true });
+  try {
+    if (!(await deleteBook(id))) return notFoundResponse();
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    if (isConflict(err)) {
+      return NextResponse.json({ error: err.message }, { status: 409 });
+    }
+    throw err;
+  }
 }
