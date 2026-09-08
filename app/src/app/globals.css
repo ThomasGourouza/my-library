@@ -117,12 +117,25 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-/* Hauteur disponible à l'intérieur de <main>, sous l'en-tête (cf. app/layout.tsx :
-   en-tête h-14 = 3.5rem + 1px de bordure, padding vertical de <main> py-6 =
-   2 x 1.5rem). Permet à une page de remplir l'écran et de gérer son propre
-   défilement plutôt que de faire défiler la fenêtre. */
+/* Hauteur disponible à l'intérieur de <main>, sous l'en-tête. Permet à une page
+   de remplir l'écran et de gérer son propre défilement plutôt que de faire
+   défiler la fenêtre.
+
+   Deux valeurs, parce que l'en-tête change de forme (cf. components/main-nav.tsx) :
+   - sous 768 px : logo + actions (h-14 = 3.5rem) puis les onglets (h-11 =
+     2.75rem), plus 1px de bordure, et <main> en py-4 (2 x 1rem) ;
+   - au-delà : tout sur un rang (3.5rem) et <main> en py-6 (2 x 1.5rem).
+
+   100dvh et non 100vh : sur mobile la barre d'adresse fait varier la hauteur
+   visible, et 100vh laisse alors le bas de la liste sous l'écran. */
 :root {
-  --app-content-h: calc(100dvh - 3.5rem - 1px - 3rem);
+  --app-content-h: calc(100dvh - 3.5rem - 2.75rem - 1px - 2rem);
+}
+
+@media (width >= 48rem) {
+  :root {
+    --app-content-h: calc(100dvh - 3.5rem - 1px - 3rem);
+  }
 }
 
 /* Largeur des pages de liste.

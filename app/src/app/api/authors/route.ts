@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
-import { db } from "@/db";
-import { authors } from "@/db/schema";
-import { listAuthors, type AuthorFilters } from "@/lib/queries";
-import { normalizeKey, normalizeText } from "@/lib/normalize";
+import { createAuthor, listAuthors, type AuthorFilters } from "@/lib/queries";
+import { DuplicateError } from "@/lib/store";
 import { authorInputSchema } from "@/lib/validation";
 
 export async function GET(request: NextRequest) {
@@ -48,37 +45,12 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const name = normalizeText(parsed.data.name);
-  const nameNormalized = normalizeKey(name);
-
-  const existing = db
-    .select({ id: authors.id })
-    .from(authors)
-    .where(eq(authors.nameNormalized, nameNormalized))
-    .get();
-  if (existing) {
-    return NextResponse.json(
-      { error: "Cet auteur existe déjà" },
-      { status: 409 }
-    );
+  try {
+    return NextResponse.json({ author: createAuthor(parsed.data) }, { status: 201 });
+  } catch (err) {
+    if (err instanceof DuplicateError) {
+      return NextResponse.json({ error: err.message }, { status: 409 });
+    }
+    throw err;
   }
-
-  const author = db
-    .insert(authors)
-    .values({
-      name,
-      nameNormalized,
-      birthYear: parsed.data.birthYear ?? null,
-      deathYear: parsed.data.deathYear ?? null,
-      nationality: parsed.data.nationality ?? null,
-      language: parsed.data.language ?? null,
-      mainGenre: parsed.data.mainGenre ?? null,
-      mainField: parsed.data.mainField ?? null,
-      period: parsed.data.period ?? null,
-      notes: parsed.data.notes ?? null,
-    })
-    .returning()
-    .get();
-
-  return NextResponse.json({ author }, { status: 201 });
 }

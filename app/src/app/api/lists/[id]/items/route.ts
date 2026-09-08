@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
 import { z } from "zod";
-import { db } from "@/db";
-import { books, lists } from "@/db/schema";
+import { store } from "@/lib/store";
 import {
   addBookToList,
   getList,
@@ -26,8 +24,9 @@ function parseId(raw: string): number | null {
 async function resolve(context: RouteContext, request: NextRequest) {
   const listId = parseId((await context.params).id);
   if (listId == null) return { error: "Liste introuvable" as const, status: 404 };
-  const list = db.select({ id: lists.id }).from(lists).where(eq(lists.id, listId)).get();
-  if (!list) return { error: "Liste introuvable" as const, status: 404 };
+  if (!store().lists.some((l) => l.id === listId)) {
+    return { error: "Liste introuvable" as const, status: 404 };
+  }
 
   let body: unknown;
   try {
@@ -39,12 +38,9 @@ async function resolve(context: RouteContext, request: NextRequest) {
   if (!parsed.success) {
     return { error: "Données invalides" as const, status: 400 };
   }
-  const book = db
-    .select({ id: books.id })
-    .from(books)
-    .where(eq(books.id, parsed.data.bookId))
-    .get();
-  if (!book) return { error: "Livre introuvable" as const, status: 404 };
+  if (!store().books.some((b) => b.id === parsed.data.bookId)) {
+    return { error: "Livre introuvable" as const, status: 404 };
+  }
 
   return { listId, data: parsed.data };
 }

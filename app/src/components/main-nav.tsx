@@ -50,16 +50,31 @@ export function MainNav() {
   const pathname = usePathname();
   return (
     <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
-      <div className="mx-auto flex h-14 max-w-7xl items-center gap-3 px-4 sm:gap-6 sm:px-6">
-        <Link href="/" className="flex shrink-0 items-center gap-2 font-semibold">
+      {/* Un seul rang au-delà de 768 px ; en dessous, les onglets passent sur
+          un second rang (`order` + `w-full`) plutôt que d'être comprimés avec
+          le logo et les actions. Rendre la barre deux fois aurait donné deux
+          repères de navigation au lecteur d'écran ; ici c'est le même nœud qui
+          change de place.
+          ⚠️ Les deux hauteurs (3.5rem + 2.75rem) sont reprises par
+          --app-content-h dans globals.css : les modifier ici impose de mettre
+          cette variable à jour. */}
+      <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-x-3 px-4 sm:gap-x-6 sm:px-6">
+        <Link
+          href="/"
+          className="order-1 flex h-14 shrink-0 items-center gap-2 font-semibold"
+        >
           <LibraryBig className="size-5" aria-hidden />
-          {/* Sous 640 px, le nom faisait passer l'en-tête sur deux lignes et
-              poussait la bascule de thème hors de l'écran. L'icône reste le
+          {/* Le nom prenait la place des onglets sous 640 px. L'icône reste le
               lien vers l'accueil, et le nom revient dès qu'il y a la place. */}
           <span className="hidden sm:inline">Ma Bibliothèque</span>
           <span className="sr-only sm:hidden">Ma Bibliothèque</span>
         </Link>
-        <nav className="flex items-center gap-1" aria-label="Navigation principale">
+        <nav
+          // Défilement horizontal : garde-fou si un onglet s'ajoute un jour.
+          // Les cinq actuels tiennent sur 390 px.
+          className="order-3 -mx-1 flex h-11 w-full items-center gap-1 overflow-x-auto px-1 md:order-2 md:mx-0 md:h-14 md:w-auto md:overflow-visible md:px-0"
+          aria-label="Navigation principale"
+        >
           {tabs.map((tab) => {
             // « / » n'est actif que sur lui-même : sans ce cas particulier,
             // startsWith("/") le rendrait actif sur toutes les pages.
@@ -73,7 +88,7 @@ export function MainNav() {
                 href={tab.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
+                  "flex shrink-0 items-center rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
                   active
                     ? "bg-secondary text-secondary-foreground"
                     : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
@@ -84,7 +99,7 @@ export function MainNav() {
             );
           })}
         </nav>
-        <div className="ml-auto flex items-center gap-2">
+        <div className="order-2 ml-auto flex h-14 items-center gap-2 md:order-3">
           <CommandPalette />
           <ThemeToggle />
         </div>

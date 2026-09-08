@@ -213,6 +213,98 @@ export function isSortableColumn(id: string): id is SortableColumn {
   return (SORTABLE_COLUMNS as readonly string[]).includes(id);
 }
 
+/**
+ * Comparateurs de tri, partagés par la table (via ses `sortingFn`) et par la
+ * liste mobile.
+ *
+ * Ils vivaient dans books-table.tsx sous la forme attendue par TanStack
+ * (`(rowA, rowB, columnId)`), inutilisable sur un simple tableau. Les voici au
+ * niveau des valeurs : la table les enveloppe, la liste les appelle
+ * directement, et les deux vues trient donc identiquement — un ordre qui
+ * diverge selon la largeur de l'écran serait invisible en revue et pénible à
+ * diagnostiquer.
+ */
+
+/** Texte, collation française, valeurs nulles en dernier. */
+export function compareText(a: string | null, b: string | null): number {
+  if (a == null && b == null) return 0;
+  if (a == null) return 1;
+  if (b == null) return -1;
+  return a.localeCompare(b, "fr");
+}
+
+/** Nombres (années négatives = av. J.-C.), valeurs nulles en dernier. */
+export function compareNumber(a: number | null, b: number | null): number {
+  if (a == null && b == null) return 0;
+  if (a == null) return 1;
+  if (b == null) return -1;
+  return a - b;
+}
+
+/** Les parcours se trient sur leurs titres concaténés, comme dans la table ;
+ *  un livre sans parcours vaut null, donc part en dernier. */
+function roadmapKey(book: BookWithRoadmaps): string | null {
+  return book.roadmaps.length
+    ? book.roadmaps.map((r) => r.title).join(" · ")
+    : null;
+}
+
+/** Compare deux livres sur une colonne. Les champs lus sont exactement ceux
+ *  des `accessorFn` de la table. */
+export function compareBooks(
+  a: BookWithRoadmaps,
+  b: BookWithRoadmaps,
+  column: SortableColumn
+): number {
+  switch (column) {
+    // Croissant = les non lus d'abord, ce qu'on cherche en triant là-dessus.
+    case "read":
+      return Number(a.read) - Number(b.read);
+    case "title":
+      return compareText(a.titleNormalized, b.titleNormalized);
+    case "author":
+      return compareText(a.author.nameNormalized, b.author.nameNormalized);
+    case "priority":
+      return priorityRank(a.priority) - priorityRank(b.priority);
+    case "period":
+      return periodRank(a.period) - periodRank(b.period);
+    case "publicationYear":
+      return compareNumber(a.publicationYear, b.publicationYear);
+    case "roadmaps":
+      return compareText(roadmapKey(a), roadmapKey(b));
+    case "category":
+      return compareText(a.category, b.category);
+    case "genre":
+      return compareText(a.genre, b.genre);
+    case "courant":
+      return compareText(a.courant, b.courant);
+    case "theme":
+      return compareText(a.theme, b.theme);
+    case "originalLanguage":
+      return compareText(a.originalLanguage, b.originalLanguage);
+    case "audience":
+      return compareText(a.audience, b.audience);
+  }
+}
+
+/**
+ * Trie une copie de `books`. Le titre départage toujours, en croissant, pour
+ * que l'ordre soit stable d'un rendu à l'autre — la table fait de même via son
+ * tri secondaire.
+ */
+export function sortBooks(
+  books: BookWithRoadmaps[],
+  column: SortableColumn,
+  desc: boolean
+): BookWithRoadmaps[] {
+  const sign = desc ? -1 : 1;
+  return [...books].sort(
+    (a, b) =>
+      sign * compareBooks(a, b, column) ||
+      compareText(a.titleNormalized, b.titleNormalized)
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Libellés
 // ---------------------------------------------------------------------------

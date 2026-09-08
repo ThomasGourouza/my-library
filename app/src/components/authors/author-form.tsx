@@ -6,7 +6,7 @@ import { Controller, useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-import type { Author } from "@/db/schema";
+import type { Author } from "@/lib/types";
 import { CATEGORIES, PERIODS } from "@/lib/validation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -261,13 +261,19 @@ export function AuthorForm({ author }: { author?: Author }) {
         <Textarea id="notes" rows={4} {...register("notes")} />
       </div>
 
-      <div className="flex items-center gap-2">
-        <Button type="submit" disabled={isSubmitting}>
+      {/* Comme dans book-form : pleine largeur et empilés sur mobile. */}
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+        <Button
+          type="submit"
+          className="h-10 w-full sm:h-8 sm:w-auto"
+          disabled={isSubmitting}
+        >
           Enregistrer
         </Button>
         <Button
           type="button"
           variant="outline"
+          className="h-10 w-full sm:h-8 sm:w-auto"
           onClick={() => router.back()}
         >
           Annuler

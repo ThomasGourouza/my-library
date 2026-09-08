@@ -1,8 +1,9 @@
 /**
  * Accès aux parcours pour les pages. Même style que `@/lib/queries` :
- * fonctions synchrones (better-sqlite3 l'est), types de retour explicites.
+ * fonctions synchrones (la lecture du fichier de données l'est), types de
+ * retour explicites.
  */
-import type { BookWithAuthor } from "@/db/schema";
+import type { BookWithAuthor } from "@/lib/types";
 import { listBooks } from "@/lib/queries";
 import { priorityIndex, priorityOf } from "@/lib/priorities/resolve";
 import type { Priority } from "@/lib/priorities/types";

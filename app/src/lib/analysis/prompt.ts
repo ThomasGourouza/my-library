@@ -1,4 +1,4 @@
-import type { Author, Book } from "@/db/schema";
+import type { Author, Book } from "@/lib/types";
 import { formatLifespan, formatYear } from "@/lib/normalize";
 
 /** Résultat structuré attendu de l'agent (voir buildSchema). */

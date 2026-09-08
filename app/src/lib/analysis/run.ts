@@ -1,7 +1,6 @@
 import { query } from "@anthropic-ai/claude-agent-sdk";
-import { eq, sql } from "drizzle-orm";
-import { db } from "@/db";
-import { analysisJobs, authors, books } from "@/db/schema";
+import { mutate, store } from "@/lib/store";
+import { finishJob } from "@/lib/analysis/jobs";
 import {
   buildPrompt,
   buildSchema,
@@ -76,13 +75,10 @@ function isAnalysisResult(v: unknown): v is AnalysisResult {
  */
 export async function runAnalysis(bookId: number, jobId: number): Promise<void> {
   try {
-    const book = db.select().from(books).where(eq(books.id, bookId)).get();
+    const s = store();
+    const book = s.books.find((b) => b.id === bookId);
     if (!book) throw new Error("Livre introuvable");
-    const author = db
-      .select()
-      .from(authors)
-      .where(eq(authors.id, book.authorId))
-      .get();
+    const author = s.authors.find((a) => a.id === book.authorId);
     if (!author) throw new Error("Auteur introuvable");
 
     // Règle de réutilisation : la bio n'est générée qu'une fois par auteur.
@@ -129,61 +125,38 @@ export async function runAnalysis(bookId: number, jobId: number): Promise<void> 
     }
     if (!result) throw new Error("Réponse de l'agent illisible (JSON attendu)");
 
-    const now = new Date().toISOString();
-    db.transaction((tx) => {
-      tx.update(books)
-        .set({
-          summary: result.summary,
-          analysis: result.analysis,
-          analysisGeneratedAt: now,
-          updatedAt: sql`(datetime('now'))`,
-        })
-        .where(eq(books.id, bookId))
-        .run();
+    const generatedAt = new Date().toISOString();
+    // Une seule mutation, et les enregistrements retrouvés PAR IDENTIFIANT
+    // dans le magasin qu'elle fournit : `book` et `author` ci-dessus ont été
+    // lus avant l'appel agent (~1 min) et peuvent appartenir à une version
+    // périmée du fichier. C'est la règle que la transaction SQL tenait à sa
+    // place, avec sa relecture explicite.
+    mutate((fresh) => {
+      const b = fresh.books.find((x) => x.id === bookId);
+      if (!b) throw new Error("Livre introuvable");
+      b.summary = result.summary;
+      b.analysis = result.analysis;
+      b.analysisGeneratedAt = generatedAt;
 
-      if (includeBio && result.authorBio) {
-        // Relecture DANS la transaction : `author` a été lu avant l'appel
-        // agent (~1 min). Re-vérifier bio == null évite (a) d'écraser une
-        // saisie faite par l'utilisateur pendant l'analyse et (b) une double
-        // génération de bio si deux analyses du même auteur tournent en //.
-        const current = tx
-          .select()
-          .from(authors)
-          .where(eq(authors.id, author.id))
-          .get();
-        if (current && current.bio == null) {
-          const info = result.authorInfo ?? {};
-          // Enrichissement fill-only-if-null : jamais d'écrasement.
-          tx.update(authors)
-            .set({
-              bio: result.authorBio,
-              bioGeneratedAt: now,
-              nationality: current.nationality ?? info.nationality ?? null,
-              language: current.language ?? info.language ?? null,
-              birthYear: current.birthYear ?? info.birthYear ?? null,
-              deathYear: current.deathYear ?? info.deathYear ?? null,
-              mainGenre: current.mainGenre ?? info.mainGenre ?? null,
-              mainField: current.mainField ?? info.mainField ?? null,
-              updatedAt: sql`(datetime('now'))`,
-            })
-            .where(eq(authors.id, author.id))
-            .run();
-        }
+      const a = fresh.authors.find((x) => x.id === b.authorId);
+      // Re-vérifier bio == null évite (a) d'écraser une saisie faite par
+      // l'utilisateur pendant l'analyse et (b) une double génération de bio si
+      // deux analyses du même auteur tournent en parallèle.
+      if (includeBio && result.authorBio && a && a.bio == null) {
+        const info = result.authorInfo ?? {};
+        a.bio = result.authorBio;
+        a.bioGeneratedAt = generatedAt;
+        // Enrichissement fill-only-if-null : jamais d'écrasement.
+        a.nationality ??= info.nationality ?? null;
+        a.language ??= info.language ?? null;
+        a.birthYear ??= info.birthYear ?? null;
+        a.deathYear ??= info.deathYear ?? null;
+        a.mainGenre ??= info.mainGenre ?? null;
+        a.mainField ??= info.mainField ?? null;
       }
-
-      tx.update(analysisJobs)
-        .set({ status: "done", finishedAt: sql`(datetime('now'))` })
-        .where(eq(analysisJobs.id, jobId))
-        .run();
     });
+    finishJob(jobId, "done");
   } catch (e) {
-    db.update(analysisJobs)
-      .set({
-        status: "error",
-        error: e instanceof Error ? e.message : String(e),
-        finishedAt: sql`(datetime('now'))`,
-      })
-      .where(eq(analysisJobs.id, jobId))
-      .run();
+    finishJob(jobId, "error", e instanceof Error ? e.message : String(e));
   }
 }

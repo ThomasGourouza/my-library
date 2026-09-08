@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createList, listInputSchema, listLists } from "@/lib/lists";
+import { DuplicateError } from "@/lib/store";
 
 export async function GET() {
   return NextResponse.json({ lists: listLists() });
@@ -31,11 +32,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ list: createList(parsed.data) }, { status: 201 });
   } catch (err) {
     // Le nom normalisé est unique : deux « À lire cet été » sont la même liste.
-    if (err instanceof Error && err.message.includes("UNIQUE")) {
-      return NextResponse.json(
-        { error: "Une liste porte déjà ce nom" },
-        { status: 409 }
-      );
+    if (err instanceof DuplicateError) {
+      return NextResponse.json({ error: err.message }, { status: 409 });
     }
     throw err;
   }

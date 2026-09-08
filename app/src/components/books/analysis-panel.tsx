@@ -6,7 +6,7 @@ import useSWR from "swr";
 import ReactMarkdown from "react-markdown";
 import { Loader2, RefreshCw, Sparkles } from "lucide-react";
 import { toast } from "sonner";
-import type { AnalysisJob, BookWithAuthor } from "@/db/schema";
+import type { AnalysisJob, BookWithAuthor } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import {
   Card,

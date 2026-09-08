@@ -8,6 +8,10 @@ import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
 import { PERIODS } from "@/lib/validation";
 import {
   COLUMN_IDS,
+  SORTABLE_COLUMNS,
+  compareBooks,
+  compareText,
+  sortBooks,
   COLUMN_LABELS,
   DEFAULT_HIDDEN_COLUMNS,
   EMPTY_FILTERS,
@@ -42,7 +46,6 @@ function book(partial: Partial<BookWithRoadmaps> & { title: string }) {
     read: false,
     authorId: 1,
     createdAt: "",
-    updatedAt: "",
     author: {
       id: 1,
       name: "Auteur",
@@ -58,8 +61,7 @@ function book(partial: Partial<BookWithRoadmaps> & { title: string }) {
       bio: null,
       bioGeneratedAt: null,
       createdAt: "",
-      updatedAt: "",
-    },
+      },
     roadmaps: [],
     priority: null,
     ...partial,
@@ -173,5 +175,89 @@ describe("filtres et tri", () => {
   it("ne valide comme triables que les colonnes qui existent", () => {
     expect(isSortableColumn("title")).toBe(true);
     expect(isSortableColumn("inexistante")).toBe(false);
+  });
+});
+
+describe("tri partagé table / liste mobile", () => {
+  it("place les valeurs nulles en dernier en croissant, en tête en décroissant", () => {
+    // Un livre sans genre ne s'intercale pas au milieu de l'alphabet. En
+    // décroissant il passe devant, parce que le comparateur est simplement
+    // inversé — c'est exactement ce que fait TanStack dans la table, faute de
+    // `sortUndefined`. Les traiter autrement ici ferait diverger l'ordre entre
+    // la liste mobile et la table, ce qui serait pire que la bizarrerie.
+    const rows = [
+      book({ title: "sans", genre: null }),
+      book({ title: "roman", genre: "Roman" }),
+      book({ title: "essai", genre: "Essai" }),
+    ];
+    expect(sortBooks(rows, "genre", false).map((b) => b.title)).toEqual([
+      "essai",
+      "roman",
+      "sans",
+    ]);
+    expect(sortBooks(rows, "genre", true).map((b) => b.title)).toEqual([
+      "sans",
+      "roman",
+      "essai",
+    ]);
+  });
+
+  it("trie les périodes chronologiquement, pas alphabétiquement", () => {
+    const rows = [
+      book({ title: "c", period: "XIXe siècle" }),
+      book({ title: "a", period: "XVIe siècle" }),
+      book({ title: "b", period: "XVIIe siècle" }),
+    ];
+    expect(sortBooks(rows, "period", false).map((b) => b.title)).toEqual([
+      "a",
+      "b",
+      "c",
+    ]);
+  });
+
+  it("met les non lus d'abord en tri croissant", () => {
+    const rows = [book({ title: "lu", read: true }), book({ title: "pas lu" })];
+    expect(sortBooks(rows, "read", false).map((b) => b.title)).toEqual([
+      "pas lu",
+      "lu",
+    ]);
+  });
+
+  it("départage par titre, donc l'ordre est stable", () => {
+    // Même catégorie pour les trois : seul le titre les sépare, et il doit
+    // les séparer de la même façon à chaque rendu.
+    const rows = [
+      book({ title: "c" }),
+      book({ title: "a" }),
+      book({ title: "b" }),
+    ];
+    expect(sortBooks(rows, "category", false).map((b) => b.title)).toEqual([
+      "a",
+      "b",
+      "c",
+    ]);
+    // Y compris en descendant : la clé principale s'inverse, le titre non.
+    expect(sortBooks(rows, "category", true).map((b) => b.title)).toEqual([
+      "a",
+      "b",
+      "c",
+    ]);
+  });
+
+  it("sait comparer chaque colonne déclarée triable", () => {
+    // Garde-fou d'exhaustivité : une colonne ajoutée à SORTABLE_COLUMNS sans
+    // branche dans compareBooks renverrait undefined et casserait le tri.
+    const a = book({ title: "a" });
+    const b = book({ title: "b" });
+    for (const column of SORTABLE_COLUMNS) {
+      expect(typeof compareBooks(a, b, column)).toBe("number");
+    }
+  });
+
+  it("compare le texte selon la collation française", () => {
+    // « é » se classe avec « e », pas après « z ».
+    expect(compareText("école", "zèbre")).toBeLessThan(0);
+    expect(compareText(null, "a")).toBeGreaterThan(0);
+    expect(compareText(null, null)).toBe(0);
   });
 });

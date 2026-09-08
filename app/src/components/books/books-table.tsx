@@ -16,7 +16,6 @@ import {
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { formatYear } from "@/lib/normalize";
 import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
-import { priorityRank } from "@/lib/priorities/types";
 import { PriorityBadge } from "./priority-badge";
 import { ReadCheckbox } from "./read-checkbox";
 import { cn } from "@/lib/utils";
@@ -29,38 +28,28 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { COLUMN_IDS, capitalize, periodRank, type ColumnId } from "./books-helpers";
+import {
+  COLUMN_IDS,
+  capitalize,
+  compareBooks,
+  type ColumnId,
+  type SortableColumn,
+} from "./books-helpers";
 
 // ---------------------------------------------------------------------------
-// Tri texte "fr", valeurs nulles en dernier
+// Tri
 // ---------------------------------------------------------------------------
 
-const textSort: SortingFn<BookWithRoadmaps> = (rowA, rowB, columnId) => {
-  const a = rowA.getValue<string | null>(columnId);
-  const b = rowB.getValue<string | null>(columnId);
-  if (a == null && b == null) return 0;
-  if (a == null) return 1;
-  if (b == null) return -1;
-  return a.localeCompare(b, "fr");
-};
-
-/** Tri chronologique des périodes (chiffres romains → index de l'enum). */
-const periodSort: SortingFn<BookWithRoadmaps> = (rowA, rowB) =>
-  periodRank(rowA.original.period) - periodRank(rowB.original.period);
-
-/** Tri par rang de priorité (Essentiel d'abord), livres non jugés en dernier. */
-const prioritySort: SortingFn<BookWithRoadmaps> = (rowA, rowB) =>
-  priorityRank(rowA.original.priority) - priorityRank(rowB.original.priority);
-
-/** Tri numérique des années (négatives = av. J.-C.), valeurs nulles en dernier. */
-const yearSort: SortingFn<BookWithRoadmaps> = (rowA, rowB, columnId) => {
-  const a = rowA.getValue<number | null>(columnId);
-  const b = rowB.getValue<number | null>(columnId);
-  if (a == null && b == null) return 0;
-  if (a == null) return 1;
-  if (b == null) return -1;
-  return a - b;
-};
+/**
+ * La table délègue à `compareBooks` (books-helpers), que la liste mobile
+ * utilise aussi : l'ordre est le même quelle que soit la largeur de l'écran.
+ * Les comparateurs vivaient ici, sous la forme attendue par TanStack, et
+ * n'étaient donc utilisables que par la table.
+ */
+const sortBy =
+  (column: SortableColumn): SortingFn<BookWithRoadmaps> =>
+  (rowA, rowB) =>
+    compareBooks(rowA.original, rowB.original, column);
 
 // ---------------------------------------------------------------------------
 // Colonnes
@@ -74,10 +63,7 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
     id: "read",
     accessorFn: (row) => row.read,
     header: "Lu",
-    // Tri booléen : premier clic (croissant) = les non lus d'abord, qui sont
-    // ce qu'on cherche quand on trie sur cette colonne.
-    sortingFn: (rowA, rowB) =>
-      Number(rowA.original.read) - Number(rowB.original.read),
+    sortingFn: sortBy("read"),
     cell: ({ row }) => (
       // La ligne entière ouvre la fiche : la case ne doit pas la déclencher.
       <span
@@ -97,7 +83,7 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
     id: "title",
     accessorFn: (row) => row.titleNormalized,
     header: "Titre",
-    sortingFn: textSort,
+    sortingFn: sortBy("title"),
     cell: ({ row }) => (
       // Largeur bornée : sans cela un seul titre à rallonge (« 1001 Classical
       // Recordings You Must Hear Before You Die ») élargit toute la colonne et
@@ -132,7 +118,7 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
     id: "author",
     accessorFn: (row) => row.author.nameNormalized,
     header: "Auteur",
-    sortingFn: textSort,
+    sortingFn: sortBy("author"),
     cell: ({ row }) => (
       <Link
         href={`/auteurs/${row.original.author.id}`}
@@ -148,42 +134,42 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
     id: "priority",
     accessorFn: (row) => row.priority,
     header: "Priorité",
-    sortingFn: prioritySort,
+    sortingFn: sortBy("priority"),
     cell: ({ row }) => <PriorityBadge priority={row.original.priority} />,
   },
   {
     id: "category",
     accessorFn: (row) => row.category,
     header: "Catégorie",
-    sortingFn: textSort,
+    sortingFn: sortBy("category"),
     cell: ({ getValue }) => (getValue() as string | null) ?? "—",
   },
   {
     id: "genre",
     accessorFn: (row) => row.genre,
     header: "Genre",
-    sortingFn: textSort,
+    sortingFn: sortBy("genre"),
     cell: ({ getValue }) => (getValue() as string | null) ?? "—",
   },
   {
     id: "courant",
     accessorFn: (row) => row.courant,
     header: "Courant",
-    sortingFn: textSort,
+    sortingFn: sortBy("courant"),
     cell: ({ getValue }) => (getValue() as string | null) ?? "—",
   },
   {
     id: "theme",
     accessorFn: (row) => row.theme,
     header: "Thème",
-    sortingFn: textSort,
+    sortingFn: sortBy("theme"),
     cell: ({ getValue }) => (getValue() as string | null) ?? "—",
   },
   {
     id: "period",
     accessorFn: (row) => row.period,
     header: "Période",
-    sortingFn: periodSort,
+    sortingFn: sortBy("period"),
     cell: ({ getValue }) => (getValue() as string | null) ?? "—",
   },
   {
@@ -191,21 +177,21 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
     accessorFn: (row) => row.publicationYear,
     // « Année de publication » prenait 154 px d'en-tête pour afficher 4 chiffres.
     header: "Année",
-    sortingFn: yearSort,
+    sortingFn: sortBy("publicationYear"),
     cell: ({ getValue }) => formatYear(getValue() as number | null) || "—",
   },
   {
     id: "originalLanguage",
     accessorFn: (row) => row.originalLanguage,
     header: "Langue",
-    sortingFn: textSort,
+    sortingFn: sortBy("originalLanguage"),
     cell: ({ getValue }) => (getValue() as string | null) ?? "—",
   },
   {
     id: "audience",
     accessorFn: (row) => row.audience,
     header: "Public",
-    sortingFn: textSort,
+    sortingFn: sortBy("audience"),
     cell: ({ getValue }) => {
       const v = getValue() as string | null;
       return v ? capitalize(v) : "—";
@@ -214,11 +200,11 @@ const columns: ColumnDef<BookWithRoadmaps>[] = [
   {
     id: "roadmaps",
     // Tri sur les titres concaténés : les livres sans parcours finissent en bas
-    // (textSort place les valeurs nulles en dernier).
+    // (compareText place les valeurs nulles en dernier).
     accessorFn: (row) =>
       row.roadmaps.length ? row.roadmaps.map((r) => r.title).join(" · ") : null,
     header: "Parcours",
-    sortingFn: textSort,
+    sortingFn: sortBy("roadmaps"),
     cell: ({ row }) => {
       const all = row.original.roadmaps;
       if (all.length === 0) return "—";

@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { and, eq, ne } from "drizzle-orm";
-import { sql } from "drizzle-orm";
-import { db } from "@/db";
-import { authors } from "@/db/schema";
-import { countBooksByAuthor, getAuthor } from "@/lib/queries";
-import { normalizeKey, normalizeText } from "@/lib/normalize";
+import {
+  countBooksByAuthor,
+  deleteAuthor,
+  getAuthor,
+  updateAuthor,
+} from "@/lib/queries";
+import { DuplicateError } from "@/lib/store";
 import { authorUpdateSchema } from "@/lib/validation";
 
 type RouteContext = { params: Promise<{ id: string }> };
@@ -30,9 +31,6 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
   const id = parseId((await params).id);
   if (id == null) return notFoundResponse();
 
-  const current = db.select().from(authors).where(eq(authors.id, id)).get();
-  if (!current) return notFoundResponse();
-
   let body: unknown;
   try {
     body = await request.json();
@@ -56,64 +54,23 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
     );
   }
 
-  const data = parsed.data;
-  const updates: Partial<typeof authors.$inferInsert> = {};
-
-  if (data.name !== undefined) {
-    const name = normalizeText(data.name);
-    const nameNormalized = normalizeKey(name);
-    const duplicate = db
-      .select({ id: authors.id })
-      .from(authors)
-      .where(
-        and(eq(authors.nameNormalized, nameNormalized), ne(authors.id, id))
-      )
-      .get();
-    if (duplicate) {
-      return NextResponse.json(
-        { error: "Cet auteur existe déjà" },
-        { status: 409 }
-      );
+  try {
+    const author = updateAuthor(id, parsed.data);
+    if (!author) return notFoundResponse();
+    return NextResponse.json({ author });
+  } catch (err) {
+    if (err instanceof DuplicateError) {
+      return NextResponse.json({ error: err.message }, { status: 409 });
     }
-    updates.name = name;
-    updates.nameNormalized = nameNormalized;
+    throw err;
   }
-
-  if (data.birthYear !== undefined) updates.birthYear = data.birthYear ?? null;
-  if (data.deathYear !== undefined) updates.deathYear = data.deathYear ?? null;
-  if (data.nationality !== undefined)
-    updates.nationality = data.nationality ?? null;
-  if (data.language !== undefined) updates.language = data.language ?? null;
-  if (data.mainGenre !== undefined) updates.mainGenre = data.mainGenre ?? null;
-  if (data.mainField !== undefined) updates.mainField = data.mainField ?? null;
-  if (data.period !== undefined) updates.period = data.period ?? null;
-  if (data.notes !== undefined) updates.notes = data.notes ?? null;
-
-  if (Object.keys(updates).length === 0) {
-    return NextResponse.json({ author: current });
-  }
-
-  const author = db
-    .update(authors)
-    .set({ ...updates, updatedAt: sql`(datetime('now'))` })
-    .where(eq(authors.id, id))
-    .returning()
-    .get();
-
-  return NextResponse.json({ author });
 }
 
 export async function DELETE(_request: NextRequest, { params }: RouteContext) {
   const id = parseId((await params).id);
   if (id == null) return notFoundResponse();
 
-  const current = db
-    .select({ id: authors.id })
-    .from(authors)
-    .where(eq(authors.id, id))
-    .get();
-  if (!current) return notFoundResponse();
-
+  if (!getAuthor(id)) return notFoundResponse();
   const bookCount = countBooksByAuthor(id);
   if (bookCount > 0) {
     return NextResponse.json(
@@ -126,6 +83,6 @@ export async function DELETE(_request: NextRequest, { params }: RouteContext) {
     );
   }
 
-  db.delete(authors).where(eq(authors.id, id)).run();
+  deleteAuthor(id);
   return NextResponse.json({ ok: true });
 }

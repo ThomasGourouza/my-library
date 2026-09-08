@@ -3,8 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ArrowDown, ArrowUp, ArrowUpDown, Check, Plus, X } from "lucide-react";
-import type { AuthorWithCount } from "@/db/schema";
+import { ArrowDown, ArrowDownUp, ArrowUp, ArrowUpDown, Plus, X } from "lucide-react";
+import type { AuthorWithCount } from "@/lib/types";
 import type { AuthorFilterOptions } from "@/lib/queries";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { formatLifespan, formatYear, normalizeKey } from "@/lib/normalize";
@@ -12,17 +12,18 @@ import { PERIODS } from "@/lib/validation";
 import { cn } from "@/lib/utils";
 import type { ExportColumn } from "@/lib/export";
 import { ExportMenu } from "@/components/export-menu";
+import { FilterOptionList, FiltersSheet } from "@/components/filters-sheet";
+import { AuthorsList } from "./authors-list";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import {
   Popover,
   PopoverContent,
@@ -170,34 +171,75 @@ function FilterPopover({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-56 p-0" align="start">
-        <Command>
-          <CommandInput placeholder={`Rechercher…`} />
-          <CommandList>
-            <CommandEmpty>Aucun résultat.</CommandEmpty>
-            <CommandGroup>
-              {options.map((option) => {
-                const isSelected = selected.includes(option);
-                return (
-                  <CommandItem key={option} onSelect={() => onToggle(option)}>
-                    <span
-                      className={cn(
-                        "flex size-4 items-center justify-center rounded-[4px] border",
-                        isSelected
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-input [&_svg]:invisible"
-                      )}
-                    >
-                      <Check className="size-3" />
-                    </span>
-                    {option}
-                  </CommandItem>
-                );
-              })}
-            </CommandGroup>
-          </CommandList>
-        </Command>
+        {/* Liste partagée avec la page Livres et le panneau mobile. */}
+        <FilterOptionList
+          options={options}
+          selected={selected}
+          onToggle={onToggle}
+        />
       </PopoverContent>
     </Popover>
+  );
+}
+
+/** Libellés des clés de tri, pour le sélecteur mobile. */
+const SORT_LABELS: Record<SortKey, string> = {
+  name: "Nom",
+  dates: "Dates",
+  nationality: "Nationalité",
+  language: "Langue",
+  mainGenre: "Genre principal",
+  mainField: "Domaine",
+  bookCount: "Nombre de livres",
+};
+
+/** Le tri sur mobile : sans en-têtes de colonnes, il faut un contrôle à part.
+ *  Même rôle que MobileSort sur la page Livres. */
+function MobileSort({
+  sort,
+  onChange,
+}: {
+  sort: SortState;
+  onChange: (next: SortState) => void;
+}) {
+  return (
+    <div className="flex items-center gap-1">
+      <Select
+        value={sort.key}
+        onValueChange={(v) => onChange({ key: v as SortKey, dir: sort.dir })}
+      >
+        <SelectTrigger className="h-10" aria-label="Trier par">
+          <ArrowDownUp className="size-4 shrink-0" aria-hidden />
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {SORT_KEYS.map((key) => (
+            <SelectItem key={key} value={key}>
+              {SORT_LABELS[key]}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Button
+        variant="outline"
+        size="icon"
+        className="size-10 shrink-0"
+        aria-label={
+          sort.dir === "desc"
+            ? "Tri décroissant, inverser"
+            : "Tri croissant, inverser"
+        }
+        onClick={() =>
+          onChange({ key: sort.key, dir: sort.dir === "desc" ? "asc" : "desc" })
+        }
+      >
+        {sort.dir === "desc" ? (
+          <ArrowDown className="size-4" aria-hidden />
+        ) : (
+          <ArrowUp className="size-4" aria-hidden />
+        )}
+      </Button>
+    </div>
   );
 }
 
@@ -428,29 +470,50 @@ export function AuthorsView({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Rechercher un auteur…"
-          className="h-8 w-56"
+          className="h-10 w-full md:h-8 md:w-56"
           aria-label="Rechercher un auteur"
         />
-        {filterConfigs.map(({ key, options: opts }) => (
-          <FilterPopover
-            key={key}
-            label={FILTER_LABELS[key]}
-            options={opts}
-            selected={filters[key]}
-            onToggle={(v) => toggleFilter(key, v)}
+
+        {/* Bureau : un popover par filtre. */}
+        <div className="hidden flex-wrap items-center gap-2 md:flex">
+          {filterConfigs.map(({ key, options: opts }) => (
+            <FilterPopover
+              key={key}
+              label={FILTER_LABELS[key]}
+              options={opts}
+              selected={filters[key]}
+              onToggle={(v) => toggleFilter(key, v)}
+            />
+          ))}
+          {hasActiveFilters && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-8"
+              onClick={resetFilters}
+            >
+              Réinitialiser
+              <X className="size-4" aria-hidden />
+            </Button>
+          )}
+        </div>
+
+        {/* Mobile : panneau de filtres et sélecteur de tri. */}
+        <div className="flex w-full items-center gap-2 md:hidden">
+          <FiltersSheet
+            groups={filterConfigs.map(({ key, options: opts }) => ({
+              key,
+              label: FILTER_LABELS[key],
+              options: opts,
+            }))}
+            selected={filters}
+            onToggle={toggleFilter}
+            onReset={resetFilters}
+            className="flex-1"
           />
-        ))}
-        {hasActiveFilters && (
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-8"
-            onClick={resetFilters}
-          >
-            Réinitialiser
-            <X className="size-4" aria-hidden />
-          </Button>
-        )}
+          <MobileSort sort={sort} onChange={setSort} />
+        </div>
+
         <div className="ml-auto">
           <ExportMenu
             rows={sorted}
@@ -481,7 +544,13 @@ export function AuthorsView({
         </div>
       )}
 
-      <div className="min-h-0 flex-1">
+      {/* Deux rendus pour la même donnée triée : la table de dix colonnes
+          au-delà de 768 px, une liste tapable en dessous. `sorted` est calculé
+          une fois et sert aux deux, donc l'ordre ne dépend pas de la largeur. */}
+      <div className="min-h-0 flex-1 md:hidden">
+        <AuthorsList authors={sorted} />
+      </div>
+      <div className="hidden min-h-0 flex-1 md:block">
         <Table
           containerRef={scrollRef}
           containerClassName="h-full overflow-y-auto rounded-md border"

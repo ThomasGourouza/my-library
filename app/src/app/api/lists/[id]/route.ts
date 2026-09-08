@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { deleteList, getList, listInputSchema, updateList } from "@/lib/lists";
+import { DuplicateError } from "@/lib/store";
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -47,11 +48,8 @@ export async function PUT(request: NextRequest, { params }: RouteContext) {
     const list = updateList(id, parsed.data);
     return list ? NextResponse.json({ list }) : notFound();
   } catch (err) {
-    if (err instanceof Error && err.message.includes("UNIQUE")) {
-      return NextResponse.json(
-        { error: "Une liste porte déjà ce nom" },
-        { status: 409 }
-      );
+    if (err instanceof DuplicateError) {
+      return NextResponse.json({ error: err.message }, { status: 409 });
     }
     throw err;
   }

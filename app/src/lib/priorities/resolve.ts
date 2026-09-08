@@ -2,9 +2,9 @@
  * Résolution des priorités vers les livres de la bibliothèque.
  *
  * Même mécanique que les parcours : correspondance par nom d'auteur + titre
- * normalisés via normalizeKey(), la fonction qui alimente déjà
- * `nameNormalized` / `titleNormalized` en base. Jamais par id — `db:seed`
- * réattribue toutes les clés primaires.
+ * normalisés via normalizeKey(), la fonction qui dérive déjà
+ * `nameNormalized` / `titleNormalized` au chargement. Jamais par id, pour que
+ * le fichier reste lisible et relisible — cf. `roadmaps/resolve.ts`.
  */
 import { normalizeKey } from "@/lib/normalize";
 import { PRIORITY_ENTRIES } from "./index";

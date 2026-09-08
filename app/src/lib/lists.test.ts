@@ -5,10 +5,9 @@
  * copie jetable montée par `vitest.global-setup.ts`, jamais sur la base de
  * l'utilisateur. Chaque test nettoie derrière lui pour rester indépendant.
  */
+import fs from "node:fs";
 import { afterEach, describe, expect, it } from "vitest";
-import { eq } from "drizzle-orm";
-import { db } from "@/db";
-import { lists } from "@/db/schema";
+import { DuplicateError } from "@/lib/store";
 import { listBooks } from "@/lib/queries";
 import {
   addBookToList,
@@ -51,15 +50,33 @@ describe("listes — cycle de vie", () => {
     // même liste pour qui la cherche.
     // createList lève avant d'enregistrer l'identifiant : rien à nettoyer de
     // plus que « Été », dont afterEach s'occupe.
-    expect(() => makeList("ete")).toThrow(/UNIQUE/);
+    expect(() => makeList("ete")).toThrow(DuplicateError);
   });
 
-  it("renomme sans casser la clé de dédup", () => {
+  it("renomme, mais pas sur le nom d'une autre liste", () => {
     const list = makeList("Test — avant");
-    updateList(list.id, { name: "Test — après" });
-    const row = db.select().from(lists).where(eq(lists.id, list.id)).get()!;
-    expect(row.name).toBe("Test — après");
-    expect(row.nameNormalized).toBe("test apres");
+    // Se renommer soi-même passe : la vérification d'unicité s'exclut.
+    expect(updateList(list.id, { name: "Test — après" })?.name).toBe("Test — après");
+    expect(getList(list.id)?.name).toBe("Test — après");
+
+    const other = makeList("Test — occupé");
+    expect(() => updateList(list.id, { name: "Test — occupé" })).toThrow(
+      DuplicateError
+    );
+    expect(getList(other.id)?.name).toBe("Test — occupé");
+  });
+
+  it("écrit sur le disque, pas seulement en mémoire", () => {
+    // Le seul test du nouveau mécanisme : tous les autres passeraient sur un
+    // magasin qui ne serait jamais persisté.
+    const list = makeList("Test — persistance");
+    const onDisk = JSON.parse(
+      fs.readFileSync(process.env.LIBRARY_DATA_PATH!, "utf-8")
+    );
+    const saved = onDisk.lists.find((l: { id: number }) => l.id === list.id);
+    expect(saved?.name).toBe("Test — persistance");
+    // Les clés dérivées ne sont pas écrites : elles ne peuvent pas dériver.
+    expect(saved).not.toHaveProperty("nameNormalized");
   });
 });
 

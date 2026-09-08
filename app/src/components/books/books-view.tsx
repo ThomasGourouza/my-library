@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Check, Columns3, Plus, X } from "lucide-react";
+import { ArrowDown, ArrowDownUp, ArrowUp, Columns3, Plus, X } from "lucide-react";
 import type { SortingState } from "@tanstack/react-table";
 import type { BookFilterOptions } from "@/lib/queries";
 import type { BookWithRoadmaps } from "@/lib/roadmaps/queries";
@@ -14,20 +14,11 @@ import {
   type Priority,
 } from "@/lib/priorities/types";
 import { AUDIENCES, CATEGORIES, PERIODS } from "@/lib/validation";
-import { cn } from "@/lib/utils";
 import type { ExportColumn } from "@/lib/export";
 import { formatYear } from "@/lib/normalize";
 import { ExportMenu } from "@/components/export-menu";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
 import { Input } from "@/components/ui/input";
 import {
   DropdownMenu,
@@ -43,9 +34,18 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BooksTable } from "./books-table";
 import { BooksGrouped } from "./books-grouped";
+import { BooksList } from "./books-list";
+import { FilterOptionList, FiltersSheet } from "@/components/filters-sheet";
 import {
   COLUMN_IDS,
   COLUMN_LABELS,
@@ -64,6 +64,7 @@ import {
   type Filters,
   type FilterKey,
   type GroupByKey,
+  type SortableColumn,
   type ViewMode,
 } from "./books-helpers";
 
@@ -144,7 +145,6 @@ function FilterPopover({
   onToggle: (value: string) => void;
   getLabel?: (value: string) => string;
 }) {
-  const display = getLabel ?? ((v: string) => v);
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -158,34 +158,83 @@ function FilterPopover({
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-64 p-0" align="start">
-        <Command>
-          <CommandInput placeholder="Rechercher…" />
-          <CommandList>
-            <CommandEmpty>Aucun résultat.</CommandEmpty>
-            <CommandGroup>
-              {options.map((option) => {
-                const isSelected = selected.includes(option);
-                return (
-                  <CommandItem key={option} onSelect={() => onToggle(option)}>
-                    <span
-                      className={cn(
-                        "flex size-4 shrink-0 items-center justify-center rounded-[4px] border",
-                        isSelected
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-input [&_svg]:invisible"
-                      )}
-                    >
-                      <Check className="size-3" />
-                    </span>
-                    {display(option)}
-                  </CommandItem>
-                );
-              })}
-            </CommandGroup>
-          </CommandList>
-        </Command>
+        {/* Même liste que le panneau mobile : une seule façon de cocher. */}
+        <FilterOptionList
+          options={options}
+          selected={selected}
+          onToggle={onToggle}
+          getLabel={getLabel}
+        />
       </PopoverContent>
     </Popover>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Tri sur mobile
+// ---------------------------------------------------------------------------
+
+/** Colonnes proposées au tri sur mobile. La table en offre treize par ses
+ *  en-têtes ; sur un téléphone, un menu de treize entrées pour des colonnes
+ *  qui ne sont pas affichées n'aide personne. Celles-ci sont visibles dans la
+ *  liste, ou structurantes. */
+const MOBILE_SORTS: SortableColumn[] = [
+  "title",
+  "author",
+  "priority",
+  "period",
+  "publicationYear",
+  "read",
+];
+
+function MobileSort({
+  sorting,
+  onSortingChange,
+}: {
+  sorting: SortingState;
+  onSortingChange: (next: SortingState) => void;
+}) {
+  const current = sorting[0] ?? { id: "title", desc: false };
+  // Le tri multiple est une affordance de bureau (maj + clic sur les
+  // en-têtes) : sur mobile on ne pilote que la clé principale.
+  const id = isSortableColumn(current.id) ? current.id : "title";
+
+  return (
+    <div className="flex items-center gap-1">
+      <Select
+        value={id}
+        onValueChange={(v) =>
+          onSortingChange([{ id: v, desc: current.desc }])
+        }
+      >
+        <SelectTrigger className="h-10" aria-label="Trier par">
+          <ArrowDownUp className="size-4 shrink-0" aria-hidden />
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {MOBILE_SORTS.map((column) => (
+            <SelectItem key={column} value={column}>
+              {COLUMN_LABELS[column]}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+      <Button
+        variant="outline"
+        size="icon"
+        className="size-10 shrink-0"
+        aria-label={
+          current.desc ? "Tri décroissant, inverser" : "Tri croissant, inverser"
+        }
+        onClick={() => onSortingChange([{ id, desc: !current.desc }])}
+      >
+        {current.desc ? (
+          <ArrowDown className="size-4" aria-hidden />
+        ) : (
+          <ArrowUp className="size-4" aria-hidden />
+        )}
+      </Button>
+    </div>
   );
 }
 
@@ -417,6 +466,14 @@ export function BooksView({
     return cfg?.getLabel ? cfg.getLabel(value) : value;
   };
 
+  // Ce que la liste mobile utilise : la clé principale du tri, repliée sur le
+  // titre si l'URL portait une colonne inconnue.
+  const first = sorting[0];
+  const primarySort = {
+    id: first && isSortableColumn(first.id) ? first.id : ("title" as SortableColumn),
+    desc: first?.desc ?? false,
+  };
+
   return (
     // Colonne de hauteur définie (jusqu'au bas de l'écran) : la barre d'outils
     // garde sa taille, la vue (tableau ou groupes) occupe le reste et défile
@@ -446,30 +503,57 @@ export function BooksView({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Rechercher un titre ou un auteur…"
-          className="h-8 w-64"
+          // Pleine largeur sur mobile : la recherche est le premier geste, et
+          // une boîte de 256 px laissait une colonne de vide à sa droite.
+          className="h-10 w-full md:h-8 md:w-64"
           aria-label="Rechercher un titre ou un auteur"
         />
-        {filterConfigs.map(({ key, options: opts, getLabel }) => (
-          <FilterPopover
-            key={key}
-            label={FILTER_LABELS[key]}
-            options={opts}
-            selected={filters[key]}
-            onToggle={(v) => toggleFilter(key, v)}
-            getLabel={getLabel}
+
+        {/* Bureau : un popover par filtre, alignés dans la barre. */}
+        <div className="hidden flex-wrap items-center gap-2 md:flex">
+          {filterConfigs.map(({ key, options: opts, getLabel }) => (
+            <FilterPopover
+              key={key}
+              label={FILTER_LABELS[key]}
+              options={opts}
+              selected={filters[key]}
+              onToggle={(v) => toggleFilter(key, v)}
+              getLabel={getLabel}
+            />
+          ))}
+          {hasActiveFilters && (
+            <Button
+              variant="ghost"
+              size="sm"
+              className="h-8"
+              onClick={resetFilters}
+            >
+              Réinitialiser
+              <X className="size-4" aria-hidden />
+            </Button>
+          )}
+        </div>
+
+        {/* Mobile : les six filtres dans un panneau, et le tri — qui sur
+            mobile n'a plus d'en-tête de colonne où se poser. */}
+        <div className="flex w-full items-center gap-2 md:hidden">
+          <FiltersSheet
+            groups={filterConfigs.map(({ key, options: opts, getLabel }) => ({
+              key,
+              label: FILTER_LABELS[key],
+              options: opts,
+              getLabel,
+            }))}
+            selected={filters}
+            onToggle={toggleFilter}
+            onReset={resetFilters}
+            className="flex-1"
           />
-        ))}
-        {hasActiveFilters && (
-          <Button
-            variant="ghost"
-            size="sm"
-            className="h-8"
-            onClick={resetFilters}
-          >
-            Réinitialiser
-            <X className="size-4" aria-hidden />
-          </Button>
-        )}
+          {view === "table" && (
+            <MobileSort sorting={sorting} onSortingChange={setSorting} />
+          )}
+        </div>
+
         <div className="ml-auto flex items-center gap-2">
           <ExportMenu
             rows={filtered}
@@ -479,8 +563,10 @@ export function BooksView({
             order="par titre"
           />
         </div>
+        {/* Le sélecteur de colonnes ne concerne que la table, donc que le
+            bureau : la liste mobile n'a pas de colonnes. */}
         {view === "table" && (
-          <div>
+          <div className="hidden md:block">
             <ColumnsMenu
               hidden={hiddenColumns}
               onToggle={(id) =>
@@ -526,12 +612,25 @@ export function BooksView({
           <TabsTrigger value="grouped">Groupé</TabsTrigger>
         </TabsList>
         <TabsContent value="table" className="mt-1 min-h-[12rem] min-w-0">
-          <BooksTable
-            books={filtered}
-            sorting={sorting}
-            onSortingChange={setSorting}
-            hiddenColumns={hiddenColumns}
-          />
+          {/* Deux rendus pour la même donnée : la table treize colonnes ne
+              tient pas sur un téléphone, et une liste gaspille un écran large.
+              Les deux trient via compareBooks (books-helpers), donc l'ordre ne
+              dépend pas de la largeur. */}
+          <div className="hidden h-full md:block">
+            <BooksTable
+              books={filtered}
+              sorting={sorting}
+              onSortingChange={setSorting}
+              hiddenColumns={hiddenColumns}
+            />
+          </div>
+          <div className="h-full md:hidden">
+            <BooksList
+              books={filtered}
+              sort={primarySort.id}
+              desc={primarySort.desc}
+            />
+          </div>
         </TabsContent>
         <TabsContent value="grouped" className="mt-1 min-h-[12rem] min-w-0">
           <BooksGrouped

@@ -51,16 +51,17 @@ export default function RootLayout({
             Aller au contenu
           </a>
           <MainNav />
-          {/* La hauteur de l'en-tête (h-14) et le padding vertical de <main>
-              (py-6) sont repris par --app-content-h dans globals.css : les
-              modifier ici impose de mettre cette variable à jour. */}
+          {/* La hauteur de l'en-tête et le padding vertical de <main> sont
+              repris par --app-content-h dans globals.css : les modifier ici
+              impose de mettre cette variable à jour. py-4 sur mobile — 24 px
+              en haut et en bas sont autant de livres en moins à l'écran. */}
           <main
             id="contenu"
-            className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-6"
+            className="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 md:py-6"
           >
             {children}
           </main>
-          <Toaster richColors position="top-right" />
+          <Toaster richColors position="top-center" />
         </ThemeProvider>
       </body>
     </html>

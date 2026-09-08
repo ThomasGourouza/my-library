@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
 import { Check, ChevronsUpDown, Plus } from "lucide-react";
-import type { BookWithAuthor } from "@/db/schema";
+import type { BookWithAuthor } from "@/lib/types";
 import {
   AUDIENCES,
   CATEGORIES,
@@ -478,15 +478,24 @@ export function BookForm({
         <Textarea id="notes" rows={4} {...form.register("notes")} />
       </div>
 
-      <div className="flex items-center justify-end gap-2">
+      {/* Sur mobile, deux boutons pleine largeur empilés : l'action principale
+          est sous le pouce et le libellé cesse d'être une petite cible en haut
+          à droite. `flex-col-reverse` garde « Enregistrer » au-dessus
+          d'« Annuler » dans l'ordre visuel sans changer l'ordre de tabulation. */}
+      <div className="flex flex-col-reverse gap-2 sm:flex-row sm:items-center sm:justify-end">
         <Button
           type="button"
           variant="outline"
+          className="h-10 w-full sm:h-8 sm:w-auto"
           onClick={() => router.back()}
         >
           Annuler
         </Button>
-        <Button type="submit" disabled={form.formState.isSubmitting}>
+        <Button
+          type="submit"
+          className="h-10 w-full sm:h-8 sm:w-auto"
+          disabled={form.formState.isSubmitting}
+        >
           Enregistrer
         </Button>
       </div>

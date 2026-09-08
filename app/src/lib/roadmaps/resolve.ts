@@ -1,13 +1,16 @@
 /**
  * Résolution des entrées de parcours vers les livres de la bibliothèque.
  *
- * Les parcours désignent les livres par nom d'auteur + titre, jamais par id :
- * `npm run db:seed` vide et réinsère les tables, donc toutes les clés primaires
- * changent à chaque reseed. La correspondance passe par normalizeKey(), la même
- * fonction qui alimente `titleNormalized` / `nameNormalized` en base — accents,
- * casse et apostrophes typographiques sont donc déjà neutralisés.
+ * Les parcours désignent les livres par nom d'auteur + titre, jamais par id.
+ * Les identifiants sont désormais stables et versionnés — ce n'est donc plus
+ * une nécessité technique, mais cela reste le bon choix : un fichier de
+ * parcours doit se lire et se relire, et c'est ce qui rend réparable une
+ * collision d'identifiants après une fusion git. La correspondance passe par
+ * normalizeKey(), la même fonction qui dérive `titleNormalized` /
+ * `nameNormalized` au chargement — accents, casse et apostrophes
+ * typographiques sont donc déjà neutralisés.
  */
-import type { BookWithAuthor } from "@/db/schema";
+import type { BookWithAuthor } from "@/lib/types";
 import { normalizeKey } from "@/lib/normalize";
 import { listBooks } from "@/lib/queries";
 import { priorityIndex, priorityOf } from "@/lib/priorities/resolve";

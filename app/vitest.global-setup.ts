@@ -1,40 +1,27 @@
 /**
- * Les tests lisent la base SQLite réelle — c'est voulu : les garde-fous des
- * parcours, des priorités et du corpus n'ont de sens que sur les vraies
+ * Les tests lisent le vrai fichier de données — c'est voulu : les garde-fous
+ * des parcours, des priorités et du corpus n'ont de sens que sur les vraies
  * 2 038 lignes. Mais ils ne doivent en aucun cas l'écrire : un test des listes
- * de lecture qui créerait puis supprimerait des enregistrements toucherait les
- * données de l'utilisateur.
+ * de lecture qui créerait puis supprimerait des enregistrements toucherait le
+ * fichier versionné de l'utilisateur.
  *
- * D'où cette copie : une base jetable, identique au contenu près, régénérée à
- * chaque exécution. `VACUUM INTO` produit une copie cohérente même si l'appli
- * tourne en parallèle avec un journal WAL ouvert — un simple `cp` du fichier
- * .db pourrait, lui, manquer les écritures encore dans le journal.
+ * D'où cette copie jetable, régénérée à chaque exécution. Une simple copie
+ * suffit désormais : le fichier est remplacé d'un seul `rename` atomique, donc
+ * on n'en lit jamais une version partielle. C'est ce que le `VACUUM INTO` du
+ * temps de SQLite allait chercher, le journal WAL pouvant contenir des
+ * écritures qu'un `cp` du fichier .db aurait manquées.
  */
 import fs from "node:fs";
 import path from "node:path";
-import Database from "better-sqlite3";
 
 const SOURCE =
-  process.env.DATABASE_PATH ?? path.join(process.cwd(), "data", "library.db");
-const TARGET = path.join(process.cwd(), ".tmp", "test-library.db");
+  process.env.LIBRARY_DATA_PATH ??
+  path.resolve(process.cwd(), "..", "data", "library.json");
+const TARGET = path.join(process.cwd(), ".tmp", "test-library.json");
 
 export default function setup() {
   fs.mkdirSync(path.dirname(TARGET), { recursive: true });
-  for (const suffix of ["", "-wal", "-shm"]) {
-    fs.rmSync(TARGET + suffix, { force: true });
-  }
-  if (fs.existsSync(SOURCE)) {
-    const source = new Database(SOURCE, { readonly: true });
-    source.exec(`VACUUM INTO '${TARGET.replace(/'/g, "''")}'`);
-    source.close();
-    // Le mode WAL est posé ici, une fois. Sans cela, les workers de vitest
-    // ouvrent la copie en parallèle et se disputent le verrou exclusif que
-    // demande le passage en WAL — « database is locked » sur deux fichiers de
-    // test sur trois.
-    const copy = new Database(TARGET);
-    copy.pragma("journal_mode = WAL");
-    copy.close();
-  }
-  // Lu par src/db/index.ts au premier import.
-  process.env.DATABASE_PATH = TARGET;
+  fs.copyFileSync(SOURCE, TARGET);
+  // Lu par src/lib/store.ts au premier accès.
+  process.env.LIBRARY_DATA_PATH = TARGET;
 }

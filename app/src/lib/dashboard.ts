@@ -9,9 +9,7 @@
  * livre n'est marqué « Lu », les compteurs affichent zéro plutôt qu'un
  * indicateur inventé, et la page met en avant les points d'entrée.
  */
-import { db } from "@/db";
-import { authors, books as booksTable } from "@/db/schema";
-import { sql } from "drizzle-orm";
+import { store } from "@/lib/store";
 import { CATEGORIES, type Category } from "@/lib/validation";
 import { PRIORITIES, type Priority } from "@/lib/priorities/types";
 import { listRoadmaps, listBooksWithRoadmaps } from "@/lib/roadmaps/queries";
@@ -90,14 +88,7 @@ export function getDashboard(): Dashboard {
   const books = listBooksWithRoadmaps();
   const roadmaps = listRoadmaps();
 
-  const authorCount =
-    db.select({ n: sql<number>`count(*)` }).from(authors).get()?.n ?? 0;
-  const analysedCount =
-    db
-      .select({ n: sql<number>`count(*)` })
-      .from(booksTable)
-      .where(sql`${booksTable.analysis} is not null`)
-      .get()?.n ?? 0;
+  const authorCount = store().authors.length;
 
   const analysed = books
     .filter((b) => b.analysis != null)
@@ -142,7 +133,7 @@ export function getDashboard(): Dashboard {
       roadmaps: roadmaps.length,
       roadmapEntries: roadmaps.reduce((n, r) => n + r.bookCount, 0),
       withoutRoadmap: books.filter((b) => b.roadmaps.length === 0).length,
-      analysed: analysedCount,
+      analysed: analysed.length,
     },
     byPriority: tally(PRIORITIES, books, (b) => b.priority),
     withoutPriority: books.filter((b) => b.priority == null).length,

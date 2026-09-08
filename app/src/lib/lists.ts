@@ -3,21 +3,17 @@
  *
  * Distinction à garder en tête : les **parcours** sont du contenu éditorial
  * rédigé, versionné dans `src/lib/roadmaps/data/` et tenu par des tests ; les
- * **listes** sont composées par l'utilisateur depuis l'interface et vivent en
- * base. Aucun écran ne modifie les premiers, tous les écrans peuvent modifier
- * les secondes — c'est la raison d'être de cette séparation.
+ * **listes** sont composées par l'utilisateur depuis l'interface. Aucun écran
+ * ne modifie les premiers, tous les écrans peuvent modifier les secondes —
+ * c'est la raison d'être de cette séparation.
+ *
+ * Les entrées d'une liste sont imbriquées dans la liste, et l'ordre du tableau
+ * *est* le rang : il n'y a plus de colonne `position` à renuméroter, ni de
+ * cascade à écrire quand une liste disparaît.
  */
-import { and, asc, eq, sql } from "drizzle-orm";
 import { z } from "zod";
-import { db } from "@/db";
-import {
-  authors,
-  books,
-  listItems,
-  lists,
-  type BookWithAuthor,
-  type List,
-} from "@/db/schema";
+import { DuplicateError, cmp, mutate, nextId, now, store } from "@/lib/store";
+import type { BookWithAuthor, ListMeta } from "@/lib/types";
 import { normalizeKey, normalizeText } from "@/lib/normalize";
 
 export const listInputSchema = z.object({
@@ -26,7 +22,7 @@ export const listInputSchema = z.object({
 });
 export type ListInput = z.infer<typeof listInputSchema>;
 
-export type ListSummary = List & { bookCount: number; readCount: number };
+export type ListSummary = ListMeta & { bookCount: number; readCount: number };
 
 export interface ListEntry {
   position: number;
@@ -34,166 +30,157 @@ export interface ListEntry {
   note: string | null;
 }
 
-export type ListWithItems = List & { items: ListEntry[] };
+export type ListWithItems = ListMeta & { items: ListEntry[] };
+
+/** La liste sans ses entrées : ce que renvoient les vues de synthèse. */
+const meta = (l: ListMeta & { items?: unknown }): ListMeta => ({
+  id: l.id,
+  name: l.name,
+  nameNormalized: l.nameNormalized,
+  description: l.description,
+  createdAt: l.createdAt,
+});
 
 export function listLists(): ListSummary[] {
-  const rows = db
-    .select({
-      list: lists,
-      bookCount: sql<number>`count(${listItems.id})`,
-      readCount: sql<number>`sum(case when ${books.read} then 1 else 0 end)`,
-    })
-    .from(lists)
-    .leftJoin(listItems, eq(listItems.listId, lists.id))
-    .leftJoin(books, eq(books.id, listItems.bookId))
-    .groupBy(lists.id)
-    .orderBy(asc(lists.nameNormalized))
-    .all();
-  return rows.map((r) => ({
-    ...r.list,
-    bookCount: r.bookCount,
-    // sum() sur une liste vide renvoie NULL, pas 0.
-    readCount: r.readCount ?? 0,
-  }));
+  const s = store();
+  const readById = new Map(s.books.map((b) => [b.id, b.read]));
+  return s.lists
+    .map((l) => ({
+      ...meta(l),
+      bookCount: l.items.length,
+      // Un comptage, donc 0 et jamais undefined : le `?? 0` qu'imposait le
+      // `sum()` SQL (NULL sur un ensemble vide) n'a plus de raison d'être.
+      readCount: l.items.filter((it) => readById.get(it.bookId) === true).length,
+    }))
+    .sort((a, b) => cmp(a.nameNormalized, b.nameNormalized));
 }
 
 export function getList(id: number): ListWithItems | undefined {
-  const list = db.select().from(lists).where(eq(lists.id, id)).get();
+  const s = store();
+  const list = s.lists.find((l) => l.id === id);
   if (!list) return undefined;
-  const rows = db
-    .select({ item: listItems, book: books, author: authors })
-    .from(listItems)
-    .innerJoin(books, eq(books.id, listItems.bookId))
-    .innerJoin(authors, eq(authors.id, books.authorId))
-    .where(eq(listItems.listId, id))
-    .orderBy(asc(listItems.position))
-    .all();
+  const authorsById = new Map(s.authors.map((a) => [a.id, a]));
+  const booksById = new Map(s.books.map((b) => [b.id, b]));
   return {
-    ...list,
-    // La position stockée peut avoir des trous (suppressions) : on renumérote à
-    // l'affichage pour que « n°3 » veuille toujours dire « le troisième ».
-    items: rows.map((r, i) => ({
-      position: i + 1,
-      book: { ...r.book, author: r.author },
-      note: r.item.note,
-    })),
+    ...meta(list),
+    items: list.items.flatMap((it, i) => {
+      const book = booksById.get(it.bookId);
+      // Une entrée dont le livre a disparu est ignorée — ce que faisait
+      // l'INNER JOIN. Cela peut arriver après une fusion git où le livre
+      // n'existe que sur l'autre branche.
+      if (!book) return [];
+      return [
+        {
+          position: i + 1,
+          book: { ...book, author: authorsById.get(book.authorId)! },
+          note: it.note,
+        },
+      ];
+    }),
   };
 }
 
 /** Listes contenant un livre donné — affiché sur la fiche du livre. */
-export function getListsForBook(bookId: number): List[] {
-  return db
-    .select({ list: lists })
-    .from(listItems)
-    .innerJoin(lists, eq(lists.id, listItems.listId))
-    .where(eq(listItems.bookId, bookId))
-    .orderBy(asc(lists.nameNormalized))
-    .all()
-    .map((r) => r.list);
+export function getListsForBook(bookId: number): ListMeta[] {
+  return store()
+    .lists.filter((l) => l.items.some((it) => it.bookId === bookId))
+    .map(meta)
+    .sort((a, b) => cmp(a.nameNormalized, b.nameNormalized));
 }
 
-export function createList(input: ListInput): List {
-  const name = normalizeText(input.name);
-  return db
-    .insert(lists)
-    .values({
-      name,
-      nameNormalized: normalizeKey(name),
-      description: input.description ?? null,
-    })
-    .returning()
-    .get();
-}
-
-export function updateList(id: number, input: Partial<ListInput>): List | undefined {
-  const values: Partial<typeof lists.$inferInsert> = {
-    updatedAt: sql`(datetime('now'))` as unknown as string,
-  };
-  if (input.name !== undefined) {
+export function createList(input: ListInput): ListMeta {
+  return mutate((s) => {
     const name = normalizeText(input.name);
-    values.name = name;
-    values.nameNormalized = normalizeKey(name);
-  }
-  if (input.description !== undefined) {
-    values.description = input.description ?? null;
-  }
-  return db.update(lists).set(values).where(eq(lists.id, id)).returning().get();
+    const nameNormalized = normalizeKey(name);
+    // Deux listes du même nom aux accents près sont la même liste. La
+    // vérification était portée par l'index unique SQL, elle est ici
+    // maintenant : c'est la seule garantie que le refactor déplace vraiment.
+    if (s.lists.some((l) => l.nameNormalized === nameNormalized)) {
+      throw new DuplicateError("Une liste porte déjà ce nom");
+    }
+    const list = {
+      id: nextId(s.lists),
+      name,
+      nameNormalized,
+      description: input.description ?? null,
+      createdAt: now(),
+      items: [],
+    };
+    s.lists.push(list);
+    return meta(list);
+  });
+}
+
+export function updateList(
+  id: number,
+  input: Partial<ListInput>
+): ListMeta | undefined {
+  return mutate((s) => {
+    const list = s.lists.find((l) => l.id === id);
+    if (!list) return undefined;
+    if (input.name !== undefined) {
+      const name = normalizeText(input.name);
+      const nameNormalized = normalizeKey(name);
+      if (s.lists.some((l) => l.id !== id && l.nameNormalized === nameNormalized)) {
+        throw new DuplicateError("Une liste porte déjà ce nom");
+      }
+      list.name = name;
+      list.nameNormalized = nameNormalized;
+    }
+    if (input.description !== undefined) {
+      list.description = input.description ?? null;
+    }
+    return meta(list);
+  });
 }
 
 export function deleteList(id: number): boolean {
-  // ON DELETE CASCADE emporte les entrées ; le pragma foreign_keys est actif.
-  return db.delete(lists).where(eq(lists.id, id)).returning({ id: lists.id }).all()
-    .length > 0;
+  return mutate((s) => {
+    const i = s.lists.findIndex((l) => l.id === id);
+    if (i === -1) return false;
+    // Les entrées sont imbriquées : elles partent avec la liste, sans cascade.
+    s.lists.splice(i, 1);
+    return true;
+  });
 }
 
 /** Ajoute un livre en fin de liste. Sans effet s'il y est déjà. */
 export function addBookToList(listId: number, bookId: number): boolean {
-  const existing = db
-    .select({ id: listItems.id })
-    .from(listItems)
-    .where(and(eq(listItems.listId, listId), eq(listItems.bookId, bookId)))
-    .get();
-  if (existing) return false;
-  const last =
-    db
-      .select({ n: sql<number>`coalesce(max(${listItems.position}), 0)` })
-      .from(listItems)
-      .where(eq(listItems.listId, listId))
-      .get()?.n ?? 0;
-  db.insert(listItems)
-    .values({ listId, bookId, position: last + 1 })
-    .run();
-  touch(listId);
-  return true;
+  return mutate((s) => {
+    const list = s.lists.find((l) => l.id === listId);
+    if (!list) return false;
+    if (list.items.some((it) => it.bookId === bookId)) return false;
+    list.items.push({ bookId, note: null, createdAt: now() });
+    return true;
+  });
 }
 
 export function removeBookFromList(listId: number, bookId: number): boolean {
-  const removed = db
-    .delete(listItems)
-    .where(and(eq(listItems.listId, listId), eq(listItems.bookId, bookId)))
-    .returning({ id: listItems.id })
-    .all();
-  if (removed.length > 0) touch(listId);
-  return removed.length > 0;
+  return mutate((s) => {
+    const list = s.lists.find((l) => l.id === listId);
+    if (!list) return false;
+    const i = list.items.findIndex((it) => it.bookId === bookId);
+    if (i === -1) return false;
+    list.items.splice(i, 1);
+    return true;
+  });
 }
 
-/**
- * Déplace un livre d'un cran. Renumérote toute la liste dans la foulée : c'est
- * une poignée de lignes, et cela garantit qu'aucun trou ne s'accumule.
- */
+/** Déplace un livre d'un cran. L'ordre du tableau porte le rang : il n'y a
+ *  rien à renuméroter, et donc plus de trous à rattraper. */
 export function moveBookInList(
   listId: number,
   bookId: number,
   direction: "up" | "down"
 ): boolean {
-  const rows = db
-    .select({ id: listItems.id, bookId: listItems.bookId })
-    .from(listItems)
-    .where(eq(listItems.listId, listId))
-    .orderBy(asc(listItems.position))
-    .all();
-  const index = rows.findIndex((r) => r.bookId === bookId);
-  if (index === -1) return false;
-  const target = direction === "up" ? index - 1 : index + 1;
-  if (target < 0 || target >= rows.length) return false;
-
-  const reordered = [...rows];
-  [reordered[index], reordered[target]] = [reordered[target], reordered[index]];
-  db.transaction((tx) => {
-    reordered.forEach((row, i) => {
-      tx.update(listItems)
-        .set({ position: i + 1 })
-        .where(eq(listItems.id, row.id))
-        .run();
-    });
+  return mutate((s) => {
+    const list = s.lists.find((l) => l.id === listId);
+    if (!list) return false;
+    const i = list.items.findIndex((it) => it.bookId === bookId);
+    if (i === -1) return false;
+    const target = direction === "up" ? i - 1 : i + 1;
+    if (target < 0 || target >= list.items.length) return false;
+    [list.items[i], list.items[target]] = [list.items[target], list.items[i]];
+    return true;
   });
-  touch(listId);
-  return true;
-}
-
-function touch(listId: number): void {
-  db.update(lists)
-    .set({ updatedAt: sql`(datetime('now'))` as unknown as string })
-    .where(eq(lists.id, listId))
-    .run();
 }
