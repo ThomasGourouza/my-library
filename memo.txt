@@ -1,0 +1,76 @@
+MA BIBLIOTHÈQUE — mémo des commandes
+====================================
+
+En ligne : https://my-library-phi-six.vercel.app
+
+
+LANCER EN LOCAL
+---------------
+
+  cd app && npm run dev
+      Démarre sur http://localhost:3000, sur le fichier ../data/library.json.
+      C'est l'ABSENCE de app/.env.local qui choisit le fichier local.
+      S'il existe, l'application locale écrit dans GitHub : le supprimer.
+
+  cd app && npm run build && npm start
+      Pareil, mais en mode production (plus lent à démarrer, plus fidèle).
+
+
+DÉPLOYER
+--------
+
+  git add -A && git commit -m "..." && git push
+  ./deploy.sh
+      Dans cet ordre. Le script vérifie, construit, déploie et contrôle le site.
+      Il refuse si l'arbre est sale ou si app/.env.local traîne, et prévient
+      si des commits ne sont pas poussés.
+
+  export LIBRARY_PASSWORD='...' && ./deploy.sh
+      Même chose, mais le contrôle final se connecte et compte les livres.
+
+  ./deploy.sh --tel-quel     déployer malgré des modifications non committées
+  ./deploy.sh --rapide       sauter tests, types et lint
+
+
+LES DONNÉES
+-----------
+
+  git pull
+      À FAIRE AVANT de modifier en local. Le site en ligne commite dans
+      data/library.json à chaque clic ; sans pull, conflit à la main.
+
+  git push
+      Après une modification locale, pour que le site en ligne la voie.
+      Aucun redéploiement nécessaire : la donnée est relue à chaque requête.
+
+
+VÉRIFIER
+--------
+
+  cd app && npm test           78 tests, sur une copie jetable des données
+  cd app && npx tsc --noEmit   types
+  cd app && npm run lint       eslint (doit rester à zéro)
+
+
+VERCEL
+------
+
+  cd app && npx vercel env ls production        lister les variables
+  cd app && npx vercel env rm NOM production    puis env add NOM production
+      Pour changer un secret. Redéployer ensuite (./deploy.sh).
+
+  cd app && npx vercel ls --prod                les derniers déploiements
+  cd app && npx vercel inspect <url> --logs     journaux d'un déploiement
+
+
+BON À SAVOIR
+------------
+
+  - « Analyse Claude » ne marche qu'en local (session Claude Code). En ligne
+    le bouton disparaît ; les analyses déjà faites s'affichent partout.
+  - Un commit de données ne déclenche AUCUN déploiement. Le code, lui, se
+    livre à la main avec ./deploy.sh.
+  - Le dépôt est public : le mot de passe protège les écritures, pas les
+    lectures.
+  - Dans un fichier .env, toujours des apostrophes autour des valeurs :
+    un # non protégé coupe la valeur (LIBRARY_PASSWORD='mon#mdp').
