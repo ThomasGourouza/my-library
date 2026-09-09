@@ -25,10 +25,13 @@ function parseId(raw: string): number | null {
 function formatDateFr(iso: string): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return iso;
+  // Fuseau épinglé : le serveur de production est en UTC, et une date
+  // enregistrée en soirée s'afficherait la veille. Cf. `analysis-panel.tsx`.
   return d.toLocaleDateString("fr-FR", {
     day: "numeric",
     month: "long",
     year: "numeric",
+    timeZone: "Europe/Paris",
   });
 }
 

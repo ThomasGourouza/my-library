@@ -35,10 +35,16 @@ function formatDate(iso: string | null): string | null {
   if (!iso) return null;
   const t = Date.parse(iso.includes("T") ? iso : iso.replace(" ", "T") + "Z");
   if (Number.isNaN(t)) return null;
+  // Fuseau épinglé, sinon la date change de camp. Le serveur de production est
+  // en UTC et le navigateur à Paris : une analyse générée à 22 h 30 UTC est
+  // rendue « 19 juillet » côté serveur et « 20 juillet » côté client. React y
+  // voit une divergence d'hydratation (erreur #418), jette le HTML du serveur
+  // et refait le rendu. Ce n'est visible qu'une fois déployé.
   return new Date(t).toLocaleDateString("fr-FR", {
     day: "numeric",
     month: "long",
     year: "numeric",
+    timeZone: "Europe/Paris",
   });
 }
 

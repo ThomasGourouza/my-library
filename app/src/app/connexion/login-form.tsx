@@ -1,14 +1,12 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
 export function LoginForm({ suivant }: { suivant: string }) {
-  const router = useRouter();
   const [password, setPassword] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
   const [pending, setPending] = React.useState(false);
@@ -28,12 +26,20 @@ export function LoginForm({ suivant }: { suivant: string }) {
         setError(json.error ?? "Connexion impossible");
         return;
       }
-      // `replace` plutôt que `push` : la page de connexion n'a pas à rester
-      // dans l'historique une fois franchie.
-      router.replace(suivant);
-      // Le cookie vient d'être posé ; les pages déjà rendues côté client
-      // doivent être redemandées au serveur.
-      router.refresh();
+      // Navigation **dure**, et c'est indispensable ici.
+      //
+      // Tant qu'on n'est pas connecté, le routeur précharge chaque lien de la
+      // barre de navigation — /livres, /auteurs, /listes, /parcours — et le
+      // proxy répond à chacun par une redirection vers /connexion. Ces réponses
+      // restent dans le cache du routeur client. Un `router.replace()` y
+      // puiserait et nous ramènerait aussitôt sur le formulaire, sans erreur et
+      // sans rien dans la console : l'écran ne réagit pas, tout simplement.
+      //
+      // `window.location` ignore ce cache et repart du serveur, cette fois avec
+      // le cookie. `replace` plutôt que `assign` : la page de connexion n'a pas
+      // à rester dans l'historique une fois franchie.
+      window.location.replace(suivant);
+      return;
     } catch {
       setError("Connexion impossible");
     } finally {
