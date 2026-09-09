@@ -3,14 +3,28 @@
 > Plan d'exécution. Le document de construction initial est `PLAN.md` ; l'état
 > courant de l'application est décrit dans `app/README.md`.
 >
-> **Avancement (8 septembre 2026).** Étapes 0 à 4 et 7 faites et vérifiées en
-> local : passage à l'asynchrone, mutex de mutation, `assertIntegrity` avant
-> écriture, plancher de fraîcheur, backend GitHub, porte par mot de passe,
-> analyse désactivée en ligne, `app/vercel.json`, documentation. Restent les
-> étapes **5 (déploiement)** et **6 (l'aller-retour)**, qui demandent un compte
-> Vercel et un PAT — donc l'utilisateur. Ce que ces deux étapes vérifieront et
-> que rien d'autre ne peut vérifier : qu'un `PUT` d'un corps base64 de ~2 Mo
-> passe réellement (repli documenté à l'étape 2 : l'API Git Data).
+> **Terminé (9 septembre 2026).** Les huit étapes sont faites et vérifiées, en
+> local puis en production sur <https://my-library-phi-six.vercel.app>.
+>
+> **La question ouverte du plan est tranchée : le `PUT` d'un corps base64 de
+> ~2 Mo passe.** Cocher « Lu » en ligne produit un commit sur `master` au nom de
+> l'utilisateur, avec un diff d'une seule ligne, en **1,77 s** — dans la
+> fourchette « 1 à 2 secondes » annoncée. Le repli vers l'API Git Data décrit à
+> l'étape 2 n'a pas eu à servir.
+>
+> Vérifié aussi en production : la porte (307 vers `/connexion` sans cookie,
+> 401 sur les routes d'API), la lecture depuis GitHub (2 038 livres,
+> 1 069 auteurs, ⌘K), l'analyse désactivée (403), l'aller-retour dans les deux
+> sens, et le fait qu'un commit de données ne déclenche **aucun** déploiement
+> (4 déploiements avant et après quatre commits de données).
+>
+> Deux corrections apparues au déploiement, hors plan : le préréglage de
+> framework du projet Vercel était « Other », d'où un `next build` réussi suivi
+> d'un « No Output Directory named public » — réglé par `"framework": "nextjs"`
+> dans `app/vercel.json` ; et le chemin du fichier de données, calculé au niveau
+> module dans `store/file.ts`, faisait tracer le dépôt entier par Turbopack
+> (« Encountered unexpected file in NFT list ») — il est désormais calculé dans
+> une fonction.
 >
 > Deux écarts assumés par rapport au texte ci-dessous, tous deux notés à
 > l'endroit concerné : `mutate()` prend un second paramètre qui dérive le

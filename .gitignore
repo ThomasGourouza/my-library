@@ -10,3 +10,5 @@ scratchpad/
 claude-auto/runs/
 claude-auto/*.log
 npm-debug.log*
+.vercel
+.env*

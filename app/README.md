@@ -83,8 +83,14 @@ L'application déployée lit et écrit **la copie de `data/library.json` qui est
 sur `master`**, via l'API GitHub. La bibliothèque est donc identique en ligne et
 en local au dernier commit, sans base de données ni synchronisation à écrire.
 
-> **URL** : à renseigner après le premier `vercel --prod` (le déploiement
-> lui-même n'est pas encore fait).
+> **URL** : <https://my-library-phi-six.vercel.app>
+>
+> C'est le *domaine de production*. L'autre alias,
+> `my-library-thomas-gourouza.vercel.app`, est protégé par l'authentification
+> Vercel (celle du compte, pas la nôtre) et renvoie sur un SSO : c'est le
+> comportement documenté de l'offre Hobby, qui protège les URL de déploiement
+> mais laisse le domaine de production public. C'est donc bien **notre** porte
+> qui garde l'URL ci-dessus.
 
 ### Les deux backends, et comment ils sont choisis
 
