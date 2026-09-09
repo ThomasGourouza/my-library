@@ -96,6 +96,15 @@ const DERIVED = new Set(["nameNormalized", "titleNormalized"]);
  * Handlers — `if (!dispatcher) return fn.apply(null, arguments)`, sans erreur ni
  * avertissement. Il marcherait là où on le teste et échouerait en silence dans
  * les 12 routes mutantes, c'est-à-dire sur le chemin d'écriture.
+ *
+ * **Il ne vaut que pour les lectures, et `mutate()` s'en exempte** — voir
+ * `apply()`. Une lecture servie avec une seconde de retard n'affiche qu'un état
+ * légèrement périmé ; une **écriture** partie d'un état périmé réécrit le
+ * fichier entier et détruit ce que la lecture a manqué. C'est exactement ce qui
+ * est arrivé : un `git pull` avait ramené quatre livres cochés « Lu » en ligne,
+ * une analyse Claude s'est terminée dans la seconde qui suivait, `mutate()` a
+ * reçu l'objet en cache d'avant le pull, et les quatre coches ont disparu du
+ * fichier. À ne pas « optimiser » en le rendant universel.
  */
 const FRESH_MS = 1000;
 
@@ -161,10 +170,17 @@ function parse(json: string): Store {
   return fresh;
 }
 
-/** Le contenu de la source, revalidé s'il a changé depuis le dernier appel. */
-export async function store(): Promise<Store> {
+/**
+ * Le contenu de la source, revalidé s'il a changé depuis le dernier appel.
+ *
+ * `exact: true` saute le plancher de fraîcheur et interroge la source dans tous
+ * les cas. Réservé au chemin d'écriture (cf. `apply()`).
+ */
+export async function store({ exact = false } = {}): Promise<Store> {
   const cached = g.__library;
-  if (cached && Date.now() - cached.checkedAt < FRESH_MS) return cached.store;
+  if (!exact && cached && Date.now() - cached.checkedAt < FRESH_MS) {
+    return cached.store;
+  }
 
   try {
     const snap: Snapshot | null = await backend().read(cached?.token);
@@ -274,7 +290,10 @@ async function apply<T>(
   fn: (s: Store) => T,
   message: (result: T) => string
 ): Promise<T> {
-  const current = await store();
+  // `exact` : jamais le cache du plancher de fraîcheur ici. Une mutation est un
+  // lire-modifier-réécrire sur la totalité du fichier ; partir d'un état vieux
+  // d'une seconde suffit à effacer ce qu'un `git pull` vient de ramener.
+  const current = await store({ exact: true });
   try {
     const result = fn(current);
     sortRecords(current);

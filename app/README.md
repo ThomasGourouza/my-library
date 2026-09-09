@@ -78,11 +78,34 @@ Ce que cela change au quotidien :
 
 `⌘K` (ou `Ctrl+K`) ouvre une recherche transverse depuis n'importe quelle page.
 
-En local uniquement, un bouton **⟳** dans la barre de navigation lance un
-`git pull` (`POST /api/pull`) et rafraîchit la page : c'est le moyen de
-récupérer, sans quitter l'application, ce que l'application déployée a committé.
-Il n'apparaît pas en ligne, et la route y répond 403 — elle exécute une
-commande, elle n'a rien à faire ailleurs que sur le poste local.
+En local uniquement, la barre de navigation porte la synchronisation git.
+
+**Tirer est automatique.** Un `git pull` au démarrage du serveur
+(`src/instrumentation.ts`), puis toutes les 15 secondes une vérification
+(`POST /api/sync`) qui tire dès que le distant a pris de l'avance et rafraîchit
+l'écran. Il n'y a plus à se demander si la bibliothèque locale est à jour de ce
+que l'application déployée a écrit. Le sondage se met en pause sur un onglet
+caché et reprend au retour du focus.
+
+**Pousser reste un geste** : le bouton **⬆** committe `data/library.json` et le
+pousse (`POST /api/sync/push`). Il est désactivé quand il n'y a rien à envoyer,
+ce qui en fait aussi un indicateur — actif, il signale que le poste local a
+quelque chose que le site n'a pas. Aucun redéploiement : le site relit le
+fichier depuis GitHub à chaque requête.
+
+Deux détails qui comptent :
+
+- Si `data/library.json` a des modifications non committées, `git pull` refuse
+  de les écraser. La synchronisation le signale (une pastille sur le bouton) et
+  s'arrête là ; pousser débloque, en rejouant au besoin nos commits par-dessus
+  ceux du distant (`--rebase --autostash`).
+- La comparaison avec le distant porte sur **`FETCH_HEAD`**, pas sur
+  `origin/master` : `git fetch` écrit toujours le premier, pas toujours le
+  second, et s'appuyer sur la branche de suivi donnait un « rien à tirer »
+  éternel.
+
+Rien de tout cela n'existe en ligne : les deux routes y répondent 403 et le
+bouton n'est pas rendu.
 
 ## En ligne
 

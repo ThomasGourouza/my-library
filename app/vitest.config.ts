@@ -13,11 +13,12 @@ export default defineConfig({
     // Les tests lisent le fichier de données (accès synchrone), mais sur une
     // copie jetable : cf. vitest.global-setup.ts.
     environment: "node",
-    // ponytail: un seul fichier de test écrit (lists.test.ts), et ses
-    // écritures ne touchent pas ce que les autres vérifient. Si un second
-    // apparaît, passer à `fileParallelism: false` — le verrou de fichier de
-    // SQLite sérialisait les workers, un JSON partagé n'a rien pour ça.
     include: ["src/**/*.test.ts"],
+    // Deux fichiers écrivent désormais dans la copie jetable (`lists.test.ts`
+    // et `store.test.ts`), et un JSON partagé n'a pas le verrou de fichier que
+    // SQLite offrait pour sérialiser les workers. Les fichiers de test passent
+    // donc un par un.
+    fileParallelism: false,
     globalSetup: ["./vitest.global-setup.ts"],
   },
 });

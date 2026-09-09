@@ -35,11 +35,16 @@ DÉPLOYER
 LES DONNÉES
 -----------
 
-  git pull
-      À FAIRE AVANT de modifier en local. Le site en ligne commite dans
-      data/library.json à chaque clic ; sans pull, conflit à la main.
-      Plus simple : le bouton ⟳ dans la barre de navigation fait la même
-      chose, depuis n'importe quelle page. Il n'existe qu'en local.
+  (rien à faire)
+      Tirer est automatique en local : au démarrage du serveur, puis toutes
+      les 15 s. L'écran se met à jour tout seul quand le site en ligne a
+      modifié quelque chose.
+
+  Bouton ⬆ dans la barre de navigation
+      Committe et pousse data/library.json. Actif seulement s'il y a quelque
+      chose à envoyer. Aucun redéploiement nécessaire.
+      Si le bouton porte une pastille : le fichier a des modifications non
+      committées qui empêchent de tirer — cliquer débloque.
 
   git push
       Après une modification locale, pour que le site en ligne la voie.

@@ -52,8 +52,8 @@ export default function RootLayout({
             Aller au contenu
           </a>
           {/* `local` n'est vrai que sur l'installation locale : c'est ce qui
-              fait apparaître le bouton « Rafraîchir » (git pull), sans objet
-              en ligne. */}
+              fait apparaître la synchronisation git — tirage automatique et
+              bouton « Pousser » — sans objet en ligne. */}
           <MainNav local={onLocalFile()} />
           {/* La hauteur de l'en-tête et le padding vertical de <main> sont
               repris par --app-content-h dans globals.css : les modifier ici

@@ -4,7 +4,8 @@ import * as React from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { LibraryBig, Moon, RefreshCw, Sun } from "lucide-react";
+import useSWR from "swr";
+import { Loader2, LibraryBig, Moon, Sun, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -47,61 +48,108 @@ function ThemeToggle() {
   );
 }
 
-/**
- * « Rafraîchir » — un `git pull` depuis la barre de navigation.
- *
- * N'apparaît qu'en local (cf. `onLocalFile()` dans `@/lib/store`), pour une
- * raison de fond : l'application déployée commite dans `data/library.json` à
- * chaque modification, et le poste local n'en sait rien tant qu'il n'a pas
- * tiré. C'est la seule couture du dispositif ; ce bouton évite de changer de
- * fenêtre pour la recoudre.
- *
- * Le refus le plus fréquent est utile, pas gênant : git s'arrête si le fichier
- * a des modifications non committées. C'est exactement le garde-fou voulu, et
- * le message de git est repris tel quel.
- */
-function PullButton() {
-  const router = useRouter();
-  const [pending, setPending] = React.useState(false);
+/** L'état renvoyé par `POST /api/sync` (cf. `src/lib/git.ts`). */
+interface EtatSync {
+  dirty: boolean;
+  ahead: number;
+  behind: number;
+  pulled: number;
+  dataChanged: boolean;
+  blocked: string | null;
+}
 
-  async function pull() {
-    setPending(true);
+/** POST, parce que la route modifie l'état du dépôt. */
+const sonder = async (url: string): Promise<EtatSync> => {
+  const r = await fetch(url, { method: "POST" });
+  if (!r.ok) throw new Error(String(r.status));
+  return r.json();
+};
+
+/**
+ * Synchronisation avec le dépôt, en local seulement.
+ *
+ * **Tirer est automatique** : toutes les 15 secondes, la route regarde si le
+ * distant a pris de l'avance et tire le cas échéant. C'est ce qui fait qu'on
+ * n'a plus à se demander si la bibliothèque locale est à jour de ce que
+ * l'application déployée a écrit. SWR suspend le sondage sur un onglet caché et
+ * revalide au retour du focus : revenir sur l'onglet resynchronise sans rien
+ * coûter pendant qu'on est ailleurs.
+ *
+ * **Pousser reste un geste**, parce que c'est une décision : le bouton
+ * committe `data/library.json` et le pousse. Il est désactivé quand il n'y a
+ * rien à envoyer, ce qui en fait aussi un indicateur — s'il est actif, le poste
+ * local a quelque chose que le site n'a pas.
+ */
+function SyncButton() {
+  const router = useRouter();
+  const [envoi, setEnvoi] = React.useState(false);
+
+  const { data, mutate } = useSWR<EtatSync>("/api/sync", sonder, {
+    refreshInterval: 15_000,
+    // Un échec réseau ne doit pas se voir : la route rend déjà `blocked` plutôt
+    // qu'une erreur, et le sondage reprendra tout seul.
+    shouldRetryOnError: false,
+  });
+
+  // Des données sont arrivées : l'écran doit les montrer. Le magasin serveur a
+  // déjà été vidé par la route, il ne reste qu'à redemander le rendu.
+  React.useEffect(() => {
+    if (!data?.dataChanged) return;
+    toast.info("Bibliothèque mise à jour depuis GitHub");
+    router.refresh();
+  }, [data, router]);
+
+  const enAttente = (data?.ahead ?? 0) + (data?.dirty ? 1 : 0);
+  const rienAPousser = enAttente === 0;
+
+  async function pousser() {
+    setEnvoi(true);
     try {
-      const res = await fetch("/api/pull", { method: "POST" });
+      const res = await fetch("/api/sync/push", { method: "POST" });
       const json = await res.json().catch(() => ({}));
       if (!res.ok) {
-        toast.error(json.error ?? "Rafraîchissement impossible");
+        toast.error(json.error ?? "Envoi impossible");
         return;
       }
-      if (json.commits === 0) {
-        toast.info("Déjà à jour");
-        return;
-      }
-      const n = `${json.commits} commit${json.commits > 1 ? "s" : ""}`;
-      if (json.donnees) {
-        toast.success(`${n} — bibliothèque mise à jour`);
-        // Le magasin a été vidé côté serveur ; il faut redemander les pages.
-        router.refresh();
-      } else {
-        toast.success(`${n} — code seulement, données inchangées`);
-      }
+      toast.success("Poussé — le site en ligne est à jour");
+      // Le site relit le fichier depuis GitHub à chaque requête : il n'y a rien
+      // à redéployer. Reste à rafraîchir l'état du bouton.
+      mutate();
     } catch {
-      toast.error("Rafraîchissement impossible");
+      toast.error("Envoi impossible");
     } finally {
-      setPending(false);
+      setEnvoi(false);
     }
   }
+
+  const titre = envoi
+    ? "Envoi en cours…"
+    : rienAPousser
+      ? "Rien à pousser — le site est à jour"
+      : `Pousser ${enAttente} modification${enAttente > 1 ? "s" : ""} vers GitHub`;
 
   return (
     <Button
       variant="ghost"
       size="icon"
-      onClick={pull}
-      disabled={pending}
-      aria-label="Rafraîchir les données (git pull)"
-      title="Rafraîchir les données (git pull)"
+      onClick={pousser}
+      disabled={envoi || rienAPousser}
+      aria-label={titre}
+      title={data?.blocked ? `${titre} — ${data.blocked}` : titre}
+      className="relative"
     >
-      <RefreshCw className={cn("size-4", pending && "animate-spin")} aria-hidden />
+      {envoi ? (
+        <Loader2 className="size-4 animate-spin" aria-hidden />
+      ) : (
+        <Upload className="size-4" aria-hidden />
+      )}
+      {/* La synchronisation automatique est en attente : pousser la débloque. */}
+      {data?.blocked && !envoi && (
+        <span
+          className="absolute top-1.5 right-1.5 size-1.5 rounded-full bg-amber-500"
+          aria-hidden
+        />
+      )}
     </Button>
   );
 }
@@ -161,7 +209,7 @@ export function MainNav({ local = false }: { local?: boolean }) {
         </nav>
         <div className="order-2 ml-auto flex h-14 items-center gap-2 md:order-3">
           <CommandPalette />
-          {local && <PullButton />}
+          {local && <SyncButton />}
           <ThemeToggle />
         </div>
       </div>
