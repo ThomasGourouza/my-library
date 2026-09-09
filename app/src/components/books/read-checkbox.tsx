@@ -15,6 +15,13 @@ import { cn } from "@/lib/utils";
  * répondre instantanément, sans attendre le rechargement des 2044 lignes du
  * tableau. Le `router.refresh()` qui suit resynchronise les filtres et les
  * compteurs ; en cas d'échec, la case revient à sa valeur précédente.
+ *
+ * Mais un état local initialisé par `useState(read)` ne bouge plus jamais
+ * ensuite, même quand le serveur renvoie autre chose. Cela se voyait avec le
+ * bouton « Rafraîchir » : le `git pull` ramenait bien la donnée, la page était
+ * bien re-rendue, et la case restait sur son ancienne valeur jusqu'à un F5.
+ * D'où la resynchronisation ci-dessous, le motif que React documente pour
+ * « ajuster un état quand une prop change » — pendant le rendu, sans effet.
  */
 export function ReadCheckbox({
   bookId,
@@ -34,6 +41,16 @@ export function ReadCheckbox({
   const router = useRouter();
   const [checked, setChecked] = React.useState(read);
   const [pending, setPending] = React.useState(false);
+
+  // Quand le serveur change d'avis (git pull, ou une modification faite
+  // ailleurs), la case suit. Comparer à la dernière valeur *servie*, et non à
+  // `checked`, est ce qui préserve l'affichage optimiste : entre le clic et la
+  // réponse, `checked` a déjà changé alors que `read` n'a pas encore bougé.
+  const [servi, setServi] = React.useState(read);
+  if (read !== servi) {
+    setServi(read);
+    setChecked(read);
+  }
 
   async function toggle(next: boolean) {
     const previous = checked;
