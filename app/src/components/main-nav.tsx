@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
-import { LibraryBig, Moon, Sun } from "lucide-react";
+import { LibraryBig, Moon, RefreshCw, Sun } from "lucide-react";
+import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { CommandPalette } from "@/components/command-palette";
@@ -46,7 +47,66 @@ function ThemeToggle() {
   );
 }
 
-export function MainNav() {
+/**
+ * « Rafraîchir » — un `git pull` depuis la barre de navigation.
+ *
+ * N'apparaît qu'en local (cf. `onLocalFile()` dans `@/lib/store`), pour une
+ * raison de fond : l'application déployée commite dans `data/library.json` à
+ * chaque modification, et le poste local n'en sait rien tant qu'il n'a pas
+ * tiré. C'est la seule couture du dispositif ; ce bouton évite de changer de
+ * fenêtre pour la recoudre.
+ *
+ * Le refus le plus fréquent est utile, pas gênant : git s'arrête si le fichier
+ * a des modifications non committées. C'est exactement le garde-fou voulu, et
+ * le message de git est repris tel quel.
+ */
+function PullButton() {
+  const router = useRouter();
+  const [pending, setPending] = React.useState(false);
+
+  async function pull() {
+    setPending(true);
+    try {
+      const res = await fetch("/api/pull", { method: "POST" });
+      const json = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        toast.error(json.error ?? "Rafraîchissement impossible");
+        return;
+      }
+      if (json.commits === 0) {
+        toast.info("Déjà à jour");
+        return;
+      }
+      const n = `${json.commits} commit${json.commits > 1 ? "s" : ""}`;
+      if (json.donnees) {
+        toast.success(`${n} — bibliothèque mise à jour`);
+        // Le magasin a été vidé côté serveur ; il faut redemander les pages.
+        router.refresh();
+      } else {
+        toast.success(`${n} — code seulement, données inchangées`);
+      }
+    } catch {
+      toast.error("Rafraîchissement impossible");
+    } finally {
+      setPending(false);
+    }
+  }
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={pull}
+      disabled={pending}
+      aria-label="Rafraîchir les données (git pull)"
+      title="Rafraîchir les données (git pull)"
+    >
+      <RefreshCw className={cn("size-4", pending && "animate-spin")} aria-hidden />
+    </Button>
+  );
+}
+
+export function MainNav({ local = false }: { local?: boolean }) {
   const pathname = usePathname();
   return (
     <header className="sticky top-0 z-40 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
@@ -101,6 +161,7 @@ export function MainNav() {
         </nav>
         <div className="order-2 ml-auto flex h-14 items-center gap-2 md:order-3">
           <CommandPalette />
+          {local && <PullButton />}
           <ThemeToggle />
         </div>
       </div>

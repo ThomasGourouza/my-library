@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { MainNav } from "@/components/main-nav";
+import { onLocalFile } from "@/lib/store";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
@@ -50,7 +51,10 @@ export default function RootLayout({
           >
             Aller au contenu
           </a>
-          <MainNav />
+          {/* `local` n'est vrai que sur l'installation locale : c'est ce qui
+              fait apparaître le bouton « Rafraîchir » (git pull), sans objet
+              en ligne. */}
+          <MainNav local={onLocalFile()} />
           {/* La hauteur de l'en-tête et le padding vertical de <main> sont
               repris par --app-content-h dans globals.css : les modifier ici
               impose de mettre cette variable à jour. py-4 sur mobile — 24 px

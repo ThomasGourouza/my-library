@@ -26,7 +26,11 @@ import {
   updateList,
 } from "./lists";
 
-const corpus = (await listBooks()).slice(0, 4);
+// Des livres NON LUS, et c'est nécessaire : le test des compteurs vérifie
+// qu'une liste fraîche affiche « 0 lu ». Prendre les premiers venus rendait ce
+// test dépendant de ce que l'utilisateur a coché depuis l'application — il a
+// commencé à s'en servir, et le test est tombé.
+const corpus = (await listBooks()).filter((b) => !b.read).slice(0, 4);
 const created: number[] = [];
 
 async function makeList(name: string) {

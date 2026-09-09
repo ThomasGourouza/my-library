@@ -78,6 +78,12 @@ Ce que cela change au quotidien :
 
 `⌘K` (ou `Ctrl+K`) ouvre une recherche transverse depuis n'importe quelle page.
 
+En local uniquement, un bouton **⟳** dans la barre de navigation lance un
+`git pull` (`POST /api/pull`) et rafraîchit la page : c'est le moyen de
+récupérer, sans quitter l'application, ce que l'application déployée a committé.
+Il n'apparaît pas en ligne, et la route y répond 403 — elle exécute une
+commande, elle n'a rien à faire ailleurs que sur le poste local.
+
 ## En ligne
 
 L'application déployée lit et écrit **la copie de `data/library.json` qui est

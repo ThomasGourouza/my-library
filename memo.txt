@@ -38,6 +38,8 @@ LES DONNÉES
   git pull
       À FAIRE AVANT de modifier en local. Le site en ligne commite dans
       data/library.json à chaque clic ; sans pull, conflit à la main.
+      Plus simple : le bouton ⟳ dans la barre de navigation fait la même
+      chose, depuis n'importe quelle page. Il n'existe qu'en local.
 
   git push
       Après une modification locale, pour que le site en ligne la voie.

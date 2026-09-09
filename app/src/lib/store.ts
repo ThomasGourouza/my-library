@@ -61,12 +61,19 @@ function backend() {
 }
 
 /**
+ * Vrai quand la bibliothèque est le fichier du disque — donc en local, dans une
+ * copie de travail git. C'est la condition de tout ce qui n'a de sens qu'ici :
+ * lancer une analyse, ou tirer les données avec `git pull`.
+ */
+export const onLocalFile = (): boolean => !onGithub();
+
+/**
  * « Analyse Claude » n'existe que sur le backend fichier : l'Agent SDK réutilise
  * la session Claude Code locale, que la documentation interdit aux tiers de
  * rejouer, et le mode clé d'API est facturé au token. Les analyses déjà
  * produites, elles, s'affichent partout — elles sont dans le fichier.
  */
-export const analysisEnabled = (): boolean => !onGithub();
+export const analysisEnabled = (): boolean => onLocalFile();
 
 /**
  * Clés de recherche et de déduplication, absentes du fichier et posées à la
@@ -292,6 +299,18 @@ async function apply<T>(
     g.__library = undefined;
     throw e;
   }
+}
+
+/**
+ * Jette le cache : la prochaine lecture repart de la source.
+ *
+ * Utile après un `git pull`, qui remplace le fichier sous les pieds du
+ * magasin. Le `mtime` suffirait à le faire remarquer, mais pas avant la
+ * seconde de fraîcheur ; or l'interface se rafraîchit tout de suite après, et
+ * afficherait encore les anciennes données.
+ */
+export function invalidate(): void {
+  g.__library = undefined;
 }
 
 /** Vrai si l'erreur doit devenir un 409 assorti de son message. */
