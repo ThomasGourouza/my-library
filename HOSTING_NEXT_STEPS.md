@@ -85,6 +85,19 @@ naissance.
 
 Rangez les deux dans votre gestionnaire de mots de passe **avant** de continuer.
 
+> **Dans `.env.local`, mettez toujours ces valeurs entre apostrophes.** Un `#`
+> non protégé y ouvre un commentaire : `LIBRARY_PASSWORD=abcdefghi#` est lu
+> comme `abcdefghi`, et la connexion répond « Mot de passe incorrect » pour un
+> mot de passe pourtant juste. Les apostrophes règlent le cas une fois pour
+> toutes — `#`, espaces, `$`, tout devient littéral :
+>
+> ```bash
+> LIBRARY_PASSWORD='mon#mot$de passe'
+> ```
+>
+> Cela ne concerne que le fichier local. Dans l'interface de Vercel, les valeurs
+> sont saisies telles quelles, sans analyse de ce genre.
+
 ---
 
 ## 3. Éprouver le backend GitHub en local, sur une branche d'essai
@@ -110,11 +123,13 @@ cat > app/.env.local <<'EOF'
 LIBRARY_BACKEND=github
 GITHUB_REPO=ThomasGourouza/my-library
 GITHUB_BRANCH=essai-hebergement
-GITHUB_TOKEN=github_pat_…
-LIBRARY_PASSWORD=…
-LIBRARY_SESSION_SECRET=…
+GITHUB_TOKEN='github_pat_…'
+LIBRARY_PASSWORD='…'
+LIBRARY_SESSION_SECRET='…'
 EOF
 ```
+
+Les apostrophes ne sont pas décoratives : voir l'encadré de l'étape 2.
 
 Puis, **serveur de développement arrêté** (il occupe le port 3000) :
 
@@ -128,6 +143,15 @@ npm run build && npm start        # http://localhost:3000
 **a. La porte.** Ouvrir `http://localhost:3000` renvoie sur `/connexion`. Le mot
 de passe donne accès ; un mauvais mot de passe affiche « Mot de passe
 incorrect ».
+
+Si le bon mot de passe est refusé, c'est presque sûrement le `#` de l'encadré de
+l'étape 2. Pour en avoir le cœur net, sans afficher le secret :
+
+```bash
+grep '^LIBRARY_PASSWORD=' app/.env.local | sed -n l | sed 's/[A-Za-z0-9]/x/g'
+```
+
+Un `#` hors apostrophes dans ce que vous voyez = le mot de passe est tronqué là.
 
 **b. La lecture.** `/livres` affiche **2 038 livres**. `⌘K` trouve « dosto ».
 Une liste vide ou une page en erreur = le backend GitHub ne lit pas ; le message

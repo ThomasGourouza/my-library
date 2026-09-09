@@ -32,8 +32,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Mot de passe incorrect" }, { status: 401 });
   }
 
+  // Derrière le proxy de Vercel, `nextUrl.protocol` reste `http:` : c'est
+  // `x-forwarded-proto` qui dit la vérité sur le protocole vu par le navigateur.
+  const forwarded = request.headers.get("x-forwarded-proto");
+  const secure = forwarded
+    ? forwarded.split(",")[0].trim() === "https"
+    : request.nextUrl.protocol === "https:";
+
   const response = NextResponse.json({ ok: true });
-  const { name, value, options } = issueCookie();
+  const { name, value, options } = issueCookie(secure);
   response.cookies.set(name, value, options);
   return response;
 }

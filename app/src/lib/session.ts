@@ -62,8 +62,16 @@ export const checkPassword = (attempt: string): boolean => {
   return Boolean(expected) && sameValue(attempt, expected!);
 };
 
-/** Le cookie à poser après une authentification réussie. */
-export function issueCookie(): {
+/**
+ * Le cookie à poser après une authentification réussie.
+ *
+ * `secure` suit le protocole de la requête, pas `NODE_ENV`. En ligne tout est
+ * en HTTPS et le cookie est donc `Secure` ; pendant l'essai local de l'étape 3,
+ * `npm start` tourne en production **sur http://localhost**, et un cookie
+ * `Secure` y serait refusé par Safari — la connexion réussirait, puis
+ * renverrait aussitôt sur le formulaire, sans rien pour l'expliquer.
+ */
+export function issueCookie(secure: boolean): {
   name: string;
   value: string;
   options: {
@@ -80,9 +88,7 @@ export function issueCookie(): {
     value: `${exp}.${sign(String(exp))}`,
     options: {
       httpOnly: true,
-      // En HTTP local, un cookie `Secure` ne serait jamais renvoyé — et la page
-      // de connexion boucherait sur elle-même. En ligne, tout est en HTTPS.
-      secure: process.env.NODE_ENV === "production",
+      secure,
       sameSite: "lax",
       path: "/",
       maxAge: MAX_AGE_S,
