@@ -32,6 +32,7 @@ modification — cocher « Lu », créer un livre, lancer une analyse. Voir
 | `npm run lint` | ESLint (doit rester à zéro problème) |
 | `npx tsc --noEmit` | Vérification de types |
 | `npx tsx scripts/parcours-metrics.ts` | Mesures du corpus de parcours |
+| `npm run deploy` (ou `./deploy.sh`) | Redéploie en production, contrôles compris |
 
 ## Données
 
@@ -133,8 +134,21 @@ consultable.
 Root Directory `app`, les cinq variables, puis :
 
 ```bash
-vercel --prod        # le code — les données, elles, n'ont rien à déployer
+./deploy.sh          # le code — les données, elles, n'ont rien à déployer
 ```
+
+`deploy.sh` enchaîne ce qu'il faut faire à chaque fois, et surtout vérifie ce
+qui peut donner un déploiement « réussi » mais faux : un `app/.env.local` qui
+partirait dans l'archive, du code non committé, ou des **commits de données non
+poussés** — le site lit `master` sur GitHub, pas votre disque, et ne les verrait
+donc jamais. Puis tests, types, lint, build local (une erreur trouvée en
+quinze secondes plutôt qu'en consommant un déploiement), déploiement, et
+contrôle que le site répond vraiment. `export LIBRARY_PASSWORD=…` avant de le
+lancer pour que le contrôle final aille jusqu'à se connecter et compter les
+livres.
+
+Deux échappatoires : `--tel-quel` pour déployer malgré des modifications non
+committées, `--rapide` pour sauter tests, types et lint.
 
 `app/vercel.json` porte `git.deploymentEnabled: false` : **un commit de données
 ne déclenche aucun déploiement.** Sans cela, cocher une case redéploierait
